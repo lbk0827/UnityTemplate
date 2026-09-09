@@ -16,22 +16,23 @@ namespace BK.UI
         private readonly Dictionary<UILayer, List<IUIView>> _stacks = new();
         private readonly Dictionary<IUIView, GameObject> _instances = new();
         private readonly IObjectResolver _resolver;
-        private readonly IAssetScope _assets;
+        private readonly IAssetService _assetService;
         private readonly UIRoot _root;
 
-        /// <param name="assets">
-        /// Scope that owns view prefabs. Pass a scene's scope for scene-local views so
-        /// they are released with the scene; pass the global scope for persistent UI.
-        /// </param>
-        public UIService(IObjectResolver resolver, IAssetScope assets, UIRoot root)
+        public UIService(IObjectResolver resolver, IAssetService assetService, UIRoot root)
         {
             _resolver = resolver;
-            _assets = assets;
+            _assetService = assetService;
             _root = root;
 
             foreach (UILayer layer in Enum.GetValues(typeof(UILayer)))
                 _stacks.Add(layer, new List<IUIView>());
         }
+
+        // Resolved per call, not in the constructor: entry points that depend on this
+        // service are built before the asset boot step has run, and the global scope
+        // does not exist until then.
+        private IAssetScope Assets => _assetService.GlobalScope;
 
         public UniTask<TView> OpenAsync<TView>(AssetKey key, CancellationToken cancellationToken = default)
             where TView : class, IUIView
@@ -50,12 +51,12 @@ namespace BK.UI
             CancellationToken cancellationToken)
             where TView : class, IUIView
         {
-            var instance = await _assets.InstantiateAsync(key, null, cancellationToken);
+            var instance = await Assets.InstantiateAsync(key, null, cancellationToken);
 
             var view = instance.GetComponent<TView>();
             if (view == null)
             {
-                _assets.ReleaseInstance(instance);
+                Assets.ReleaseInstance(instance);
                 throw new InvalidOperationException(
                     $"Prefab '{key}' has no {typeof(TView).Name} component.");
             }
@@ -87,7 +88,7 @@ namespace BK.UI
             _instances.Remove(view);
 
             await view.OnCloseAsync(cancellationToken);
-            _assets.ReleaseInstance(instance);
+            Assets.ReleaseInstance(instance);
         }
 
         public UniTask CloseTopAsync(UILayer layer, CancellationToken cancellationToken = default)
@@ -132,7 +133,7 @@ namespace BK.UI
         public void Dispose()
         {
             foreach (var pair in _instances)
-                _assets.ReleaseInstance(pair.Value);
+                Assets.ReleaseInstance(pair.Value);
 
             _instances.Clear();
             foreach (var stack in _stacks.Values)
