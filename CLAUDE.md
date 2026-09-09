@@ -99,10 +99,6 @@ Assets/_Project/              game-side content; framework never depends on this
 
 ## Rules
 
-- **Never import code, art, prefabs, or design assets from `grp1_common`** (the DoubleU Games
-  company framework at `Desktop/잡동사니/70. 회사 프로젝트/grp1_common`). That repository is
-  employer-owned. This project is built independently from open-source packages only.
-  Placeholder art comes from Unity built-ins, procedural generation, or CC0 sources.
 - Framework layers depend downward only: `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization`.
   Never introduce an upward or sideways reference between `BK.*` assemblies.
 - Asset and view lifetime is owned by scopes, never by callers. If you find yourself
@@ -112,3 +108,6 @@ Assets/_Project/              game-side content; framework never depends on this
   Unity's domain reload and will report `running` forever.
   When checking for compile errors, read the console with `types: ["all"]` — filtering on
   `"error"` alone returned nothing for a batch of ~50 package compile errors that `"all"` showed.
+- If a token usage limit interrupts work mid-task, resume that task where it stopped once the
+  limit resets. Do not restart from scratch or drop the remaining scope; re-read the files
+  touched so far and continue from the last unfinished step.
