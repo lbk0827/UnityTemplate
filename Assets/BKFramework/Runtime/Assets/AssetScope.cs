@@ -107,14 +107,40 @@ namespace BK.Assets
             IsDisposed = true;
 
             foreach (var pair in _instances)
-                Addressables.ReleaseInstance(pair.Value);
+                ReleaseInstanceHandle(pair.Value);
             _instances.Clear();
 
             foreach (var handle in _assetHandles)
-                Addressables.Release(handle);
+                ReleaseAssetHandle(handle);
             _assetHandles.Clear();
 
             BKLog.Verbose(BKLog.Assets, $"scope '{Name}' disposed");
+        }
+
+        private void ReleaseAssetHandle(AsyncOperationHandle handle)
+        {
+            try
+            {
+                if (handle.IsValid())
+                    Addressables.Release(handle);
+            }
+            catch (Exception ex)
+            {
+                BKLog.Warn(BKLog.Assets, $"scope '{Name}' skipped an invalid asset handle during dispose: {ex.Message}");
+            }
+        }
+
+        private void ReleaseInstanceHandle(AsyncOperationHandle<GameObject> handle)
+        {
+            try
+            {
+                if (handle.IsValid())
+                    Addressables.ReleaseInstance(handle);
+            }
+            catch (Exception ex)
+            {
+                BKLog.Warn(BKLog.Assets, $"scope '{Name}' skipped an invalid instance handle during dispose: {ex.Message}");
+            }
         }
 
         private void ThrowIfDisposed()
