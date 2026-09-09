@@ -264,22 +264,22 @@ namespace Project.Editor
         // ── 셀 프리팹 ───────────────────────────────────────────────────────────
 
         private static GameObject BuildGoodsItem()
-            => GoodsItem(null, "GoodsItem", new Vector2(120f, 140f)).gameObject;
+            => GoodsItem(null, "GoodsItem", new Vector2(176f, 192f), 55).gameObject;
 
         private static GameObject BuildProfileCell()
         {
             var bg = MakeImage(null, "ProfileItemCell", Color.white, Sprite("IMG_AvatarBack") ?? RoundedSprite);
-            bg.rectTransform.sizeDelta = new Vector2(160f, 160f);
+            bg.rectTransform.sizeDelta = new Vector2(180f, 180f);
             var button = bg.gameObject.AddComponent<Button>();
             button.targetGraphic = bg;
             var cell = bg.gameObject.AddComponent<ProfileItemCell>();
 
-            var badge = ProfileBadge(bg.transform, "Badge", 120f);
-            Place((RectTransform)badge.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(120f, 120f));
+            var badge = ProfileBadge(bg.transform, "Badge", 170f);
+            Place((RectTransform)badge.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(170f, 170f));
 
             var check = MakeImage(bg.transform, "Check", Color.white, Sprite("IMG_Profile_Check") ?? CheckSprite);
             check.type = UnityEngine.UI.Image.Type.Simple;
-            Place(check.rectTransform, new Vector2(1f, 1f), new Vector2(-6f, -6f), new Vector2(40f, 40f));
+            Place(check.rectTransform, new Vector2(1f, 0f), new Vector2(-16f, 14f), new Vector2(86f, 68f));
             check.gameObject.SetActive(false);
 
             Wire(cell, so =>
@@ -292,12 +292,12 @@ namespace Project.Editor
         }
 
         /// <summary>카드 공통 골격: 레이아웃이 잡는 루트 + 연출 대상 Body. Body 가 CanvasGroup/배경을 가집니다.</summary>
-        private static RectTransform CardBody(RectTransform root, out CanvasGroup group)
+        private static RectTransform CardBody(RectTransform root, out CanvasGroup group, string spriteName)
         {
             var body = MakeRect(root, "Body", typeof(CanvasGroup), typeof(Image));
             Stretch(body);
             var image = body.GetComponent<Image>();
-            image.sprite = Sprite("IMG_Coin_Goods_Bg") ?? Sprite("IMG_ContentsBox") ?? RoundedSprite;
+            image.sprite = Sprite(spriteName) ?? Sprite("IMG_Coin_Goods_Bg") ?? Sprite("IMG_ContentsBox") ?? RoundedSprite;
             image.type = image.sprite != null && image.sprite.border.sqrMagnitude > 0f ? UnityEngine.UI.Image.Type.Sliced : UnityEngine.UI.Image.Type.Simple;
             image.color = Color.white;
             group = body.GetComponent<CanvasGroup>();
@@ -318,14 +318,20 @@ namespace Project.Editor
         private static GameObject BuildCoinCell()
         {
             var root = MakeRect(null, "CoinProductCell", typeof(CoinProductCell));
-            root.sizeDelta = new Vector2(330f, 360f);
-            var body = CardBody(root, out var group);
+            root.sizeDelta = new Vector2(330f, 390f);
+            var body = CardBody(root, out var group, "IMG_Coin_Goods_Bg");
 
-            var item = GoodsItem(body, "MainItem", new Vector2(220f, 200f), 30);
-            Place((RectTransform)item.transform, new Vector2(0.5f, 1f), new Vector2(0f, -30f), new Vector2(220f, 200f));
+            var coinLight = MakeImage(body, "CoinLight", Color.white, Sprite("IMG_GoodsLight"));
+            Place(coinLight.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -124f), new Vector2(210f, 210f));
+            coinLight.raycastTarget = false;
 
-            var buy = MakeButton(body, "BuyButton", "$0.00", Positive, 30, out var price);
-            Place((RectTransform)buy.transform, new Vector2(0.5f, 0f), new Vector2(0f, 24f), new Vector2(270f, 76f));
+            var item = GoodsItem(body, "MainItem", new Vector2(176f, 192f), 48);
+            Place((RectTransform)item.transform, new Vector2(0.5f, 1f), new Vector2(0f, -42f), new Vector2(176f, 192f));
+
+            var buy = MakeButton(body, "BuyButton", "$0.00", Color.white, 34, out var price);
+            if (buy.GetComponent<Image>() != null)
+                buy.GetComponent<Image>().sprite = Sprite("IMG_CoinBuyFrame") ?? buy.GetComponent<Image>().sprite;
+            Place((RectTransform)buy.transform, new Vector2(0.5f, 0f), new Vector2(0f, 34f), new Vector2(260f, 112f));
 
             var cell = root.GetComponent<CoinProductCell>();
             WireCard(cell, group, body, buy, price);
@@ -336,34 +342,36 @@ namespace Project.Editor
         private static GameObject BuildBundleCell()
         {
             var root = MakeRect(null, "BundleProductCell", typeof(BundleProductCell));
-            Layout(root, height: 300f);
-            var body = CardBody(root, out var group);
+            Layout(root, height: 360f);
+            var body = CardBody(root, out var group, "IMG_Bundle_Bg");
 
-            var main = GoodsItem(body, "MainItem", new Vector2(200f, 200f), 30);
-            Place((RectTransform)main.transform, new Vector2(0f, 0.5f), new Vector2(30f, 10f), new Vector2(200f, 200f));
+            var main = GoodsItem(body, "MainItem", new Vector2(176f, 192f), 46);
+            Place((RectTransform)main.transform, new Vector2(0f, 0.5f), new Vector2(74f, 18f), new Vector2(176f, 192f));
 
-            var name = MakeText(body, "Name", "Bundle", 40, TextAnchor.MiddleLeft);
-            Place(name.rectTransform, new Vector2(0f, 1f), new Vector2(260f, -24f), new Vector2(560f, 50f));
-            var desc = MakeText(body, "Desc", "Description", 26, TextAnchor.MiddleLeft, new Color(0.8f, 0.8f, 0.85f));
-            Place(desc.rectTransform, new Vector2(0f, 1f), new Vector2(260f, -80f), new Vector2(560f, 40f));
+            var name = MakeText(body, "Name", "Bundle", 48, TextAnchor.MiddleLeft);
+            Place(name.rectTransform, new Vector2(0f, 1f), new Vector2(270f, -50f), new Vector2(520f, 70f));
+            var desc = MakeText(body, "Desc", "Description", 30, TextAnchor.MiddleLeft, new Color(0.2f, 0.12f, 0.45f));
+            Place(desc.rectTransform, new Vector2(0f, 1f), new Vector2(270f, -116f), new Vector2(520f, 50f));
 
             var extrasRoot = MakeRect(body, "Extras");
-            Place(extrasRoot, new Vector2(0f, 1f), new Vector2(260f, -130f), new Vector2(400f, 120f));
+            Place(extrasRoot, new Vector2(0f, 1f), new Vector2(270f, -178f), new Vector2(400f, 120f));
             HorizontalLayout(extrasRoot, 16f, TextAnchor.MiddleLeft);
             var extras = new GoodsItemView[3];
             for (var i = 0; i < extras.Length; i++)
             {
-                extras[i] = GoodsItem(extrasRoot, $"Extra{i}", new Vector2(100f, 116f), 24);
-                Layout((RectTransform)extras[i].transform, height: 116f, width: 100f);
+                extras[i] = GoodsItem(extrasRoot, $"Extra{i}", new Vector2(94f, 104f), 28);
+                Layout((RectTransform)extras[i].transform, height: 104f, width: 94f);
             }
 
             var labelRoot = MakeImage(body, "Label", Color.white, Sprite("IMG_DiscountBg") ?? RoundedSprite);
-            Place(labelRoot.rectTransform, new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(170f, 48f));
-            var labelText = MakeText(labelRoot.transform, "Text", "LABEL", 26);
+            Place(labelRoot.rectTransform, new Vector2(1f, 1f), new Vector2(-94f, -36f), new Vector2(188f, 72f));
+            var labelText = MakeText(labelRoot.transform, "Text", "LABEL", 30);
             Stretch(labelText.rectTransform);
 
-            var buy = MakeButton(body, "BuyButton", "$0.00", Positive, 30, out var price);
-            Place((RectTransform)buy.transform, new Vector2(1f, 0f), new Vector2(-24f, 24f), new Vector2(240f, 76f));
+            var buy = MakeButton(body, "BuyButton", "$0.00", Color.white, 34, out var price);
+            if (buy.GetComponent<Image>() != null)
+                buy.GetComponent<Image>().sprite = Sprite("IMG_PackageBuyFrame") ?? buy.GetComponent<Image>().sprite;
+            Place((RectTransform)buy.transform, new Vector2(1f, 0f), new Vector2(-144f, 34f), new Vector2(260f, 112f));
 
             var cell = root.GetComponent<BundleProductCell>();
             WireCard(cell, group, body, buy, price);
@@ -392,7 +400,7 @@ namespace Project.Editor
         private static CurrencyHudView Currency(Transform parent, string id, bool recharge)
         {
             var bg = MakeImage(parent, $"Currency_{id}", Color.white, Sprite("IMG_GoodsBox") ?? RoundedSprite);
-            bg.rectTransform.sizeDelta = new Vector2(260f, recharge ? 110f : 90f);
+            bg.rectTransform.sizeDelta = recharge ? new Vector2(246f, 74f) : new Vector2(218f, 74f);
             var button = bg.gameObject.AddComponent<Button>();
             button.targetGraphic = bg;
             var view = bg.gameObject.AddComponent<CurrencyHudView>();
@@ -400,21 +408,25 @@ namespace Project.Editor
             var icon = MakeImage(bg.transform, "Icon", Color.white, id == CurrencyId.Heart ? HeartSprite : CoinSprite);
             icon.type = UnityEngine.UI.Image.Type.Simple;
             icon.preserveAspect = true;
-            Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(10f, 0f), new Vector2(64f, 64f));
+            Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(-38f, id == CurrencyId.Heart ? 3f : 0f), new Vector2(90f, id == CurrencyId.Heart ? 80f : 90f));
             var initial = MakeText(icon.transform, "Initial", "G", 30, TextAnchor.MiddleCenter, new Color(0.1f, 0.1f, 0.1f));
             Stretch(initial.rectTransform);
 
-            var count = MakeText(bg.transform, "Count", "0", 32, TextAnchor.MiddleRight);
+            var plus = MakeImage(bg.transform, "Plus", Color.white, Sprite("BTN_Plus"));
+            Place(plus.rectTransform, new Vector2(0f, 0f), new Vector2(40f, -8f), new Vector2(56f, 56f));
+            plus.raycastTarget = false;
+
+            var count = MakeText(bg.transform, "Count", "0", 42, TextAnchor.MiddleCenter);
             Text timer = null;
             if (recharge)
             {
-                Place(count.rectTransform, new Vector2(1f, 1f), new Vector2(-16f, -6f), new Vector2(160f, 50f));
-                timer = MakeText(bg.transform, "Timer", "00:00", 22, TextAnchor.MiddleRight, new Color(0.8f, 0.85f, 0.9f));
-                Place(timer.rectTransform, new Vector2(1f, 0f), new Vector2(-16f, 6f), new Vector2(160f, 40f));
+                Place(count.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(37f, 15f), new Vector2(120f, 44f));
+                timer = MakeText(bg.transform, "Timer", "00:00", 34, TextAnchor.MiddleCenter);
+                Place(timer.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(37f, -16f), new Vector2(150f, 42f));
             }
             else
             {
-                Place(count.rectTransform, new Vector2(1f, 0.5f), new Vector2(-16f, 0f), new Vector2(160f, 60f));
+                Place(count.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(34f, 2f), new Vector2(136f, 60f));
             }
 
             Wire(view, so =>
@@ -433,22 +445,24 @@ namespace Project.Editor
 
         private static LobbyTabButton TabButton(Transform parent, LobbyTab tab, ToggleGroup group, bool isOn)
         {
-            var toggle = MakeToggle(parent, $"Tab_{tab}", new Vector2(480f, 140f), out var background, out var check);
+            var toggle = MakeToggle(parent, $"Tab_{tab}", new Vector2(298f, 252f), out var background, out var check);
             background.sprite = Sprite("TGL_LobbyBg") ?? background.sprite;
-            background.color = Color.white;
+            background.color = new Color(1f, 1f, 1f, 0f);
             background.type = UnityEngine.UI.Image.Type.Sliced;
+            Place(background.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -22.5f), new Vector2(298f, 207f));
             check.sprite = Sprite("TGL_LobbyCheck") ?? check.sprite;
-            check.color = new Color(Accent.r, Accent.g, Accent.b, 0.35f);
+            check.color = Color.white;
+            Place(check.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(366f, 332f));
             toggle.group = group;
             toggle.isOn = isOn;
 
-            var icon = MakeImage(toggle.transform, "Icon", Color.white, Sprite(tab == LobbyTab.Home ? "IMG_Home_On" : "IMG_Store_On") ?? CircleSprite);
+            var icon = MakeImage(check.transform, "Icon", Color.white, Sprite(tab == LobbyTab.Home ? "IMG_Home_On" : "IMG_Store_On") ?? CircleSprite);
             icon.type = UnityEngine.UI.Image.Type.Simple;
             icon.preserveAspect = true;
-            Place(icon.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -12f), new Vector2(64f, 64f));
+            Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 48f), new Vector2(116f, 136f));
 
-            var label = MakeText(toggle.transform, "Label", tab.ToString(), 30);
-            Bar(label.rectTransform, 0f, 50f, 6f);
+            var label = MakeText(check.transform, "Label", tab.ToString(), 48);
+            Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -95f), new Vector2(200f, 60f));
 
             var button = toggle.gameObject.AddComponent<LobbyTabButton>();
             Wire(button, so =>
@@ -465,37 +479,37 @@ namespace Project.Editor
         {
             var root = ViewRoot("HudView", typeof(HudView), UILayer.Hud);
 
-            // 상단
             var top = MakeRect(root.transform, "Top");
-            Bar(top, 1f, 150f, 20f);
+            Place(top, new Vector2(0.5f, 1f), new Vector2(0f, -50f), new Vector2(900f, 100f));
 
-            var profileBg = MakeImage(top, "ProfileButton", Color.white, Sprite("BTN_Profileback") ?? RoundedSprite);
-            Place(profileBg.rectTransform, new Vector2(0f, 0.5f), new Vector2(16f, 0f), new Vector2(280f, 110f));
+            var profileBg = MakeImage(top, "ProfileButton", new Color(1f, 1f, 1f, 0f), Sprite("IMG_Square"));
+            Place(profileBg.rectTransform, new Vector2(0f, 0.5f), new Vector2(90f, -6f), new Vector2(180f, 185f));
             var profileButton = profileBg.gameObject.AddComponent<Button>();
             profileButton.targetGraphic = profileBg;
-            var badge = ProfileBadge(profileBg.transform, "Badge", 90f);
-            Place((RectTransform)badge.transform, new Vector2(0f, 0.5f), new Vector2(10f, 0f), new Vector2(90f, 90f));
-            var nickname = MakeText(profileBg.transform, "Nickname", "Player", 28, TextAnchor.MiddleLeft);
-            Place(nickname.rectTransform, new Vector2(0f, 0.5f), new Vector2(110f, 0f), new Vector2(160f, 60f));
+            var badge = ProfileBadge(profileBg.transform, "Badge", 180f);
+            Place((RectTransform)badge.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(180f, 180f));
+            var nickname = MakeText(profileBg.transform, "Nickname", "Player", 28, TextAnchor.MiddleCenter, new Color(1f, 1f, 1f, 0f));
+            Place(nickname.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -24f), new Vector2(180f, 50f));
 
             var gold = Currency(top, CurrencyId.Gold, false);
-            Place((RectTransform)gold.transform, new Vector2(0.5f, 0.5f), new Vector2(-20f, 0f), new Vector2(260f, 90f));
+            Place((RectTransform)gold.transform, new Vector2(0f, 1f), new Vector2(242f, -65f), new Vector2(218f, 74f));
             var heart = Currency(top, CurrencyId.Heart, true);
-            Place((RectTransform)heart.transform, new Vector2(1f, 0.5f), new Vector2(-120f, 0f), new Vector2(260f, 110f));
+            Place((RectTransform)heart.transform, new Vector2(0f, 1f), new Vector2(480f, -65f), new Vector2(246f, 74f));
 
-            var optionImage = MakeImage(top, "OptionButton", Color.white, Sprite("BTN_Setting") ?? RoundedSprite);
+            var optionImage = MakeImage(top, "OptionButton", Color.white, Sprite("BTN_SettingFrame") ?? RoundedSprite);
+            var optionIcon = MakeImage(optionImage.transform, "Icon", Color.white, Sprite("BTN_Setting"));
+            Place(optionIcon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(100f, 93f));
             var option = optionImage.gameObject.AddComponent<Button>();
             option.targetGraphic = optionImage;
-            Place((RectTransform)option.transform, new Vector2(1f, 0.5f), new Vector2(-16f, 0f), new Vector2(90f, 90f));
+            Place((RectTransform)option.transform, new Vector2(1f, 1f), new Vector2(-72f, -63f), new Vector2(118f, 112f));
 
-            // 하단 탭
             var bottom = MakeImage(root.transform, "Bottom", Color.white, Sprite("TGL_LobbyBg") ?? RoundedSprite);
-            Bar(bottom.rectTransform, 0f, 170f);
+            Bar(bottom.rectTransform, 0f, 207f);
             var group = bottom.gameObject.AddComponent<ToggleGroup>();
             var store = TabButton(bottom.transform, LobbyTab.Store, group, false);
-            Place((RectTransform)store.transform, new Vector2(0.25f, 0.5f), Vector2.zero, new Vector2(480f, 140f));
+            Place((RectTransform)store.transform, new Vector2(0.25f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
             var home = TabButton(bottom.transform, LobbyTab.Home, group, true);
-            Place((RectTransform)home.transform, new Vector2(0.75f, 0.5f), Vector2.zero, new Vector2(480f, 140f));
+            Place((RectTransform)home.transform, new Vector2(0.75f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
 
             Wire(root.GetComponent<HudView>(), so =>
             {
@@ -519,6 +533,12 @@ namespace Project.Editor
             var background = MakeImage(root.transform, "Background", Color.white, Sprite("IMG_LobbyBg"));
             Stretch(background.rectTransform);
             background.raycastTarget = false;
+            background.type = UnityEngine.UI.Image.Type.Sliced;
+
+            var pattern = MakeImage(root.transform, "LobbyPattern", new Color(1f, 1f, 1f, 0.16f), Sprite("IMG_LobbyPattern"));
+            Stretch(pattern.rectTransform);
+            pattern.type = UnityEngine.UI.Image.Type.Tiled;
+            pattern.raycastTarget = false;
 
             var viewport = MakeRect(root.transform, "Viewport", typeof(RectMask2D));
             Stretch(viewport);
@@ -555,23 +575,55 @@ namespace Project.Editor
         {
             var page = Page(pageContent, "HomePage", (int)LobbyTab.Home, typeof(HomePageView));
 
-            var pattern = MakeImage(page, "Pattern", new Color(1f, 1f, 1f, 0.18f), Sprite("IMG_LobbyPattern") ?? RoundedSprite);
-            Stretch(pattern.rectTransform, 40f, 40f, 200f, 220f);
-            pattern.raycastTarget = false;
+            var light = MakeImage(page, "LobbyLight", new Color(0.92f, 0.73f, 0.92f, 0.49f), Sprite("IMG_LobbyLight"));
+            light.type = UnityEngine.UI.Image.Type.Simple;
+            light.preserveAspect = true;
+            Place(light.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 170f), new Vector2(704f, 704f));
+            light.raycastTarget = false;
 
-            var stage = MakeButton(page, "StageButton", "Level 1", Color.white, 40, out var stageLabel);
-            stage.GetComponent<Image>().sprite = Sprite("IMG_NextLevel") ?? stage.GetComponent<Image>().sprite;
-            stage.GetComponent<Image>().preserveAspect = true;
-            Place((RectTransform)stage.transform, new Vector2(0.5f, 0f), new Vector2(0f, 270f), new Vector2(440f, 130f));
+            var shadow = MakeImage(page, "TopShadow", Color.white, Sprite("IMG_LobbyShadow"));
+            Bar(shadow.rectTransform, 1f, 410f);
+            shadow.raycastTarget = false;
+
+            var lineMask = MakeRect(page, "LevelLineRoot", typeof(RectMask2D));
+            Place(lineMask, new Vector2(0.5f, 0.5f), new Vector2(0f, 170f), new Vector2(900f, 950f));
+            var levelLine = MakeImage(lineMask, "LevelLine", Color.white, Sprite("IMG_BG_Line"));
+            Place(levelLine.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(72f, 1172f));
+            levelLine.raycastTarget = false;
+
+            for (var i = 0; i < 3; i++)
+            {
+                var next = MakeImage(page, $"NextLevel_{i + 1}", new Color(1f - i * 0.14f, 1f - i * 0.14f, 1f - i * 0.14f), Sprite("IMG_NextLevel"));
+                next.type = UnityEngine.UI.Image.Type.Simple;
+                next.preserveAspect = true;
+                Place(next.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(150f, 120f - 278f * i), new Vector2(226f, 228f));
+                next.raycastTarget = false;
+            }
+
+            var stageImage = MakeImage(page, "StageButton", Color.white, Sprite("IMG_NextLevel"));
+            stageImage.type = UnityEngine.UI.Image.Type.Simple;
+            stageImage.preserveAspect = true;
+            var stage = stageImage.gameObject.AddComponent<Button>();
+            stage.targetGraphic = stageImage;
+            var stageLabel = MakeText(stageImage.transform, "Label", "Level 1", 40);
+            Place((RectTransform)stage.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, -150f), new Vector2(300f, 220f));
+            Place(stageLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -86f), new Vector2(240f, 60f));
 
             var daily = MakeButton(page, "DailyRewardButton", "Daily", Color.white, 30, out var dailyLabel);
-            Place((RectTransform)daily.transform, new Vector2(0f, 0f), new Vector2(60f, 440f), new Vector2(200f, 110f));
+            daily.GetComponent<Image>().sprite = Sprite("BTN_CommonGreen") ?? daily.GetComponent<Image>().sprite;
+            Place((RectTransform)daily.transform, new Vector2(0.5f, 1f), new Vector2(-334f, -164f), new Vector2(220f, 112f));
 
             var redDot = MakeImage(daily.transform, "RedDot", Color.white, Sprite("IMG_RedDot") ?? CircleSprite);
             redDot.type = UnityEngine.UI.Image.Type.Simple;
-            Place(redDot.rectTransform, new Vector2(1f, 1f), new Vector2(14f, 14f), new Vector2(48f, 48f));
+            Place(redDot.rectTransform, new Vector2(1f, 1f), new Vector2(10f, 22f), new Vector2(61f, 63f));
             var redDotCount = MakeText(redDot.transform, "Count", "1", 26);
             Stretch(redDotCount.rectTransform);
+
+            var comingSoon = MakeImage(page, "ComingSoonBox", Color.white, Sprite("IMG_ComingsoonBox"));
+            Place(comingSoon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -461f), new Vector2(840f, 232f));
+            comingSoon.raycastTarget = false;
+            var comingSoonText = MakeText(comingSoon.transform, "ComingSoonText", "Coming Soon!", 52, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Stretch(comingSoonText.rectTransform, 30f, 30f, 20f, 20f);
 
             Wire(page.GetComponent<HomePageView>(), so =>
             {
@@ -588,6 +640,10 @@ namespace Project.Editor
         private static StorePageView BuildStorePage(RectTransform pageContent, string coinCellPath, string bundleCellPath)
         {
             var page = Page(pageContent, "StorePage", (int)LobbyTab.Store, typeof(StorePageView));
+
+            var shopBox = MakeImage(page, "ShopBox", Color.white, Sprite("IMG_ShopBox") ?? Sprite("IMG_ContentsBox"));
+            Stretch(shopBox.rectTransform, 28f, 28f, 250f, 195f);
+            shopBox.raycastTarget = false;
 
             var titlePanel = MakeImage(page, "TitlePanel", Color.white, Sprite("IMG_TitlePanel") ?? RoundedSprite);
             Bar(titlePanel.rectTransform, 1f, 130f, 145f);
@@ -606,12 +662,20 @@ namespace Project.Editor
                 var sectionRoot = MakeRect(content, $"Section_{order[i]}");
                 VerticalLayout(sectionRoot, 12f, null, controlChildHeight: true);
 
-                var sectionTitle = MakeText(sectionRoot, "Title", order[i].ToString(), 36, TextAnchor.MiddleLeft);
-                Layout(sectionTitle.rectTransform, height: 56f);
+                var sectionArt = order[i] switch
+                {
+                    ShopCategory.SpecialOffer => "IMG_ShopTitle_Special",
+                    ShopCategory.Bundle => "IMG_ShopTitle_Package",
+                    _ => "IMG_ShopTitle_Coin",
+                };
+                var sectionTitleBg = MakeImage(sectionRoot, "TitleBg", Color.white, Sprite(sectionArt) ?? Sprite("IMG_Shop_Tag") ?? RoundedSprite);
+                Layout(sectionTitleBg.rectTransform, height: 76f);
+                var sectionTitle = MakeText(sectionTitleBg.transform, "Title", order[i].ToString(), 36, TextAnchor.MiddleCenter);
+                Stretch(sectionTitle.rectTransform);
 
                 var container = MakeRect(sectionRoot, "Container");
                 if (order[i] == ShopCategory.Coin)
-                    MakeGrid(container, new Vector2(330f, 360f), new Vector2(15f, 15f), 3);
+                    MakeGrid(container, new Vector2(330f, 390f), new Vector2(15f, 15f), 3);
                 else
                     VerticalLayout(container, 15f, null, controlChildHeight: true);
 
@@ -651,16 +715,18 @@ namespace Project.Editor
         private static GameObject BuildMessagePopup()
         {
             var root = ViewRoot("MessagePopup", typeof(MessagePopup), UILayer.System);
-            var panel = PopupShell(root, new Vector2(820f, 520f), out var dim, out var close, out var title);
+            var panel = PopupShell(root, new Vector2(844f, 604f), out var dim, out var close, out var title);
 
-            var body = MakeText(panel, "Body", "Body", 32);
-            Stretch(body.rectTransform, 50f, 50f, 110f, 140f);
+            var contents = MakeImage(panel, "ContentsBox", Color.white, Sprite("IMG_ContentsBox") ?? RoundedSprite);
+            Place(contents.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -38f), new Vector2(716f, 328f));
+            var body = MakeText(contents.transform, "Body", "Body", 50, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Stretch(body.rectTransform, 38f, 38f, 38f, 38f);
 
-            var primary = MakeButton(panel, "PrimaryButton", "OK", Color.white, 32, out var primaryLabel);
-            Place((RectTransform)primary.transform, new Vector2(1f, 0f), new Vector2(-40f, 36f), new Vector2(300f, 84f));
-            var secondary = MakeButton(panel, "SecondaryButton", "Cancel", Color.white, 32, out var secondaryLabel);
+            var primary = MakeButton(panel, "PrimaryButton", "OK", Color.white, 56, out var primaryLabel);
+            Place((RectTransform)primary.transform, new Vector2(1f, 0f), new Vector2(-218f, -6f), new Vector2(346f, 176f));
+            var secondary = MakeButton(panel, "SecondaryButton", "Cancel", Color.white, 56, out var secondaryLabel);
             secondary.GetComponent<Image>().sprite = Sprite("BTN_CommonBlue") ?? secondary.GetComponent<Image>().sprite;
-            Place((RectTransform)secondary.transform, new Vector2(0f, 0f), new Vector2(40f, 36f), new Vector2(300f, 84f));
+            Place((RectTransform)secondary.transform, new Vector2(0f, 0f), new Vector2(218f, -6f), new Vector2(346f, 176f));
 
             var popup = root.GetComponent<MessagePopup>();
             WirePopup(popup, panel, dim, close);
@@ -701,20 +767,27 @@ namespace Project.Editor
         private static GameObject BuildRewardPopup(string goodsItemPath)
         {
             var root = ViewRoot("RewardPopup", typeof(RewardPopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(900f, 720f), out _, out var close, out var title);
+            var panel = MakeRect(root.transform, "Panel");
+            Stretch((RectTransform)root.transform);
+            var dim = InvisibleButton(root.transform, "Dim", Dim);
+            panel.SetAsLastSibling();
+            Place(panel, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(900f, 1500f));
 
             var itemRoot = MakeRect(panel, "Items");
-            Stretch(itemRoot, 40f, 40f, 120f, 140f);
-            HorizontalLayout(itemRoot, 40f);
+            Place(itemRoot, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(440f, 700f));
+            HorizontalLayout(itemRoot, 44f);
 
-            var hint = MakeText(panel, "TapHint", "Tap to continue", 28, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
-            Bar(hint.rectTransform, 0f, 80f, 30f);
+            var title = MakeText(panel, "Title", "Reward", 120, TextAnchor.MiddleCenter);
+            Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 644f), new Vector2(800f, 240f));
+
+            var hint = MakeText(panel, "TapHint", "Tap to continue", 60, TextAnchor.MiddleCenter);
+            Place(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 243f), new Vector2(900f, 100f));
 
             // 마지막 자식이라 패널 위에 깔립니다. 어디를 탭해도 닫힙니다.
             var tapAnywhere = InvisibleButton(root.transform, "TapAnywhere", new Color(0f, 0f, 0f, 0f));
 
             var popup = root.GetComponent<RewardPopup>();
-            WirePopup(popup, panel, close);
+            WirePopup(popup, panel, dim);
             Wire(popup, so =>
             {
                 so.FindProperty("_title").objectReferenceValue = title;
@@ -729,31 +802,61 @@ namespace Project.Editor
         private static Toggle OptionRow(RectTransform panel, string name, float y, out Text label)
         {
             var row = MakeRect(panel, name);
-            Place(row, new Vector2(0.5f, 1f), new Vector2(0f, y), new Vector2(680f, 90f));
-            label = MakeText(row, "Label", name, 32, TextAnchor.MiddleLeft);
-            Place(label.rectTransform, new Vector2(0f, 0.5f), new Vector2(20f, 0f), new Vector2(400f, 60f));
-            var toggle = MakeToggle(row, "Toggle", new Vector2(120f, 64f));
-            Place((RectTransform)toggle.transform, new Vector2(1f, 0.5f), new Vector2(-20f, 0f), new Vector2(120f, 64f));
+            Place(row, new Vector2(0.5f, 0.5f), new Vector2(0f, y), new Vector2(186f, 240f));
+            label = MakeText(row, "Label", name, 48, TextAnchor.MiddleCenter);
+            Place(label.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, 28f), new Vector2(180f, 70f));
+            var toggle = MakeToggle(row, "Toggle", new Vector2(186f, 186f), out var bg, out var check);
+            bg.sprite = Sprite("IMG_SettingBGM") ?? bg.sprite;
+            bg.color = Color.white;
+            bg.type = UnityEngine.UI.Image.Type.Simple;
+            check.sprite = Sprite("IMG_SettingOff") ?? check.sprite;
+            check.color = Color.white;
+            check.type = UnityEngine.UI.Image.Type.Simple;
+            var frame = MakeImage(toggle.transform, "Frame", Color.white, Sprite("IMG_SettingFrame"));
+            Stretch(frame.rectTransform);
+            frame.transform.SetAsFirstSibling();
+            Place((RectTransform)toggle.transform, new Vector2(0.5f, 0f), Vector2.zero, new Vector2(186f, 186f));
             return toggle;
         }
 
         private static GameObject BuildOptionPopup()
         {
             var root = ViewRoot("OptionPopup", typeof(OptionPopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(800f, 900f), out var dim, out var close, out var title);
+            Stretch((RectTransform)root.transform);
+            var dim = InvisibleButton(root.transform, "Dim", Dim);
+            var bg = MakeImage(root.transform, "Background", new Color(0.2f, 0.12f, 0.45f), Sprite("IMG_Square"));
+            Stretch(bg.rectTransform);
+            bg.raycastTarget = false;
+            var titlePanel = MakeImage(root.transform, "TitlePanel", Color.white, Sprite("IMG_TitlePanel"));
+            Bar(titlePanel.rectTransform, 1f, 216f);
+            var titleBox = MakeImage(titlePanel.transform, "TitleBox", Color.white, Sprite("IMG_TitleBox"));
+            Place(titleBox.rectTransform, new Vector2(0.5f, 1f), Vector2.zero, new Vector2(508f, 262f));
+            var title = MakeText(titleBox.transform, "Title", "Settings", 88);
+            Place(title.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -158f), new Vector2(400f, 120f));
+            var panel = MakeRect(root.transform, "Panel");
+            Place(panel, new Vector2(0.5f, 1f), new Vector2(0f, -1016f), new Vector2(900f, 1600f));
+            var closeImage = MakeImage(root.transform, "CloseButton", Color.white, Sprite("BTN_Close_Red") ?? RoundedSprite);
+            var close = closeImage.gameObject.AddComponent<Button>();
+            close.targetGraphic = closeImage;
+            Place(closeImage.rectTransform, new Vector2(1f, 1f), new Vector2(-72f, -72f), new Vector2(120f, 120f));
 
-            var music = OptionRow(panel, "Music", -120f, out var musicLabel);
-            var sfx = OptionRow(panel, "Sound", -220f, out var sfxLabel);
-            var haptic = OptionRow(panel, "Vibration", -320f, out var hapticLabel);
+            var settingBox = MakeImage(panel, "SettingBox", Color.white, Sprite("IMG_SettingBox_Lobby") ?? RoundedSprite);
+            Place(settingBox.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 540f), new Vector2(752f, 340f));
+            var sfx = OptionRow(settingBox.rectTransform, "Sound", -42f, out var sfxLabel);
+            Place((RectTransform)sfx.transform.parent, new Vector2(0.5f, 0.5f), new Vector2(-228f, -42f), new Vector2(186f, 240f));
+            var music = OptionRow(settingBox.rectTransform, "Music", -42f, out var musicLabel);
+            Place((RectTransform)music.transform.parent, new Vector2(0.5f, 0.5f), new Vector2(0f, -42f), new Vector2(186f, 240f));
+            var haptic = OptionRow(settingBox.rectTransform, "Vibration", -42f, out var hapticLabel);
+            Place((RectTransform)haptic.transform.parent, new Vector2(0.5f, 0.5f), new Vector2(228f, -42f), new Vector2(186f, 240f));
 
-            var language = MakeButton(panel, "LanguageButton", "Language", Color.white, 32, out var languageLabel);
-            Place((RectTransform)language.transform, new Vector2(0.5f, 1f), new Vector2(0f, -450f), new Vector2(680f, 90f));
-            var privacy = MakeButton(panel, "PrivacyButton", "Privacy Policy", Color.white, 32, out var privacyLabel);
+            var language = MakeButton(panel, "LanguageButton", "Language", Color.white, 44, out var languageLabel);
+            Place((RectTransform)language.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, 32f), new Vector2(346f, 176f));
+            var privacy = MakeButton(panel, "PrivacyButton", "Privacy Policy", Color.white, 38, out var privacyLabel);
             privacy.GetComponent<Image>().sprite = Sprite("BTN_Privacy") ?? privacy.GetComponent<Image>().sprite;
-            Place((RectTransform)privacy.transform, new Vector2(0.5f, 1f), new Vector2(0f, -560f), new Vector2(680f, 90f));
+            Place((RectTransform)privacy.transform, new Vector2(0.5f, 0.5f), new Vector2(174f, -400f), new Vector2(322f, 152f));
 
-            var version = MakeText(panel, "Version", "v0.0", 24, TextAnchor.MiddleCenter, new Color(0.6f, 0.6f, 0.65f));
-            Bar(version.rectTransform, 0f, 60f, 20f);
+            var version = MakeText(panel, "Version", "v0.0", 30, TextAnchor.MiddleCenter);
+            Place(version.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -238f), new Vector2(300f, 60f));
 
             var popup = root.GetComponent<OptionPopup>();
             WirePopup(popup, panel, dim, close);
@@ -778,25 +881,35 @@ namespace Project.Editor
         private static GameObject BuildLanguagePopup()
         {
             var root = ViewRoot("LanguagePopup", typeof(LanguagePopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(700f, 520f), out var dim, out var close, out var title);
+            var panel = PopupShell(root, new Vector2(832f, 878f), out var dim, out var close, out var title);
             var group = panel.gameObject.AddComponent<ToggleGroup>();
+            Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 14f), new Vector2(420f, 120f));
 
             var codes = new[] { "en", "ko" };
             var toggles = new Toggle[codes.Length];
             var labels = new Text[codes.Length];
             for (var i = 0; i < codes.Length; i++)
             {
-                toggles[i] = MakeToggle(panel, $"Toggle_{codes[i]}", new Vector2(560f, 90f));
+                toggles[i] = MakeToggle(panel, $"Toggle_{codes[i]}", new Vector2(350f, 160f));
                 var toggleImage = toggles[i].targetGraphic as Image;
                 if (toggleImage != null)
                 {
                     toggleImage.sprite = Sprite("IMG_LanguageBox") ?? toggleImage.sprite;
                     toggleImage.color = Color.white;
                 }
+                if (toggles[i].graphic is Image check)
+                {
+                    check.sprite = Sprite("IMG_Check") ?? check.sprite;
+                    check.color = Color.white;
+                    Place(check.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-100f, 15f), new Vector2(100f, 84f));
+                }
+                var box = MakeImage(toggles[i].transform, "CheckBox", Color.white, Sprite("IMG_CheckBox"));
+                Place(box.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-106f, 0f), new Vector2(88f, 88f));
+                box.transform.SetAsFirstSibling();
                 toggles[i].group = group;
-                Place((RectTransform)toggles[i].transform, new Vector2(0.5f, 1f), new Vector2(0f, -130f - 110f * i), new Vector2(560f, 90f));
-                labels[i] = MakeText(toggles[i].transform, "Label", codes[i], 32);
-                Stretch(labels[i].rectTransform);
+                Place((RectTransform)toggles[i].transform, new Vector2(0.5f, 0.5f), new Vector2(0f, 150f - 180f * i), new Vector2(350f, 160f));
+                labels[i] = MakeText(toggles[i].transform, "Label", codes[i], 52, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+                Place(labels[i].rectTransform, new Vector2(0.5f, 0.5f), new Vector2(42f, 1f), new Vector2(200f, 80f));
             }
 
             var popup = root.GetComponent<LanguagePopup>();
@@ -820,51 +933,68 @@ namespace Project.Editor
         private static GameObject BuildProfilePopup(string profileCellPath)
         {
             var root = ViewRoot("ProfilePopup", typeof(ProfilePopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(900f, 1200f), out var dim, out var close, out var title);
+            var panel = PopupShell(root, new Vector2(832f, 1326f), out var dim, out var close, out var title);
+            Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(420f, 130f));
 
             var badge = ProfileBadge(panel, "Badge", 160f);
-            Place((RectTransform)badge.transform, new Vector2(0.5f, 1f), new Vector2(0f, -110f), new Vector2(160f, 160f));
+            Place((RectTransform)badge.transform, new Vector2(0.5f, 0.5f), new Vector2(-258f, 410f), new Vector2(180f, 180f));
+
+            var profileBox = MakeImage(panel, "ProfileBox", Color.white, Sprite("IMG_PopupBoxProfile") ?? RoundedSprite);
+            Place(profileBox.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 410f), new Vector2(715f, 228f));
+            profileBox.transform.SetAsFirstSibling();
+            ((RectTransform)badge.transform).SetAsLastSibling();
 
             // 닉네임 입력
-            var inputBg = MakeImage(panel, "Nickname", Color.white, Sprite("IMG_ProfileNameBox") ?? RoundedSprite);
-            Place(inputBg.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -300f), new Vector2(520f, 80f));
+            var inputBg = MakeImage(profileBox.transform, "Nickname", Color.white, Sprite("IMG_ProfileNameBox") ?? RoundedSprite);
+            Place(inputBg.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(84f, 0f), new Vector2(478f, 88f));
             var input = inputBg.gameObject.AddComponent<InputField>();
-            var inputText = MakeText(inputBg.transform, "Text", "", 32, TextAnchor.MiddleCenter);
-            Stretch(inputText.rectTransform, 20f, 20f);
+            var editBack = MakeImage(inputBg.transform, "EditBack", Color.white, Sprite("BTN_ProfileEditBack"));
+            Place(editBack.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(189f, 1f), new Vector2(56f, 57f));
+            var editIcon = MakeImage(editBack.transform, "EditIcon", Color.white, Sprite("BTN_ProfileEdit"));
+            Place(editIcon.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(50f, 50f));
+            var inputText = MakeText(inputBg.transform, "Text", "", 54, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Stretch(inputText.rectTransform, 36f, 88f, 8f, 8f);
             inputText.supportRichText = false;
-            var placeholder = MakeText(inputBg.transform, "Placeholder", "Nickname", 32, TextAnchor.MiddleCenter, new Color(1f, 1f, 1f, 0.4f));
-            Stretch(placeholder.rectTransform, 20f, 20f);
+            var placeholder = MakeText(inputBg.transform, "Placeholder", "Nickname", 54, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f, 0.45f));
+            Stretch(placeholder.rectTransform, 36f, 88f, 8f, 8f);
             input.textComponent = inputText;
             input.placeholder = placeholder;
             input.characterLimit = 12;
 
+            var contents = MakeImage(panel, "ContentsBox", Color.white, Sprite("IMG_ProfileBox") ?? RoundedSprite);
+            Place(contents.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -165f), new Vector2(715f, 878f));
+            var line = MakeImage(contents.transform, "Line", Color.white, Sprite("IMG_PopupBoxBar_1"));
+            Place(line.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 238f), new Vector2(642f, 10f));
+
             // 탭
-            var tabGroup = panel.gameObject.AddComponent<ToggleGroup>();
-            var avatarTab = MakeToggle(panel, "AvatarTab", new Vector2(300f, 80f));
+            var tabGroup = contents.gameObject.AddComponent<ToggleGroup>();
+            var tabBack = MakeImage(contents.transform, "TabBack", Color.white, Sprite("BTN_Profileback") ?? RoundedSprite);
+            Place(tabBack.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 326f), new Vector2(644f, 132f));
+            var avatarTab = MakeToggle(tabBack.transform, "AvatarTab", new Vector2(314f, 118f));
             if (avatarTab.targetGraphic is Image avatarBg)
                 avatarBg.sprite = Sprite("BTN_AvatarDown") ?? avatarBg.sprite;
             if (avatarTab.graphic is Image avatarCheck)
                 avatarCheck.sprite = Sprite("BTN_Avatar") ?? avatarCheck.sprite;
             avatarTab.group = tabGroup;
-            Place((RectTransform)avatarTab.transform, new Vector2(0.5f, 1f), new Vector2(-160f, -410f), new Vector2(300f, 80f));
-            var avatarLabel = MakeText(avatarTab.transform, "Label", "Avatar", 30);
-            Stretch(avatarLabel.rectTransform);
-            var frameTab = MakeToggle(panel, "FrameTab", new Vector2(300f, 80f));
+            Place((RectTransform)avatarTab.transform, new Vector2(0.5f, 0.5f), new Vector2(-158f, 0f), new Vector2(314f, 118f));
+            var avatarLabel = MakeText(avatarTab.transform, "Label", "Avatar", 58);
+            Place(avatarLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 7f), new Vector2(296f, 98f));
+            var frameTab = MakeToggle(tabBack.transform, "FrameTab", new Vector2(314f, 118f));
             if (frameTab.targetGraphic is Image frameBg)
                 frameBg.sprite = Sprite("BTN_FrameDown") ?? frameBg.sprite;
             if (frameTab.graphic is Image frameCheck)
                 frameCheck.sprite = Sprite("BTN_Frame") ?? frameCheck.sprite;
             frameTab.group = tabGroup;
             frameTab.isOn = false;
-            Place((RectTransform)frameTab.transform, new Vector2(0.5f, 1f), new Vector2(160f, -410f), new Vector2(300f, 80f));
-            var frameLabel = MakeText(frameTab.transform, "Label", "Frame", 30);
-            Stretch(frameLabel.rectTransform);
+            Place((RectTransform)frameTab.transform, new Vector2(0.5f, 0.5f), new Vector2(158f, 0f), new Vector2(314f, 118f));
+            var frameLabel = MakeText(frameTab.transform, "Label", "Frame", 58);
+            Place(frameLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 7f), new Vector2(296f, 98f));
 
             // 선택 그리드
-            var scroll = ScrollView(panel, "ScrollView", out var content, 16f, new RectOffset(20, 20, 20, 20));
-            Stretch((RectTransform)scroll.transform, 40f, 40f, 480f, 40f);
+            var scroll = ScrollView(contents.transform, "ScrollView", out var content, 20f, new RectOffset(26, 26, 26, 26));
+            Stretch((RectTransform)scroll.transform, 22f, 22f, 224f, 18f);
             Object.DestroyImmediate(content.GetComponent<VerticalLayoutGroup>());
-            MakeGrid(content, new Vector2(160f, 160f), new Vector2(16f, 16f), 4).padding = new RectOffset(20, 20, 20, 20);
+            MakeGrid(content, new Vector2(180f, 180f), new Vector2(18f, 18f), 3).padding = new RectOffset(20, 20, 20, 20);
 
             var popup = root.GetComponent<ProfilePopup>();
             WirePopup(popup, panel, dim, close);
@@ -888,32 +1018,32 @@ namespace Project.Editor
             var bg = MakeImage(parent, $"Day{dayIndex + 1}", Color.white, Sprite("IMG_RewardBox") ?? RoundedSprite);
             var cell = bg.gameObject.AddComponent<DailyRewardCell>();
 
-            var day = MakeText(bg.transform, "Day", $"Day {dayIndex + 1}", 30);
-            Bar(day.rectTransform, 1f, 50f, 8f);
+            var day = MakeText(bg.transform, "Day", $"Day {dayIndex + 1}", 26, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Bar(day.rectTransform, 1f, 44f, 8f);
 
             var slotsRoot = MakeRect(bg.transform, "Slots");
-            Place(slotsRoot, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(260f, 130f));
-            HorizontalLayout(slotsRoot, 12f);
+            Place(slotsRoot, new Vector2(0.5f, 0.5f), new Vector2(0f, 12f), new Vector2(210f, 112f));
+            HorizontalLayout(slotsRoot, 8f);
             var slots = new GoodsItemView[2];
             for (var i = 0; i < slots.Length; i++)
             {
-                slots[i] = GoodsItem(slotsRoot, $"Slot{i}", new Vector2(110f, 126f), 24);
-                Layout((RectTransform)slots[i].transform, height: 126f, width: 110f);
+                slots[i] = GoodsItem(slotsRoot, $"Slot{i}", new Vector2(96f, 108f), 24);
+                Layout((RectTransform)slots[i].transform, height: 108f, width: 96f);
             }
 
-            var claim = MakeButton(bg.transform, "ClaimButton", "Claim", Positive, 28, out var claimLabel);
-            Place((RectTransform)claim.transform, new Vector2(0.5f, 0f), new Vector2(0f, 14f), new Vector2(220f, 64f));
+            var claim = MakeButton(bg.transform, "ClaimButton", "Claim", Color.white, 28, out var claimLabel);
+            Place((RectTransform)claim.transform, new Vector2(0.5f, 0f), new Vector2(0f, 18f), new Vector2(180f, 74f));
 
             var locked = MakeImage(bg.transform, "Locked", new Color(0f, 0f, 0f, 0.5f), RoundedSprite);
             Stretch(locked.rectTransform);
-            var lockText = MakeText(locked.transform, "Text", "LOCKED", 28, TextAnchor.MiddleCenter, new Color(0.8f, 0.8f, 0.85f));
+            var lockText = MakeText(locked.transform, "Text", "LOCKED", 24, TextAnchor.MiddleCenter, Color.white);
             Stretch(lockText.rectTransform);
 
             var received = MakeImage(bg.transform, "Received", new Color(0f, 0f, 0f, 0.5f), RoundedSprite);
             Stretch(received.rectTransform);
-            var check = MakeImage(received.transform, "Check", Positive, CheckSprite);
+            var check = MakeImage(received.transform, "Check", Color.white, Sprite("IMG_Check") ?? CheckSprite);
             check.type = UnityEngine.UI.Image.Type.Simple;
-            Place(check.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(90f, 90f));
+            Place(check.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(90f, 84f));
 
             Wire(cell, so =>
             {
@@ -931,26 +1061,26 @@ namespace Project.Editor
         private static GameObject BuildDailyRewardsPopup()
         {
             var root = ViewRoot("DailyRewardsPopup", typeof(DailyRewardsPopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(1000f, 1320f), out var dim, out var close, out var title);
+            var panel = PopupShell(root, new Vector2(832f, 1040f), out var dim, out var close, out var title);
+            Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(520f, 120f));
 
             var grid = MakeRect(panel, "Days");
-            Place(grid, new Vector2(0.5f, 1f), new Vector2(0f, -110f), new Vector2(940f, 860f));
-            MakeGrid(grid, new Vector2(300f, 270f), new Vector2(20f, 20f), 3);
+            Place(grid, new Vector2(0.5f, 0.5f), new Vector2(0f, 82f), new Vector2(690f, 560f));
+            MakeGrid(grid, new Vector2(210f, 170f), new Vector2(20f, 18f), 3);
             var cells = new DailyRewardCell[DailyRewardState.CycleDays];
             for (var i = 0; i < cells.Length; i++)
                 cells[i] = DailyCell(grid, i);
 
-            // 무료 코인
             var free = MakeImage(panel, "FreeCoin", Color.white, Sprite("IMG_ContentsBox") ?? RoundedSprite);
-            Place(free.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(940f, 260f));
-            var freeTitle = MakeText(free.transform, "Title", "Free Coin", 32);
-            Bar(freeTitle.rectTransform, 1f, 60f, 10f);
-            var freeItem = GoodsItem(free.transform, "Item", new Vector2(120f, 140f), 26);
-            Place((RectTransform)freeItem.transform, new Vector2(0f, 0.5f), new Vector2(60f, -20f), new Vector2(120f, 140f));
-            var freeClaim = MakeButton(free.transform, "ClaimButton", "Claim", Positive, 30, out var freeClaimLabel);
-            Place((RectTransform)freeClaim.transform, new Vector2(1f, 0.5f), new Vector2(-60f, -20f), new Vector2(260f, 80f));
-            var freeWait = MakeText(free.transform, "Wait", "Next in 00:00", 28, TextAnchor.MiddleCenter, new Color(0.8f, 0.8f, 0.85f));
-            Place(freeWait.rectTransform, new Vector2(1f, 0.5f), new Vector2(-60f, -20f), new Vector2(360f, 80f));
+            Place(free.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 62f), new Vector2(716f, 178f));
+            var freeTitle = MakeText(free.transform, "Title", "Free Coin", 30, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Place(freeTitle.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(240f, 50f));
+            var freeItem = GoodsItem(free.transform, "Item", new Vector2(96f, 108f), 24);
+            Place((RectTransform)freeItem.transform, new Vector2(0f, 0.5f), new Vector2(76f, -20f), new Vector2(96f, 108f));
+            var freeClaim = MakeButton(free.transform, "ClaimButton", "Claim", Color.white, 30, out var freeClaimLabel);
+            Place((RectTransform)freeClaim.transform, new Vector2(1f, 0.5f), new Vector2(-120f, -18f), new Vector2(200f, 82f));
+            var freeWait = MakeText(free.transform, "Wait", "Next in 00:00", 28, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Place(freeWait.rectTransform, new Vector2(1f, 0.5f), new Vector2(-146f, -18f), new Vector2(300f, 80f));
 
             var popup = root.GetComponent<DailyRewardsPopup>();
             WirePopup(popup, panel, dim, close);
@@ -970,13 +1100,23 @@ namespace Project.Editor
         private static GameObject BuildRefillPopup()
         {
             var root = ViewRoot("RefillPopup", typeof(RefillPopup), UILayer.Popup);
-            var panel = PopupShell(root, new Vector2(800f, 620f), out var dim, out var close, out var title);
+            var panel = PopupShell(root, new Vector2(844f, 724f), out var dim, out var close, out var title);
 
-            var desc = MakeText(panel, "Desc", "Refill all hearts with gold.", 28, TextAnchor.MiddleCenter, new Color(0.8f, 0.8f, 0.85f));
-            Place(desc.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(700f, 50f));
+            var contents = MakeImage(panel, "ContentsBox", Color.white, Sprite("IMG_ContentsBox") ?? RoundedSprite);
+            Place(contents.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -42f), new Vector2(716f, 448f));
+            var light = MakeImage(contents.transform, "Light", Color.white, Sprite("IMG_PurchaseCompleteLight"));
+            Place(light.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 39f), new Vector2(688f, 420f));
+            light.raycastTarget = false;
 
-            var heartsRoot = MakeRect(panel, "Hearts");
-            Place(heartsRoot, new Vector2(0.5f, 1f), new Vector2(0f, -200f), new Vector2(600f, 90f));
+            var heartMain = MakeImage(contents.transform, "Heart", Color.white, Sprite("IMG_MoreLive_Heart") ?? HeartSprite);
+            heartMain.preserveAspect = true;
+            Place(heartMain.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 85f), new Vector2(196f, 174f));
+
+            var desc = MakeText(contents.transform, "Desc", "Refill all hearts with gold.", 54, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
+            Place(desc.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -28f), new Vector2(652f, 84f));
+
+            var heartsRoot = MakeRect(contents.transform, "Hearts");
+            Place(heartsRoot, new Vector2(0.5f, 0.5f), new Vector2(0f, -124f), new Vector2(560f, 90f));
             HorizontalLayout(heartsRoot, 16f);
             var hearts = new Image[PlayerWallet.HeartMax];
             for (var i = 0; i < hearts.Length; i++)
@@ -986,13 +1126,13 @@ namespace Project.Editor
                 Layout(hearts[i].rectTransform, height: 80f, width: 80f);
             }
 
-            var refillCount = MakeText(panel, "RefillCount", "+0", 40);
-            Place(refillCount.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -320f), new Vector2(300f, 60f));
+            var refillCount = MakeText(heartMain.transform, "RefillCount", "+0", 86);
+            Stretch(refillCount.rectTransform);
 
-            var buy = MakeButton(panel, "BuyButton", "Refill", Positive, 32, out var buyLabel);
-            Place((RectTransform)buy.transform, new Vector2(0.5f, 0f), new Vector2(0f, 40f), new Vector2(360f, 90f));
-            var price = MakeText(panel, "Price", "0", 30, TextAnchor.MiddleCenter, new Color(1f, 0.82f, 0.2f));
-            Place(price.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 140f), new Vector2(300f, 50f));
+            var buy = MakeButton(panel, "BuyButton", "Refill", Color.white, 56, out var buyLabel);
+            Place((RectTransform)buy.transform, new Vector2(0.5f, 0f), new Vector2(0f, -8f), new Vector2(346f, 176f));
+            var price = MakeText(panel, "Price", "0", 44, TextAnchor.MiddleCenter, new Color(1f, 0.82f, 0.2f));
+            Place(price.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 118f), new Vector2(300f, 60f));
 
             var popup = root.GetComponent<RefillPopup>();
             WirePopup(popup, panel, dim, close);

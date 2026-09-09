@@ -26,9 +26,12 @@ namespace Project
         private void Awake()
         {
             var sprite = SpriteOf(_currencyId);
-            _icon.sprite = sprite;
-            _icon.color = sprite != null ? Color.white : ItemVisuals.ColorOf(_currencyId);
-            _icon.preserveAspect = sprite != null;
+            if (_icon != null)
+            {
+                _icon.sprite = sprite;
+                _icon.color = sprite != null ? Color.white : ItemVisuals.ColorOf(_currencyId);
+                _icon.preserveAspect = sprite != null;
+            }
             if (_iconLabel != null)
                 _iconLabel.text = sprite != null ? string.Empty : ItemVisuals.ShortLabel(_currencyId);
             if (_button != null)

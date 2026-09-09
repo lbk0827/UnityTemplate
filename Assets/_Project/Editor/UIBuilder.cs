@@ -112,12 +112,24 @@ namespace Project.Editor
 
         public static Button MakeButton(Transform parent, string name, string label, Color color, int fontSize, out Text labelText)
         {
-            var sprite = Sprite("BTN_CommonGreen") ?? RoundedSprite;
-            var image = MakeImage(parent, name, sprite != null ? Color.white : color, sprite);
+            var frameSprite = Sprite("IMG_ButtonFrame_Basic");
+            var buttonSprite = Sprite("BTN_CommonGreen") ?? RoundedSprite;
+            var image = MakeImage(parent, name, frameSprite != null ? Color.white : color, frameSprite ?? buttonSprite);
             var button = image.gameObject.AddComponent<Button>();
             button.targetGraphic = image;
-            labelText = MakeText(image.transform, "Label", label, fontSize);
-            Stretch(labelText.rectTransform);
+
+            if (frameSprite != null && buttonSprite != null)
+            {
+                var body = MakeImage(image.transform, "Background", Color.white, buttonSprite);
+                Stretch(body.rectTransform);
+                labelText = MakeText(body.transform, "Label", label, fontSize);
+            }
+            else
+            {
+                labelText = MakeText(image.transform, "Label", label, fontSize);
+            }
+
+            Stretch(labelText.rectTransform, 18f, 18f, 8f, 10f);
             return button;
         }
 
@@ -232,16 +244,21 @@ namespace Project.Editor
             var root = MakeRect(parent, name, typeof(GoodsItemView));
             root.sizeDelta = size;
 
-            var iconSize = Mathf.Min(size.x, size.y * 0.65f);
-            var icon = MakeImage(root, "Icon", Color.white, CircleSprite);
+            var light = MakeImage(root, "Light", new Color(1f, 1f, 1f, 0.6f), Sprite("IMG_Light"));
+            Place(light.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 8f), new Vector2(size.x * 0.82f, size.x * 0.82f));
+            light.raycastTarget = false;
+
+            var iconSize = Mathf.Min(size.x * 0.96f, size.y * 0.76f);
+            var icon = MakeImage(root, "Icon", Color.white, CoinSprite ?? CircleSprite);
             icon.type = Image.Type.Simple;
-            Place(icon.rectTransform, new Vector2(0.5f, 1f), Vector2.zero, new Vector2(iconSize, iconSize));
+            icon.preserveAspect = true;
+            Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(iconSize, iconSize));
 
             var label = MakeText(icon.transform, "Initial", "G", Mathf.RoundToInt(iconSize * 0.45f), TextAnchor.MiddleCenter, new Color(0.1f, 0.1f, 0.1f));
             Stretch(label.rectTransform);
 
             var count = MakeText(root, "Count", "0", countSize);
-            Bar(count.rectTransform, 0f, size.y - iconSize);
+            Place(count.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, size.y * 0.12f), new Vector2(size.x, size.y * 0.42f));
 
             var so = new SerializedObject(root.GetComponent<GoodsItemView>());
             so.FindProperty("_icon").objectReferenceValue = icon;
@@ -259,14 +276,24 @@ namespace Project.Editor
             var root = MakeRect(parent, name, typeof(ProfileBadgeView));
             root.sizeDelta = new Vector2(size, size);
 
+            var avatarBack = MakeImage(root, "AvatarBack", Color.white, Sprite("IMG_AvatarBack") ?? CircleSprite);
+            avatarBack.type = Image.Type.Simple;
+            Stretch(avatarBack.rectTransform);
+
+            var frameBack = MakeImage(root, "FrameBack", Color.white, Sprite("IMG_ProfileFrameBg_0"));
+            frameBack.type = Image.Type.Simple;
+            frameBack.preserveAspect = true;
+            Stretch(frameBack.rectTransform);
+
             var frame = MakeImage(root, "Frame", Color.white, Sprite("IMG_ProfileFrame_0") ?? CircleSprite);
             frame.type = Image.Type.Simple;
+            frame.preserveAspect = true;
             Stretch(frame.rectTransform);
 
             var avatar = MakeImage(root, "Avatar", Color.white, Sprite("IMG_Avatar_0") ?? CircleSprite);
             avatar.type = Image.Type.Simple;
             avatar.preserveAspect = true;
-            Stretch(avatar.rectTransform, size * 0.12f, size * 0.12f, size * 0.12f, size * 0.12f);
+            Stretch(avatar.rectTransform, size * 0.08f, size * 0.08f, size * 0.08f, size * 0.08f);
 
             var so = new SerializedObject(root.GetComponent<ProfileBadgeView>());
             so.FindProperty("_frame").objectReferenceValue = frame;
@@ -275,23 +302,30 @@ namespace Project.Editor
             return root.GetComponent<ProfileBadgeView>();
         }
 
-        /// <summary>팝업 골격: 전체 스트레치 루트 + 딤 버튼 + 중앙 패널 + 타이틀 + 닫기 X.</summary>
+        /// <summary>grp1 공용 팝업 골격: 딤 + PopBox + PopTitle + 닫기 버튼.</summary>
         public static RectTransform PopupShell(GameObject root, Vector2 panelSize, out Button dim, out Button close, out Text title)
         {
             Stretch((RectTransform)root.transform);
             dim = InvisibleButton(root.transform, "Dim", Dim);
 
-            var panel = MakeImage(root.transform, "Panel", Color.white, Sprite("IMG_PopBox") ?? RoundedSprite);
-            Place(panel.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, panelSize);
+            var panel = MakeRect(root.transform, "Panel", typeof(Image));
+            Place(panel, new Vector2(0.5f, 0.5f), Vector2.zero, panelSize);
+            var panelImage = panel.GetComponent<Image>();
+            panelImage.sprite = Sprite("IMG_PopBox") ?? RoundedSprite;
+            panelImage.type = panelImage.sprite != null && panelImage.sprite.border.sqrMagnitude > 0f ? Image.Type.Sliced : Image.Type.Simple;
+            panelImage.color = Color.white;
 
-            title = MakeText(panel.transform, "Title", "Title", 44);
-            Bar(title.rectTransform, 1f, 90f);
+            var ribbon = MakeImage(panel, "Ribbon", Color.white, Sprite("IMG_PopTitle") ?? RoundedSprite);
+            Place(ribbon.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -45f), new Vector2(Mathf.Min(620f, panelSize.x * 0.74f), 168f));
+
+            title = MakeText(ribbon.transform, "Title", "Title", 78);
+            Place(title.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(440f, 120f));
 
             var closeImage = MakeImage(panel.transform, "CloseButton", Color.white, Sprite("BTN_Close_Red") ?? RoundedSprite);
             close = closeImage.gameObject.AddComponent<Button>();
             close.targetGraphic = closeImage;
-            Place((RectTransform)close.transform, new Vector2(1f, 1f), new Vector2(-16f, -16f), new Vector2(72f, 72f));
-            return panel.rectTransform;
+            Place((RectTransform)close.transform, new Vector2(1f, 1f), new Vector2(-68f, -18f), new Vector2(120f, 120f));
+            return panel;
         }
 
         public static void Wire(Object target, System.Action<SerializedObject> configure)

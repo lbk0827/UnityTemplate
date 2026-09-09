@@ -24,18 +24,26 @@ namespace Project
 
         private void OnEnable()
         {
+            if (_toggle == null || _icon == null)
+                return;
+
             _toggle.onValueChanged.AddListener(OnValueChanged);
             ApplyImmediate(_toggle.isOn);
         }
 
         private void OnDisable()
         {
-            _toggle.onValueChanged.RemoveListener(OnValueChanged);
+            if (_toggle != null)
+                _toggle.onValueChanged.RemoveListener(OnValueChanged);
             if (_motion.IsActive())
                 _motion.Cancel();
         }
 
-        public void SetLabel(string text) => _label.text = text;
+        public void SetLabel(string text)
+        {
+            if (_label != null)
+                _label.text = text;
+        }
 
         private void OnValueChanged(bool isOn)
         {

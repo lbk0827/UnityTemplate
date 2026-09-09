@@ -49,9 +49,9 @@ namespace Project
             _claimLabel.text = claimLabel;
             _lockedOverlay.SetActive(state == DailyRewardCellState.Locked);
             _receivedOverlay.SetActive(state == DailyRewardCellState.Received);
-            _background.color = state == DailyRewardCellState.Claimable
-                ? new Color(0.35f, 0.5f, 0.3f)
-                : new Color(0.22f, 0.22f, 0.28f);
+            _background.color = state == DailyRewardCellState.Locked
+                ? new Color(0.72f, 0.72f, 0.82f, 1f)
+                : Color.white;
         }
     }
 }
