@@ -4,7 +4,8 @@
     "references": [
         "BK.Core", "BK.Assets", "BK.Scene", "BK.UI", "BK.Data",
         "BK.Localization", "BK.Presentation", "BK.Composition",
-        "VContainer", "UniTask", "R3.Unity", "UnityEngine.UI"
+        "VContainer", "UniTask", "R3.Unity", "UnityEngine.UI",
+        "LitMotion", "LitMotion.Extensions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

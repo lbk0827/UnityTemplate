@@ -1,0 +1,119 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76712817235732c4192d1f6a4550b0c7, type: 3}
+  m_Name: ShopProductTable
+  m_EditorClassIdentifier: Project::Project.ShopProductTable
+  _rows:
+  - _id: 21
+    _category: 2
+    _categoryPriority: 0
+    _priority: 1
+    _label: 3
+    _discountPercent: 80
+    _nameKey: product.welcome.name
+    _descKey: product.welcome.desc
+    _price: 0.99
+    _purchaseLimit: 1
+    _mainReward:
+      _itemId: Gold
+      _count: 5000
+    _extras:
+    - _itemId: Heart
+      _count: 5
+  - _id: 11
+    _category: 1
+    _categoryPriority: 1
+    _priority: 1
+    _label: 1
+    _discountPercent: 0
+    _nameKey: product.starter.name
+    _descKey: product.starter.desc
+    _price: 2.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 3000
+    _extras:
+    - _itemId: Heart
+      _count: 3
+  - _id: 12
+    _category: 1
+    _categoryPriority: 1
+    _priority: 2
+    _label: 3
+    _discountPercent: 30
+    _nameKey: product.value.name
+    _descKey: product.value.desc
+    _price: 9.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 12000
+    _extras:
+    - _itemId: Heart
+      _count: 5
+  - _id: 1
+    _category: 0
+    _categoryPriority: 2
+    _priority: 1
+    _label: 0
+    _discountPercent: 0
+    _nameKey: product.coin.name
+    _descKey: 
+    _price: 0.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 1000
+    _extras: []
+  - _id: 2
+    _category: 0
+    _categoryPriority: 2
+    _priority: 2
+    _label: 1
+    _discountPercent: 0
+    _nameKey: product.coin.name
+    _descKey: 
+    _price: 4.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 5500
+    _extras: []
+  - _id: 3
+    _category: 0
+    _categoryPriority: 2
+    _priority: 3
+    _label: 2
+    _discountPercent: 0
+    _nameKey: product.coin.name
+    _descKey: 
+    _price: 9.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 12000
+    _extras: []
+  - _id: 4
+    _category: 0
+    _categoryPriority: 2
+    _priority: 4
+    _label: 0
+    _discountPercent: 0
+    _nameKey: product.coin.name
+    _descKey: 
+    _price: 19.99
+    _purchaseLimit: 0
+    _mainReward:
+      _itemId: Gold
+      _count: 30000
+    _extras: []
