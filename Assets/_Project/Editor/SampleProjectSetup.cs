@@ -5,7 +5,6 @@ using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
 using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
 using BK.Composition;
 using BK.Data;
 using BK.Localization;
@@ -24,7 +23,6 @@ namespace Project.Editor
         private const string CatalogPath = Root + "/Data/TableCatalog.asset";
         private const string SampleTablePath = Root + "/Data/Tables/SampleTable.asset";
         private const string LocEnPath = Root + "/Localization/en.asset";
-        private const string LobbyViewPath = Root + "/UI/LobbyView.prefab";
         private const string BootScenePath = Root + "/Scenes/Boot.unity";
         private const string LobbyScenePath = Root + "/Scenes/Lobby.unity";
         private const string GroupName = "Sample";
@@ -69,7 +67,6 @@ namespace Project.Editor
                 }
             });
 
-            GetOrCreateLobbyViewPrefab();
             CreateLobbySceneIfMissing();
             CreateBootSceneIfMissing();
 
@@ -79,8 +76,10 @@ namespace Project.Editor
                 (SampleTablePath, "Data/SampleTable"),
                 (CatalogPath, settings.TableCatalogAddress),
                 (LocEnPath, settings.LocalizationAddressFor("en")),
-                (LobbyViewPath, GameFlow.LobbyViewAddress),
                 (LobbyScenePath, GameFlow.LobbySceneAddress));
+
+            // 로비/HUD/상점/팝업 프리팹과 테이블, 로컬라이제이션 키.
+            LobbySetup.Run();
 
             AssetDatabase.SaveAssets();
             EditorSceneManager.OpenScene(BootScenePath);
@@ -99,7 +98,7 @@ namespace Project.Editor
             }
         }
 
-        private static T GetOrCreate<T>(string path, System.Action<SerializedObject> configure = null)
+        internal static T GetOrCreate<T>(string path, System.Action<SerializedObject> configure = null)
             where T : ScriptableObject
         {
             var existing = AssetDatabase.LoadAssetAtPath<T>(path);
@@ -115,52 +114,6 @@ namespace Project.Editor
             }
             AssetDatabase.CreateAsset(asset, path);
             return asset;
-        }
-
-        private static GameObject GetOrCreateLobbyViewPrefab()
-        {
-            var existing = AssetDatabase.LoadAssetAtPath<GameObject>(LobbyViewPath);
-            if (existing != null)
-                return existing;
-
-            var root = new GameObject("LobbyView", typeof(RectTransform), typeof(CanvasGroup), typeof(LobbyView));
-            Stretch(root.GetComponent<RectTransform>());
-
-            var title = MakeText(root.transform, "Title", 64, new Vector2(0.5f, 0.7f));
-            var body = MakeText(root.transform, "Body", 36, new Vector2(0.5f, 0.5f));
-
-            var so = new SerializedObject(root.GetComponent<LobbyView>());
-            so.FindProperty("_title").objectReferenceValue = title;
-            so.FindProperty("_body").objectReferenceValue = body;
-            so.ApplyModifiedPropertiesWithoutUndo();
-
-            var prefab = PrefabUtility.SaveAsPrefabAsset(root, LobbyViewPath);
-            Object.DestroyImmediate(root);
-            return prefab;
-        }
-
-        private static Text MakeText(Transform parent, string name, int size, Vector2 anchor)
-        {
-            var go = new GameObject(name, typeof(RectTransform), typeof(Text));
-            go.transform.SetParent(parent, false);
-            var rt = go.GetComponent<RectTransform>();
-            rt.anchorMin = rt.anchorMax = anchor;
-            rt.sizeDelta = new Vector2(900f, 120f);
-
-            var text = go.GetComponent<Text>();
-            text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            text.fontSize = size;
-            text.alignment = TextAnchor.MiddleCenter;
-            text.color = Color.white;
-            text.text = name;
-            return text;
-        }
-
-        private static void Stretch(RectTransform rt)
-        {
-            rt.anchorMin = Vector2.zero;
-            rt.anchorMax = Vector2.one;
-            rt.offsetMin = rt.offsetMax = Vector2.zero;
         }
 
         private static void CreateLobbySceneIfMissing()
@@ -196,7 +149,7 @@ namespace Project.Editor
             EditorBuildSettings.scenes = new[] { new EditorBuildSettingsScene(BootScenePath, true) };
         }
 
-        private static void RegisterAddressables(params (string path, string address)[] entries)
+        internal static void RegisterAddressables(params (string path, string address)[] entries)
         {
             var settings = AddressableAssetSettingsDefaultObject.GetSettings(true);
             var group = settings.FindGroup(GroupName)

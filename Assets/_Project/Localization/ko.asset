@@ -10,101 +10,101 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1af046143d58564898995a25c1a9081, type: 3}
-  m_Name: en
+  m_Name: ko
   m_EditorClassIdentifier: BK.Localization::BK.Localization.LocalizationTable
-  _languageCode: en
+  _languageCode: ko
   _entries:
   - Key: lobby.title
-    Value: Lobby
+    Value: "\uB85C\uBE44"
   - Key: lobby.body
     Value: '{0}: {1}'
   - Key: sample.item.1
-    Value: Sample Item
+    Value: "\uC0D8\uD50C \uC544\uC774\uD15C"
   - Key: hud.tab.home
-    Value: Home
+    Value: "\uD648"
   - Key: hud.tab.store
-    Value: Shop
+    Value: "\uC0C1\uC810"
   - Key: hud.full
-    Value: FULL
+    Value: "\uAC00\uB4DD"
   - Key: lobby.level
-    Value: Level {0}
+    Value: "\uB808\uBCA8 {0}"
   - Key: lobby.daily
-    Value: Daily
+    Value: "\uCD9C\uC11D"
   - Key: store.title
-    Value: Shop
+    Value: "\uC0C1\uC810"
   - Key: store.category.coin
-    Value: Coins
+    Value: "\uCF54\uC778"
   - Key: store.category.bundle
-    Value: Bundles
+    Value: "\uD328\uD0A4\uC9C0"
   - Key: store.category.special
-    Value: Special Offer
+    Value: "\uD2B9\uBCC4 \uC0C1\uD488"
   - Key: store.label.popular
-    Value: Popular
+    Value: "\uC778\uAE30"
   - Key: store.label.best
-    Value: Best
+    Value: "\uCD5C\uACE0"
   - Key: product.coin.name
-    Value: Coins
+    Value: "\uCF54\uC778"
   - Key: product.welcome.name
-    Value: Welcome Deal
+    Value: "\uC6F0\uCEF4 \uB51C"
   - Key: product.welcome.desc
-    Value: One-time offer for new players
+    Value: "\uC2E0\uADDC \uC720\uC800 1\uD68C \uD55C\uC815"
   - Key: product.starter.name
-    Value: Starter Pack
+    Value: "\uC2A4\uD0C0\uD130 \uD329"
   - Key: product.starter.desc
-    Value: Coins and hearts to get going
+    Value: "\uC2DC\uC791\uC744 \uC704\uD55C \uCF54\uC778\uACFC \uD558\uD2B8"
   - Key: product.value.name
-    Value: Value Pack
+    Value: "\uBC38\uB958 \uD329"
   - Key: product.value.desc
-    Value: The best value per coin
+    Value: "\uCF54\uC778\uB2F9 \uCD5C\uACE0 \uD6A8\uC728"
   - Key: popup.option.title
-    Value: Settings
+    Value: "\uC124\uC815"
   - Key: option.music
-    Value: Music
+    Value: "\uC74C\uC545"
   - Key: option.sfx
-    Value: Sound
+    Value: "\uD6A8\uACFC\uC74C"
   - Key: option.haptic
-    Value: Vibration
+    Value: "\uC9C4\uB3D9"
   - Key: option.language
-    Value: Language
+    Value: "\uC5B8\uC5B4"
   - Key: option.privacy
-    Value: Privacy Policy
+    Value: "\uAC1C\uC778\uC815\uBCF4 \uCC98\uB9AC\uBC29\uCE68"
   - Key: popup.language.title
-    Value: Language
+    Value: "\uC5B8\uC5B4"
   - Key: lang.en
     Value: English
   - Key: lang.ko
     Value: "\uD55C\uAD6D\uC5B4"
   - Key: popup.profile.title
-    Value: Profile
+    Value: "\uD504\uB85C\uD544"
   - Key: popup.profile.avatar
-    Value: Avatar
+    Value: "\uC544\uBC14\uD0C0"
   - Key: popup.profile.frame
-    Value: Frame
+    Value: "\uD504\uB808\uC784"
   - Key: popup.daily.title
-    Value: Daily Rewards
+    Value: "\uCD9C\uC11D \uBCF4\uC0C1"
   - Key: popup.daily.day
-    Value: Day {0}
+    Value: "{0}\uC77C\uCC28"
   - Key: popup.daily.claim
-    Value: Claim
+    Value: "\uBC1B\uAE30"
   - Key: popup.daily.free
-    Value: Free Coin
+    Value: "\uBB34\uB8CC \uCF54\uC778"
   - Key: popup.daily.next
-    Value: Next in {0}
+    Value: "{0} \uD6C4"
   - Key: popup.refill.title
-    Value: Refill Hearts
+    Value: "\uD558\uD2B8 \uCDA9\uC804"
   - Key: popup.refill.desc
-    Value: Refill all hearts with gold.
+    Value: "\uACE8\uB4DC\uB85C \uD558\uD2B8\uB97C \uBAA8\uB450 \uCC44\uC6C1\uB2C8\uB2E4."
   - Key: popup.refill.buy
-    Value: Refill
+    Value: "\uCDA9\uC804"
   - Key: popup.reward.title
-    Value: Reward
+    Value: "\uBCF4\uC0C1"
   - Key: popup.reward.tap
-    Value: Tap to continue
+    Value: "\uD0ED\uD558\uC5EC \uACC4\uC18D"
   - Key: common.ok
-    Value: OK
+    Value: "\uD655\uC778"
   - Key: common.cancel
-    Value: Cancel
+    Value: "\uCDE8\uC18C"
   - Key: msg.stageclear.title
-    Value: Stage Clear
+    Value: "\uC2A4\uD14C\uC774\uC9C0 \uD074\uB9AC\uC5B4"
   - Key: msg.stageclear.body
-    Value: Stage {0} cleared! (placeholder)
+    Value: "\uC2A4\uD14C\uC774\uC9C0 {0} \uD074\uB9AC\uC5B4! (\uC784\uC2DC)"
