@@ -1,0 +1,22 @@
+{
+    "name": "BK.Localization",
+    "rootNamespace": "BK.Localization",
+    "references": [
+        "BK.Core",
+        "BK.Assets",
+        "BK.Data",
+        "VContainer",
+        "UniTask",
+        "R3.Unity",
+        "ZString"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

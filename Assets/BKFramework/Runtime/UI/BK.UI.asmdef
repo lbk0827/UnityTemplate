@@ -1,0 +1,22 @@
+{
+    "name": "BK.UI",
+    "rootNamespace": "BK.UI",
+    "references": [
+        "BK.Core",
+        "BK.Assets",
+        "VContainer",
+        "UniTask",
+        "R3.Unity",
+        "UnityEngine.UI",
+        "Unity.InputSystem"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

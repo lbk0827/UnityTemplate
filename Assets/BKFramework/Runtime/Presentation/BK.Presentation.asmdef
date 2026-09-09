@@ -1,0 +1,20 @@
+{
+    "name": "BK.Presentation",
+    "rootNamespace": "BK.Presentation",
+    "references": [
+        "BK.Core",
+        "UniTask",
+        "LitMotion",
+        "LitMotion.Extensions",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

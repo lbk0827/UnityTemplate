@@ -1,0 +1,24 @@
+{
+    "name": "BK.Composition",
+    "rootNamespace": "BK.Composition",
+    "references": [
+        "BK.Core",
+        "BK.Assets",
+        "BK.Scene",
+        "BK.Data",
+        "BK.UI",
+        "BK.Localization",
+        "BK.Presentation",
+        "VContainer",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
