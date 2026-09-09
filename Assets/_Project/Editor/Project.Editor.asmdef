@@ -1,0 +1,27 @@
+{
+    "name": "Project.Editor",
+    "rootNamespace": "Project.Editor",
+    "references": [
+        "Project",
+        "BK.Composition",
+        "BK.Data",
+        "BK.Localization",
+        "BK.UI",
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "Unity.ResourceManager",
+        "UnityEngine.UI",
+        "VContainer"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
