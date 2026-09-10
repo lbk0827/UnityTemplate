@@ -108,3 +108,5 @@ MonoBehaviour:
     Value: "\uC2A4\uD14C\uC774\uC9C0 \uD074\uB9AC\uC5B4"
   - Key: msg.stageclear.body
     Value: "\uC2A4\uD14C\uC774\uC9C0 {0} \uD074\uB9AC\uC5B4! (\uC784\uC2DC)"
+  - Key: hud.tab.lock
+    Value: "\uC7A0\uAE08"

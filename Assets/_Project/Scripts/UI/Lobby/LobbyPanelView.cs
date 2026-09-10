@@ -9,8 +9,8 @@ using VContainer;
 namespace Project
 {
     /// <summary>
-    /// 로비 본문. 상점/홈 페이지를 가로로 나란히 두고 탭에 맞춰 슬라이드합니다.
-    /// 페이지 순서는 LobbyTab 열거형 값과 같습니다(Store=0, Home=1).
+    /// 로비 본문. 상점/홈/잠금 페이지를 가로로 나란히 두고 탭에 맞춰 슬라이드합니다.
+    /// 페이지 순서는 LobbyTab 열거형 값과 같습니다(Store=0, Home=1, Lock=2).
     /// </summary>
     public sealed class LobbyPanelView : ProjectViewBase
     {
@@ -19,6 +19,7 @@ namespace Project
         [SerializeField] private RectTransform _pageContent;
         [SerializeField] private HomePageView _home;
         [SerializeField] private StorePageView _store;
+        [SerializeField] private LockPageView _lock;
         [SerializeField] private float _slideDuration = 0.25f;
 
         private LobbyState _lobby;
@@ -31,6 +32,7 @@ namespace Project
         {
             _home.Bind(this);
             _store.Bind(this);
+            _lock.Bind(this);
 
             SnapTo(_lobby.CurrentTab.Value);
             // 카드는 상점 탭에 "도착"했을 때 등장합니다. 그 전까지는 숨겨 둡니다.

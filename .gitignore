@@ -11,6 +11,7 @@
 [Aa]ssets/[Ss]creenshots/
 [Aa]ssets/[Ss]creenshots.meta
 tree_*.txt
+original_*_tree.txt
 
 # Asset meta data (only for deleted assets)
 *.pidb.meta

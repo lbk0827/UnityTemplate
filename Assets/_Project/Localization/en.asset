@@ -108,3 +108,5 @@ MonoBehaviour:
     Value: Stage Clear
   - Key: msg.stageclear.body
     Value: Stage {0} cleared! (placeholder)
+  - Key: hud.tab.lock
+    Value: LOCK

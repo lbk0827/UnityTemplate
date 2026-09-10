@@ -14,6 +14,7 @@ namespace Project
         [SerializeField] private LobbyTab _tab;
         [SerializeField] private Toggle _toggle;
         [SerializeField] private RectTransform _icon;
+        [SerializeField] private RectTransform _offIcon;
         [SerializeField] private Text _label;
         [SerializeField] private float _selectedScale = 1.15f;
 
@@ -47,6 +48,9 @@ namespace Project
 
         private void OnValueChanged(bool isOn)
         {
+            if (_offIcon != null)
+                _offIcon.gameObject.SetActive(!isOn);
+
             if (_motion.IsActive())
                 _motion.Cancel();
 
@@ -58,6 +62,10 @@ namespace Project
         }
 
         private void ApplyImmediate(bool isOn)
-            => _icon.localScale = Vector3.one * (isOn ? _selectedScale : 1f);
+        {
+            if (_offIcon != null)
+                _offIcon.gameObject.SetActive(!isOn);
+            _icon.localScale = Vector3.one * (isOn ? _selectedScale : 1f);
+        }
     }
 }

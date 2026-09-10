@@ -7,6 +7,7 @@ namespace Project
     {
         Store = 0,
         Home = 1,
+        Lock = 2,
     }
 
     /// <summary>로비 탭 상태. HUD 탭 버튼과 로비 패널이 이 값 하나를 공유합니다.</summary>

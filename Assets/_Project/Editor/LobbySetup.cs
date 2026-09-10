@@ -193,7 +193,7 @@ namespace Project.Editor
         {
             MergeLocalization(LocEnPath, "en", new Dictionary<string, string>
             {
-                ["hud.tab.home"] = "Home", ["hud.tab.store"] = "Shop", ["hud.full"] = "FULL",
+                ["hud.tab.home"] = "Home", ["hud.tab.lock"] = "LOCK", ["hud.tab.store"] = "Shop", ["hud.full"] = "FULL",
                 ["lobby.level"] = "Level {0}", ["lobby.daily"] = "Daily",
                 ["store.title"] = "Shop", ["store.category.coin"] = "Coins", ["store.category.bundle"] = "Bundles",
                 ["store.category.special"] = "Special Offer", ["store.label.popular"] = "Popular", ["store.label.best"] = "Best",
@@ -215,7 +215,7 @@ namespace Project.Editor
             MergeLocalization(LocKoPath, "ko", new Dictionary<string, string>
             {
                 ["lobby.title"] = "로비", ["lobby.body"] = "{0}: {1}", ["sample.item.1"] = "샘플 아이템",
-                ["hud.tab.home"] = "홈", ["hud.tab.store"] = "상점", ["hud.full"] = "가득",
+                ["hud.tab.home"] = "홈", ["hud.tab.lock"] = "잠금", ["hud.tab.store"] = "상점", ["hud.full"] = "가득",
                 ["lobby.level"] = "레벨 {0}", ["lobby.daily"] = "출석",
                 ["store.title"] = "상점", ["store.category.coin"] = "코인", ["store.category.bundle"] = "패키지",
                 ["store.category.special"] = "특별 상품", ["store.label.popular"] = "인기", ["store.label.best"] = "최고",
@@ -450,18 +450,24 @@ namespace Project.Editor
             background.color = new Color(1f, 1f, 1f, 0f);
             background.type = UnityEngine.UI.Image.Type.Sliced;
             Place(background.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -22.5f), new Vector2(298f, 207f));
+
+            var offIcon = MakeImage(background.transform, "IMG_Off", Color.white, Sprite(TabIcon(tab, false)) ?? CircleSprite);
+            offIcon.type = UnityEngine.UI.Image.Type.Simple;
+            offIcon.preserveAspect = true;
+            Place(offIcon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(104f, 122f));
+
             check.sprite = Sprite("TGL_LobbyCheck") ?? check.sprite;
             check.color = Color.white;
             Place(check.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(366f, 332f));
             toggle.group = group;
             toggle.isOn = isOn;
 
-            var icon = MakeImage(check.transform, "Icon", Color.white, Sprite(tab == LobbyTab.Home ? "IMG_Home_On" : "IMG_Store_On") ?? CircleSprite);
+            var icon = MakeImage(check.transform, "IMG_On", Color.white, Sprite(TabIcon(tab, true)) ?? CircleSprite);
             icon.type = UnityEngine.UI.Image.Type.Simple;
             icon.preserveAspect = true;
             Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 48f), new Vector2(116f, 136f));
 
-            var label = MakeText(check.transform, "Label", tab.ToString(), 48);
+            var label = MakeText(icon.transform, "TXT_On", tab.ToString(), 48);
             Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -95f), new Vector2(200f, 60f));
 
             var button = toggle.gameObject.AddComponent<LobbyTabButton>();
@@ -470,9 +476,21 @@ namespace Project.Editor
                 so.FindProperty("_tab").intValue = (int)tab;
                 so.FindProperty("_toggle").objectReferenceValue = toggle;
                 so.FindProperty("_icon").objectReferenceValue = icon.rectTransform;
+                so.FindProperty("_offIcon").objectReferenceValue = offIcon.rectTransform;
                 so.FindProperty("_label").objectReferenceValue = label;
             });
             return button;
+        }
+
+        private static string TabIcon(LobbyTab tab, bool selected)
+        {
+            var suffix = selected ? "On" : "Off";
+            return tab switch
+            {
+                LobbyTab.Home => $"IMG_Home_{suffix}",
+                LobbyTab.Lock => $"IMG_Lock_{suffix}",
+                _ => $"IMG_Store_{suffix}",
+            };
         }
 
         private static GameObject BuildHud()
@@ -503,13 +521,23 @@ namespace Project.Editor
             option.targetGraphic = optionImage;
             Place((RectTransform)option.transform, new Vector2(1f, 1f), new Vector2(-72f, -63f), new Vector2(118f, 112f));
 
-            var bottom = MakeImage(root.transform, "Bottom", Color.white, Sprite("TGL_LobbyBg") ?? RoundedSprite);
-            Bar(bottom.rectTransform, 0f, 207f);
+            var bottom = MakeRect(root.transform, "UI_Bottom");
+            Bar(bottom, 0f, 335f);
+            var bottomBg = MakeImage(bottom, "IMG_LobbyBg", Color.white, Sprite("TGL_LobbyBg") ?? RoundedSprite);
+            Bar(bottomBg.rectTransform, 0f, 207f);
+            var lineColor = new Color(0.11f, 0.04f, 0.31f, 1f);
+            var line1 = MakeImage(bottomBg.transform, "IMG_Line1", lineColor, Sprite("IMG_Square"));
+            Place(line1.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-151f, -5f), new Vector2(4f, 196f));
+            var line2 = MakeImage(bottomBg.transform, "IMG_Line2", lineColor, Sprite("IMG_Square"));
+            Place(line2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(151f, -5f), new Vector2(4f, 196f));
+
             var group = bottom.gameObject.AddComponent<ToggleGroup>();
             var store = TabButton(bottom.transform, LobbyTab.Store, group, false);
-            Place((RectTransform)store.transform, new Vector2(0.25f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
+            Place((RectTransform)store.transform, new Vector2(1f / 6f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
             var home = TabButton(bottom.transform, LobbyTab.Home, group, true);
-            Place((RectTransform)home.transform, new Vector2(0.75f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
+            Place((RectTransform)home.transform, new Vector2(0.5f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
+            var lockTab = TabButton(bottom.transform, LobbyTab.Lock, group, false);
+            Place((RectTransform)lockTab.transform, new Vector2(5f / 6f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
 
             Wire(root.GetComponent<HudView>(), so =>
             {
@@ -519,7 +547,7 @@ namespace Project.Editor
                 so.FindProperty("_nicknameText").objectReferenceValue = nickname;
                 so.FindProperty("_gold").objectReferenceValue = gold;
                 so.FindProperty("_heart").objectReferenceValue = heart;
-                SetArray(so.FindProperty("_tabs"), store, home);
+                SetArray(so.FindProperty("_tabs"), store, home, lockTab);
             });
             return root;
         }
@@ -543,21 +571,23 @@ namespace Project.Editor
             var viewport = MakeRect(root.transform, "Viewport", typeof(RectMask2D));
             Stretch(viewport);
 
-            // 페이지 컨테이너는 뷰포트의 2배 폭. 슬라이드는 anchoredPosition 만 움직입니다.
+            // 페이지 컨테이너는 뷰포트의 3배 폭. 슬라이드는 anchoredPosition 만 움직입니다.
             var pageContent = MakeRect(viewport, "PageContent");
             pageContent.anchorMin = new Vector2(0f, 0f);
-            pageContent.anchorMax = new Vector2(2f, 1f);
+            pageContent.anchorMax = new Vector2(3f, 1f);
             pageContent.pivot = new Vector2(0f, 0.5f);
             pageContent.offsetMin = pageContent.offsetMax = Vector2.zero;
 
             var storePage = BuildStorePage(pageContent, coinCellPath, bundleCellPath);
             var homePage = BuildHomePage(pageContent);
+            var lockPage = BuildLockPage(pageContent);
 
             Wire(root.GetComponent<LobbyPanelView>(), so =>
             {
                 so.FindProperty("_pageContent").objectReferenceValue = pageContent;
                 so.FindProperty("_home").objectReferenceValue = homePage;
                 so.FindProperty("_store").objectReferenceValue = storePage;
+                so.FindProperty("_lock").objectReferenceValue = lockPage;
             });
             return root;
         }
@@ -565,8 +595,8 @@ namespace Project.Editor
         private static RectTransform Page(RectTransform parent, string name, int index, System.Type component)
         {
             var page = MakeRect(parent, name, component);
-            page.anchorMin = new Vector2(0.5f * index, 0f);
-            page.anchorMax = new Vector2(0.5f * (index + 1), 1f);
+            page.anchorMin = new Vector2(index / 3f, 0f);
+            page.anchorMax = new Vector2((index + 1) / 3f, 1f);
             page.offsetMin = page.offsetMax = Vector2.zero;
             return page;
         }
@@ -619,11 +649,7 @@ namespace Project.Editor
             var redDotCount = MakeText(redDot.transform, "Count", "1", 26);
             Stretch(redDotCount.rectTransform);
 
-            var comingSoon = MakeImage(page, "ComingSoonBox", Color.white, Sprite("IMG_ComingsoonBox"));
-            Place(comingSoon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -461f), new Vector2(840f, 232f));
-            comingSoon.raycastTarget = false;
-            var comingSoonText = MakeText(comingSoon.transform, "ComingSoonText", "Coming Soon!", 52, TextAnchor.MiddleCenter, new Color(0.2f, 0.12f, 0.45f));
-            Stretch(comingSoonText.rectTransform, 30f, 30f, 20f, 20f);
+            BuildHomeRightMenu(page);
 
             Wire(page.GetComponent<HomePageView>(), so =>
             {
@@ -635,6 +661,106 @@ namespace Project.Editor
                 so.FindProperty("_dailyRedDotCount").objectReferenceValue = redDotCount;
             });
             return page.GetComponent<HomePageView>();
+        }
+
+        private static void BuildHomeRightMenu(RectTransform page)
+        {
+            var right = MakeRect(page, "UI_Right");
+            Place(right, new Vector2(0.5f, 1f), new Vector2(334f, -164f), new Vector2(200f, 0f));
+
+            LobbyIconButton(right, "BTN_Welcome", "IMG_Welcome_Icon", "IMG_Coin", null, new Vector2(0f, 0f));
+            LobbyIconButton(right, "Lobby_EndlessOffer", "IMG_Rocket", null, "4h 36m", new Vector2(0f, -188f));
+            LobbyIconButton(right, "Lobby_EndlessGift", "IMG_AirPlane", null, "4h 36m", new Vector2(0f, -376f));
+            LobbyIconButton(right, "btn_ad", null, null, null, new Vector2(0f, -564f), "AD");
+        }
+
+        private static Button LobbyIconButton(
+            Transform parent,
+            string name,
+            string iconSprite,
+            string subSprite,
+            string timerText,
+            Vector2 position,
+            string fallbackText = null)
+        {
+            var root = MakeRect(parent, name);
+            Place(root, new Vector2(0.5f, 1f), position, new Vector2(184f, 184f));
+
+            var box = MakeImage(root, "IMG_Box", Color.white, Sprite("BTN_Lobby") ?? RoundedSprite);
+            Place(box.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(184f, 184f));
+            var button = box.gameObject.AddComponent<Button>();
+            button.targetGraphic = box;
+
+            var circleSprite = name.Contains("Gift") ? "IMG_Circle" : "IMG_CircleBg";
+            var circle = MakeImage(box.transform, "IMG_Circle", Color.white, Sprite(circleSprite));
+            circle.type = UnityEngine.UI.Image.Type.Simple;
+            circle.preserveAspect = true;
+            circle.raycastTarget = false;
+            Place(circle.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(-1f, 2f), new Vector2(138f, 138f));
+
+            if (!string.IsNullOrEmpty(iconSprite))
+            {
+                var icon = MakeImage(box.transform, "IMG_Icon", Color.white, Sprite(iconSprite) ?? CircleSprite);
+                icon.type = UnityEngine.UI.Image.Type.Simple;
+                icon.preserveAspect = true;
+                icon.raycastTarget = false;
+                var iconSize = iconSprite == "IMG_Welcome_Icon" ? new Vector2(150f, 149f) : new Vector2(150f, 150f);
+                Place(icon.rectTransform, new Vector2(0.5f, 0.5f), iconSprite == "IMG_Welcome_Icon" ? new Vector2(2f, 2f) : new Vector2(22f, -22f), iconSize);
+            }
+
+            if (!string.IsNullOrEmpty(subSprite))
+            {
+                var sub = MakeImage(box.transform, "IMG_Coin", Color.white, Sprite(subSprite));
+                sub.type = UnityEngine.UI.Image.Type.Simple;
+                sub.preserveAspect = true;
+                sub.raycastTarget = false;
+                Place(sub.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(1f, -38f), new Vector2(134f, 58f));
+            }
+
+            if (!string.IsNullOrEmpty(timerText))
+            {
+                var timer = MakeImage(root, "UI_Timer", Color.white, Sprite("IMG_Icon_BottomBar") ?? RoundedSprite);
+                Place(timer.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -67f), new Vector2(158f, 56f));
+                var text = MakeText(timer.transform, "TXT_Remain", timerText, 32);
+                Place(text.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 1f), new Vector2(120f, 38f));
+            }
+
+            var redDot = MakeImage(root, "IMG_RedDot", Color.white, Sprite("IMG_RedDot") ?? CircleSprite);
+            redDot.type = UnityEngine.UI.Image.Type.Simple;
+            redDot.raycastTarget = false;
+            Place(redDot.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(60f, 60f), new Vector2(56f, 60f));
+
+            if (!string.IsNullOrEmpty(fallbackText))
+            {
+                var text = MakeText(box.transform, "TXT_Label", fallbackText, 48, TextAnchor.MiddleCenter);
+                Stretch(text.rectTransform);
+            }
+
+            return button;
+        }
+
+        private static LockPageView BuildLockPage(RectTransform pageContent)
+        {
+            var page = Page(pageContent, "LockPage", (int)LobbyTab.Lock, typeof(LockPageView));
+
+            var shadow = MakeImage(page, "IMG_Shadow", Color.white, Sprite("IMG_LobbyShadow"));
+            Bar(shadow.rectTransform, 1f, 410f);
+            shadow.raycastTarget = false;
+
+            var dimShadow = MakeImage(shadow.transform, "IMG_Shadow", new Color(0f, 0f, 0f, 0.53f), Sprite("IMG_LobbyShadow"));
+            Bar(dimShadow.rectTransform, 1f, 410f);
+            dimShadow.raycastTarget = false;
+
+            var comingSoon = MakeImage(page, "IMG_ComingSoon", Color.white, Sprite("IMG_ComingSoon"));
+            comingSoon.type = UnityEngine.UI.Image.Type.Simple;
+            comingSoon.preserveAspect = true;
+            comingSoon.raycastTarget = false;
+            Place(comingSoon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 115f), new Vector2(636f, 492f));
+
+            var label = MakeText(page, "txt_comingsoon", "Coming Soon!", 80);
+            Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -165f), new Vector2(800f, 100f));
+
+            return page.GetComponent<LockPageView>();
         }
 
         private static StorePageView BuildStorePage(RectTransform pageContent, string coinCellPath, string bundleCellPath)

@@ -68,7 +68,15 @@ namespace Project
         protected override void ApplyTexts()
         {
             foreach (var tab in _tabs)
-                tab.SetLabel(Loc.Get(tab.Tab == LobbyTab.Home ? "hud.tab.home" : "hud.tab.store"));
+            {
+                var key = tab.Tab switch
+                {
+                    LobbyTab.Home => "hud.tab.home",
+                    LobbyTab.Lock => "hud.tab.lock",
+                    _ => "hud.tab.store",
+                };
+                tab.SetLabel(Loc.Get(key));
+            }
         }
 
         private void OnTabChanged(LobbyTab tab)
