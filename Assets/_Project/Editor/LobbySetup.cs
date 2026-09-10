@@ -477,6 +477,7 @@ namespace Project.Editor
             check.rectTransform.anchoredPosition = new Vector2(tab == LobbyTab.Store ? 18f : tab == LobbyTab.Lock ? -18f : 0f, -173f);
             check.rectTransform.sizeDelta = new Vector2(366f, 332f);
             toggle.group = group;
+            toggle.toggleTransition = Toggle.ToggleTransition.None;
             toggle.isOn = isOn;
 
             var icon = MakeImage(check.transform, "IMG_On", Color.white, Sprite(TabIcon(tab, true)) ?? CircleSprite);
@@ -500,8 +501,11 @@ namespace Project.Editor
                 so.FindProperty("_toggle").objectReferenceValue = toggle;
                 so.FindProperty("_icon").objectReferenceValue = icon.rectTransform;
                 so.FindProperty("_offIcon").objectReferenceValue = offIcon.rectTransform;
+                so.FindProperty("_onRoot").objectReferenceValue = check.rectTransform;
                 so.FindProperty("_label").objectReferenceValue = label;
             });
+            offIcon.gameObject.SetActive(!isOn);
+            check.gameObject.SetActive(isOn);
             return button;
         }
 
