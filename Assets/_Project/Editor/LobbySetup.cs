@@ -399,34 +399,41 @@ namespace Project.Editor
 
         private static CurrencyHudView Currency(Transform parent, string id, bool recharge)
         {
-            var bg = MakeImage(parent, $"Currency_{id}", Color.white, Sprite("IMG_GoodsBox") ?? RoundedSprite);
-            bg.rectTransform.sizeDelta = recharge ? new Vector2(246f, 74f) : new Vector2(218f, 74f);
-            var button = bg.gameObject.AddComponent<Button>();
-            button.targetGraphic = bg;
-            var view = bg.gameObject.AddComponent<CurrencyHudView>();
+            var root = MakeImage(parent, $"Currency_{id}", new Color(1f, 1f, 1f, 0f), Sprite("IMG_Square"));
+            root.rectTransform.sizeDelta = new Vector2(224f, 96f);
+            var button = root.gameObject.AddComponent<Button>();
+            button.targetGraphic = root;
+            var view = root.gameObject.AddComponent<CurrencyHudView>();
 
-            var icon = MakeImage(bg.transform, "Icon", Color.white, id == CurrencyId.Heart ? HeartSprite : CoinSprite);
+            var bg = MakeImage(root.transform, "sp_box", Color.white, Sprite("IMG_GoodsBox") ?? RoundedSprite);
+            Place(bg.rectTransform, new Vector2(0.5f, 0.5f), recharge ? new Vector2(12f, 0f) : Vector2.zero,
+                recharge ? new Vector2(246f, 74f) : new Vector2(218f, 74f));
+
+            var icon = MakeImage(root.transform, "sp_icon", Color.white, id == CurrencyId.Heart ? HeartSprite : CoinSprite);
             icon.type = UnityEngine.UI.Image.Type.Simple;
             icon.preserveAspect = true;
-            Place(icon.rectTransform, new Vector2(0f, 0.5f), new Vector2(-38f, id == CurrencyId.Heart ? 3f : 0f), new Vector2(90f, id == CurrencyId.Heart ? 80f : 90f));
+            Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(id == CurrencyId.Heart ? -90f : -92f,
+                id == CurrencyId.Heart ? 3f : 0f), new Vector2(90f, id == CurrencyId.Heart ? 80f : 90f));
             var initial = MakeText(icon.transform, "Initial", "G", 30, TextAnchor.MiddleCenter, new Color(0.1f, 0.1f, 0.1f));
             Stretch(initial.rectTransform);
 
-            var plus = MakeImage(bg.transform, "Plus", Color.white, Sprite("BTN_Plus"));
-            Place(plus.rectTransform, new Vector2(0f, 0f), new Vector2(40f, -8f), new Vector2(56f, 56f));
+            var plus = MakeImage(root.transform, "sp_plus", Color.white, Sprite("BTN_Plus"));
+            Place(plus.rectTransform, new Vector2(0.5f, 0.5f),
+                new Vector2(recharge ? -56f : -52f, -26f), new Vector2(56f, 56f));
             plus.raycastTarget = false;
 
-            var count = MakeText(bg.transform, "Count", "0", 42, TextAnchor.MiddleCenter);
+            var count = MakeText(recharge ? icon.transform : root.transform, "Count", "0",
+                recharge ? 44 : 42, TextAnchor.MiddleCenter);
             Text timer = null;
             if (recharge)
             {
-                Place(count.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(37f, 15f), new Vector2(120f, 44f));
-                timer = MakeText(bg.transform, "Timer", "00:00", 34, TextAnchor.MiddleCenter);
-                Place(timer.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(37f, -16f), new Vector2(150f, 42f));
+                Place(count.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(60f, 60f));
+                timer = MakeText(root.transform, "Timer", "00:00", 42, TextAnchor.MiddleCenter);
+                Place(timer.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(37f, 2f), new Vector2(150f, 60f));
             }
             else
             {
-                Place(count.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(34f, 2f), new Vector2(136f, 60f));
+                Place(count.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(24f, 2f), new Vector2(112f, 60f));
             }
 
             Wire(view, so =>
@@ -454,18 +461,34 @@ namespace Project.Editor
             var offIcon = MakeImage(background.transform, "IMG_Off", Color.white, Sprite(TabIcon(tab, false)) ?? CircleSprite);
             offIcon.type = UnityEngine.UI.Image.Type.Simple;
             offIcon.preserveAspect = true;
-            Place(offIcon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 10f), new Vector2(104f, 122f));
+            var offSize = tab switch
+            {
+                LobbyTab.Home => new Vector2(138f, 126f),
+                LobbyTab.Store => new Vector2(130f, 118f),
+                _ => new Vector2(104f, 122f),
+            };
+            Place(offIcon.rectTransform, new Vector2(0.5f, 0.5f),
+                new Vector2(0f, tab == LobbyTab.Home ? 15f : 12f), offSize);
 
             check.sprite = Sprite("TGL_LobbyCheck") ?? check.sprite;
             check.color = Color.white;
-            Place(check.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(366f, 332f));
+            check.rectTransform.anchorMin = check.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            check.rectTransform.pivot = new Vector2(0.5f, 0f);
+            check.rectTransform.anchoredPosition = new Vector2(tab == LobbyTab.Store ? 18f : tab == LobbyTab.Lock ? -18f : 0f, -173f);
+            check.rectTransform.sizeDelta = new Vector2(366f, 332f);
             toggle.group = group;
             toggle.isOn = isOn;
 
             var icon = MakeImage(check.transform, "IMG_On", Color.white, Sprite(TabIcon(tab, true)) ?? CircleSprite);
             icon.type = UnityEngine.UI.Image.Type.Simple;
             icon.preserveAspect = true;
-            Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 48f), new Vector2(116f, 136f));
+            var onSize = tab switch
+            {
+                LobbyTab.Home => new Vector2(156f, 142f),
+                LobbyTab.Store => new Vector2(150f, 136f),
+                _ => new Vector2(116f, 136f),
+            };
+            Place(icon.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 60f), onSize);
 
             var label = MakeText(icon.transform, "TXT_On", tab.ToString(), 48);
             Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -95f), new Vector2(200f, 60f));
@@ -510,9 +533,9 @@ namespace Project.Editor
             Place(nickname.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, -24f), new Vector2(180f, 50f));
 
             var gold = Currency(top, CurrencyId.Gold, false);
-            Place((RectTransform)gold.transform, new Vector2(0f, 1f), new Vector2(242f, -65f), new Vector2(218f, 74f));
+            Place((RectTransform)gold.transform, new Vector2(0f, 1f), new Vector2(292f, -65f), new Vector2(224f, 96f));
             var heart = Currency(top, CurrencyId.Heart, true);
-            Place((RectTransform)heart.transform, new Vector2(0f, 1f), new Vector2(480f, -65f), new Vector2(246f, 74f));
+            Place((RectTransform)heart.transform, new Vector2(0f, 1f), new Vector2(522f, -65f), new Vector2(224f, 96f));
 
             var optionImage = MakeImage(top, "OptionButton", Color.white, Sprite("BTN_SettingFrame") ?? RoundedSprite);
             var optionIcon = MakeImage(optionImage.transform, "Icon", Color.white, Sprite("BTN_Setting"));
@@ -531,13 +554,15 @@ namespace Project.Editor
             var line2 = MakeImage(bottomBg.transform, "IMG_Line2", lineColor, Sprite("IMG_Square"));
             Place(line2.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(151f, -5f), new Vector2(4f, 196f));
 
-            var group = bottom.gameObject.AddComponent<ToggleGroup>();
-            var store = TabButton(bottom.transform, LobbyTab.Store, group, false);
-            Place((RectTransform)store.transform, new Vector2(1f / 6f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
-            var home = TabButton(bottom.transform, LobbyTab.Home, group, true);
-            Place((RectTransform)home.transform, new Vector2(0.5f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
-            var lockTab = TabButton(bottom.transform, LobbyTab.Lock, group, false);
-            Place((RectTransform)lockTab.transform, new Vector2(5f / 6f, 0f), new Vector2(0f, 22f), new Vector2(298f, 252f));
+            var tabRoot = MakeRect(bottom, "tgg_lobby");
+            Bar(tabRoot, 0f, 207f);
+            var group = tabRoot.gameObject.AddComponent<ToggleGroup>();
+            var store = TabButton(tabRoot, LobbyTab.Store, group, false);
+            Place((RectTransform)store.transform, new Vector2(0.5f, 0.5f), new Vector2(-302f, 22.5f), new Vector2(298f, 252f));
+            var home = TabButton(tabRoot, LobbyTab.Home, group, true);
+            Place((RectTransform)home.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, 22.5f), new Vector2(298f, 252f));
+            var lockTab = TabButton(tabRoot, LobbyTab.Lock, group, false);
+            Place((RectTransform)lockTab.transform, new Vector2(0.5f, 0.5f), new Vector2(302f, 22.5f), new Vector2(298f, 252f));
 
             Wire(root.GetComponent<HudView>(), so =>
             {
@@ -563,8 +588,12 @@ namespace Project.Editor
             background.raycastTarget = false;
             background.type = UnityEngine.UI.Image.Type.Sliced;
 
-            var pattern = MakeImage(root.transform, "LobbyPattern", new Color(1f, 1f, 1f, 0.16f), Sprite("IMG_LobbyPattern"));
-            Stretch(pattern.rectTransform);
+            var pattern = MakeImage(background.transform, "IMG_LobbyPattern", new Color(1f, 1f, 1f, 0.16f), Sprite("IMG_LobbyPattern"));
+            pattern.rectTransform.anchorMin = Vector2.zero;
+            pattern.rectTransform.anchorMax = Vector2.one;
+            pattern.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            pattern.rectTransform.anchoredPosition = new Vector2(-5.5f, 3f);
+            pattern.rectTransform.sizeDelta = new Vector2(435.4128f, 178.6642f);
             pattern.type = UnityEngine.UI.Image.Type.Tiled;
             pattern.raycastTarget = false;
 
@@ -605,39 +634,24 @@ namespace Project.Editor
         {
             var page = Page(pageContent, "HomePage", (int)LobbyTab.Home, typeof(HomePageView));
 
-            var light = MakeImage(page, "LobbyLight", new Color(0.92f, 0.73f, 0.92f, 0.49f), Sprite("IMG_LobbyLight"));
-            light.type = UnityEngine.UI.Image.Type.Simple;
-            light.preserveAspect = true;
-            Place(light.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 170f), new Vector2(704f, 704f));
+            var light = MakeImage(page, "IMG_Light", new Color(0.92f, 0.73f, 0.92f, 0.49f), Sprite("IMG_LobbyLight"));
+            light.rectTransform.anchorMin = new Vector2(0.5f, 0f);
+            light.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+            light.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            light.rectTransform.anchoredPosition = new Vector2(0f, 231f);
+            light.rectTransform.sizeDelta = new Vector2(704f, -462f);
+            light.type = UnityEngine.UI.Image.Type.Sliced;
             light.raycastTarget = false;
 
-            var shadow = MakeImage(page, "TopShadow", Color.white, Sprite("IMG_LobbyShadow"));
+            var shadow = MakeImage(page, "IMG_Shadow", Color.white, Sprite("IMG_LobbyShadow"));
             Bar(shadow.rectTransform, 1f, 410f);
             shadow.raycastTarget = false;
 
-            var lineMask = MakeRect(page, "LevelLineRoot", typeof(RectMask2D));
-            Place(lineMask, new Vector2(0.5f, 0.5f), new Vector2(0f, 170f), new Vector2(900f, 950f));
-            var levelLine = MakeImage(lineMask, "LevelLine", Color.white, Sprite("IMG_BG_Line"));
-            Place(levelLine.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(72f, 1172f));
-            levelLine.raycastTarget = false;
+            var dimShadow = MakeImage(shadow.transform, "IMG_Shadow", new Color(0f, 0f, 0f, 0.53f), Sprite("IMG_LobbyShadow"));
+            Bar(dimShadow.rectTransform, 1f, 410f);
+            dimShadow.raycastTarget = false;
 
-            for (var i = 0; i < 3; i++)
-            {
-                var next = MakeImage(page, $"NextLevel_{i + 1}", new Color(1f - i * 0.14f, 1f - i * 0.14f, 1f - i * 0.14f), Sprite("IMG_NextLevel"));
-                next.type = UnityEngine.UI.Image.Type.Simple;
-                next.preserveAspect = true;
-                Place(next.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(150f, 120f - 278f * i), new Vector2(226f, 228f));
-                next.raycastTarget = false;
-            }
-
-            var stageImage = MakeImage(page, "StageButton", Color.white, Sprite("IMG_NextLevel"));
-            stageImage.type = UnityEngine.UI.Image.Type.Simple;
-            stageImage.preserveAspect = true;
-            var stage = stageImage.gameObject.AddComponent<Button>();
-            stage.targetGraphic = stageImage;
-            var stageLabel = MakeText(stageImage.transform, "Label", "Level 1", 40);
-            Place((RectTransform)stage.transform, new Vector2(0.5f, 0.5f), new Vector2(0f, -150f), new Vector2(300f, 220f));
-            Place(stageLabel.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -86f), new Vector2(240f, 60f));
+            BuildStageInfo(page, out var stage, out var stageLabel, out var nextStageLabels);
 
             var daily = MakeButton(page, "DailyRewardButton", "Daily", Color.white, 30, out var dailyLabel);
             daily.GetComponent<Image>().sprite = Sprite("BTN_CommonGreen") ?? daily.GetComponent<Image>().sprite;
@@ -655,12 +669,81 @@ namespace Project.Editor
             {
                 so.FindProperty("_stageButton").objectReferenceValue = stage;
                 so.FindProperty("_stageButtonText").objectReferenceValue = stageLabel;
+                SetArray(so.FindProperty("_nextStageTexts"), nextStageLabels);
                 so.FindProperty("_dailyRewardButton").objectReferenceValue = daily;
                 so.FindProperty("_dailyRewardLabel").objectReferenceValue = dailyLabel;
                 so.FindProperty("_dailyRedDot").objectReferenceValue = redDot.gameObject;
                 so.FindProperty("_dailyRedDotCount").objectReferenceValue = redDotCount;
             });
             return page.GetComponent<HomePageView>();
+        }
+
+        private static void BuildStageInfo(RectTransform page, out Button currentButton, out Text currentLabel,
+            out Text[] nextLabels)
+        {
+            var stageInfo = MakeRect(page, "stage_info");
+            Stretch(stageInfo);
+
+            var scrollArea = MakeImage(stageInfo, "svl_level", new Color(1f, 1f, 1f, 0f), Sprite("IMG_Square"));
+            scrollArea.rectTransform.anchorMin = Vector2.zero;
+            scrollArea.rectTransform.anchorMax = Vector2.one;
+            scrollArea.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            scrollArea.rectTransform.anchoredPosition = new Vector2(0f, 257f);
+            scrollArea.rectTransform.sizeDelta = new Vector2(0f, -514f);
+            scrollArea.raycastTarget = false;
+
+            var viewport = MakeRect(scrollArea.transform, "Viewport", typeof(RectMask2D));
+            Stretch(viewport);
+
+            var line = MakeImage(viewport, "IMG_LevelLine", new Color(1f, 1f, 1f, 0.56f), Sprite("IMG_BG_Line"));
+            line.rectTransform.anchorMin = new Vector2(0.5f, 0f);
+            line.rectTransform.anchorMax = new Vector2(0.5f, 1f);
+            line.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            line.rectTransform.anchoredPosition = new Vector2(0f, 118f);
+            line.rectTransform.sizeDelta = new Vector2(72f, -236f);
+            line.type = UnityEngine.UI.Image.Type.Simple;
+            line.raycastTarget = false;
+
+            var content = MakeRect(viewport, "Content");
+            content.anchorMin = new Vector2(0f, 0f);
+            content.anchorMax = new Vector2(1f, 0f);
+            content.pivot = new Vector2(0.5f, 0f);
+            content.anchoredPosition = Vector2.zero;
+            content.sizeDelta = new Vector2(0f, 1000f);
+
+            var scales = new[] { 1f, 0.75f, 0.6f, 0.5f };
+            var centers = new[] { 245f, 509.75f, 724.5f, 898f };
+            nextLabels = new Text[3];
+            currentButton = null;
+            currentLabel = null;
+
+            for (var i = 0; i < scales.Length; i++)
+            {
+                var slot = MakeRect(content, $"stage_slot_{i + 1}");
+                Place(slot, new Vector2(0.5f, 0f), new Vector2(0f, centers[i]), new Vector2(202f, 170f));
+                slot.pivot = new Vector2(0.5f, 0.5f);
+                slot.localScale = Vector3.one * scales[i];
+
+                var level = MakeImage(slot, "sp_level", Color.white, Sprite("IMG_Level_Normal"));
+                level.type = UnityEngine.UI.Image.Type.Simple;
+                level.preserveAspect = true;
+                Place(level.rectTransform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(302f, 302f));
+
+                var label = MakeText(level.transform, "txt_level_normal", (i + 1).ToString(), 110);
+                Place(label.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, 8f), new Vector2(140f, 180f));
+
+                if (i == 0)
+                {
+                    currentButton = level.gameObject.AddComponent<Button>();
+                    currentButton.targetGraphic = level;
+                    currentLabel = label;
+                }
+                else
+                {
+                    level.raycastTarget = false;
+                    nextLabels[i - 1] = label;
+                }
+            }
         }
 
         private static void BuildHomeRightMenu(RectTransform page)

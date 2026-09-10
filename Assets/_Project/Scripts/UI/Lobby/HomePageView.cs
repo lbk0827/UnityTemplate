@@ -20,6 +20,7 @@ namespace Project
 
         [SerializeField] private Button _stageButton;
         [SerializeField] private Text _stageButtonText;
+        [SerializeField] private Text[] _nextStageTexts;
         [SerializeField] private Button _dailyRewardButton;
         [SerializeField] private Text _dailyRewardLabel;
         [SerializeField] private GameObject _dailyRedDot;
@@ -54,7 +55,7 @@ namespace Project
 
             _profile.CurrentStage
                 .CombineLatest(_loc.CurrentLanguage, (stage, _) => stage)
-                .Subscribe(stage => _stageButtonText.text = _loc.Format("lobby.level", stage))
+                .Subscribe(ApplyStageNumbers)
                 .AddTo(Disposables);
 
             _loc.CurrentLanguage
@@ -66,6 +67,13 @@ namespace Project
                 _dailyRedDot.SetActive(count > 0);
                 _dailyRedDotCount.text = count.ToString();
             }).AddTo(Disposables);
+        }
+
+        private void ApplyStageNumbers(int stage)
+        {
+            _stageButtonText.text = stage.ToString();
+            for (var i = 0; i < _nextStageTexts.Length; i++)
+                _nextStageTexts[i].text = (stage + i + 1).ToString();
         }
 
         private async UniTask OnStageClicked(CancellationToken cancellationToken)

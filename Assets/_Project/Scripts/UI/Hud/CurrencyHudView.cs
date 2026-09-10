@@ -49,7 +49,7 @@ namespace Project
                     break;
 
                 case CurrencyId.Heart:
-                    wallet.Heart.Subscribe(v => _countText.text = $"{v}/{PlayerWallet.HeartMax}").AddTo(Disposables);
+                    wallet.Heart.Subscribe(v => _countText.text = v.ToString()).AddTo(Disposables);
                     if (_timerText != null)
                         wallet.HeartRechargeRemainingSeconds
                             .Subscribe(s => _timerText.text = s <= 0 ? fullLabel() : ItemVisuals.Countdown(s))

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a439b5372bf1204aae599add410c1bc, type: 3}
   m_Name: FrameworkSettings
   m_EditorClassIdentifier: BK.Composition::BK.Composition.FrameworkSettings
-  _referenceResolution: {x: 1080, y: 1920}
+  _referenceResolution: {x: 900, y: 1600}
   _tableCatalogAddress: Data/TableCatalog
   _defaultLanguage: en
   _localizationAddressFormat: Localization/{0}

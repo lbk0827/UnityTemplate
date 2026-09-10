@@ -16,7 +16,7 @@ namespace BK.UI
     {
         private readonly Dictionary<UILayer, Transform> _layerRoots = new();
 
-        public Vector2 ReferenceResolution { get; private set; } = new Vector2(1080f, 1920f);
+        public Vector2 ReferenceResolution { get; private set; } = new Vector2(900f, 1600f);
 
         public static UIRoot Create(Vector2 referenceResolution)
         {
@@ -51,9 +51,7 @@ namespace BK.UI
                 var scaler = layerGo.GetComponent<CanvasScaler>();
                 scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
                 scaler.referenceResolution = ReferenceResolution;
-                // Match height on portrait-ish references, width otherwise, so the
-                // safe dimension is the one the layout was authored against.
-                scaler.matchWidthOrHeight = ReferenceResolution.y >= ReferenceResolution.x ? 1f : 0f;
+                scaler.matchWidthOrHeight = 0f;
 
                 _layerRoots.Add(layer, layerGo.transform);
             }

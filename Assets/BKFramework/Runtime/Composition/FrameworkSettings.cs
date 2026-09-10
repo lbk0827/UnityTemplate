@@ -10,7 +10,7 @@ namespace BK.Composition
     public sealed class FrameworkSettings : ScriptableObject
     {
         [Header("UI")]
-        [SerializeField] private Vector2 _referenceResolution = new(1080f, 1920f);
+        [SerializeField] private Vector2 _referenceResolution = new(900f, 1600f);
 
         [Header("Data")]
         [SerializeField, Tooltip("Addressable address of the TableCatalog asset.")]
