@@ -3,6 +3,8 @@
     "rootNamespace": "BK.Composition",
     "references": [
         "BK.Core",
+        "BK.Options",
+        "BK.Save",
         "BK.Assets",
         "BK.Scene",
         "BK.Data",

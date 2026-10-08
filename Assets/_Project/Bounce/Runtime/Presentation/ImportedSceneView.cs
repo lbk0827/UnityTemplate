@@ -49,7 +49,21 @@ namespace BK.Kit
             Time.timeScale = 1;
             return UniTask.CompletedTask;
         }
-        public bool OnBackRequested() => true; // This view handles its own settings/result back flow.
+        public bool OnBackRequested()
+        {
+            // Consumed in every case: this view drives its own settings/result back flow
+            // and must never be popped by the framework.
+            if(app==null || app.IsLoading)return true;
+            if(dialog!=null){dialog.Close();return true;}
+            if(offersView!=null && offersView.IsOpen){offersView.Close();return true;}
+            if(resultShown)
+            {
+                var reward=popup==null?null:popup.GetComponent<ClearRewardView>();
+                if(reward!=null)reward.Collect();else app.GoToLobby();
+            }
+            else if(popup!=null)ClosePopup();else OpenSettings();
+            return true;
+        }
         private void InitializePresentation()
         {
             app=KitApp.Instance;
@@ -362,18 +376,6 @@ namespace BK.Kit
             label.font=presentation.settings.GetComponentInChildren<TMP_Text>(true).font;label.fontSize=26;
             label.alignment=TextAlignmentOptions.Center;label.raycastTarget=false;
             label.text="Save pending - keep the game open. Tap to retry.";saveNotice=rect.gameObject;saveNotice.SetActive(false);
-        }
-        private void Update()
-        {
-            if(app==null || app.IsLoading || !Input.GetKeyDown(KeyCode.Escape))return;
-            if(dialog!=null){dialog.Close();return;}
-            if(offersView!=null && offersView.IsOpen){offersView.Close();return;}
-            if(resultShown)
-            {
-                var reward=popup==null?null:popup.GetComponent<ClearRewardView>();
-                if(reward!=null)reward.Collect();else app.GoToLobby();
-            }
-            else if(popup!=null)ClosePopup();else OpenSettings();
         }
         private void OnApplicationPause(bool paused)
         {

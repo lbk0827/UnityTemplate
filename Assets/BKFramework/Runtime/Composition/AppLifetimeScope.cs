@@ -7,6 +7,8 @@ using BK.Core.App;
 using BK.Core.Events;
 using BK.Data;
 using BK.Localization;
+using BK.Options;
+using BK.Save;
 using BK.Scene;
 using BK.UI;
 
@@ -36,6 +38,10 @@ namespace BK.Composition
             builder.Register<AddressablesAssetService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.Register<SceneService>(Lifetime.Singleton).AsImplementedInterfaces();
 
+            builder.Register<ISaveService>(_ => new SaveService(SaveService.DefaultDirectory), Lifetime.Singleton);
+            builder.Register<IOptionsService>(container => new OptionsService(
+                container.Resolve<ISaveService>(), _settings.DefaultLanguage), Lifetime.Singleton);
+
             builder.Register<ITableService>(container => new TableService(
                 container.Resolve<IAssetService>(),
                 new AssetKey(_settings.TableCatalogAddress)), Lifetime.Singleton);
@@ -53,6 +59,7 @@ namespace BK.Composition
             builder.Register<BootSequence>(Lifetime.Singleton);
             builder.Register<IProgress<BootProgress>, NullBootProgress>(Lifetime.Singleton);
             builder.RegisterEntryPoint<AppBootstrapper>();
+            builder.RegisterEntryPoint<BackInputDriver>().AsSelf();
 
             ConfigureProject(builder);
         }
@@ -73,7 +80,7 @@ namespace BK.Composition
             builder.Register<DataBootStep>(Lifetime.Singleton).As<IBootStep>();
             builder.Register<IBootStep>(container => new LocalizationBootStep(
                 container.Resolve<ILocalizationService>(),
-                container.Resolve<FrameworkSettings>().DefaultLanguage), Lifetime.Singleton);
+                container.Resolve<IOptionsService>().Language.Value), Lifetime.Singleton);
         }
     }
 }
