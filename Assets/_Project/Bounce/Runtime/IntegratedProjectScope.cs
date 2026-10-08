@@ -1,7 +1,12 @@
 using System;
+using System.IO;
 using BK.Composition;
 using BK.Core.App;
 using BK.Core.Events;
+using BK.Core.Time;
+using BK.Meta;
+using BK.Options;
+using BK.Save;
 using BK.Scene;
 using BK.UI;
 using BK.Data;
@@ -15,23 +20,65 @@ namespace BK.Kit
     // The original sample ProjectScope remains available, but is not instantiated in this boot scene.
     public sealed class IntegratedProjectScope : AppLifetimeScope
     {
+        /// <summary>Tests point this at an isolated folder so the real profile is never touched.</summary>
+        public const string TestSaveDirectoryVariable = "BK_KIT_TEST_SAVE_DIR";
+
+        protected override string SaveDirectory
+        {
+            get
+            {
+                var folder = Environment.GetEnvironmentVariable(TestSaveDirectoryVariable);
+                return string.IsNullOrEmpty(folder)
+                    ? Path.Combine(Application.persistentDataPath, "Bounce", "Profiles", "local")
+                    : folder;
+            }
+        }
+
         protected override void ConfigureProject(IContainerBuilder builder)
         {
+            MetaInstaller.Install(builder, new BounceCurrencies(), new BounceContinueOffers(), BounceEntry.Policy);
+            builder.Register<KitServices>(Lifetime.Singleton);
             builder.RegisterEntryPoint<IntegratedGameFlow>();
+        }
+    }
+
+    /// <summary>Everything KitApp needs from the framework, resolved once from the app scope.</summary>
+    public sealed class KitServices
+    {
+        public readonly ISceneService Scenes;
+        public readonly IUIService UI;
+        public readonly ITableService Tables;
+        public readonly ISaveService Saves;
+        public readonly IWallet Wallet;
+        public readonly IStageProgress Progress;
+        public readonly IOptionsService Options;
+        public readonly IMessageService Messages;
+        public readonly PendingRewardQueue Rewards;
+        public readonly CurrencyDisplayLock DisplayLock;
+        public readonly ContinueOffers Continues;
+        public readonly IClock Clock;
+
+        public KitServices(ISceneService scenes, IUIService ui, ITableService tables, ISaveService saves, IWallet wallet,
+            IStageProgress progress, IOptionsService options, IMessageService messages, PendingRewardQueue rewards,
+            CurrencyDisplayLock displayLock, ContinueOffers continues, IClock clock)
+        {
+            Scenes = scenes; UI = ui; Tables = tables; Saves = saves; Wallet = wallet; Progress = progress;
+            Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues; Clock = clock;
         }
     }
 
     public sealed class IntegratedGameFlow : IStartable, IDisposable
     {
         private readonly IEventBus events;
-        private readonly ISceneService scenes;
-        private readonly IUIService ui;
-        private readonly ITableService tables;
+        private readonly KitServices services;
         private IDisposable subscription;
         private KitApp app;
 
-        public IntegratedGameFlow(IEventBus events, ISceneService scenes, IUIService ui, ITableService tables)
-        { this.events = events; this.scenes = scenes; this.ui = ui; this.tables = tables; }
+        public IntegratedGameFlow(IEventBus events, KitServices services)
+        {
+            this.events = events;
+            this.services = services;
+        }
 
         public void Start()
         {
@@ -39,7 +86,7 @@ namespace BK.Kit
             {
                 if (app != null) return;
                 app = new GameObject("BounceSession").AddComponent<KitApp>();
-                app.Initialize(scenes, ui, tables);
+                app.Initialize(services);
             });
         }
 

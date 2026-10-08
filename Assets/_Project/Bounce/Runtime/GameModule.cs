@@ -8,5 +8,9 @@ namespace BK.Kit
     {
         public abstract void Begin(int level, Action<bool> completed);
         public abstract void End();
+        /// <summary>True while a lost round can still be resumed (board intact).</summary>
+        public abstract bool CanContinue { get; }
+        /// <summary>Resumes a lost round with extra moves/balls. Only valid when CanContinue.</summary>
+        public abstract void Continue(int extraBalls);
     }
 }

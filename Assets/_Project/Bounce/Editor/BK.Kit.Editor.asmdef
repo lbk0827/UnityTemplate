@@ -10,7 +10,10 @@
     "Unity.Addressables",
     "Unity.Addressables.Editor",
     "Unity.ResourceManager",
-    "BK.Data"
+    "BK.Data",
+    "BK.Save",
+    "BK.Meta",
+    "BK.Options"
   ],
   "includePlatforms": [
     "Editor"

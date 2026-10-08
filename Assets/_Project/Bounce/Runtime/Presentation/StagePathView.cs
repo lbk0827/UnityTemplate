@@ -26,8 +26,8 @@ namespace BK.Kit
             foreach(var layout in content.GetComponents<LayoutGroup>())layout.enabled=false;
             var fitter=content.GetComponent<ContentSizeFitter>();if(fitter!=null)fitter.enabled=false;
             int previous=app.ConsumeStageAdvance();
-            IsAdvancing=previous==app.Progress.unlockedLevel-1 && previous>0;
-            int first=IsAdvancing?previous:app.Progress.unlockedLevel;
+            IsAdvancing=previous==app.UnlockedLevel-1 && previous>0;
+            int first=IsAdvancing?previous:app.UnlockedLevel;
             input=stage.GetComponent<CanvasGroup>();if(input==null)input=stage.gameObject.AddComponent<CanvasGroup>();
             input.interactable=input.blocksRaycasts=!IsAdvancing;
             for(int i=0;i<(IsAdvancing?9:8);i++)
@@ -43,7 +43,7 @@ namespace BK.Kit
                 var slot=new Slot {rect=rect,binding=b,alpha=go.AddComponent<CanvasGroup>(),from=Position(i,rect),to=Position(IsAdvancing?i-1:i,rect),fromScale=Scale(i),toScale=Scale(IsAdvancing?i-1:i)};
                 rect.anchoredPosition=slot.from;rect.localScale=Vector3.one*slot.fromScale;slots.Add(slot);
                 foreach(var graphic in go.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
-                if(level==app.Progress.unlockedLevel)
+                if(level==app.UnlockedLevel)
                 {
                     image.raycastTarget=true;var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;
                     button.onClick.AddListener(()=>{if(!IsAdvancing && !app.IsLoading)app.Play(level);});

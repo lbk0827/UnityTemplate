@@ -28,7 +28,7 @@ namespace BK.Kit
         private LineRenderer line;
         private AudioSource audioSource;
         private Action<bool> completed;
-        private bool playing, holding;
+        private bool playing, holding, lost;
         private int columns;
         private Vector3 aim = Vector3.forward;
         private const int SolidLayer = 10;
@@ -259,11 +259,17 @@ namespace BK.Kit
             if(cannon!=null)foreach(var text in cannon.GetComponentsInChildren<TMP_Text>(true))if(text.name=="TXT_BallCount")text.text=BallsRemaining.ToString();
             CountersChanged?.Invoke();
         }
-        private void Resolve(bool won) {if(!playing)return;playing=false;holding=false;line.enabled=false;StartCoroutine(Report(won));}
+        private void Resolve(bool won) {if(!playing)return;playing=false;holding=false;lost=!won;line.enabled=false;StartCoroutine(Report(won));}
+        public override bool CanContinue=>lost && rig!=null && blocks.Count>0 && !IsUsingBooster;
+        public override void Continue(int extraBalls)
+        {
+            if(!CanContinue)return;
+            lost=false;BallsRemaining+=Mathf.Max(0,extraBalls);playing=true;holding=false;PushCounts();
+        }
         private IEnumerator Report(bool won) {if(won)yield return new WaitForSeconds(.5f);completed?.Invoke(won);}
         public override void End()
         {
-            StopAllCoroutines();playing=false;holding=false;IsUsingBooster=false;completed=null;
+            StopAllCoroutines();playing=false;holding=false;lost=false;IsUsingBooster=false;completed=null;
             if(rig!=null)Destroy(rig);rig=null;shots.Clear();blocks.Clear();
             foreach(var material in materials)Destroy(material);materials.Clear();
         }

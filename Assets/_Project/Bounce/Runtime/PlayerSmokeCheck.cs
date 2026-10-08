@@ -40,12 +40,12 @@ namespace BK.Kit
             if(!Check(game.BlocksRemaining<24,"Physical block hit"))yield break;
             app.Complete(true);yield return new WaitForSeconds(.4f);
             var reward=FindFirstObjectByType<ClearRewardView>();
-            if(!Check(reward!=null && app.Progress.gold==400,"Saved clear reward"))yield break;
+            if(!Check(reward!=null && app.Gold==400,"Saved clear reward"))yield break;
             reward.Collect();yield return Scene("VisualLobby");if(failed)yield break;
             yield return new WaitForSecondsRealtime(1);
-            if(!Check(app.Progress.unlockedLevel==2 && app.Progress.extraBalls==0,"Progress and inventory"))yield break;
+            if(!Check(app.UnlockedLevel==2 && app.BoosterCount(BoosterKind.ExtraBall)==0,"Progress and inventory"))yield break;
             string folder=Environment.GetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR");
-            if(!Check(new LocalSaveStore(folder).Load().gold==400,"Persisted reward"))yield break;
+            if(!Check(new BK.Save.SaveService(folder).Get<BK.Meta.WalletData>().Find("Gold").value==400,"Persisted reward"))yield break;
             if(!Check(CaptureLobby(Path.Combine(folder,"smoke-lobby.png")),"Rendered lobby contains visible UI"))yield break;
             yield return new WaitForSecondsRealtime(.5f);
             Debug.Log("BK_KIT_PLAYER_SMOKE_OK");Application.Quit(0);

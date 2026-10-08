@@ -11,7 +11,10 @@
     "BK.Composition",
     "UniTask",
     "VContainer",
-    "BK.Data"
+    "BK.Data",
+    "BK.Save",
+    "BK.Meta",
+    "BK.Options"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

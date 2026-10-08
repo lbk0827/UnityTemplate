@@ -79,28 +79,28 @@ namespace BK.Kit
         }
     }
 
-    // Pure progress mutation so EditMode tests can cover it; KitApp adds state checks and persistence.
+    // Pure step mutation so EditMode tests can cover it; KitApp adds state checks and persistence.
     public static class OfferClaim
     {
-        public static bool CanClaim(PlayerProgress progress,OfferKind kind,int step,out OfferStep data,out string message)
+        public static bool CanClaim(BounceOfferData offers,OfferKind kind,int step,out OfferStep data,out string message)
         {
             data=null;message="";var steps=OfferCatalog.Steps(kind);
             if(steps.Count==0){message="Not a step offer.";return false;}
-            if(progress.Step(kind)>=steps.Count){message="All rewards collected.";return false;}
-            if(step!=progress.Step(kind)){message="Collect the current step first.";return false;}
+            if(offers.Step(kind)>=steps.Count){message="All rewards collected.";return false;}
+            if(step!=offers.Step(kind)){message="Collect the current step first.";return false;}
             data=steps[step];
             if(data.Paid){message="Payments are not connected in this offline kit.";return false;}
             return true;
         }
-        public static bool Apply(PlayerProgress progress,OfferKind kind,int step,out string message)
+        public static bool Apply(BounceOfferData offers,BK.Meta.IWallet wallet,OfferKind kind,int step,out string message)
         {
-            if(!CanClaim(progress,kind,step,out var data,out message))return false;
+            if(!CanClaim(offers,kind,step,out var data,out message))return false;
             foreach(var reward in data.Rewards)
             {
-                if(reward.IsGold)progress.gold+=Math.Min(reward.Count,int.MaxValue-progress.gold);
-                else if(reward.TryGetBooster(out var booster))progress.SetCount(booster,progress.Count(booster)+Math.Min(reward.Count,int.MaxValue-progress.Count(booster)));
+                if(reward.IsGold)wallet.Add(OfferReward.GoldId,reward.Count,KitApp.ReasonOffer);
+                else if(reward.TryGetBooster(out var booster))wallet.Add(booster.ToString(),reward.Count,KitApp.ReasonOffer);
             }
-            progress.SetStep(kind,step+1);
+            offers.SetStep(kind,step+1);
             message="Collected "+OfferCatalog.Describe(data.Rewards);return true;
         }
     }

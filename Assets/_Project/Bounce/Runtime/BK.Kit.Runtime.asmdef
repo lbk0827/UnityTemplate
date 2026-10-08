@@ -13,6 +13,9 @@
     "VContainer",
     "UniTask",
     "R3.Unity",
-    "BK.Data"
+    "BK.Data",
+    "BK.Save",
+    "BK.Meta",
+    "BK.Options"
   ]
 }

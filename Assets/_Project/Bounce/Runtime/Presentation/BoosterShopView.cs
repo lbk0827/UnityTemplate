@@ -196,12 +196,12 @@ namespace BK.Kit
         { yield return null;Canvas.ForceUpdateCanvases();Scroll.verticalNormalizedPosition=1; }
         private void Refresh()
         {
-            if(goldBalance!=null)goldBalance.text=app.Progress.gold.ToString();
+            if(goldBalance!=null)goldBalance.text=app.Gold.ToString();
             foreach(var row in rows)
             {
-                row.owned.text="Owned: "+app.Progress.Count(row.offer.Kind);
-                row.buy.interactable=!app.IsLoading && app.Progress.Count(row.offer.Kind)<int.MaxValue;
-                row.buy.GetComponent<Image>().color=app.Progress.gold>=app.Shop.BoosterPrice(row.offer.Kind)?Color.white:new Color(.6f,.6f,.6f,1);
+                row.owned.text="Owned: "+app.BoosterCount(row.offer.Kind);
+                row.buy.interactable=!app.IsLoading && app.BoosterCount(row.offer.Kind)<int.MaxValue;
+                row.buy.GetComponent<Image>().color=app.Gold>=app.Shop.BoosterPrice(row.offer.Kind)?Color.white:new Color(.6f,.6f,.6f,1);
             }
         }
         private RectTransform Rect(Transform parent,string name,Vector2 size,Vector2 position)

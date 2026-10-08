@@ -27,6 +27,15 @@ namespace BK.Kit
             return true;
         }
 
+        /// <summary>A bought continue brings a lost round back to play.</summary>
+        public bool Resume()
+        {
+            if (State != SessionState.Lost) return false;
+            State = SessionState.Playing;
+            Changed?.Invoke();
+            return true;
+        }
+
         public void ReturnToLobby()
         {
             State = SessionState.Lobby;

@@ -19,7 +19,7 @@ namespace BK.Kit
         private readonly KitApp app;
         public LocalOfferSource(KitApp app) => this.app=app;
         public IReadOnlyList<OfferStep> Steps(OfferKind kind) => OfferCatalog.Steps(kind);
-        public int CurrentStep(OfferKind kind) => app.Progress.Step(kind);
+        public int CurrentStep(OfferKind kind) => app.OfferStep(kind);
         public WelcomeDealOffer WelcomeDeal => OfferCatalog.WelcomeDeal;
         public bool TryClaim(OfferKind kind,int step,out string message) => app.TryClaimOfferStep(kind,step,out message);
         public bool TryPurchase(OfferKind kind,int step,out string message)

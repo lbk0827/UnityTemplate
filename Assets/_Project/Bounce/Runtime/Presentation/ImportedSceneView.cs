@@ -26,6 +26,7 @@ namespace BK.Kit
         private LobbyOffersView offersView;
         private GameObject saveNotice;
         private TMP_Text profileInitials;
+        private VisualBindings heartHud;
 
         public UILayer Layer => UILayer.Content;
         public bool IsOpen { get; private set; }
@@ -120,7 +121,7 @@ namespace BK.Kit
             for(int i=0;i<4;i++)
             {
                 int slot=i;
-                Bind(stage,"buttons."+i+".button",()=>app.Play(app.Progress.unlockedLevel));
+                Bind(stage,"buttons."+i+".button",()=>app.Play(app.UnlockedLevel));
                 var button=stage?.Get<Button>("buttons."+i+".button");if(button!=null)button.gameObject.SetActive(slot==0);
                 Text(stage,"buttons."+i+".buttonText","Play");
             }
@@ -145,9 +146,9 @@ namespace BK.Kit
             foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
             {
                 var heart=top.Get<VisualBindings>("heart");
-                Text(heart,"currencyCountText","");Text(heart,"fullText","Free");
-                SetActive(heart,"rechargeTimeText",false);SetActive(heart,"fullText",true);
-                Bind(heart,"button",()=>ShowInfo("Unlimited lives","Play and retry freely.\nLives are unlimited in this offline RND kit."));
+                heartHud=heart;UpdateHeartHud();
+                StartCoroutine(HeartTicker());
+                Bind(heart,"button",()=>app.Messages.ShowAsync("Hearts",app.HeartsFull?"Hearts are full.":"Next heart in "+KitApp.FormatTimer(app.TimeToNextHeart)+"\nStages 1-"+BounceEntry.FreeUntilStage+" are free.","OK").Forget());
             }
             var navigation=gameObject.AddComponent<LobbyNavigation>();navigation.Initialize(screen,Role(hud,"UIHUDPanel"));
             gameObject.AddComponent<BoosterShopView>().Initialize(screen,presentation,ShowInfo);
@@ -215,10 +216,10 @@ namespace BK.Kit
             foreach(var offer in BoosterCatalog.All)
             {
                 var button=ingameBindings.Get<Button>(offer.ButtonKey);if(button==null)continue;
-                button.interactable=game.CanUseBooster(offer.Kind) && app.Progress.Count(offer.Kind)>0;
+                button.interactable=game.CanUseBooster(offer.Kind) && app.BoosterCount(offer.Kind)>0;
                 foreach(var t in button.GetComponentsInChildren<TMP_Text>(true))
                 {
-                    if(t.name.Trim()=="txt_itemnum"){t.gameObject.SetActive(true);t.text=app.Progress.Count(offer.Kind).ToString();}
+                    if(t.name.Trim()=="txt_itemnum"){t.gameObject.SetActive(true);t.text=app.BoosterCount(offer.Kind).ToString();}
                     if(t.text=="Free" || t.name.Trim()=="txt_itempricenum")t.gameObject.SetActive(false);
                 }
                 Active(button.gameObject,"UI_ItemPrice",false);Active(button.gameObject,"UI_ItemNum",true);
@@ -228,10 +229,11 @@ namespace BK.Kit
         {
             RefreshBoosters();
             if(saveNotice!=null)saveNotice.SetActive(app.HasPendingSave);
-            if(profileInitials!=null)profileInitials.text=new string(app.Progress.playerName.Where(char.IsLetterOrDigit).Take(2).ToArray()).ToUpperInvariant();
+            if(profileInitials!=null)profileInitials.text=new string(app.PlayerName.Where(char.IsLetterOrDigit).Take(2).ToArray()).ToUpperInvariant();
             if(lobby && hud!=null)
                 foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
-                    Text(top.Get<VisualBindings>("gold"),"currencyCountText",app.Progress.gold.ToString());
+                    Text(top.Get<VisualBindings>("gold"),"currencyCountText",app.DisplayedGold.ToString());
+            if(lobby)UpdateHeartHud();
             if(!lobby && !resultShown && (app.Session.State==SessionState.Won || app.Session.State==SessionState.Lost))
             {
                 resultShown=true;ShowResult(app.Session.State==SessionState.Won);
@@ -253,7 +255,7 @@ namespace BK.Kit
                 SetActive(binding,"titleText",false);Active(popup,"UI_Banner_WinTower",false);
                 Text(binding,"levelText","Level "+app.Session.Level);
                 Text(binding,"rewardAmountText",app.LastGoldReward.ToString());
-                Text(binding,"goldAmountText",app.Progress.gold.ToString());
+                Text(binding,"goldAmountText",app.Gold.ToString());
             }
             else
             {
@@ -263,22 +265,27 @@ namespace BK.Kit
             {
                 var binding=Role(popup,"StageClearPopup");
                 var reward=popup.AddComponent<ClearRewardView>();
-                reward.Initialize(binding,presentation,app.Progress.gold,app.LastGoldReward,app.GoToLobby);
+                reward.Initialize(binding,presentation,(int)Math.Min(int.MaxValue,app.Gold),app.LastGoldReward,()=>{app.ReleaseRewardDisplay();app.GoToLobby();});
                 Bind(binding,"basic.claimButton",reward.Collect);Bind(binding,"closeButton",reward.Collect);
             }
             else
             {
                 var binding=Role(popup,"UIFailPopup");
                 SetActive(binding,"uiMovesZero",true);SetActive(binding,"uiTimeOver",false);
-                Text(binding,"continuePriceText","Retry");SetActive(binding,"playOnLabels.0",false);
-                Text(binding,"currencyText",app.Progress.gold.ToString());
+                var offer=app.ContinueOffer;
+                Text(binding,"continuePriceText",offer.HasValue?offer.Value.Price.ToString():"-");SetActive(binding,"playOnLabels.0",offer.HasValue);
+                Text(binding,"currencyText",app.Gold.ToString());
                 var retry=binding.Get<Button>("replayButton");
                 Active(retry.gameObject,"img_icon",false);Active(popup,"IMG_Ad",false);
                 var label=binding.Get<TMP_Text>("continuePriceText");
                 if(label!=null){var position=label.rectTransform.anchoredPosition;position.x=0;label.rectTransform.anchoredPosition=position;}
                 foreach(var button in popup.GetComponentsInChildren<Button>(true))
                     if(button!=retry && button!=binding.Get<Button>("currencyButton"))button.onClick.AddListener(app.GoToLobby);
-                Bind(binding,"replayButton",()=>app.Play(app.Session.Level));
+                Bind(binding,"replayButton",()=>
+                {
+                    if(app.TryContinue(game,out var why)){resultShown=false;ClosePopup();screen.SetActive(true);RefreshBoosters();}
+                    else app.Messages.Toast(why,collapseDuplicate:true);
+                });
                 Bind(binding,"lobbyButton",app.GoToLobby);Bind(binding,"closeButton",app.GoToLobby);
             }
             foreach(var text in popup.GetComponentsInChildren<TMP_Text>(true))
@@ -306,9 +313,9 @@ namespace BK.Kit
                 else if(name.Contains("close")||name.Contains("resume")||name.Contains("continue"))button.onClick.AddListener(ClosePopup);
             }
             var settingsBinding=Role(popup,lobby?"Popup_Settings":"UIIngameSettingPopup");
-            BindSetting(settingsBinding,lobby?"toggleMusic":"musicToggle",app.Progress.musicEnabled,app.SetMusic);
-            BindSetting(settingsBinding,lobby?"toggleSound":"sfxToggle",app.Progress.effectsEnabled,app.SetEffects);
-            BindSetting(settingsBinding,lobby?"toggleViberate":"hapticToggle",app.Progress.hapticsEnabled,app.SetHaptics);
+            BindSetting(settingsBinding,lobby?"toggleMusic":"musicToggle",app.MusicEnabled,app.SetMusic);
+            BindSetting(settingsBinding,lobby?"toggleSound":"sfxToggle",app.EffectsEnabled,app.SetEffects);
+            BindSetting(settingsBinding,lobby?"toggleViberate":"hapticToggle",app.HapticsEnabled,app.SetHaptics);
             Bind(settingsBinding,"btnClose",ClosePopup);
             Bind(settingsBinding,"CloseButton",ClosePopup);Bind(settingsBinding,"BackgroundButton",ClosePopup);
             Bind(settingsBinding,"gotoLobbyButton",()=>{ClosePopup();app.GoToLobby();});
@@ -362,7 +369,7 @@ namespace BK.Kit
         private void OpenProfile()
         {
             if(dialog!=null || app.IsLoading)return;
-            dialog=KitDialog.Show(canvas,presentation,"Local profile","Level "+app.Progress.unlockedLevel+"\nGold: "+app.Progress.gold+"\nSaved on this device",true);
+            dialog=KitDialog.Show(canvas,presentation,"Local profile","Level "+app.UnlockedLevel+"\nGold: "+app.Gold+"\nSaved on this device",true);
         }
         private void SetupSaveNotice()
         {
@@ -399,6 +406,20 @@ namespace BK.Kit
             toggle.onValueChanged.AddListener(enabled=>{display(enabled);changed(enabled);});
         }
         private void ClosePopup() {if(popup!=null)Destroy(popup);popup=null;Time.timeScale=1;RefreshBoosters();}
+        private void UpdateHeartHud()
+        {
+            if(heartHud==null || app==null)return;
+            bool full=app.HeartsFull;
+            Text(heartHud,"currencyCountText",app.HeartsInfinite?"∞":app.Hearts.ToString());
+            Text(heartHud,"fullText","Full");SetActive(heartHud,"fullText",full);
+            SetActive(heartHud,"rechargeTimeText",!full);
+            if(!full)Text(heartHud,"rechargeTimeText",KitApp.FormatTimer(app.TimeToNextHeart));
+        }
+        private IEnumerator HeartTicker()
+        {
+            var wait=new WaitForSecondsRealtime(.5f);
+            while(heartHud!=null){UpdateHeartHud();yield return wait;}
+        }
         private void OnDestroy()
         {
             if(app!=null)app.Changed-=Refresh;

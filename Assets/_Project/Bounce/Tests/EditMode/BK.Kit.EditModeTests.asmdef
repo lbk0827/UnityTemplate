@@ -12,7 +12,10 @@
     "BrunoMikoski.AnimationSequencer",
     "DOTween.Modules",
     "UnityEngine.TestRunner",
-    "UnityEditor.TestRunner"
+    "UnityEditor.TestRunner",
+    "BK.Save",
+    "BK.Meta",
+    "BK.Options"
   ],
   "includePlatforms": [
     "Editor"

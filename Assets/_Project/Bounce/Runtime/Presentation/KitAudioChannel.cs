@@ -17,7 +17,7 @@ namespace BK.Kit
         }
         private void Refresh()
         {
-            if(source!=null)source.mute=Kind==Category.Music?!app.Progress.musicEnabled:!app.Progress.effectsEnabled;
+            if(source!=null)source.mute=Kind==Category.Music?!app.MusicEnabled:!app.EffectsEnabled;
         }
         private void OnDestroy() {if(app!=null)app.Changed-=Refresh;}
     }

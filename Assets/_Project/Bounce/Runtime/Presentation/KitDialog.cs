@@ -107,7 +107,7 @@ namespace BK.Kit
             var field=box.gameObject.AddComponent<TMP_InputField>();field.targetGraphic=box;
             var text=Label(box.transform,"Name text","",new Vector2(560,75),Vector2.zero,30);
             field.textViewport=text.rectTransform;field.textComponent=(TextMeshProUGUI)text;
-            field.characterLimit=24;field.lineType=TMP_InputField.LineType.SingleLine;field.text=KitApp.Instance.Progress.playerName;
+            field.characterLimit=24;field.lineType=TMP_InputField.LineType.SingleLine;field.text=KitApp.Instance.PlayerName;
             var feedback=Label(panel,"Profile feedback","",new Vector2(650,55),new Vector2(0,-140),24);
             MakeButton("Save name","Save name",new Vector2(0,-195),()=>
             {
