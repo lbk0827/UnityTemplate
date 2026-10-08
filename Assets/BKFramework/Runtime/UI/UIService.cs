@@ -18,12 +18,14 @@ namespace BK.UI
         private readonly IObjectResolver _resolver;
         private readonly IAssetService _assetService;
         private readonly UIRoot _root;
+        private readonly IPopupDim _dim;
 
-        public UIService(IObjectResolver resolver, IAssetService assetService, UIRoot root)
+        public UIService(IObjectResolver resolver, IAssetService assetService, UIRoot root, IPopupDim dim)
         {
             _resolver = resolver;
             _assetService = assetService;
             _root = root;
+            _dim = dim;
 
             foreach (UILayer layer in Enum.GetValues(typeof(UILayer)))
                 _stacks.Add(layer, new List<IUIView>());
@@ -67,6 +69,9 @@ namespace BK.UI
 
             applyArgs?.Invoke(view);
 
+            if (view is IDimmedView dimmed && dimmed.DimLevel != DimLevel.None)
+                _dim.Acquire(dimmed.DimLevel);
+
             await view.OnInitializeAsync(cancellationToken);
 
             _instances.Add(view, instance);
@@ -89,6 +94,9 @@ namespace BK.UI
 
             await view.OnCloseAsync(cancellationToken);
             Assets.ReleaseInstance(instance);
+
+            if (view is IDimmedView dimmed && dimmed.DimLevel != DimLevel.None)
+                _dim.Release();
         }
 
         public UniTask CloseTopAsync(UILayer layer, CancellationToken cancellationToken = default)
@@ -138,6 +146,7 @@ namespace BK.UI
             _instances.Clear();
             foreach (var stack in _stacks.Values)
                 stack.Clear();
+            _dim.Reset();
         }
     }
 }

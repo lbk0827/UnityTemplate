@@ -14,7 +14,11 @@ namespace BK.UI
     /// </summary>
     public sealed class UIRoot : MonoBehaviour
     {
+        public const string DimCanvas = "PopupDim";
+        public const string CoverCanvas = "Cover";
+
         private readonly Dictionary<UILayer, Transform> _layerRoots = new();
+        private readonly Dictionary<string, Transform> _auxRoots = new();
 
         public Vector2 ReferenceResolution { get; private set; } = new Vector2(900f, 1600f);
 
@@ -37,24 +41,41 @@ namespace BK.UI
             return layerRoot;
         }
 
+        /// <summary>
+        /// A canvas outside the view stacks (dim, cover). Created on first use with the
+        /// same scaler as the layers; the sorting order decides where it sits between them.
+        /// </summary>
+        public Transform GetAuxiliaryRoot(string name, int sortingOrder)
+        {
+            if (_auxRoots.TryGetValue(name, out var existing))
+                return existing;
+
+            var root = BuildCanvas(name, sortingOrder);
+            _auxRoots.Add(name, root);
+            return root;
+        }
+
         private void BuildLayers()
         {
             foreach (UILayer layer in Enum.GetValues(typeof(UILayer)))
-            {
-                var layerGo = new GameObject(layer.ToString(), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-                layerGo.transform.SetParent(transform, false);
+                _layerRoots.Add(layer, BuildCanvas(layer.ToString(), (int)layer));
+        }
 
-                var canvas = layerGo.GetComponent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-                canvas.sortingOrder = (int)layer;
+        private Transform BuildCanvas(string name, int sortingOrder)
+        {
+            var canvasGo = new GameObject(name, typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
+            canvasGo.transform.SetParent(transform, false);
 
-                var scaler = layerGo.GetComponent<CanvasScaler>();
-                scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                scaler.referenceResolution = ReferenceResolution;
-                scaler.matchWidthOrHeight = 0f;
+            var canvas = canvasGo.GetComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            canvas.sortingOrder = sortingOrder;
 
-                _layerRoots.Add(layer, layerGo.transform);
-            }
+            var scaler = canvasGo.GetComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = ReferenceResolution;
+            scaler.matchWidthOrHeight = 0f;
+
+            return canvasGo.transform;
         }
 
         private void EnsureEventSystem()

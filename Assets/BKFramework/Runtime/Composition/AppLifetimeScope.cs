@@ -51,6 +51,7 @@ namespace BK.Composition
                 code => new AssetKey(_settings.LocalizationAddressFor(code))), Lifetime.Singleton);
 
             builder.Register(_ => UIRoot.Create(_settings.ReferenceResolution), Lifetime.Singleton);
+            builder.Register<PopupDim>(Lifetime.Singleton).As<IPopupDim>();
 
             builder.Register<UIService>(Lifetime.Singleton).As<IUIService>();
 

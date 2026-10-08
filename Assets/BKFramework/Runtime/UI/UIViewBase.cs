@@ -9,15 +9,22 @@ namespace BK.UI
     /// with no transition code; override the Async hooks for anything richer.
     /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
-    public abstract class UIViewBase : MonoBehaviour, IUIView
+    public abstract class UIViewBase : MonoBehaviour, IUIView, IDimmedView
     {
         [SerializeField] private UILayer _layer = UILayer.Content;
         [SerializeField] private float _fadeDuration = 0.15f;
+        [SerializeField, Tooltip("Popup dim acquired while this view is open. None = no dim.")]
+        private DimLevel _dim = DimLevel.None;
 
         private CanvasGroup _canvasGroup;
 
         public UILayer Layer => _layer;
+        public DimLevel DimLevel => _dim;
         public bool IsOpen { get; private set; }
+
+        /// <summary>For editor generators that author views in code.</summary>
+        public void SetLayer(UILayer layer) => _layer = layer;
+        public void SetDimLevel(DimLevel level) => _dim = level;
 
         protected CanvasGroup CanvasGroup
             => _canvasGroup ??= GetComponent<CanvasGroup>();
