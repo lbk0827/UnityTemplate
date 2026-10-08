@@ -8,6 +8,7 @@ using BK.Core.Events;
 using BK.Core.Time;
 using BK.Data;
 using BK.Localization;
+using BK.Notifications;
 using BK.Options;
 using BK.Save;
 using BK.Scene;
@@ -44,6 +45,7 @@ namespace BK.Composition
             builder.Register<ISaveService>(_ => new SaveService(saveDirectory), Lifetime.Singleton);
             builder.Register<IOptionsService>(container => new OptionsService(
                 container.Resolve<ISaveService>(), _settings.DefaultLanguage), Lifetime.Singleton);
+            NotificationsInstaller.Install(builder);
 
             builder.Register<ITableService>(container => new TableService(
                 container.Resolve<IAssetService>(),

@@ -1,7 +1,14 @@
 {
   "name": "BK.Meta",
   "rootNamespace": "BK.Meta",
-  "references": ["BK.Core", "BK.Save", "R3.Unity", "UniTask", "VContainer"],
+  "references": [
+    "BK.Core",
+    "BK.Save",
+    "R3.Unity",
+    "UniTask",
+    "VContainer",
+    "BK.Notifications"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

@@ -15,7 +15,8 @@
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner",
     "BK.Data",
-    "BK.Editor"
+    "BK.Editor",
+    "BK.Notifications"
   ],
   "includePlatforms": [
     "Editor"

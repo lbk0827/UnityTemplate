@@ -15,7 +15,8 @@
     "UniTask",
     "UnityEngine.UI",
     "Unity.TextMeshPro",
-    "UnityEngine.TestRunner"
+    "UnityEngine.TestRunner",
+    "BK.Notifications"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
