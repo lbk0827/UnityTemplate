@@ -55,3 +55,6 @@ desktop.ini
 !/[Aa]ssets/**/*.keystore
 .env
 .env.local
+
+# Local test output
+/TestResults/

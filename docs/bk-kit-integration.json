@@ -180,5 +180,32 @@
     "validation": "Unity 6000.3.21f1: EditMode 9/9 and PlayMode 10/10 passed. Covers filtering, ordering, reward references, table-driven booster prices, transaction rollback, saved inventory and shop navigation.",
     "evidence": "Logs/ShopValidation (local, git-ignored)",
     "data": "BK.Kit ShopProductTable (40 rows) and CurrencyDefinitionTable (22 rows) loaded through BK.Data.ITableService; source mapping in docs/shop-table-mapping.json."
+  },
+  "lobbyOfferPopups": {
+    "date": "2026-10-08",
+    "summary": "Home-side WelcomeDeal / EndlessOffer / EndlessGifts icons open the original popups instead of an offline notice. Offline-only: free steps grant local Gold/boosters, paid steps and the Welcome Deal purchase show a payments-not-connected dialog.",
+    "source": "D:/BK_Kit (same change set), original prefabs from D:/bknewgame_bounceball via import_visuals.py --seeds; UIEndlessOfferPopup/UIEndlessGiftsPopup/UIEndlessOfferSlotView/UIWelcomeDealPopup/UIWelcomeDealRewardItem replaced by VisualBindings",
+    "importedFiles": "docs/offer-popups-import.json (90 files, guidCollisionsRemapped applied, existing font/material GUIDs reused)",
+    "code": [
+      "Runtime/OfferCatalog.cs (local step data, OfferClaim)",
+      "Runtime/Presentation/IOfferSource.cs (LocalOfferSource; replace with a server-backed source later)",
+      "Runtime/Presentation/LobbyOffersView.cs",
+      "KitApp.TryClaimOfferStep",
+      "PlayerProgress.endlessOfferStep/endlessGiftStep",
+      "IntegrationSetup.EnsureOfferPopups (menu BK > Integration > Ensure Offer Popups)"
+    ],
+    "layout": "Target node opened with the original HeightBasedPopupScaler rule (900x1950 reference); rail moved to keep the current step visible; off-area slots switched off; mask padding reset while moved",
+    "limits": [
+      "Spine character animation and some sequencer actions remain unsupported (static)",
+      "Payments stay disconnected until an IOfferSource implementation is connected",
+      "Sonity sound events and 3 source assets were already unresolved in BK_Kit"
+    ],
+    "validation": {
+      "editor": "6000.3.21f1",
+      "editMode": "13/13 passed (OfferTests +4)",
+      "playMode": "11/11 passed (OfferFlowTests +1)",
+      "integrationValidate": "BK > Integration > Validate passed on 6000.3.21f1 (font check now targets LilitaOne/Jua)",
+      "captures": "TestResults/offer-endless.png, offer-endless-last.png, offer-welcome.png, offer-gifts.png (local, git-ignored)"
+    }
   }
 }
