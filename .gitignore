@@ -58,3 +58,7 @@ desktop.ini
 
 # Local test output
 /TestResults/
+
+# Python
+__pycache__/
+*.pyc
