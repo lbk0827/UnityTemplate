@@ -170,6 +170,17 @@ namespace BK.Kit
             message=offer.Title+" +1";Changed?.Invoke();return true;
         }
 
+        // Free offer steps grant local rewards; paid steps are rejected until a payment backend is connected.
+        public bool TryClaimOfferStep(OfferKind kind,int step,out string message)
+        {
+            message="";
+            if(IsLoading || Session.State!=SessionState.Lobby){message="Return to the lobby to collect.";return false;}
+            var previous=JsonUtility.FromJson<PlayerProgress>(JsonUtility.ToJson(Progress));
+            if(!OfferClaim.Apply(Progress,kind,step,out message))return false;
+            if(!Persist()){Progress=previous;message="Could not save. Please try again.";return false;}
+            Changed?.Invoke();return true;
+        }
+
         public bool TryConsumeBooster(BoosterKind kind)
         {
             if(IsLoading || Session.State!=SessionState.Playing || BoosterCatalog.Find(kind)==null || Progress.Count(kind)<=0)return false;

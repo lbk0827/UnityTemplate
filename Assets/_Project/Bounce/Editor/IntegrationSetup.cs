@@ -96,6 +96,21 @@ namespace BK.Kit.Editor
             entry.address = address;
         }
 
+        // Lobby offer popups were imported after the presentation asset; fill missing references in place.
+        [MenuItem("BK/Integration/Ensure Offer Popups")]
+        public static void EnsureOfferPopups()
+        {
+            var p = AssetDatabase.LoadAssetAtPath<GamePresentation>(Root + "/Content/Presentation.asset");
+            if (p == null) throw new InvalidOperationException("Missing presentation");
+            const string popup = Root + "/Content/Imported/KitResources/Template/Prefabs/UI/Popup/";
+            bool changed = false;
+            if (p.welcomeDeal == null) { p.welcomeDeal = AssetDatabase.LoadAssetAtPath<GameObject>(popup + "WelcomeDeal/popup_welcomedeal.prefab"); changed = true; }
+            if (p.endlessOffer == null) { p.endlessOffer = AssetDatabase.LoadAssetAtPath<GameObject>(popup + "EndlessOffer/popup_endlessoffer.prefab"); changed = true; }
+            if (p.endlessGifts == null) { p.endlessGifts = AssetDatabase.LoadAssetAtPath<GameObject>(popup + "EndlessOffer/popup_endlessgifts.prefab"); changed = true; }
+            if (changed) { EditorUtility.SetDirty(p); AssetDatabase.SaveAssets(); }
+            Debug.Log("BK_OFFER_POPUPS_" + (p.welcomeDeal != null && p.endlessOffer != null && p.endlessGifts != null ? "OK" : "MISSING"));
+        }
+
         [MenuItem("BK/Integration/Validate")]
         public static void Validate()
         {

@@ -158,14 +158,8 @@ namespace BK.Kit
             {
                 var side=(RectTransform)offers;
                 side.anchoredPosition-=new Vector2(0,200); // Keep the authored offer column below the top HUD.
-                foreach(var marker in offers.GetComponentsInChildren<Transform>(true))
-                    if(marker.name=="IMG_RedDot" || marker.name=="UI_RedDot")marker.gameObject.SetActive(false);
-                foreach(var button in offers.GetComponentsInChildren<Button>(true))
-                {
-                    SetInfo(button,"Offline kit","Online events, ads and real-money offers are not enabled.
-Use Gold earned from stages in the Booster shop.");
-                }
-                foreach(var text in offers.GetComponentsInChildren<TMP_Text>(true))if(text.name=="TXT_Remain")text.text="Offline";
+                offersView=gameObject.AddComponent<LobbyOffersView>();
+                offersView.Initialize(screen,canvas,presentation,()=>popup!=null || dialog!=null || (stagePath!=null && stagePath.IsAdvancing),ShowInfo);
             }
             Active(screen,"store_no_wifi",false);
             var pages=screen.GetComponentsInChildren<ScrollRect>(true).First(s=>s.name=="svl_lobby");
@@ -284,7 +278,7 @@ Use Gold earned from stages in the Booster shop.");
         }
         private void OpenSettings()
         {
-            if(popup!=null)return;
+            if(popup!=null || (offersView!=null && offersView.IsOpen))return;
             popup=Mount(lobby?presentation.settings:presentation.ingameSettings);
             var blocker=popup.GetComponent<Image>();if(blocker==null)blocker=popup.AddComponent<Image>();
             blocker.color=Color.clear;blocker.raycastTarget=true;

@@ -5,6 +5,7 @@ namespace BK.Kit
     public sealed class GamePresentation : ScriptableObject
     {
         public GameObject lobby, home, hud, ingame, win, lose, settings, ingameSettings;
+        public GameObject welcomeDeal, endlessOffer, endlessGifts;
         public GameObject cannon, ball;
         public Sprite[] shopSprites;
         public GameObject[] blocks;

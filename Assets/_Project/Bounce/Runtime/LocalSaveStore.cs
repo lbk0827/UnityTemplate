@@ -20,6 +20,15 @@ namespace BK.Kit
         {
             switch(kind) {case BoosterKind.Missile:missiles=count;break;case BoosterKind.ExtraBall:extraBalls=count;break;case BoosterKind.Bomb:bombs=count;break;case BoosterKind.Laser:lasers=count;break;default:throw new ArgumentOutOfRangeException(nameof(kind));}
         }
+        public int endlessOfferStep, endlessGiftStep;
+        public int Step(OfferKind kind)
+        {
+            switch(kind) {case OfferKind.EndlessOffer:return endlessOfferStep;case OfferKind.EndlessGift:return endlessGiftStep;default:return 0;}
+        }
+        public void SetStep(OfferKind kind,int step)
+        {
+            switch(kind) {case OfferKind.EndlessOffer:endlessOfferStep=step;break;case OfferKind.EndlessGift:endlessGiftStep=step;break;default:throw new ArgumentOutOfRangeException(nameof(kind));}
+        }
         public bool soundEnabled = true;
         public bool musicEnabled = true;
         public bool effectsEnabled = true;
@@ -52,6 +61,8 @@ namespace BK.Kit
                 throw new InvalidDataException("Unsupported or invalid progress data.");
             if(data.missiles<0 || data.extraBalls<0 || data.bombs<0 || data.lasers<0)
                 throw new InvalidDataException("Invalid booster inventory.");
+            if(data.endlessOfferStep<0 || data.endlessGiftStep<0)
+                throw new InvalidDataException("Invalid offer progress.");
             if(data.version==1)
             {
                 data.musicEnabled=data.effectsEnabled=data.soundEnabled;
