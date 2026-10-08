@@ -56,6 +56,11 @@ public sealed class VisualFlowTests
         Assert.That(start.gameObject.activeInHierarchy,Is.True,"Original play button must be visible");
         Assert.That(start.interactable,Is.True);
         start.onClick.Invoke();
+        yield return WaitFor<WinStreakPopup>();
+        var prePlay=UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>();
+        Assert.That(prePlay,Is.Not.Null,"Play opens the pre-play popup (sf)");
+        while(!prePlay.IsOpen)yield return null;
+        prePlay.PlayButton.onClick.Invoke();
         yield return Ready("VisualIngame");
         yield return new WaitForSeconds(.6f);
         Dump("ingame");

@@ -37,11 +37,7 @@ namespace BK.Kit.Editor
             AssetDatabase.Refresh();
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null) throw new InvalidOperationException("Missing Addressables settings.");
-            var group = settings.FindGroup("Bounce Integration") ?? settings.CreateGroup("Bounce Integration", false, false, true, null,
-                typeof(BundledAssetGroupSchema), typeof(ContentUpdateGroupSchema));
-            var bundle = group.GetSchema<BundledAssetGroupSchema>();
-            bundle.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
-            bundle.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
+            var group = EnsureGroup(settings);
 
             foreach (var name in new[] { "VisualLobby", "VisualIngame" })
             {
@@ -86,11 +82,22 @@ namespace BK.Kit.Editor
             EditorSceneManager.playModeStartScene = AssetDatabase.LoadAssetAtPath<SceneAsset>(Boot);
             PlayerSettings.colorSpace = ColorSpace.Linear;
             AssetDatabase.SaveAssets();
+            BounceUISetup.Generate();
             Validate();
             Debug.Log("BK_INTEGRATION_SETUP_OK");
         }
 
-        private static void Register(string path, string address, AddressableAssetSettings settings, AddressableAssetGroup group)
+        internal static AddressableAssetGroup EnsureGroup(AddressableAssetSettings settings)
+        {
+            var group = settings.FindGroup("Bounce Integration") ?? settings.CreateGroup("Bounce Integration", false, false, true, null,
+                typeof(BundledAssetGroupSchema), typeof(ContentUpdateGroupSchema));
+            var bundle = group.GetSchema<BundledAssetGroupSchema>();
+            bundle.BuildPath.SetVariableByName(settings, AddressableAssetSettings.kLocalBuildPath);
+            bundle.LoadPath.SetVariableByName(settings, AddressableAssetSettings.kLocalLoadPath);
+            return group;
+        }
+
+        internal static void Register(string path, string address, AddressableAssetSettings settings, AddressableAssetGroup group)
         {
             var entry = settings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(path), group);
             entry.address = address;

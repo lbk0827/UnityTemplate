@@ -47,6 +47,7 @@ namespace BK.Kit
         public CurrencyDisplayLock DisplayLock => services.DisplayLock;
         public ContinueOffers Continues => services.Continues;
         public IMessageService Messages => services.Messages;
+        public IUIService UI => services.UI;
         public StepOffers Offers => services.Offers;
         public DailyRewards Daily => services.Daily;
         public WinStreak Streak => services.Streak;
