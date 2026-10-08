@@ -108,6 +108,8 @@ Assets/BKFramework/Runtime/   framework, one asmdef per layer (BK.*)
   Localization/
   Presentation/
 Assets/_Project/              game-side content; framework never depends on this
+Assets/BKFramework/Editor/    BK/Framework (UI prefab generator), BK/Data (table importer), BK/Tools (asset dependency finder, nested prefab finder, component replace, prefab cleanup)
+tools/tables/                 xlsx -> JSON + C# table exporter (python -I tools/tables/export_tables.py)
 ```
 
 ## Rules
@@ -117,6 +119,8 @@ Assets/_Project/              game-side content; framework never depends on this
   Never introduce an upward or sideways reference between `BK.*` assemblies.
 - Back/Escape는 `BackInputDriver` 한 곳에서만 읽는다. 뷰는 `IUIView.OnBackRequested`로 소비하고, 게임 코드는 `Input.GetKeyDown(KeyCode.Escape)`를 직접 폴링하지 않는다.
 - 팝업은 `UIViewBase`의 Dim 레벨(인스펙터)로 딤을 자동 취득한다. 여러 팝업을 잇는 플로우는 `IPopupDim.HoldForTransition()`. 씬 전환은 `ISceneFlow.TransitionAsync`(커버→닫기→전환→리빌; 씬 쪽은 `IRevealReady` 등록으로 리빌 시점 지정). 메시지/토스트 프리팹은 `BK > Framework > Generate UI Prefabs`로 재생성한다(`Assets/BKFramework/Content/UI`, Addressables 그룹 `BK Framework`, 주소는 FrameworkSettings).
+- 테이블: xlsx(헤더 문법은 `tools/tables/README.md`) → `python -I tools/tables/export_tables.py` → `BK > Data > Import Tables`. 생성된 `<Sheet>Row`/`<Sheet>Table`은 손으로 고치지 않는다.
+- 테스트 관례: 프레임워크 테스트는 `Assets/BKFramework/Tests/{EditMode,PlayMode}` (asmdef는 `overrideReferences: true` + `precompiledReferences: nunit.framework.dll, R3.dll`). 에러 로그를 내는 경로는 `LogAssert.Expect`, 시간은 `FakeClock`, 세이브는 임시 폴더. 규약은 `ArchitectureConventionTests`가 소스를 grep해 지킨다(Escape 폴링 금지, `DateTime.Now` 금지, asmdef 하향 참조).
 - 세이브는 `ISaveService.Get<T>()`로 슬롯을 받고 변경 후 `MarkDirty()`. 파일은 `persistentDataPath/Save/<Type>.json`. 암호화는 아직 없다.
 - Asset and view lifetime is owned by scopes, never by callers. If you find yourself
   pairing a manual load with a manual release, use a scope instead.

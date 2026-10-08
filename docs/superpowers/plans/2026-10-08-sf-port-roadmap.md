@@ -23,7 +23,7 @@
 | B | 프레임워크 기반: 범용 세이브 서비스, 옵션 통일, Back/Escape 스택 | `2026-10-08-save-options-back.md` | 완료 (EditMode 32/32, PlayMode 11/11). 암호화(sf PlayerDataCrypto 상당)는 미포함, 필요 시 SaveFile에 바이트 계층 추가. Bounce `LocalSaveStore`는 G에서 교체 |
 | C | UI 계층: 팝업 딤, 스크린 커버(StageReveal)+SceneFlow, 메시지/토스트, 씬 전환 페이드 | `2026-10-08-ui-dim-cover-message.md` | 완료 (프리팹 생성, EditMode 78/78, PlayMode 12/12). StagePreloaderRegistry는 D로 |
 | D | 메타 루프: 지갑/하트 충전, 스테이지 입장 게이트, PendingRewardQueue/DisplayLock, 실패/컨티뉴 사다리, 프리로더 레지스트리 | `2026-10-08-meta-loop.md` | 완료 (EditMode 78/78). 클리어/실패 팝업·코인 플라이 UI는 G에서 |
-| E | 툴링: TableExporter 적응, 범용 에디터 툴, 테스트 관례 | (예정) | |
+| E | 툴링: xlsx 익스포터 CLI + 범용 임포터, sf 에디터 툴 4종 이식, 규약 테스트 | `2026-10-08-tooling.md` | 완료. LocalizationTool(Unity Localization 의존)·BuildSettingsVerifier는 미이식. Bounce `ShopTableImporter`는 범용 임포터로 대체 가능 |
 | F | 메타 확장: 엔드리스 오퍼 로직, 데일리 리워드, 윈 스트릭, 로컬 푸시 | (예정) | |
 | G | 로비/상점 재구현 (sf Recipe/Sequence 프리팹 재이식 포함) | (예정) | |
 
