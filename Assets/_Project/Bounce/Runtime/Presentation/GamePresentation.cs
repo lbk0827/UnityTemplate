@@ -6,6 +6,7 @@ namespace BK.Kit
     {
         public GameObject lobby, home, hud, ingame, win, lose, settings, ingameSettings;
         public GameObject cannon, ball;
+        public Sprite[] shopSprites;
         public GameObject[] blocks;
         public TextAsset levels;
         public AudioClip lobbyMusic, ingameMusic, startSound, shotSound;
