@@ -8,12 +8,26 @@
     "BK.Composition",
     "UniTask",
     "VContainer",
-    "BK.Data"
+    "BK.Data",
+    "BrunoMikoski.AnimationSequencer",
+    "DOTween.Modules",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner"
   ],
   "includePlatforms": [
     "Editor"
   ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ]
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll",
+    "DOTween.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
 }
