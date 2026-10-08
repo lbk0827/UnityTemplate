@@ -102,7 +102,7 @@ Assets/BKFramework/Runtime/   framework, one asmdef per layer (BK.*)
   Options/   reactive player options (music/sfx/haptics/language) persisted through Save
   Assets/    Addressables abstraction, scope-bound asset lifetime
   Scene/     scene scopes tied to DI + asset scopes
-  UI/        layered view stack, per-view scopes
+  UI/        layered view stack, popup dim (IPopupDim), screen cover + ISceneFlow, message/toast (IMessageService), BackInputDriver
   Data/      table pipeline
   Localization/
   Presentation/
@@ -114,6 +114,7 @@ Assets/_Project/              game-side content; framework never depends on this
 - Framework layers depend downward only: `Core` ← `Save` ← `Options`, and `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization` (`UI` may use `Scene`).
   Never introduce an upward or sideways reference between `BK.*` assemblies.
 - Back/Escape는 `BackInputDriver` 한 곳에서만 읽는다. 뷰는 `IUIView.OnBackRequested`로 소비하고, 게임 코드는 `Input.GetKeyDown(KeyCode.Escape)`를 직접 폴링하지 않는다.
+- 팝업은 `UIViewBase`의 Dim 레벨(인스펙터)로 딤을 자동 취득한다. 여러 팝업을 잇는 플로우는 `IPopupDim.HoldForTransition()`. 씬 전환은 `ISceneFlow.TransitionAsync`(커버→닫기→전환→리빌; 씬 쪽은 `IRevealReady` 등록으로 리빌 시점 지정). 메시지/토스트 프리팹은 `BK > Framework > Generate UI Prefabs`로 재생성한다(`Assets/BKFramework/Content/UI`, Addressables 그룹 `BK Framework`, 주소는 FrameworkSettings).
 - 세이브는 `ISaveService.Get<T>()`로 슬롯을 받고 변경 후 `MarkDirty()`. 파일은 `persistentDataPath/Save/<Type>.json`. 암호화는 아직 없다.
 - Asset and view lifetime is owned by scopes, never by callers. If you find yourself
   pairing a manual load with a manual release, use a scope instead.

@@ -21,7 +21,7 @@
 |---|---|---|---|
 | A | Animation Sequencer + DOTween 설치, sf 팝업 시퀀스 프리팹 이식 | `2026-10-08-animation-sequencer-install.md` | 완료 (EditMode 16/16) |
 | B | 프레임워크 기반: 범용 세이브 서비스, 옵션 통일, Back/Escape 스택 | `2026-10-08-save-options-back.md` | 완료 (EditMode 32/32, PlayMode 11/11). 암호화(sf PlayerDataCrypto 상당)는 미포함, 필요 시 SaveFile에 바이트 계층 추가. Bounce `LocalSaveStore`는 G에서 교체 |
-| C | UI 계층: 팝업 딤, StageRevealCoordinator, 메시지/토스트, 씬 전환 페이드 | (예정) | |
+| C | UI 계층: 팝업 딤, 스크린 커버(StageReveal)+SceneFlow, 메시지/토스트, 씬 전환 페이드 | `2026-10-08-ui-dim-cover-message.md` | 코드 완료(Roslyn 컴파일 검증). 프리팹 생성·EditMode 45/PlayMode 12 실행은 에디터가 닫힌 뒤. StagePreloaderRegistry는 D에서 |
 | D | 메타 루프: 하트, 스테이지 클리어 플로우(PendingRewardQueue), 실패/컨티뉴 | (예정) | |
 | E | 툴링: TableExporter 적응, 범용 에디터 툴, 테스트 관례 | (예정) | |
 | F | 메타 확장: 엔드리스 오퍼 로직, 데일리 리워드, 윈 스트릭, 로컬 푸시 | (예정) | |
