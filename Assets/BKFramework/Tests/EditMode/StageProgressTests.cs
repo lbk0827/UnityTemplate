@@ -116,6 +116,18 @@ namespace BK.Tests
         }
 
         [Test]
+        public void SetCurrentStageIsForToolsOnly()
+        {
+            var started = 0;
+            using var sub = _progress.Started.Subscribe(_ => started++);
+            _progress.SetCurrentStage(9);
+            Assert.That(_progress.CurrentStage.CurrentValue, Is.EqualTo(9));
+            Assert.That(Hearts, Is.EqualTo(5), "no charge");
+            Assert.That(started, Is.Zero, "no events");
+            Assert.Throws<ArgumentOutOfRangeException>(() => _progress.SetCurrentStage(0));
+        }
+
+        [Test]
         public void ClearSavesPointerBeforeEventsAndNeverMovesBackwards()
         {
             int seen = -1;

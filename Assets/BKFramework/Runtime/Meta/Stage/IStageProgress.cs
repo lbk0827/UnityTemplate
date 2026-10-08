@@ -36,5 +36,8 @@ namespace BK.Meta
 
         Observable<StageStarted> Started { get; }
         Observable<StageCleared> Cleared { get; }
+
+        /// <summary>Tools and tests only: moves the saved pointer without charging, refunding or raising events.</summary>
+        void SetCurrentStage(int stage);
     }
 }

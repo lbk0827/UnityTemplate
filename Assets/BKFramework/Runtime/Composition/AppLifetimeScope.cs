@@ -40,7 +40,8 @@ namespace BK.Composition
             builder.Register<AddressablesAssetService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.Register<SceneService>(Lifetime.Singleton).AsImplementedInterfaces();
 
-            builder.Register<ISaveService>(_ => new SaveService(SaveService.DefaultDirectory), Lifetime.Singleton);
+            var saveDirectory = SaveDirectory;
+            builder.Register<ISaveService>(_ => new SaveService(saveDirectory), Lifetime.Singleton);
             builder.Register<IOptionsService>(container => new OptionsService(
                 container.Resolve<ISaveService>(), _settings.DefaultLanguage), Lifetime.Singleton);
 
@@ -84,6 +85,11 @@ namespace BK.Composition
         /// Subclass in the game assembly and override this instead of editing the framework.
         /// </summary>
         protected virtual void ConfigureProject(IContainerBuilder builder) { }
+
+        /// <summary>
+        /// Folder for save slots. Override to isolate test runs or to namespace a game's profile.
+        /// </summary>
+        protected virtual string SaveDirectory => SaveService.DefaultDirectory;
 
         /// <summary>
         /// Order comes from each step's <see cref="IBootStep.Order"/>, not from this

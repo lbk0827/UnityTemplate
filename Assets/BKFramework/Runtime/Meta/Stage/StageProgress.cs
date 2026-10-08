@@ -86,6 +86,17 @@ namespace BK.Meta
             _cleared.OnNext(new StageCleared(stage));
         }
 
+        public void SetCurrentStage(int stage)
+        {
+            if (stage < 1)
+                throw new ArgumentOutOfRangeException(nameof(stage));
+            _data.currentStage = stage;
+            _data.attempts = 0;
+            _playingStage = stage;
+            _data.MarkDirty();
+            _current.Value = stage;
+        }
+
         public void Dispose()
         {
             _current.Dispose();
