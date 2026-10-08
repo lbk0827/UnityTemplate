@@ -1,0 +1,14 @@
+{
+  "name": "BK.Meta",
+  "rootNamespace": "BK.Meta",
+  "references": ["BK.Core", "BK.Save", "R3.Unity", "UniTask", "VContainer"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

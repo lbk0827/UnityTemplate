@@ -5,6 +5,7 @@
     "BK.Core",
     "BK.Save",
     "BK.Options",
+    "BK.Meta",
     "BK.UI",
     "BK.Scene",
     "BK.Assets",

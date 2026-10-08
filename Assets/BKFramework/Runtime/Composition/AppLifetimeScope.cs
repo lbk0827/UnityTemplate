@@ -5,6 +5,7 @@ using VContainer.Unity;
 using BK.Assets;
 using BK.Core.App;
 using BK.Core.Events;
+using BK.Core.Time;
 using BK.Data;
 using BK.Localization;
 using BK.Options;
@@ -34,6 +35,7 @@ namespace BK.Composition
 
             builder.RegisterInstance(_settings);
 
+            builder.Register<SystemClock>(Lifetime.Singleton).As<IClock>();
             builder.Register<EventBus>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.Register<AddressablesAssetService>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
             builder.Register<SceneService>(Lifetime.Singleton).AsImplementedInterfaces();
