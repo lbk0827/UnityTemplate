@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_Project/Scenes/Boot.unity
-    guid: f3595ecbf8be83a4e878f79529edcd51
+    path: Assets/_Project/Bounce/Scenes/VisualBootstrap.unity
+    guid: 080b5ee6ebe8a2f45ab7d285b44c520d
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 719bb710a19dc264a825faa311316b48, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

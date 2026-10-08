@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ca1e1df3c2f0b478251534ec72dc00, type: 3}
+  m_Name: Presentation
+  m_EditorClassIdentifier: BK.Kit.Runtime::BK.Kit.GamePresentation
+  lobby: {fileID: 4941022387357018130, guid: 85e075e73dd81d64b984e9aa2b63ba4f, type: 3}
+  home: {fileID: 3978099371814364388, guid: 6f5d2cc254afc264592116be6aefbc7b, type: 3}
+  hud: {fileID: 7335679479537668828, guid: 2fcfa13ca62c9bf4c8aca5ed630e126f, type: 3}
+  ingame: {fileID: 2598283298773763838, guid: e22e4932ebe9189418d78f9f69452216, type: 3}
+  win: {fileID: 671886578197344700, guid: 4c6a646f79c71af4485f54c3854f3085, type: 3}
+  lose: {fileID: 4724862262381455025, guid: 11833b3c37181074fa91efa3b0a5e774, type: 3}
+  settings: {fileID: 8917678326779450010, guid: 03c6a48c3ce74644f93163f4b58a5768, type: 3}
+  ingameSettings: {fileID: 6311812125158786214, guid: fcc947fd05e22e047819bc5781cb1e4a, type: 3}
+  cannon: {fileID: 9129061533232291603, guid: 7ce0c39d75af6ba48862bd7973a33627, type: 3}
+  ball: {fileID: 2654036639705651332, guid: f707b4c9a7d0abc4293f410c2321bc42, type: 3}
+  blocks:
+  - {fileID: 1709254077376921, guid: 8ab97f44508ce644aa93c358cd4591a5, type: 3}
+  - {fileID: 1709254077376921, guid: 317f9b1a0244fd34eb98cc9fd274a34a, type: 3}
+  - {fileID: 1709254077376921, guid: 5c349a807d1b16340bed492318a6bdc5, type: 3}
+  - {fileID: 1709254077376921, guid: 5dbfd79f396677c42a2d342676b824b5, type: 3}
+  levels: {fileID: 4900000, guid: 88a01846102fbcf41b0f62044c641989, type: 3}
+  lobbyMusic: {fileID: 8300000, guid: c4da087becb880d47b1acc43596d9ea4, type: 3}
+  ingameMusic: {fileID: 8300000, guid: bc8d03e1378ddc14583a12f975645caa, type: 3}
+  startSound: {fileID: 8300000, guid: 3f1cd090a6a54b76aa6c17b995f385bd, type: 3}
+  shotSound: {fileID: 8300000, guid: 189ef4e097890e34eac02d30f8cb6b07, type: 3}
+  arenaMaterial: {fileID: 2100000, guid: 047e176e0c41db04c926f43789d94d40, type: 2}
+  trajectoryMaterial: {fileID: 2100000, guid: db41185a14fdf0049b092fa894d4e00d, type: 2}

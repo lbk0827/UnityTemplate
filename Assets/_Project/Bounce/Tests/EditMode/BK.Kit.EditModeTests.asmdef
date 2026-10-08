@@ -1,0 +1,18 @@
+{
+  "name": "BK.Kit.EditModeTests",
+  "references": [
+    "BK.Kit.Runtime",
+    "BK.UI",
+    "BK.Scene",
+    "BK.Assets",
+    "BK.Composition",
+    "UniTask",
+    "VContainer"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

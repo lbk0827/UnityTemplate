@@ -1,0 +1,18 @@
+{
+  "name": "BK.Kit.PlayModeTests",
+  "references": [
+    "BK.Kit.Runtime",
+    "UnityEngine.UI",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.TextMeshPro",
+    "BK.UI",
+    "BK.Scene",
+    "BK.Assets",
+    "BK.Composition",
+    "UniTask",
+    "VContainer"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

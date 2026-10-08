@@ -1,0 +1,17 @@
+{
+  "name": "BK.Kit.Runtime",
+  "rootNamespace": "BK.Kit",
+  "references": [
+    "UnityEngine.UI",
+    "Unity.TextMeshPro",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "BK.Core",
+    "BK.Assets",
+    "BK.Scene",
+    "BK.UI",
+    "BK.Composition",
+    "VContainer",
+    "UniTask",
+    "R3.Unity"
+  ]
+}

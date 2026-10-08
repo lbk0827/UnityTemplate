@@ -1,0 +1,17 @@
+{
+  "name": "BK.Kit.Editor",
+  "references": [
+    "BK.Kit.Runtime",
+    "BK.Composition",
+    "BK.UI",
+    "VContainer",
+    "Unity.TextMeshPro",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.Addressables",
+    "Unity.Addressables.Editor",
+    "Unity.ResourceManager"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ]
+}

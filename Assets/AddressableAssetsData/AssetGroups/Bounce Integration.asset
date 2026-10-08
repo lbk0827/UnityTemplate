@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Bounce Integration
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Bounce Integration
+  m_GUID: d55325a079d6e46419feac3e62a2996c
+  m_SerializeEntries:
+  - m_GUID: 0d334d71b654f4f4aae01a57e39306a9
+    m_Address: Bounce/UI/VisualLobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45d79ad7668092c4aab5e3b8d4fcc376
+    m_Address: Bounce/Scenes/VisualIngame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a76b0c1c9676aad4b84f9fec2915ea19
+    m_Address: Bounce/UI/VisualIngame
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbdb4ed8fc03d474fa2e3c54395ad038
+    m_Address: Bounce/Scenes/VisualLobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 548e73473093a484c87c05665f439a1d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f236208fa67896247bd9559b8cc87196, type: 2}
+    - {fileID: 11400000, guid: 29a9695f6c7ba3d4cacd24b047fb1e69, type: 2}
+    m_SchemaDisplayOrder:
+    - Bounce Integration_BundledAssetGroupSchema
+    - Bounce Integration_ContentUpdateGroupSchema
+  m_IncludeInBuild: 1
+  m_IncludeInBuildMigrated: 1
