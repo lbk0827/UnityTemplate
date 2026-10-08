@@ -75,6 +75,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - `IntegratedProjectScope` boots BKFramework; `KitApp` owns Bounce progress/save state and delegates scenes/UI to `ISceneService`/`IUIService`. Do not start the sample `ProjectScope` alongside it.
 - Keep the existing `BKFramework` independent of the game module. Imported presentation remains game content, with its existing provenance.
 - DUG-named fonts were replaced with Kenney Future Narrow (CC0), including TMP atlases. Preserve `Assets/_Project/ThirdParty/KenneyFonts/License.txt` and `source.json`; do not reimport the old fonts from the historical handover.
+- Bounce shop data lives in `Assets/_Project/Bounce/Content/Tables/`. Edit the JSON sources and run `BK > Integration > Import Shop Tables`. The two game tables load through BK.Data at boot; the original Project sample tables remain separate.
 - Target editor remains 6000.3.21f1. See `docs/bk-kit-integration.json` for actual validation versions/results.
 
 A reusable Unity template framework for personal side projects. Unity 6000.3.21f1, URP.

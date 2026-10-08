@@ -1,0 +1,10 @@
+{
+  "source": "D:\\ngfe_sf\\Assets\\Application\\Bundles\\Tables\\Generated",
+  "destination": "Assets\\_Project\\Bounce\\Content\\Tables",
+  "productRows": 40,
+  "currencyRows": 22,
+  "fields": "Category/priority/hidden/limit/price/badge and Package_1/2/3 rewards mapped to BK.Kit data. CurrencyDefinitionTable supplies reward order, duration formatting and Gold booster costs.",
+  "excluded": "Platform product identifiers, analytics identifiers, advertising and payment SDK integration. Unsupported conditional/event/failure layouts remain absent from the lobby.",
+  "economy": "Current SF data, not screenshot values. Existing saved balances/initial inventory and unlimited lives unchanged. Cash purchases remain previews.",
+  "editing": "Edit JSON then BK > Integration > Import Shop Tables; assets are loaded by BK.Data.ITableService at boot."
+}

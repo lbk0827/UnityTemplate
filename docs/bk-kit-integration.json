@@ -128,7 +128,7 @@
   "validation": {
     "editor": "6000.3.7f1",
     "targetEditor": "6000.3.21f1",
-    "targetEditorStatus": "Not installed; automated installer action was blocked by tool policy.",
+    "targetEditorStatus": "6000.3.21f1 is now installed. Categorized shop changes validated with this editor; earlier compatible Windows preview remains a 6000.3.7f1 build.",
     "playModeBeforeFontChange": "9/9 passed",
     "afterFontChange": "PlayMode 9/9 passed",
     "editMode": "5/5 passed",
@@ -164,5 +164,21 @@
     "DUGPathsRemaining": 0
   },
   "previewBuild": "Builds/Bounce/UnityTemplate_Bounce.exe (6000.3.7f1 compatibility preview, Development Build; Unity PlayerConnection may prompt Windows Firewall)",
-  "git": "Integration changes grouped into font, game integration, and documentation commits for origin/main. Generated builds and validation logs are excluded. No history rewrite or security-setting change."
+  "git": "Integration changes grouped into font, game integration, and documentation commits for origin/main. Generated builds and validation logs are excluded. No history rewrite or security-setting change.",
+  "shopUpdate": {
+    "categories": [
+      "No-Ad Offers",
+      "Bundles",
+      "Coins",
+      "Boosters"
+    ],
+    "bundleCards": 5,
+    "coinCards": 6,
+    "purchaseBehavior": "Cash-priced products open a non-charging preview. Gold booster purchases retain their existing transaction and save behavior.",
+    "artProvenance": "docs/shop-art-provenance.json",
+    "editor": "6000.3.21f1",
+    "validation": "Unity 6000.3.21f1: EditMode 9/9 and PlayMode 10/10 passed. Covers filtering, ordering, reward references, table-driven booster prices, transaction rollback, saved inventory and shop navigation.",
+    "evidence": "Logs/ShopValidation (local, git-ignored)",
+    "data": "BK.Kit ShopProductTable (40 rows) and CurrencyDefinitionTable (22 rows) loaded through BK.Data.ITableService; source mapping in docs/shop-table-mapping.json."
+  }
 }
