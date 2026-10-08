@@ -844,12 +844,14 @@ namespace BK.UI
 }
 ```
 
-- [ ] **Step 3: AppLifetimeScope 등록**
+- [ ] **Step 3: AppLifetimeScope 등록** (리뷰 반영: `SceneFlow`는 float 기본 인자가 있어 VContainer가 자동 해석 못 함 → 팩토리 람다. `PopupDim` public 생성자에는 `[Inject]` 필수 — VContainer는 internal 생성자도 후보에 넣고 매개변수가 많은 쪽을 고른다.)
 
 ```csharp
             builder.Register<IScreenCover>(container => new ScreenCover(ScreenCoverView.Create(container.Resolve<UIRoot>())), Lifetime.Singleton);
-            builder.Register<SceneFlow>(Lifetime.Singleton).As<ISceneFlow>();
+            builder.Register<ISceneFlow>(container => new SceneFlow(container.Resolve<ISceneService>(), container.Resolve<IUIService>(), container.Resolve<IScreenCover>(), container.Resolve<IPopupDim>()), Lifetime.Singleton);
 ```
+
+리뷰 반영 2: `ScreenCover`의 ready 대기는 `CancelAfter`(스레드풀 타이머) 대신 `UniTask.WhenAny(ready.ReadyTask, UniTask.Delay(...))`로, fallback은 `UniTask.NextFrame`(EditMode에서 영원히 안 끝남) 대신 `UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate)`로 구현한다.
 
 - [ ] **Step 4: meta → 컴파일 → 테스트 (`ScreenCoverTests` 4/4)** → 커밋 `feat(ui): add screen cover with reveal-ready gating and SceneFlow`
 
@@ -1456,7 +1458,7 @@ namespace BK.Tests
 
 Bounce 테스트가 `KitApp.Instance`를 전역으로 두므로, 이 테스트 끝에 `if (BK.Kit.KitApp.Instance != null) Object.Destroy(...)`는 하지 않는다(BK.Kit 의존 금지). 테스트 순서 간섭이 나면 `[Order]`가 아니라 Bounce 테스트가 이미 하는 것처럼 각 테스트가 씬을 새로 로드하므로 문제 없어야 한다.
 
-- [ ] **Step 3: EditMode 전체(41) + PlayMode 전체(12) → 통과 확인**
+- [ ] **Step 3: EditMode 전체(45 = 32 + 7 + 4 + 2) + PlayMode 전체(12) → 통과 확인**
 
 - [ ] **Step 4: 문서**
 

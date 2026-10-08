@@ -1,0 +1,22 @@
+{
+  "name": "BK.Editor",
+  "rootNamespace": "BK.Editor",
+  "references": [
+    "BK.Core",
+    "BK.UI",
+    "Unity.TextMeshPro",
+    "UnityEngine.UI",
+    "Unity.Addressables",
+    "Unity.Addressables.Editor",
+    "Unity.ResourceManager"
+  ],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
