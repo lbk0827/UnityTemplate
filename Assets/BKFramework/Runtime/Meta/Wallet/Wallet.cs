@@ -41,7 +41,8 @@ namespace BK.Meta
                     case CurrencyKind.Rechargeable:
                         var state = RechargeLogic.OnLoad(new RechargeLogic.State(entry.value, stamp), definition, now);
                         currency.Anchor = state.Anchor;
-                        Persist(currency, state.Value, state.Anchor);
+                        if (state.Anchor != stamp)
+                            Persist(currency, state.Value, state.Anchor);
                         break;
                 }
                 _currencies.Add(definition.Id, currency);
