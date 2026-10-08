@@ -35,6 +35,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41409bf98fae4890a28e2d64ae5734cd
+    m_Address: Bounce/Tables/ShopProductTable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a86399f2720b4a9ca25b97729db06d98
+    m_Address: Bounce/Tables/CurrencyDefinitionTable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 548e73473093a484c87c05665f439a1d, type: 2}
   m_SchemaSet:

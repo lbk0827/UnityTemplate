@@ -17,3 +17,5 @@ MonoBehaviour:
   - Data/ShopProductTable
   - Data/DailyRewardTable
   - Data/ProfileItemTable
+  - Bounce/Tables/ShopProductTable
+  - Bounce/Tables/CurrencyDefinitionTable

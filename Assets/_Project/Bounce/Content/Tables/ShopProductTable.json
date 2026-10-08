@@ -1,0 +1,1399 @@
+{
+  "_rows": [
+    {
+      "id": 1,
+      "categoryPriority": 4,
+      "priority": 107,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "adsfree100coin",
+      "description": "",
+      "icon": "Goods_Coin_06",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 0,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 100,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "categoryPriority": 4,
+      "priority": 101,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "1000coin",
+      "description": "",
+      "icon": "Goods_Coin_01",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 1.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 1000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "categoryPriority": 4,
+      "priority": 102,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "5000coin",
+      "description": "",
+      "icon": "Goods_Coin_02",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "categoryPriority": 4,
+      "priority": 103,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "10000coin",
+      "description": "",
+      "icon": "Goods_Coin_03",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 14.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 10000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "categoryPriority": 4,
+      "priority": 104,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "25000coin",
+      "description": "",
+      "icon": "Goods_Coin_04",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 29.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 25000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "categoryPriority": 4,
+      "priority": 105,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "50000coin",
+      "description": "",
+      "icon": "Goods_Coin_05",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 54.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 50000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "categoryPriority": 2,
+      "priority": 201,
+      "purchaseLimit": 0,
+      "category": "No-Ad Offers",
+      "layout": "NoAds",
+      "name": "No Ads",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 5.99,
+      "rewards": [
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "categoryPriority": 2,
+      "priority": 202,
+      "purchaseLimit": 0,
+      "category": "No-Ad Offers",
+      "layout": "NoAds",
+      "name": "No Ads Bundle",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 0
+        },
+        {
+          "currencyId": "Gold",
+          "amount": 1000,
+          "group": 1
+        },
+        {
+          "currencyId": "Missile",
+          "amount": 2,
+          "group": 1
+        },
+        {
+          "currencyId": "ExtraBall",
+          "amount": 2,
+          "group": 1
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "categoryPriority": 3,
+      "priority": 203,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Bundle",
+      "name": "Tiny Bundle",
+      "description": "",
+      "icon": "IMG_Bundle_Item_00",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 4.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 2000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 10800,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "categoryPriority": 3,
+      "priority": 204,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Bundle",
+      "name": "Midday Bundle",
+      "description": "",
+      "icon": "IMG_Bundle_Item_01",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 9.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 4000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 21600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "categoryPriority": 3,
+      "priority": 205,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Bundle",
+      "name": "Biggie Bundle",
+      "description": "",
+      "icon": "IMG_Bundle_Item_02",
+      "badge": "Popular",
+      "conditionType": "",
+      "hidden": false,
+      "price": 19.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 8000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 43200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 4,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "categoryPriority": 4,
+      "priority": 106,
+      "purchaseLimit": 0,
+      "category": "Coins",
+      "layout": "Coin",
+      "name": "100000coin",
+      "description": "",
+      "icon": "Goods_Coin_06",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 99.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 100000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "categoryPriority": 3,
+      "priority": 206,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Bundle",
+      "name": "Deluxe Bundle",
+      "description": "",
+      "icon": "IMG_Bundle_Item_03",
+      "badge": "",
+      "conditionType": "",
+      "hidden": false,
+      "price": 49.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 20000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 129600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 12,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "categoryPriority": 3,
+      "priority": 207,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Bundle",
+      "name": "Ultimate Bundle",
+      "description": "",
+      "icon": "IMG_Bundle_Item_04",
+      "badge": "Best",
+      "conditionType": "",
+      "hidden": false,
+      "price": 99.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 60000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 259200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 25,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 16,
+      "categoryPriority": 1,
+      "priority": 401,
+      "purchaseLimit": 1,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "starterbundle",
+      "description": "",
+      "icon": "",
+      "badge": "67% Off",
+      "conditionType": "ContentsUnlock",
+      "hidden": false,
+      "price": 1.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 1000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 3600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 17,
+      "categoryPriority": 3,
+      "priority": 203,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "NoAds",
+      "name": "tinybundlenoad",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 4.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 2000,
+          "group": 0
+        },
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 1
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 10800,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 18,
+      "categoryPriority": 3,
+      "priority": 204,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "NoAds",
+      "name": "middybundlenoad",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 9.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 4000,
+          "group": 0
+        },
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 1
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 21600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "categoryPriority": 3,
+      "priority": 205,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "NoAds",
+      "name": "biggiebundlenoad",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 19.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 8000,
+          "group": 0
+        },
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 1
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 43200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 4,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 4,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 20,
+      "categoryPriority": 3,
+      "priority": 206,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "NoAds",
+      "name": "deluxebundlenoad",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 49.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 20000,
+          "group": 0
+        },
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 1
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 129600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 12,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 12,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 21,
+      "categoryPriority": 3,
+      "priority": 207,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "NoAds",
+      "name": "ultimatebundlenoad",
+      "description": "Remove interstitial &\nbanner ads",
+      "icon": "IMG_NoAds_Icon2",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 99.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 60000,
+          "group": 0
+        },
+        {
+          "currencyId": "NoAds",
+          "amount": 1,
+          "group": 1
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 259200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 25,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 25,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 23,
+      "categoryPriority": 3,
+      "priority": 208,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Unsupported",
+      "name": "failoffer",
+      "description": "",
+      "icon": "",
+      "badge": "65% Off",
+      "conditionType": "",
+      "hidden": false,
+      "price": 3.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 1200,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 3600,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 24,
+      "categoryPriority": 3,
+      "priority": 209,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Unsupported",
+      "name": "failoffer2",
+      "description": "",
+      "icon": "",
+      "badge": "70% Off",
+      "conditionType": "",
+      "hidden": true,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 2400,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 7200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 25,
+      "categoryPriority": 3,
+      "priority": 209,
+      "purchaseLimit": 0,
+      "category": "Bundles",
+      "layout": "Unsupported",
+      "name": "failoffer2",
+      "description": "",
+      "icon": "",
+      "badge": "70% Off",
+      "conditionType": "",
+      "hidden": false,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 2400,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 7200,
+          "group": 1
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 26,
+      "categoryPriority": 1,
+      "priority": 402,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "15daypass",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "ContentsUnlock",
+      "hidden": false,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 8000,
+          "group": 0
+        }
+      ]
+    },
+    {
+      "id": 1001,
+      "categoryPriority": 1,
+      "priority": 601,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_1",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 2.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 3000,
+          "group": 0
+        },
+        {
+          "currencyId": "ExtraBall",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1002,
+      "categoryPriority": 1,
+      "priority": 602,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_2",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 4.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 4000,
+          "group": 0
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1003,
+      "categoryPriority": 1,
+      "priority": 603,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_3",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1004,
+      "categoryPriority": 1,
+      "priority": 604,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_4",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 14.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 3,
+          "group": 2
+        },
+        {
+          "currencyId": "LaserIngame",
+          "amount": 3,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1005,
+      "categoryPriority": 1,
+      "priority": 605,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_5",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 19.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "Missile",
+          "amount": 3,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1006,
+      "categoryPriority": 1,
+      "priority": 606,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_6",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 29.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 15500,
+          "group": 0
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 5,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1007,
+      "categoryPriority": 1,
+      "priority": 607,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_7",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 49.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 15000,
+          "group": 0
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 10,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1008,
+      "categoryPriority": 1,
+      "priority": 608,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_vertical_8",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 99.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 40000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 43200,
+          "group": 1
+        },
+        {
+          "currencyId": "ExtraBall",
+          "amount": 10,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1011,
+      "categoryPriority": 1,
+      "priority": 713,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_1",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 2.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 3000,
+          "group": 0
+        },
+        {
+          "currencyId": "ExtraBall",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1012,
+      "categoryPriority": 1,
+      "priority": 714,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_2",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 4.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 4000,
+          "group": 0
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 1,
+          "group": 2
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 1,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1013,
+      "categoryPriority": 1,
+      "priority": 715,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_3",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 7.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "BombIngame",
+          "amount": 2,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1014,
+      "categoryPriority": 1,
+      "priority": 716,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_4",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 14.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 3,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1015,
+      "categoryPriority": 1,
+      "priority": 717,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_5",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 19.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 5000,
+          "group": 0
+        },
+        {
+          "currencyId": "Missile",
+          "amount": 3,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1016,
+      "categoryPriority": 1,
+      "priority": 718,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_6",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 29.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 8000,
+          "group": 0
+        },
+        {
+          "currencyId": "ExtraballIngame",
+          "amount": 5,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1017,
+      "categoryPriority": 1,
+      "priority": 719,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_7",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 49.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 15000,
+          "group": 0
+        },
+        {
+          "currencyId": "MissileIngame",
+          "amount": 10,
+          "group": 2
+        }
+      ]
+    },
+    {
+      "id": 1018,
+      "categoryPriority": 1,
+      "priority": 720,
+      "purchaseLimit": 0,
+      "category": "Special Offers",
+      "layout": "Unsupported",
+      "name": "endless_chain_8",
+      "description": "",
+      "icon": "",
+      "badge": "",
+      "conditionType": "",
+      "hidden": true,
+      "price": 99.99,
+      "rewards": [
+        {
+          "currencyId": "Gold",
+          "amount": 35000,
+          "group": 0
+        },
+        {
+          "currencyId": "InfiniteHeart",
+          "amount": 43200,
+          "group": 1
+        },
+        {
+          "currencyId": "ExtraBall",
+          "amount": 10,
+          "group": 2
+        }
+      ]
+    }
+  ]
+}

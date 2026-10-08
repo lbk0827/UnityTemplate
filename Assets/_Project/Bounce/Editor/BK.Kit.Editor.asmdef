@@ -9,7 +9,8 @@
     "Unity.RenderPipelines.Universal.Runtime",
     "Unity.Addressables",
     "Unity.Addressables.Editor",
-    "Unity.ResourceManager"
+    "Unity.ResourceManager",
+    "BK.Data"
   ],
   "includePlatforms": [
     "Editor"

@@ -1,0 +1,224 @@
+{
+  "_rows": [
+    {
+      "id": "Gold",
+      "name": "Gold",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 1,
+      "purchaseAmount": 0,
+      "duration": false
+    },
+    {
+      "id": "Gem",
+      "name": "Gem",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 999,
+      "purchaseAmount": 0,
+      "duration": false
+    },
+    {
+      "id": "Heart",
+      "name": "Heart",
+      "icon": "IMG_Heart",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 97,
+      "purchaseAmount": 900,
+      "duration": false
+    },
+    {
+      "id": "Magnet",
+      "name": "Magnet",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 3,
+      "purchaseAmount": 650,
+      "duration": false
+    },
+    {
+      "id": "PlusBuffer",
+      "name": "PlusBuffer",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 4,
+      "purchaseAmount": 500,
+      "duration": false
+    },
+    {
+      "id": "Brush",
+      "name": "Brush",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 5,
+      "purchaseAmount": 1200,
+      "duration": false
+    },
+    {
+      "id": "Wand",
+      "name": "Wand",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 6,
+      "purchaseAmount": 500,
+      "duration": false
+    },
+    {
+      "id": "InfiniteHeart",
+      "name": "Unlimited lives",
+      "icon": "IMG_Heart",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 96,
+      "purchaseAmount": 0,
+      "duration": true
+    },
+    {
+      "id": "InfiniteAll",
+      "name": "InfiniteAll",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 998,
+      "purchaseAmount": 0,
+      "duration": true
+    },
+    {
+      "id": "TimeOutContinue",
+      "name": "TimeOutContinue",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 8,
+      "purchaseAmount": 900,
+      "duration": false
+    },
+    {
+      "id": "MovesZeroContinue",
+      "name": "MovesZeroContinue",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 9,
+      "purchaseAmount": 900,
+      "duration": false
+    },
+    {
+      "id": "NoAds",
+      "name": "No Ads",
+      "icon": "IMG_NoAds_Icon2",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 2,
+      "purchaseAmount": 0,
+      "duration": false
+    },
+    {
+      "id": "Missile",
+      "name": "Missile",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 10,
+      "purchaseAmount": 900,
+      "duration": false
+    },
+    {
+      "id": "ExtraBall",
+      "name": "ExtraBall",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 11,
+      "purchaseAmount": 600,
+      "duration": false
+    },
+    {
+      "id": "Bomb",
+      "name": "Bomb",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 12,
+      "purchaseAmount": 600,
+      "duration": false
+    },
+    {
+      "id": "InfiniteMissile",
+      "name": "InfiniteMissile",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 13,
+      "purchaseAmount": 0,
+      "duration": true
+    },
+    {
+      "id": "InfiniteExtraBall",
+      "name": "InfiniteExtraBall",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 14,
+      "purchaseAmount": 0,
+      "duration": true
+    },
+    {
+      "id": "InfiniteBomb",
+      "name": "InfiniteBomb",
+      "icon": "IMG_Coin",
+      "boosterKind": "",
+      "purchaseCurrency": "0",
+      "rewardPriority": 15,
+      "purchaseAmount": 0,
+      "duration": true
+    },
+    {
+      "id": "MissileIngame",
+      "name": "Missile",
+      "icon": "IMG_Coin",
+      "boosterKind": "Missile",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 16,
+      "purchaseAmount": 900,
+      "duration": false
+    },
+    {
+      "id": "ExtraballIngame",
+      "name": "Extra Balls",
+      "icon": "IMG_Coin",
+      "boosterKind": "ExtraBall",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 17,
+      "purchaseAmount": 600,
+      "duration": false
+    },
+    {
+      "id": "BombIngame",
+      "name": "Bomb",
+      "icon": "IMG_Coin",
+      "boosterKind": "Bomb",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 18,
+      "purchaseAmount": 700,
+      "duration": false
+    },
+    {
+      "id": "LaserIngame",
+      "name": "Laser",
+      "icon": "IMG_Coin",
+      "boosterKind": "Laser",
+      "purchaseCurrency": "Gold",
+      "rewardPriority": 19,
+      "purchaseAmount": 800,
+      "duration": false
+    }
+  ]
+}

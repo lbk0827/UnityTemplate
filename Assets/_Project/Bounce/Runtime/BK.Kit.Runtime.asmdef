@@ -12,6 +12,7 @@
     "BK.Composition",
     "VContainer",
     "UniTask",
-    "R3.Unity"
+    "R3.Unity",
+    "BK.Data"
   ]
 }
