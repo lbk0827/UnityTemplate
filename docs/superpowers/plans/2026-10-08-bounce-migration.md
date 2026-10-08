@@ -26,7 +26,7 @@
 - `Wallet.cs`: 변경 없음. (`Set`은 이미 있음.)
 - 테스트: `StageProgressTests`에 `SetCurrentStageIsForToolsOnly` 1개.
 
-- [ ] 구현 → csc → 커밋 `feat(core): allow projects to override the save directory; add StageProgress.SetCurrentStage`
+- [x] 구현 → csc → 커밋 `feat(core): allow projects to override the save directory; add StageProgress.SetCurrentStage`
 
 ---
 
@@ -41,7 +41,7 @@
   - `IntegratedGameFlow` 생성자에 `ISaveService, IWallet, IStageProgress, IOptionsService, IMessageService, PendingRewardQueue, CurrencyDisplayLock, ContinueOffers, IClock` 추가해 `KitApp.Initialize(...)`로 전달.
 - Modify: `BK.Kit.Runtime.asmdef` references에 `BK.Save`, `BK.Meta`, `BK.Options` 추가. 테스트/에디터 asmdef도 동일.
 
-- [ ] 구현 → csc → 커밋 `feat(bounce): register Bounce currency/continue catalogs and framework services`
+- [x] 구현 → csc → 커밋 `feat(bounce): register Bounce currency/continue catalogs and framework services`
 
 ---
 
@@ -80,7 +80,7 @@ public IWallet Wallet, IStageProgress Progress /*이름 충돌 주의: 기존 Pr
 - `OfferClaim`: `PlayerProgress` 대신 `(BounceOfferData, IWallet)`를 받도록 수정. 골드 포화는 long이므로 제거.
 - `LocalOfferSource.CurrentStep` → `app.OfferStep(kind)`.
 
-- [ ] 구현 → csc(BK.Kit.Runtime) → 커밋 `refactor(bounce): make KitApp a facade over wallet, stage progress, options and save`
+- [x] 구현 → csc(BK.Kit.Runtime) → 커밋 `refactor(bounce): make KitApp a facade over wallet, stage progress, options and save`
 
 ---
 
@@ -97,7 +97,7 @@ public IWallet Wallet, IStageProgress Progress /*이름 충돌 주의: 기존 Pr
 - `KitAudioChannel`: `app.Changed` 대신 `options.Music/Sfx` 구독(R3). `KitHaptics`: `app.HapticsEnabled`.
 - `PlayerSmokeCheck`: `Progress.*` → 파사드; `new LocalSaveStore(folder).Load().gold` → `new SaveService(folder).Get<WalletData>()` 값.
 
-- [ ] 구현 → csc(BK.Kit.Runtime, BK.Kit.Editor) → 커밋 `refactor(bounce): read progress through the KitApp facade; show hearts and reward display lock in the HUD`
+- [x] 구현 → csc(BK.Kit.Runtime, BK.Kit.Editor) → 커밋 `refactor(bounce): read progress through the KitApp facade; show hearts and reward display lock in the HUD`
 
 ---
 
@@ -109,7 +109,7 @@ public IWallet Wallet, IStageProgress Progress /*이름 충돌 주의: 기존 Pr
 - `BounceModule.Resolve`: 패배 조건(공 0, 블록 남음)에서 즉시 `Report(false)` 하지 않고 `failed` 상태로 두고 `completed(false)`를 호출하되, `KitApp.Complete(false)`는 Session을 Lost로 만든다. 컨티뉴 시 `KitApp.TryContinue` → `Session.Resume()`(새 메서드: Lost → Playing) → `game.Continue(5)` → `BallsRemaining += 5; playing = true`. 즉 "Report 후 재개" 모델. 이미 `End()`가 호출되지 않았음을 보장(실패 팝업 표시 중 모듈은 살아 있음).
 - `GameSession.Resume()` 추가: `State == Lost`일 때만 Playing으로.
 
-- [ ] 구현 → csc → 커밋 `feat(bounce): allow continuing a lost round with extra balls`
+- [x] 구현 → csc → 커밋 `feat(bounce): allow continuing a lost round with extra balls`
 
 ---
 
@@ -122,7 +122,7 @@ public IWallet Wallet, IStageProgress Progress /*이름 충돌 주의: 기존 Pr
 - 하트 테스트 추가(PlayMode, VisualFlowTests에 1개): 4스테이지부터 입장 시 하트 5→4, 클리어 시 5로 환불, 하트 0으로 시드하면 Play가 막히고 메시지 팝업이 뜬다.
 - 컨티뉴 테스트 추가: 공 0으로 패배 → 실패 팝업 가격 150 → 골드 1000 시드 상태에서 컨티뉴 → 공 +5, 골드 850, 다시 패배 → 가격 300.
 
-- [ ] 구현 → 에디터 닫힌 뒤 EditMode/PlayMode 전체 실행 → 커밋 `test(bounce): cover the framework-backed facade, hearts and continue`
+- [x] 구현 → 에디터 닫힌 뒤 EditMode/PlayMode 전체 실행 → 커밋 `test(bounce): cover the framework-backed facade, hearts and continue`
 
 ---
 
@@ -131,4 +131,4 @@ public IWallet Wallet, IStageProgress Progress /*이름 충돌 주의: 기존 Pr
 - CLAUDE.md의 Bounce 섹션: "KitApp은 BK.Save/BK.Meta/BK.Options 파사드. 저장 파일은 `persistentDataPath/Bounce/Profiles/local/<Type>.json`(테스트는 `BK_KIT_TEST_SAVE_DIR`). 하트 1~3 무료, 이후 1개 차감·클리어 환불. 컨티뉴 150/300/450/600 골드에 공 5개."
 - 로드맵 G1 완료, G2 범위 명시.
 
-- [ ] 커밋 `docs: record the Bounce migration`
+- [x] 커밋 `docs: record the Bounce migration`
