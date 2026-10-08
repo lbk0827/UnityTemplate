@@ -34,7 +34,7 @@
 - `LocalPushServiceTests`: 권한 미허용이면 백그라운드에 예약 0 + CancelAll 1회; 허용 후 백그라운드에 공급자 요청 예약, 1초 미만 미래는 제외; 포그라운드는 CancelAll; MarkPending → TryRequest 흐름(요청 1회만, 거부 시 granted=false 저장); 상태 영속.
 - `DailyRetentionPushProviderTests`: 30개 id 고유·연속, 오늘 18:40 전이면 오늘부터, 후면 내일부터, 본문이 셔플된 풀을 빠짐없이 쓴다(30 ≥ 풀 크기 시), 같은 seed면 같은 순서.
 
-- [ ] 구현 → csc → 커밋 `feat(notifications): add LocalPushService with daily retention fan-out`
+- [x] 구현 → csc → 커밋 `feat(notifications): add LocalPushService with daily retention fan-out`
 
 ---
 
@@ -45,7 +45,7 @@
 - `HeartFullPushProvider(IWallet wallet, string currencyId, int id, string title, string body)`: 재화가 Rechargeable이고 `Value < RechargeMax`이며 `Anchor`가 있으면 `RechargeLogic.FullAt` → 로컬 시각으로 1건. 무한 버프 중이거나 가득 찼으면 0건.
 - 규약 테스트의 레이어 맵: `BK.Notifications: [Core, Save]`, `BK.Meta: [Core, Save, Notifications]`.
 
-- [ ] 구현 → 테스트 → 커밋 `feat(meta): add heart-full push provider`
+- [x] 구현 → 테스트 → 커밋 `feat(meta): add heart-full push provider`
 
 ---
 
@@ -58,7 +58,7 @@
 - 에디터/기타: `NullNotificationPlatform`(IsSupported=false, 권한 true, 로그만).
 - `AppLifetimeScope`: `NotificationsInstaller.Install(builder)` → 플랫폼(정의 유무로 선택) + `LocalPushService` 싱글턴. 공급자는 게임이 `As<IPushProvider>()`로 등록.
 
-- [ ] 구현 → csc(정의 없이/있이 둘 다) → 커밋 `feat(notifications): add Unity Mobile Notifications platform and installer`
+- [x] 구현 → csc(정의 없이/있이 둘 다) → 커밋 `feat(notifications): add Unity Mobile Notifications platform and installer`
 
 ---
 
@@ -68,4 +68,4 @@
 - `KitApp.Complete(won)`: 클리어 스테이지 ≥ 3이면 `push.MarkPendingPermissionRequest()`; `GoToLobby` 로드 완료 후 `TryRequestPendingPermissionAsync().Forget()`.
 - CLAUDE.md Layout/Rules, 로드맵 F2 완료.
 
-- [ ] 커밋 `feat(bounce): schedule heart and retention pushes` / `docs: record local push`
+- [x] 커밋 `feat(bounce): schedule heart and retention pushes` / `docs: record local push`
