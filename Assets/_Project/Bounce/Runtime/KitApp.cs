@@ -10,8 +10,8 @@ namespace BK.Kit
 {
     /// <summary>
     /// The game hub the imported views talk to. Owns no state of its own: progress lives in
-    /// IStageProgress, currencies in IWallet, settings in IOptionsService, the player name and
-    /// offer steps in save slots. Every mutation flushes the save immediately.
+    /// IStageProgress, currencies in IWallet, settings in IOptionsService, step offers, daily rewards
+    /// and the win streak in their BK.Meta services, the player name in a save slot. Every mutation flushes the save immediately.
     /// </summary>
     public sealed class KitApp : MonoBehaviour
     {
@@ -119,7 +119,7 @@ namespace BK.Kit
         {
             Time.timeScale = 1;
             if (IsLoading) return;
-            if (Session.State != SessionState.Lobby) services.Streak.Abandon(); // leaving a round forfeits the streak (sf); no-op after a clear
+            if (Session.State != SessionState.Lobby) { services.Streak.Abandon(); Flush(); } // leaving a round forfeits the streak (sf); no-op after a clear
             Load(lobbyScene, Session.ReturnToLobby).Forget();
         }
 

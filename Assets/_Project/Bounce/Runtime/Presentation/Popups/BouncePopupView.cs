@@ -45,11 +45,11 @@ namespace BK.Kit
             var win = presentation.win.GetComponentsInChildren<VisualBindings>(true).First(b => b.role == "StageClearPopup");
             buttonSprite = (win.Get<Button>("basic.claimButton").targetGraphic as Image)?.sprite;
 
-            var dim = Image(transform, "Dim", Vector2.zero, Vector2.zero, null, new Color(0, 0, 0, .001f));
+            var dim = MakeImage(transform, "Dim", Vector2.zero, Vector2.zero, null, new Color(0, 0, 0, .001f));
             dim.rectTransform.anchorMin = Vector2.zero; dim.rectTransform.anchorMax = Vector2.one; dim.rectTransform.offsetMin = dim.rectTransform.offsetMax = Vector2.zero;
             dim.raycastTarget = true;
             var dimButton = dim.gameObject.AddComponent<Button>(); dimButton.transition = Selectable.Transition.None; dimButton.onClick.AddListener(RequestClose);
-            Panel = Image(transform, "Panel", PanelSize, Vector2.zero, panelSprite, new Color(.45f, .4f, 1)).rectTransform;
+            Panel = MakeImage(transform, "Panel", PanelSize, Vector2.zero, panelSprite, new Color(.45f, .4f, 1)).rectTransform;
             Panel.GetComponent<Image>().raycastTarget = true;
             Build();
             Feedback = Label(Panel, "Feedback", "", new Vector2(760, 50), new Vector2(0, -PanelSize.y / 2 + 130), 24);
@@ -73,11 +73,11 @@ namespace BK.Kit
 
         // ----- skinned building blocks -----
 
-        protected Image Image(Transform parent, string name, Vector2 size, Vector2 position, Sprite sprite, Color color)
+        protected Image MakeImage(Transform parent, string name, Vector2 size, Vector2 position, Sprite sprite, Color color)
         {
             var image = new GameObject(name, typeof(RectTransform), typeof(Image)).GetComponent<Image>();
             image.transform.SetParent(parent, false); image.rectTransform.sizeDelta = size; image.rectTransform.anchoredPosition = position;
-            image.sprite = sprite; image.type = UnityEngine.UI.Image.Type.Sliced; image.color = color; image.raycastTarget = false;
+            image.sprite = sprite; image.type = Image.Type.Sliced; image.color = color; image.raycastTarget = false;
             return image;
         }
 
@@ -94,7 +94,7 @@ namespace BK.Kit
 
         protected Button MakeButton(Transform parent, string name, string text, Vector2 position, Vector2 size, Action callback)
         {
-            var image = Image(parent, name, size, position, buttonSprite, Color.white);
+            var image = MakeImage(parent, name, size, position, buttonSprite, Color.white);
             image.raycastTarget = true;
             var button = image.gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => callback());
             Label(image.transform, "Label", text, size - new Vector2(30, 16), Vector2.zero, Mathf.Min(32, size.y * .4f));

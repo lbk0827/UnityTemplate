@@ -232,7 +232,7 @@ namespace BK.Kit
         {
             RefreshBoosters();
             if(saveNotice!=null)saveNotice.SetActive(app.HasPendingSave);
-            if(dailyCount!=null){int claimable=app.Daily.ClaimableCount;dailyCount.text=claimable.ToString();dailyDot.SetActive(claimable>0);}
+            UpdateDailyBadge();
             if(profileInitials!=null)profileInitials.text=new string(app.PlayerName.Where(char.IsLetterOrDigit).Take(2).ToArray()).ToUpperInvariant();
             if(lobby && hud!=null)
                 foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
@@ -376,16 +376,27 @@ namespace BK.Kit
             dialog=KitDialog.Show(canvas,presentation,"Local profile","Level "+app.UnlockedLevel+"\nGold: "+app.Gold+"\nSaved on this device",true);
         }
         // sf: the Play button opens the win-streak pre-play popup; the popup itself calls KitApp.Play.
-        private bool PopupBlocked=>popup!=null || dialog!=null || (offersView!=null && offersView.IsOpen) || app.UI.Peek(UILayer.Popup)!=null;
+        private bool opening; // the view is stacked only after its Addressables load; block a second tap meanwhile
+        private bool PopupBlocked=>opening || popup!=null || dialog!=null || (offersView!=null && offersView.IsOpen) || app.UI.Peek(UILayer.Popup)!=null;
         private void OpenPrePlay(int level)
         {
             if(PopupBlocked)return;
-            app.UI.OpenAsync<WinStreakPopup,int>(WinStreakPopup.Address,level).Forget();
+            OpenPopup(app.UI.OpenAsync<WinStreakPopup,int>(WinStreakPopup.Address,level)).Forget();
         }
         private void OpenDaily()
         {
             if(app.IsLoading || PopupBlocked)return;
-            app.UI.OpenAsync<DailyRewardPopup>(DailyRewardPopup.Address).Forget();
+            OpenPopup(app.UI.OpenAsync<DailyRewardPopup>(DailyRewardPopup.Address)).Forget();
+        }
+        private async UniTask OpenPopup<T>(UniTask<T> open)
+        {
+            opening=true;
+            try{await open;}finally{opening=false;}
+        }
+        private void UpdateDailyBadge()
+        {
+            if(dailyCount==null || app==null)return;
+            int claimable=app.Daily.ClaimableCount;dailyCount.text=claimable.ToString();dailyDot.SetActive(claimable>0);
         }
         // The imported home panel has no daily entry (sf left it unassigned), so the button is built here and shown on the Home page only.
         private void BuildDailyButton(LobbyNavigation navigation)
@@ -457,7 +468,7 @@ namespace BK.Kit
         private IEnumerator HeartTicker()
         {
             var wait=new WaitForSecondsRealtime(.5f);
-            while(heartHud!=null){UpdateHeartHud();yield return wait;}
+            while(heartHud!=null){UpdateHeartHud();UpdateDailyBadge();yield return wait;}
         }
         private void OnDestroy()
         {

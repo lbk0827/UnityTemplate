@@ -43,7 +43,7 @@ namespace BK.Kit
             {
                 int row = i / 4, column = i % 4;
                 var cell = new DayCell();
-                cell.background = Image(Panel, "Day " + (i + 1), new Vector2(190, 230), new Vector2((column - 1.5f) * 200, top - 290 - row * 250), null, Color.white);
+                cell.background = MakeImage(Panel, "Day " + (i + 1), new Vector2(190, 230), new Vector2((column - 1.5f) * 200, top - 290 - row * 250), null, Color.white);
                 Label(cell.background.transform, "Day", "Day " + (i + 1), new Vector2(170, 44), new Vector2(0, 85), 28, new Color(.1f, .1f, .25f));
                 Label(cell.background.transform, "Reward", BounceItems.Describe(catalog.Days[i]), new Vector2(170, 90), new Vector2(0, 15), 24, new Color(.1f, .1f, .25f));
                 int day = i;

@@ -39,6 +39,7 @@ namespace BK.Kit
         private LobbyOfferIcon openKind;
         private TMP_Text feedback;
         private IDisposable progressSubscription;
+        private StepOfferCampaign? current; // resolved at event points only; the timer never calls GetActive (it may start a new round)
         public GameObject Popup=>popup;
         public bool IsOpen=>popup!=null;
         public LobbyOfferIcon OpenKind=>openKind;
@@ -73,7 +74,7 @@ namespace BK.Kit
                 if(kind.HasValue)Add(remainTexts,kind.Value,text);else text.text="Offline";
             }
             app.Changed+=Refresh;
-            progressSubscription=app.Offers.ProgressChanged.Subscribe(_=>Refresh());
+            progressSubscription=app.Offers.ProgressChanged.Subscribe(_=>{Refresh();if(popup!=null && openKind!=LobbyOfferIcon.WelcomeDeal)BindSteps();});
             StartCoroutine(Tick());
             Refresh();
         }
@@ -112,15 +113,13 @@ namespace BK.Kit
             }
             button.targetGraphic.raycastTarget=true;button.interactable=true;
         }
-        private static StepOfferType TypeOf(LobbyOfferIcon kind)
-            =>kind==LobbyOfferIcon.EndlessOffer?StepOfferType.Vertical:kind==LobbyOfferIcon.EndlessGift?StepOfferType.Chain:StepOfferType.None;
         private static LobbyOfferIcon IconOf(StepOfferType type)=>type==StepOfferType.Chain?LobbyOfferIcon.EndlessGift:LobbyOfferIcon.EndlessOffer;
 
-        /// <summary>The week's live campaign, or null when locked, finished or outside the schedule.</summary>
-        public StepOfferCampaign? Active=>app.Offers.GetActive();
+        /// <summary>Re-resolves the week's live campaign (null when locked, finished or outside the schedule).</summary>
+        public StepOfferCampaign? Active=>current=app.Offers.GetActive();
         public bool HasClaimable(LobbyOfferIcon kind)
         {
-            var campaign=Active;
+            var campaign=current;
             return campaign.HasValue && IconOf(campaign.Value.Definition.Type)==kind && campaign.Value.Current!=null && !campaign.Value.Current.IsPaid;
         }
         private string Remaining(in StepOfferCampaign campaign)=>WeekRotation.FormatRemaining(app.Offers.Remaining(campaign));
@@ -136,7 +135,6 @@ namespace BK.Kit
             RefreshDots();
             RefreshTimers();
             if(popup!=null && app.IsLoading)Close();
-            else if(popup!=null && openKind!=LobbyOfferIcon.WelcomeDeal)BindSteps();
         }
         private void RefreshDots()
         {
@@ -144,7 +142,7 @@ namespace BK.Kit
         }
         private void RefreshTimers()
         {
-            var campaign=Active;
+            var campaign=current;
             string remaining=campaign.HasValue?Remaining(campaign.Value):"";
             foreach(var pair in remainTexts)
             {
@@ -249,9 +247,8 @@ namespace BK.Kit
             var window=app.Offers.Window(campaign,SlotCount());
             if(index>=window.Count || !window[index].IsCurrent)return;
             if(window[index].Step.IsPaid){showInfo("Purchase",KitApp.PaymentsNotConnected);return;}
-            app.TryClaimStepOffer(campaign,out var message);
+            app.TryClaimStepOffer(campaign,out var message); // a successful claim rebinds through ProgressChanged
             if(feedback!=null)feedback.text=message;
-            if(popup!=null)BindSteps();
         }
         private void BindRewards(VisualBindings slot,IReadOnlyList<ItemGrant> rewards)
         {
