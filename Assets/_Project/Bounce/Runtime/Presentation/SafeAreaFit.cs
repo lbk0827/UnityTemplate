@@ -3,14 +3,14 @@ using UnityEngine;
 namespace BK.Kit
 {
     /// <summary>
-    /// Insets this rect to the device safe area. Defaults mirror the sf/RootBox HUD setup:
-    /// only the top (notch) inset is applied; the bottom stays flush with the screen edge so
-    /// the tab bar never floats, and the x-axis is ignored.
+    /// Insets this rect to the device safe area. By default no inset is applied at all, so the
+    /// lobby reaches every screen edge (requested: no top/bottom padding). Turn on conformY to
+    /// keep content below a notch; keepBottom then still keeps the bottom flush like the sf HUD.
     /// </summary>
     public sealed class SafeAreaFit : MonoBehaviour
     {
         [SerializeField] private bool conformX = false;
-        [SerializeField] private bool conformY = true;
+        [SerializeField] private bool conformY = false;
         [SerializeField, Tooltip("Extend down to the screen bottom instead of stopping at the safe area.")]
         private bool keepBottom = true;
 
