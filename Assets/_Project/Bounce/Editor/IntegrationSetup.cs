@@ -101,10 +101,12 @@ namespace BK.Kit.Editor
         {
             if (AssetDatabase.GetAllAssetPaths().Any(x => x.StartsWith("Assets/") && Path.GetFileName(x).Contains("DUG")))
                 throw new InvalidOperationException("A replaced font path still contains DUG.");
-            foreach (var fontPath in AssetDatabase.FindAssets("t:TMP_FontAsset", new[] { Root }).Select(AssetDatabase.GUIDToAssetPath).Where(x => x.Contains("KenneyFuture")))
+            // Active Bounce fonts are the OFL pair LilitaOne (Latin) and Jua (Korean fallback); see FontReplacement.
+            foreach (var fontPath in AssetDatabase.FindAssets("t:TMP_FontAsset", new[] { Root }).Select(AssetDatabase.GUIDToAssetPath).Where(x => x.Contains("LilitaOne SDF") || x.Contains("Jua SDF")))
             {
                 var font = AssetDatabase.LoadAssetAtPath<TMPro.TMP_FontAsset>(fontPath);
-                if (!font.faceInfo.familyName.Contains("Kenney")) throw new InvalidOperationException("Font glyphs were not replaced: " + fontPath);
+                string family = fontPath.Contains("Jua") ? "Jua" : "Lilita";
+                if (!font.faceInfo.familyName.Contains(family)) throw new InvalidOperationException("Font glyphs were not replaced: " + fontPath);
                 if (font.sourceFontFile == null || font.atlasTextures.Length == 0 || font.atlasTextures[0] == null)
                     throw new InvalidOperationException("Incomplete replacement font: " + fontPath);
             }

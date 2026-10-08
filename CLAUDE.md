@@ -74,7 +74,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Open `BK > Integration > Open Bounce Bootstrap`, then Play. Entry scene: `Assets/_Project/Bounce/Scenes/VisualBootstrap.unity`.
 - `IntegratedProjectScope` boots BKFramework; `KitApp` owns Bounce progress/save state and delegates scenes/UI to `ISceneService`/`IUIService`. Do not start the sample `ProjectScope` alongside it.
 - Keep the existing `BKFramework` independent of the game module. Imported presentation remains game content, with its existing provenance.
-- DUG-named fonts were replaced with Kenney Future Narrow (CC0), including TMP atlases. Preserve `Assets/_Project/ThirdParty/KenneyFonts/License.txt` and `source.json`; do not reimport the old fonts from the historical handover.
+- Active Bounce fonts: Lilita One (Latin) with Jua (Korean fallback), SIL OFL 1.1. Preserve each original TTF and `Resources/FontLicenses/<family>/OFL.txt` under `Assets/_Project/ThirdParty/`. Resources packages the full copyright/license notices with players; Settings > Font Licenses displays both offline. Rebuild atlases with `BK > Integration > Rebuild OFL Fonts`. Historical Kenney CC0 source/provenance is retained; do not reimport DUG fonts.
 - Bounce shop data lives in `Assets/_Project/Bounce/Content/Tables/`. Edit the JSON sources and run `BK > Integration > Import Shop Tables`. The two game tables load through BK.Data at boot; the original Project sample tables remain separate.
 - Target editor remains 6000.3.21f1. See `docs/bk-kit-integration.json` for actual validation versions/results.
 

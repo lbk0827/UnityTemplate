@@ -23,6 +23,7 @@ namespace BK.Kit
         private VisualBindings ingameBindings;
         private StagePathView stagePath;
         private KitDialog dialog;
+        private LobbyOffersView offersView;
         private GameObject saveNotice;
         private TMP_Text profileInitials;
 
@@ -161,7 +162,8 @@ namespace BK.Kit
                     if(marker.name=="IMG_RedDot" || marker.name=="UI_RedDot")marker.gameObject.SetActive(false);
                 foreach(var button in offers.GetComponentsInChildren<Button>(true))
                 {
-                    SetInfo(button,"Offline kit","Online events, ads and real-money offers are not enabled.\nUse Gold earned from stages in the Booster shop.");
+                    SetInfo(button,"Offline kit","Online events, ads and real-money offers are not enabled.
+Use Gold earned from stages in the Booster shop.");
                 }
                 foreach(var text in offers.GetComponentsInChildren<TMP_Text>(true))if(text.name=="TXT_Remain")text.text="Offline";
             }
@@ -303,6 +305,7 @@ namespace BK.Kit
             Bind(settingsBinding,"CloseButton",ClosePopup);Bind(settingsBinding,"BackgroundButton",ClosePopup);
             Bind(settingsBinding,"gotoLobbyButton",()=>{ClosePopup();app.GoToLobby();});
             Bind(settingsBinding,"retryButton",()=>{ClosePopup();app.Play(app.Session.Level);});
+            AddLicenseButton();
             if(!lobby)Text(settingsBinding,"txtRetry","Retry");
             if(lobby)
                 foreach(var button in popup.GetComponentsInChildren<Button>(true))
@@ -312,6 +315,26 @@ namespace BK.Kit
                     else if(name.Contains("privacy") || name.Contains("terms"))SetInfo(button,"Local data","Progress, inventory, sound options and player name are stored on this device.\nNo game account, analytics or cloud save service is connected.");
                     else if(name.Contains("update") || name.Contains("restore"))SetInfo(button,"BK_Kit","Offline RND development kit\nUnity 6000.3.21f1\nNo real-money purchases or online update service is connected.");
                 }
+        }
+        private void AddLicenseButton()
+        {
+            var rect=KitUI.Box((RectTransform)popup.transform,"Font Licenses",new Vector2(330,72),Vector2.zero,new Color(.32f,.14f,.72f));
+            rect.anchorMin=rect.anchorMax=lobby?new Vector2(.5f,0):new Vector2(.5f,.5f);
+            rect.anchoredPosition=new Vector2(0,lobby?52:-435);
+            var image=rect.GetComponent<Image>();
+            var win=Role(presentation.win,"StageClearPopup");
+            var skin=win.Get<Button>("basic.claimButton").targetGraphic as Image;
+            if(skin!=null){image.sprite=skin.sprite;image.type=Image.Type.Sliced;image.color=Color.white;}
+            var button=rect.gameObject.AddComponent<Button>();button.targetGraphic=image;
+            button.onClick.AddListener(()=>
+            {
+                if(dialog==null && !app.IsLoading)dialog=KitDialog.ShowLicenses(canvas,presentation);
+            });
+            var label=new GameObject("License label",typeof(RectTransform),typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
+            label.transform.SetParent(rect,false);label.rectTransform.sizeDelta=new Vector2(310,60);
+            var source=presentation.settings.GetComponentInChildren<TMP_Text>(true);
+            label.font=source.font;label.fontSharedMaterial=source.fontSharedMaterial;label.fontSize=30;
+            label.text="Font Licenses";label.alignment=TextAlignmentOptions.Center;label.raycastTarget=false;
         }
         private void SetInfo(Button button,string title,string message)
         {
@@ -350,6 +373,7 @@ namespace BK.Kit
         {
             if(app==null || app.IsLoading || !Input.GetKeyDown(KeyCode.Escape))return;
             if(dialog!=null){dialog.Close();return;}
+            if(offersView!=null && offersView.IsOpen){offersView.Close();return;}
             if(resultShown)
             {
                 var reward=popup==null?null:popup.GetComponent<ClearRewardView>();

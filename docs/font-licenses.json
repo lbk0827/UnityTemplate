@@ -1,0 +1,40 @@
+{
+  "fonts": [
+    {
+      "family": "LilitaOne",
+      "license": "OFL-1.1",
+      "source": "https://github.com/google/fonts/tree/main/ofl/lilitaone",
+      "font": "Assets/_Project/ThirdParty/LilitaOne/LilitaOne-Regular.ttf",
+      "originalFontSHA256": "f5b641c45c69d772ee4eda687bc9fda411d5cad6b0b45371491da4580cbc8d59",
+      "licenseAsset": "Assets/_Project/ThirdParty/LilitaOne/Resources/FontLicenses/LilitaOne/OFL.txt",
+      "role": "Latin primary"
+    },
+    {
+      "family": "Jua",
+      "license": "OFL-1.1",
+      "source": "https://github.com/google/fonts/tree/main/ofl/jua",
+      "font": "Assets/_Project/ThirdParty/Jua/Jua-Regular.ttf",
+      "originalFontSHA256": "769677aef240bfc3b9965f2b50748075bff885e6c6992fc591a3fb268279f898",
+      "licenseAsset": "Assets/_Project/ThirdParty/Jua/Resources/FontLicenses/Jua/OFL.txt",
+      "role": "Korean fallback and license body"
+    }
+  ],
+  "distribution": "Original OFL.txt files live under Resources and are included in Unity players. Settings > Font Licenses displays complete copyright and license text offline.",
+  "fontFilesModified": false,
+  "tmpAssets": "Derived SDF assets retain prefab/material GUID references. Dynamic multi-atlas generation supports Korean at runtime.",
+  "rebuildMenu": "BK > Integration > Rebuild OFL Fonts",
+  "validation": {
+    "editor": "6000.3.21f1",
+    "playMode": "10 passed, 0 failed",
+    "verified": [
+      "Both complete original OFL texts loaded via Resources",
+      "Settings license button hit testing in lobby and ingame",
+      "Scrollable text and close-button hit testing",
+      "Pause state preserved when license dialog closes",
+      "Jua Korean glyph generation",
+      "Shop and settings screenshots inspected"
+    ],
+    "report": "Logs/FontValidation/ofl-play.xml",
+    "tmpSettings": "Consolidated duplicate Resources/TMP Settings into the standard settings asset with valid line-breaking tables and Lilita One default."
+  }
+}

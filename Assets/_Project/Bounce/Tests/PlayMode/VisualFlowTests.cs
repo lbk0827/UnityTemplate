@@ -143,6 +143,7 @@ public sealed class VisualFlowTests
         AssertChannels(false,true);
         var saved=new LocalSaveStore(folder).Load();
         Assert.That(saved.musicEnabled,Is.False);Assert.That(saved.effectsEnabled,Is.True);Assert.That(saved.hapticsEnabled,Is.False);
+        yield return CheckFontLicenses(false);
         Dump("lobby-settings");
         settings.Get<Button>("btnClose").onClick.Invoke();yield return null;
         KitApp.Instance.Play(1);yield return Ready("VisualIngame");AssertChannels(false,true);
@@ -153,6 +154,7 @@ public sealed class VisualFlowTests
         Assert.That(settings.Get<Toggle>("hapticToggle").isOn,Is.False);
         Assert.That(settings.Get<Toggle>("musicToggle").transform.Find("Background/Checkmark").gameObject.activeSelf,Is.True);
         Click(settings.Get<Toggle>("sfxToggle"));AssertChannels(false,false);
+        yield return CheckFontLicenses(true);
         Dump("ingame-settings");
         settings.Get<Button>("retryButton").onClick.Invoke();yield return Ready("VisualIngame");
         Assert.That(Time.timeScale,Is.EqualTo(1));AssertChannels(false,false);
@@ -455,6 +457,27 @@ public sealed class VisualFlowTests
         KitApp.Instance.Complete(false);yield return new WaitForSeconds(.3f);
         Click(Binding("UIFailPopup").Get<Button>("lobbyButton"));yield return Ready("VisualLobby");
         Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(75));Assert.That(KitApp.Instance.Progress.unlockedLevel,Is.EqualTo(1));
+    }
+
+    private static IEnumerator CheckFontLicenses(bool ingame)
+    {
+        Click(GameObject.Find("Font Licenses").GetComponent<Button>());yield return null;
+        var dialog=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
+        Assert.That(dialog,Is.Not.Null);
+        var scroll=dialog.GetComponentInChildren<ScrollRect>();
+        var body=scroll.content.GetComponent<TMP_Text>();
+        foreach(string family in new[]{"LilitaOne","Jua"})
+            Assert.That(body.text,Does.Contain(Resources.Load<TextAsset>("FontLicenses/"+family+"/OFL").text));
+        Assert.That(body.font.faceInfo.familyName,Does.Contain("Jua"));
+        Assert.That(body.font.HasCharacters("한글 주아체 라이선스 출처 닫기 설정",out uint[] missing,true,true),Is.True);
+        Assert.That(scroll.content.rect.height,Is.GreaterThan(scroll.viewport.rect.height));
+        if(!ingame)Dump("font-licenses-top");
+        scroll.verticalNormalizedPosition=0;yield return null;
+        Assert.That(scroll.verticalNormalizedPosition,Is.EqualTo(0).Within(.01f));
+        if(!ingame)Dump("font-licenses-bottom");
+        Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Dialog Close"));yield return null;
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Null);
+        Assert.That(Time.timeScale,Is.EqualTo(ingame?0:1));
     }
 
     private static VisualBindings Binding(string role)=>UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Exclude,FindObjectsSortMode.None).First(b=>b.role==role);

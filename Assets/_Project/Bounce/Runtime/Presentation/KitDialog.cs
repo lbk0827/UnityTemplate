@@ -37,6 +37,51 @@ namespace BK.Kit
             return view;
         }
 
+        public static KitDialog ShowLicenses(RectTransform parent, GamePresentation presentation)
+        {
+            string message = "Fonts / SIL Open Font License 1.1\n\n";
+            foreach (string family in new[] { "LilitaOne", "Jua" })
+            {
+                var license = Resources.Load<TextAsset>("FontLicenses/" + family + "/OFL");
+                if (license == null) throw new InvalidOperationException("Missing bundled OFL license: " + family);
+                message += family + "\nSource: https://github.com/google/fonts/tree/main/ofl/" + family.ToLowerInvariant()
+                    + "\nFont license: SIL Open Font License 1.1\n\n" + license.text + "\n\n";
+            }
+            var view = Show(parent, presentation, "Font Licenses", "");
+            view.panel.sizeDelta = new Vector2(780, 1080);
+            view.panel.Find("Title").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 455);
+            view.panel.Find("Dialog Close").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -445);
+            var viewport = view.Image(view.panel, "License viewport", new Vector2(690, 750), Vector2.zero, null, new Color(.08f, .06f, .2f, .95f)).rectTransform;
+            viewport.gameObject.AddComponent<RectMask2D>();
+            var scroll = viewport.gameObject.AddComponent<ScrollRect>();
+            scroll.horizontal = false; scroll.movementType = ScrollRect.MovementType.Clamped;
+            scroll.scrollSensitivity = 45; scroll.viewport = viewport;
+            var body = view.panel.Find("Message").GetComponent<TMP_Text>();
+            body.transform.SetParent(viewport, false);
+            body.rectTransform.anchorMin = new Vector2(0, 1); body.rectTransform.anchorMax = Vector2.one;
+            body.rectTransform.pivot = new Vector2(.5f, 1);
+            body.rectTransform.sizeDelta = new Vector2(-40, 0); body.rectTransform.anchoredPosition = Vector2.zero;
+            body.font = view.font.fallbackFontAssetTable.FirstOrDefault() ?? view.font;
+            body.fontSharedMaterial = body.font.material;
+            body.enableAutoSizing = false; body.fontSize = 26;
+            body.alignment = TextAlignmentOptions.TopLeft;
+            body.textWrappingMode = TextWrappingModes.Normal;
+            body.overflowMode = TextOverflowModes.Overflow;
+            body.margin = new Vector4(0, 14, 0, 14); body.text = message;
+            body.gameObject.AddComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+            scroll.content = body.rectTransform;
+            var rail = view.Image(view.panel, "License scrollbar", new Vector2(14, 750), new Vector2(356, 0), null, new Color(.12f,.08f,.3f));
+            var handle = view.Image(rail.transform, "Handle", Vector2.zero, Vector2.zero, null, new Color(.7f,.65f,1));
+            var bar = rail.gameObject.AddComponent<Scrollbar>();
+            bar.handleRect = handle.rectTransform; bar.targetGraphic = handle;
+            bar.direction = Scrollbar.Direction.BottomToTop;
+            scroll.verticalScrollbar = bar;
+            Canvas.ForceUpdateCanvases();
+            LayoutRebuilder.ForceRebuildLayoutImmediate(body.rectTransform);
+            scroll.verticalNormalizedPosition = 1;
+            return view;
+        }
+
         private Image Image(Transform parent,string label,Vector2 size,Vector2 position,Sprite sprite,Color color)
         {
             var image=new GameObject(label,typeof(RectTransform),typeof(Image)).GetComponent<Image>();
