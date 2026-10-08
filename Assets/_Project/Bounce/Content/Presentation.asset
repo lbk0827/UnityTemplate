@@ -20,20 +20,11 @@ MonoBehaviour:
   lose: {fileID: 4724862262381455025, guid: 11833b3c37181074fa91efa3b0a5e774, type: 3}
   settings: {fileID: 8917678326779450010, guid: 03c6a48c3ce74644f93163f4b58a5768, type: 3}
   ingameSettings: {fileID: 6311812125158786214, guid: fcc947fd05e22e047819bc5781cb1e4a, type: 3}
+  welcomeDeal: {fileID: 1200675569979142226, guid: 793421872a98e644fa1d9af13aebdd12, type: 3}
+  endlessOffer: {fileID: 5813000000000000001, guid: c3e6b9a42d8f6e3a0b5c7f1d4a92e863, type: 3}
+  endlessGifts: {fileID: 5812000000000000001, guid: b2d5a8f31c7e5d2f9a4b6e0c3f81d752, type: 3}
   cannon: {fileID: 9129061533232291603, guid: 7ce0c39d75af6ba48862bd7973a33627, type: 3}
   ball: {fileID: 2654036639705651332, guid: f707b4c9a7d0abc4293f410c2321bc42, type: 3}
-  blocks:
-  - {fileID: 1709254077376921, guid: 8ab97f44508ce644aa93c358cd4591a5, type: 3}
-  - {fileID: 1709254077376921, guid: 317f9b1a0244fd34eb98cc9fd274a34a, type: 3}
-  - {fileID: 1709254077376921, guid: 5c349a807d1b16340bed492318a6bdc5, type: 3}
-  - {fileID: 1709254077376921, guid: 5dbfd79f396677c42a2d342676b824b5, type: 3}
-  levels: {fileID: 4900000, guid: 88a01846102fbcf41b0f62044c641989, type: 3}
-  lobbyMusic: {fileID: 8300000, guid: c4da087becb880d47b1acc43596d9ea4, type: 3}
-  ingameMusic: {fileID: 8300000, guid: bc8d03e1378ddc14583a12f975645caa, type: 3}
-  startSound: {fileID: 8300000, guid: 3f1cd090a6a54b76aa6c17b995f385bd, type: 3}
-  shotSound: {fileID: 8300000, guid: 189ef4e097890e34eac02d30f8cb6b07, type: 3}
-  arenaMaterial: {fileID: 2100000, guid: 047e176e0c41db04c926f43789d94d40, type: 2}
-  trajectoryMaterial: {fileID: 2100000, guid: db41185a14fdf0049b092fa894d4e00d, type: 2}
   shopSprites:
   - {fileID: 21300000, guid: 1a3290e9ec22474888b06822a687d05c, type: 3}
   - {fileID: 21300000, guid: 33775c19ce9f4b6c9b0543f34b92b88c, type: 3}
@@ -65,3 +56,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 231149d80537445fa171b49cbb458ea3, type: 3}
   - {fileID: 21300000, guid: 3d8cb0048c4542e5b3fd9aa5af92195b, type: 3}
   - {fileID: 21300000, guid: be99b6a5aa9645e5a69c6fd7e6555f7f, type: 3}
+  blocks:
+  - {fileID: 1709254077376921, guid: 8ab97f44508ce644aa93c358cd4591a5, type: 3}
+  - {fileID: 1709254077376921, guid: 317f9b1a0244fd34eb98cc9fd274a34a, type: 3}
+  - {fileID: 1709254077376921, guid: 5c349a807d1b16340bed492318a6bdc5, type: 3}
+  - {fileID: 1709254077376921, guid: 5dbfd79f396677c42a2d342676b824b5, type: 3}
+  levels: {fileID: 4900000, guid: 88a01846102fbcf41b0f62044c641989, type: 3}
+  lobbyMusic: {fileID: 8300000, guid: c4da087becb880d47b1acc43596d9ea4, type: 3}
+  ingameMusic: {fileID: 8300000, guid: bc8d03e1378ddc14583a12f975645caa, type: 3}
+  startSound: {fileID: 8300000, guid: 3f1cd090a6a54b76aa6c17b995f385bd, type: 3}
+  shotSound: {fileID: 8300000, guid: 189ef4e097890e34eac02d30f8cb6b07, type: 3}
+  arenaMaterial: {fileID: 2100000, guid: 047e176e0c41db04c926f43789d94d40, type: 2}
+  trajectoryMaterial: {fileID: 2100000, guid: db41185a14fdf0049b092fa894d4e00d, type: 2}
