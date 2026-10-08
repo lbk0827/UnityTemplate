@@ -100,6 +100,7 @@ Assets/BKFramework/Runtime/   framework, one asmdef per layer (BK.*)
   Core/      lifecycle, boot sequence, DI helpers, logging
   Save/      typed save slots: atomic write, .bak recovery, .corrupt-* preservation, version migration
   Options/   reactive player options (music/sfx/haptics/language) persisted through Save
+  Meta/      wallet (plain/rechargeable/buff currencies), stage progress + entry gate, pending rewards, continue ladder, stage preloader registry
   Assets/    Addressables abstraction, scope-bound asset lifetime
   Scene/     scene scopes tied to DI + asset scopes
   UI/        layered view stack, popup dim (IPopupDim), screen cover + ISceneFlow, message/toast (IMessageService), BackInputDriver
@@ -111,7 +112,8 @@ Assets/_Project/              game-side content; framework never depends on this
 
 ## Rules
 
-- Framework layers depend downward only: `Core` ← `Save` ← `Options`, and `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization` (`UI` may use `Scene`).
+- 메타 루프는 `BK.Meta.MetaInstaller.Install(builder, currencies, continues, entryPolicy)`로 게임 스코프에 설치한다(카탈로그는 게임이 공급). 하트 차감은 `IStageProgress.TryStart` 한 곳, 환불은 `Clear`. 시간은 `IClock`만 쓴다.
+- Framework layers depend downward only: `Core` ← `Save` ← `Options`/`Meta`, and `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization` (`UI` may use `Scene`).
   Never introduce an upward or sideways reference between `BK.*` assemblies.
 - Back/Escape는 `BackInputDriver` 한 곳에서만 읽는다. 뷰는 `IUIView.OnBackRequested`로 소비하고, 게임 코드는 `Input.GetKeyDown(KeyCode.Escape)`를 직접 폴링하지 않는다.
 - 팝업은 `UIViewBase`의 Dim 레벨(인스펙터)로 딤을 자동 취득한다. 여러 팝업을 잇는 플로우는 `IPopupDim.HoldForTransition()`. 씬 전환은 `ISceneFlow.TransitionAsync`(커버→닫기→전환→리빌; 씬 쪽은 `IRevealReady` 등록으로 리빌 시점 지정). 메시지/토스트 프리팹은 `BK > Framework > Generate UI Prefabs`로 재생성한다(`Assets/BKFramework/Content/UI`, Addressables 그룹 `BK Framework`, 주소는 FrameworkSettings).
