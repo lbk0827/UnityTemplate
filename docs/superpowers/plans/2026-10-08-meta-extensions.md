@@ -50,7 +50,7 @@ namespace BK.Meta
 
 테스트: epoch 정확히 = 0, 7일-1틱 = 0, 7일 = 1, epoch 이전 = -1, `FormatRemaining` 3구간.
 
-- [ ] 작성 → 테스트 → 커밋 `feat(meta): add ItemGrant and WeekRotation`
+- [x] 작성 → 테스트 → 커밋 `feat(meta): add ItemGrant and WeekRotation`
 
 ---
 
@@ -139,7 +139,7 @@ public sealed class StepOffers : IDisposable
 - `BeforeEpochOrLockedStageIsInactive`
 - `VisibleWindowHasOneCurrent` (StepOfferLogicTests)
 
-- [ ] 작성 → 테스트 → 커밋 `feat(meta): add weekly step offers`
+- [x] 작성 → 테스트 → 커밋 `feat(meta): add weekly step offers`
 
 ---
 
@@ -168,7 +168,7 @@ public sealed class DailyRewards : IDisposable
 
 "로컬 날짜"는 `clock.UtcNow.ToLocalTime().Date`. 테스트는 `FakeClock`으로 자정 경계(로컬 23:59 → 다음날 00:01)를 넘겨 확인한다. 테스트: `FirstClaimIsDayZeroThenLocked`, `NextLocalDateUnlocksNextDayAndWrapsAfterCycle`, `BonusSlotsAreSequentialAndResetDaily`, `HourlyRewardNeedsOneHour`, `BadgeCountsAllClaimables`, `StatePersists`.
 
-- [ ] 작성 → 테스트 → 커밋 `feat(meta): add daily rewards with bonus slots and hourly gift`
+- [x] 작성 → 테스트 → 커밋 `feat(meta): add daily rewards with bonus slots and hourly gift`
 
 ---
 
@@ -204,7 +204,7 @@ public sealed class WinStreak : IDisposable
 
 테스트: `IncrementClampsAtCapAndNegativeIsZero`, `RewardForPicksHighestThresholdUnsorted`, `GaugeFillLandsOnTierLines`, `WinsAccumulateAndSetPendingOverwrite`, `RetryViaStartedWhileInProgressResets`, `AbandonIsIdempotent`, `ForceQuitMarkerResetsOnConstruct`, `ClearBelowUnlockStageResets`, `ConsumePendingIsOneShot`.
 
-- [ ] 작성 → 테스트 → 커밋 `feat(meta): add win streak with tier rewards and abandon guard`
+- [x] 작성 → 테스트 → 커밋 `feat(meta): add win streak with tier rewards and abandon guard`
 
 ---
 
@@ -214,4 +214,4 @@ public sealed class WinStreak : IDisposable
 - CLAUDE.md Meta 줄에 세 시스템 추가; 로드맵 F 행을 "F1 완료, F2 로컬 푸시 별도 계획".
 - 전체 EditMode 실행.
 
-- [ ] 커밋 `docs: record meta extensions`
+- [x] 커밋 `docs: record meta extensions`

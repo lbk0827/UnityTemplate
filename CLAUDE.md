@@ -100,7 +100,7 @@ Assets/BKFramework/Runtime/   framework, one asmdef per layer (BK.*)
   Core/      lifecycle, boot sequence, DI helpers, logging
   Save/      typed save slots: atomic write, .bak recovery, .corrupt-* preservation, version migration
   Options/   reactive player options (music/sfx/haptics/language) persisted through Save
-  Meta/      wallet (plain/rechargeable/buff currencies), stage progress + entry gate, pending rewards, continue ladder, stage preloader registry
+  Meta/      wallet (plain/rechargeable/buff currencies), stage progress + entry gate, pending rewards, continue ladder, stage preloader registry, weekly step offers, daily rewards, win streak
   Assets/    Addressables abstraction, scope-bound asset lifetime
   Scene/     scene scopes tied to DI + asset scopes
   UI/        layered view stack, popup dim (IPopupDim), screen cover + ISceneFlow, message/toast (IMessageService), BackInputDriver
