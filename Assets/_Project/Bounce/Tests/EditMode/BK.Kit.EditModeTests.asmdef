@@ -15,7 +15,8 @@
     "UnityEditor.TestRunner",
     "BK.Save",
     "BK.Meta",
-    "BK.Options"
+    "BK.Options",
+    "BK.Core"
   ],
   "includePlatforms": [
     "Editor"

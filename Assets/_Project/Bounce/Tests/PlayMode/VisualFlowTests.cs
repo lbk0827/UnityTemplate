@@ -70,10 +70,10 @@ public sealed class VisualFlowTests
         yield return Ready("VisualIngame");
         Assert.That(UnityEngine.Object.FindFirstObjectByType<BounceModule>().BallsRemaining,Is.EqualTo(20));
         KitApp.Instance.Complete(true);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(50));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(50));
         KitApp.Instance.Complete(true);KitApp.Instance.Complete(false);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(50),"Repeated results cannot grant more gold");
-        Assert.That(new LocalSaveStore(folder).Load().gold,Is.EqualTo(50),"Reward is saved before Continue");
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(50),"Repeated results cannot grant more gold");
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(50),"Reward is saved before Continue");
         yield return new WaitForSeconds(.4f);
         Dump("result");
         var result=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageClearPopup");
@@ -91,10 +91,10 @@ public sealed class VisualFlowTests
         yield return new WaitForSecondsRealtime(.35f);Dump("reward-flight");
         Assert.That(rewardView!=null && rewardView.IsCollecting,Is.True,"Original coin skin must support the flight, not skip it");
         Assert.That(GameObject.Find("Reward flight"),Is.Not.Null);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(50));
-        Assert.That(new LocalSaveStore(folder).Load().gold,Is.EqualTo(50));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(50));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(50));
         yield return Ready("VisualLobby");
-        Assert.That(KitApp.Instance.Progress.unlockedLevel,Is.EqualTo(2));
+        Assert.That(KitApp.Instance.UnlockedLevel,Is.EqualTo(2));
         var path=UnityEngine.Object.FindFirstObjectByType<StagePathView>();
         Assert.That(path.IsAdvancing,Is.True);
         Assert.That(GameObject.Find("Stage_Slot_1"),Is.Not.Null);
@@ -113,14 +113,14 @@ public sealed class VisualFlowTests
         Assert.That(top.Get<VisualBindings>("gold").Get<TMP_Text>("currencyCountText").text,Is.EqualTo("50"));
         UnityEngine.Object.Destroy(KitApp.Instance.gameObject);yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(50));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(50));
         KitApp.Instance.Play(2);yield return Ready("VisualIngame");
         KitApp.Instance.Complete(false);
-        Assert.That(KitApp.Instance.LastGoldReward,Is.Zero);Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(50));
+        Assert.That(KitApp.Instance.LastGoldReward,Is.Zero);Assert.That(KitApp.Instance.Gold,Is.EqualTo(50));
         KitApp.Instance.Play(2);yield return Ready("VisualIngame");
         KitApp.Instance.Complete(true);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(100));
-        Assert.That(new LocalSaveStore(folder).Load().gold,Is.EqualTo(100));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(100));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(100));
     }
 
     [UnityTest]
@@ -134,15 +134,15 @@ public sealed class VisualFlowTests
         Binding("UIHUDPanel").Get<Button>("optionButton").onClick.Invoke();yield return null;
         var settings=Binding("Popup_Settings");
         Click(settings.Get<Toggle>("toggleMusic"));
-        Assert.That(KitApp.Instance.Progress.musicEnabled,Is.False);
-        Assert.That(KitApp.Instance.Progress.effectsEnabled,Is.True);
+        Assert.That(KitApp.Instance.MusicEnabled,Is.False);
+        Assert.That(KitApp.Instance.EffectsEnabled,Is.True);
         Assert.That(settings.Get<Toggle>("toggleMusic").transform.Find("Background/Checkmark").gameObject.activeSelf,Is.True);
         Assert.That(settings.Get<Toggle>("toggleSound").transform.Find("Background/Checkmark").gameObject.activeSelf,Is.False);
         Click(settings.Get<Toggle>("toggleViberate"));
-        Assert.That(KitApp.Instance.Progress.hapticsEnabled,Is.False);
+        Assert.That(KitApp.Instance.HapticsEnabled,Is.False);
         AssertChannels(false,true);
-        var saved=new LocalSaveStore(folder).Load();
-        Assert.That(saved.musicEnabled,Is.False);Assert.That(saved.effectsEnabled,Is.True);Assert.That(saved.hapticsEnabled,Is.False);
+        var saved=KitTestSaves.Options(folder);
+        Assert.That(saved.music,Is.False);Assert.That(saved.sfx,Is.True);Assert.That(saved.haptics,Is.False);
         yield return CheckFontLicenses(false);
         Dump("lobby-settings");
         settings.Get<Button>("btnClose").onClick.Invoke();yield return null;
@@ -179,10 +179,10 @@ public sealed class VisualFlowTests
         Dump("shop-top-tall",1846);
         Assert.That(GameObject.Find("Shop canopy"),Is.Not.Null);
         Assert.That(GameObject.Find("UI_Top"),Is.Null,"Home HUD must be hidden on Shop");
-        int balance=KitApp.Instance.Progress.gold;
+        long balance=KitApp.Instance.Gold;
         Click(GameObject.Find("Preview_NoAds_7").GetComponent<Button>());yield return null;
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(balance));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance));
         Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
         shop.Scroll.content.anchoredPosition=new Vector2(0,1300);Canvas.ForceUpdateCanvases();yield return null;
         Dump("shop-bundles");
@@ -190,7 +190,7 @@ public sealed class VisualFlowTests
         Dump("shop-coins");
         Click(GameObject.Find("Preview_Coins_1000").GetComponent<Button>());yield return null;
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(balance));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance));
         Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
         shop.Scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();yield return null;
         Dump("shop-boosters");
@@ -204,62 +204,68 @@ public sealed class VisualFlowTests
     public IEnumerator ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        var saves=new LocalSaveStore(folder);saves.Save(new PlayerProgress {gold=3000});
+        KitTestSaves.Seed(folder,gold:3600);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         var app=KitApp.Instance;
-        Directory.CreateDirectory(Path.Combine(folder,"progress.json.tmp"));
-        LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("BK_Kit: progress could not be saved"));
-        Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.False);
-        Assert.That(app.Progress.gold,Is.EqualTo(3000));Assert.That(app.Progress.Count(BoosterKind.ExtraBall),Is.Zero);
-        Directory.Delete(Path.Combine(folder,"progress.json.tmp"));
+        // A blocked write keeps the purchase in memory, flags the pending save and leaves the file untouched (no rollback).
+        Directory.CreateDirectory(Path.Combine(folder,"WalletData.json.tmp"));
+        ExpectSaveFailure();
+        Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.True);
+        Assert.That(app.Gold,Is.EqualTo(3000));Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(1));
+        Assert.That(app.HasPendingSave,Is.True);Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(3600));
+        Directory.Delete(Path.Combine(folder,"WalletData.json.tmp"));
+        Assert.That(app.RetryPendingSave(),Is.True);Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(3000));
         Click(Binding("UIHUDPanel").Get<Toggle>("StoreToggle"));yield return new WaitForSecondsRealtime(.35f);
         var shop=UnityEngine.Object.FindFirstObjectByType<BoosterShopView>();
         shop.Scroll.content.anchoredPosition=new Vector2(0,-shop.BoostersSection.anchoredPosition.y-82);
         Canvas.ForceUpdateCanvases();yield return null;
         Click(GameObject.Find("Buy_ExtraBall").GetComponent<Button>());
-        Assert.That(app.Progress.gold,Is.EqualTo(2400));
+        Assert.That(app.Gold,Is.EqualTo(2400));
         foreach(var kind in new[]{BoosterKind.Missile,BoosterKind.Bomb,BoosterKind.Laser})
             GameObject.Find("Buy_"+kind).GetComponent<Button>().onClick.Invoke();
-        Assert.That(app.Progress.gold,Is.Zero);
-        foreach(var offer in BoosterCatalog.All)Assert.That(app.Progress.Count(offer.Kind),Is.EqualTo(1));
+        Assert.That(app.Gold,Is.Zero);
+        foreach(var offer in BoosterCatalog.All)Assert.That(app.BoosterCount(offer.Kind),Is.EqualTo(offer.Kind==BoosterKind.ExtraBall?2:1));
         Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.False);
-        Assert.That(saves.Load().extraBalls,Is.EqualTo(1));Dump("shop-stock");
+        Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(2));Dump("shop-stock");
         UnityEngine.Object.Destroy(app.gameObject);yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         app=KitApp.Instance;
-        foreach(var offer in BoosterCatalog.All)Assert.That(app.Progress.Count(offer.Kind),Is.EqualTo(1));
+        foreach(var offer in BoosterCatalog.All)Assert.That(app.BoosterCount(offer.Kind),Is.EqualTo(offer.Kind==BoosterKind.ExtraBall?2:1));
         app.Play(1);yield return Ready("VisualIngame");
         var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
-        Directory.CreateDirectory(Path.Combine(folder,"progress.json.tmp"));
-        LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("BK_Kit: progress could not be saved"));
-        Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);
-        Assert.That(app.Progress.extraBalls,Is.EqualTo(1));Assert.That(game.BallsRemaining,Is.EqualTo(20));
-        Directory.Delete(Path.Combine(folder,"progress.json.tmp"));
+        // Consuming while the write is blocked still consumes; the file catches up on retry.
+        Directory.CreateDirectory(Path.Combine(folder,"WalletData.json.tmp"));
+        ExpectSaveFailure();
+        Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.True);yield return BoosterFinished(game);
+        Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(1));Assert.That(game.BallsRemaining,Is.EqualTo(25));
+        Assert.That(app.HasPendingSave,Is.True);Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(2));
+        Directory.Delete(Path.Combine(folder,"WalletData.json.tmp"));
+        Assert.That(app.RetryPendingSave(),Is.True);Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(1));
         Time.timeScale=0;Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);Time.timeScale=1;
-        Assert.That(app.Progress.extraBalls,Is.EqualTo(1));
+        Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(1));
         Click(Binding("UIIngamePanel").Get<Button>("ExtraBallIngameButton"));
         yield return BoosterFinished(game);
-        Assert.That(game.BallsRemaining,Is.EqualTo(25));Assert.That(saves.Load().extraBalls,Is.Zero);
-        Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);Assert.That(game.BallsRemaining,Is.EqualTo(25));
+        Assert.That(game.BallsRemaining,Is.EqualTo(30));Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.Zero);
+        Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);Assert.That(game.BallsRemaining,Is.EqualTo(30));
         int remaining=game.BlocksRemaining;
         Assert.That(game.TryUseBooster(BoosterKind.Missile),Is.True);yield return BoosterFinished(game);Assert.That(game.BlocksRemaining,Is.EqualTo(remaining-1));
         remaining=game.BlocksRemaining;Assert.That(game.TryUseBooster(BoosterKind.Bomb),Is.True);yield return BoosterFinished(game);Assert.That(game.BlocksRemaining,Is.LessThan(remaining));
         remaining=game.BlocksRemaining;Assert.That(game.TryUseBooster(BoosterKind.Laser),Is.True);yield return new WaitForSeconds(.25f);Dump("booster-laser");yield return BoosterFinished(game);Assert.That(game.BlocksRemaining,Is.LessThan(remaining));
-        foreach(var offer in BoosterCatalog.All)Assert.That(saves.Load().Count(offer.Kind),Is.Zero);
+        foreach(var offer in BoosterCatalog.All)Assert.That(KitTestSaves.Booster(folder,offer.Kind),Is.Zero);
         Dump("booster-effects");
         app.Play(1);yield return Ready("VisualIngame");
         Assert.That(UnityEngine.Object.FindFirstObjectByType<BounceModule>().BallsRemaining,Is.EqualTo(20));
-        Assert.That(app.Progress.extraBalls,Is.Zero,"Restart must not refund used inventory");
+        Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.Zero,"Restart must not refund used inventory");
     }
 
     [UnityTest]
     public IEnumerator BoosterClearsLastBlockAndAwardsOnce()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        new LocalSaveStore(folder).Save(new PlayerProgress {missiles=24,extraBalls=1});
+        KitTestSaves.Seed(folder,boosters:KitTestSaves.Boosters(missiles:24,extraBalls:1));
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -271,16 +277,15 @@ public sealed class VisualFlowTests
         Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);
         yield return new WaitForSeconds(.7f);
         Assert.That(KitApp.Instance.Session.State,Is.EqualTo(SessionState.Won));
-        var saved=new LocalSaveStore(folder).Load();
-        Assert.That(saved.gold,Is.EqualTo(50));Assert.That(saved.unlockedLevel,Is.EqualTo(2));
-        Assert.That(saved.missiles,Is.Zero);Assert.That(saved.extraBalls,Is.EqualTo(1));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(50));Assert.That(KitTestSaves.Level(folder),Is.EqualTo(2));
+        Assert.That(KitTestSaves.Booster(folder,BoosterKind.Missile),Is.Zero);Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(1));
     }
 
     [UnityTest]
     public IEnumerator BoosterFlightPausesBlocksDuplicateInputAndCleansUpOnRetry()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        new LocalSaveStore(folder).Save(new PlayerProgress {missiles=2,bombs=1,extraBalls=1});
+        KitTestSaves.Seed(folder,boosters:KitTestSaves.Boosters(missiles:2,bombs:1,extraBalls:1));
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -292,7 +297,7 @@ public sealed class VisualFlowTests
         Assert.That(game.BlocksRemaining,Is.EqualTo(24),"Damage waits for impact");
         Assert.That(game.TryUseBooster(BoosterKind.Missile),Is.False);
         Assert.That(game.Fire(Vector3.forward),Is.False);
-        Assert.That(app.Progress.missiles,Is.EqualTo(1));
+        Assert.That(app.BoosterCount(BoosterKind.Missile),Is.EqualTo(1));
         yield return new WaitForSeconds(.12f);
         Dump("booster-missile-flight");
         Time.timeScale=0;
@@ -318,7 +323,7 @@ public sealed class VisualFlowTests
         Assert.That(game.BlocksRemaining,Is.EqualTo(24),"Cancelled old effects cannot damage a restarted board");
         Assert.That(game.IsUsingBooster,Is.False);
         Assert.That(UnityEngine.Object.FindObjectsByType<BoosterEffect>(FindObjectsSortMode.None),Is.Empty);
-        Assert.That(new LocalSaveStore(folder).Load().bombs,Is.Zero,"Retry does not refund consumed stock");
+        Assert.That(KitTestSaves.Booster(folder,BoosterKind.Bomb),Is.Zero,"Retry does not refund consumed stock");
         Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.True);
         yield return new WaitForSeconds(.15f);Dump("booster-extra-flight");
         yield return BoosterFinished(game);
@@ -326,27 +331,17 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator ZeroRewardAndInterruptedCollectionKeepSavedBalance()
+    public IEnumerator InterruptedCollectionKeepsSavedBalance()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        var saves=new LocalSaveStore(folder);saves.Save(new PlayerProgress {gold=int.MaxValue});
+        KitTestSaves.Seed(folder,gold:25);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         var app=KitApp.Instance;app.Play(1);yield return Ready("VisualIngame");app.Complete(true);
         yield return new WaitForSecondsRealtime(.25f);
-        Assert.That(app.LastGoldReward,Is.Zero);
-        var result=Binding("StageClearPopup");
-        result.Get<Button>("closeButton").onClick.Invoke();
-        yield return Ready("VisualLobby");
-        Assert.That(saves.Load().gold,Is.EqualTo(int.MaxValue));
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<ClearRewardView>(),Is.Null);
-        UnityEngine.Object.Destroy(app.gameObject);yield return null;
-        saves.Save(new PlayerProgress {gold=25});
-        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
-        app=KitApp.Instance;app.Play(1);yield return Ready("VisualIngame");app.Complete(true);
-        yield return new WaitForSecondsRealtime(.25f);
+        Assert.That(app.LastGoldReward,Is.EqualTo(50));Assert.That(app.DisplayedGold,Is.EqualTo(25),"HUD shows the pre-reward balance until the coins land");
         Binding("StageClearPopup").Get<Button>("basic.claimButton").onClick.Invoke();
         yield return new WaitForSecondsRealtime(.2f);
         Assert.That(UnityEngine.Object.FindFirstObjectByType<ClearRewardView>().IsCollecting,Is.True);
@@ -354,7 +349,7 @@ public sealed class VisualFlowTests
         app.Play(2);yield return Ready("VisualIngame");
         yield return new WaitForSecondsRealtime(1.2f);
         Assert.That(SceneManager.GetActiveScene().name,Is.EqualTo("VisualIngame"),"Destroyed collection cannot return a later game to lobby");
-        Assert.That(saves.Load().gold,Is.EqualTo(75));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(75));
         Assert.That(GameObject.Find("Reward flight"),Is.Null);
     }
 
@@ -371,45 +366,50 @@ public sealed class VisualFlowTests
         var dialog=UnityEngine.Object.FindFirstObjectByType<KitDialog>();Assert.That(dialog,Is.Not.Null);
         var input=dialog.GetComponentInChildren<TMP_InputField>();input.text="Kit Tester";
         Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Save name"));
-        Assert.That(new LocalSaveStore(folder).Load().playerName,Is.EqualTo("Kit Tester"));
+        Assert.That(KitTestSaves.PlayerName(folder),Is.EqualTo("Kit Tester"));
         Assert.That(app.TrySetPlayerName("   "),Is.False);Assert.That(app.TrySetPlayerName(new string('a',25)),Is.False);
         Dump("local-profile");yield return null;
         Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Dialog Close"));yield return null;
         Assert.That(Time.timeScale,Is.EqualTo(1));
         var top=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsSortMode.None).First(b=>b.role=="UIHUDSub_Top" && b.Get<VisualBindings>("heart")!=null);
-        Assert.That(top.Get<VisualBindings>("heart").Get<TMP_Text>("fullText").text,Is.EqualTo("Free"));
-        Click(top.Get<VisualBindings>("heart").Get<Button>("button"));yield return null;
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
-        UnityEngine.Object.FindFirstObjectByType<KitDialog>().Close();yield return null;
+        Assert.That(top.Get<VisualBindings>("heart").Get<TMP_Text>("fullText").text,Is.EqualTo("Full"));
+        Assert.That(top.Get<VisualBindings>("heart").Get<TMP_Text>("currencyCountText").text,Is.EqualTo("5"));
+        Click(top.Get<VisualBindings>("heart").Get<Button>("button"));
+        yield return WaitFor<MessagePopupView>();
+        var heartInfo=UnityEngine.Object.FindFirstObjectByType<MessagePopupView>();
+        Assert.That(heartInfo,Is.Not.Null,"Heart button explains the recharge through the framework message popup");
+        heartInfo.GetComponentsInChildren<Button>(true).First(b=>b.name=="Confirm").onClick.Invoke();
+        yield return new WaitForSecondsRealtime(.4f);
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<MessagePopupView>(),Is.Null);
         var offers=GameObject.Find("UI_Right");
         Click(offers.GetComponentsInChildren<Button>().First());yield return null;
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null,"Offline offer buttons respond without opening a service");
         UnityEngine.Object.FindFirstObjectByType<KitDialog>().Close();yield return null;
         app.Play(1);yield return Ready("VisualIngame");
-        Directory.CreateDirectory(Path.Combine(folder,"progress.json.tmp"));
-        LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("BK_Kit: progress could not be saved"));
+        Directory.CreateDirectory(Path.Combine(folder,"WalletData.json.tmp"));
+        ExpectSaveFailure();
         app.Complete(true);yield return null;
         Assert.That(app.HasPendingSave,Is.True);Assert.That(GameObject.Find("Save pending"),Is.Not.Null);
-        Assert.That(app.Progress.gold,Is.EqualTo(50));
-        app.Complete(true);Assert.That(app.Progress.gold,Is.EqualTo(50));
-        Directory.Delete(Path.Combine(folder,"progress.json.tmp"));
+        Assert.That(app.Gold,Is.EqualTo(50));
+        app.Complete(true);Assert.That(app.Gold,Is.EqualTo(50));
+        Directory.Delete(Path.Combine(folder,"WalletData.json.tmp"));
         Assert.That(app.RetryPendingSave(),Is.True);yield return null;
         Assert.That(app.HasPendingSave,Is.False);Assert.That(GameObject.Find("Save pending"),Is.Null);
-        Assert.That(new LocalSaveStore(folder).Load().gold,Is.EqualTo(50));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(50));
         app.GoToLobby();yield return Ready("VisualLobby");
-        Assert.That(app.Progress.playerName,Is.EqualTo("Kit Tester"));
+        Assert.That(app.PlayerName,Is.EqualTo("Kit Tester"));
         Assert.That(app.TrySetSandboxProgress(7,500,3),Is.True);
         Assert.That(app.TrySetSandboxProgress(0,500,3),Is.False);
         app.Play(7);yield return Ready("VisualIngame");
         Assert.That(app.Session.Level,Is.EqualTo(7));
-        Assert.That(new LocalSaveStore(folder).Load().bombs,Is.EqualTo(3));
+        Assert.That(KitTestSaves.Booster(folder,BoosterKind.Bomb),Is.EqualTo(3));
     }
 
     [UnityTest]
     public IEnumerator AllAuthoredBoardsAndLoopedStageLoadAndFire()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        new LocalSaveStore(folder).Save(new PlayerProgress {unlockedLevel=11});
+        KitTestSaves.Seed(folder,level:11,infiniteHearts:true);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -438,10 +438,10 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator FailureRetryAndLobbyButtonsDoNotChargeGold()
+    public IEnumerator FailurePopupContinueNeedsGoldAndLobbyButtonsDoNotCharge()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        new LocalSaveStore(folder).Save(new PlayerProgress {gold=75});
+        KitTestSaves.Seed(folder,gold:75);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -449,14 +449,74 @@ public sealed class VisualFlowTests
         KitApp.Instance.Play(1);yield return Ready("VisualIngame");KitApp.Instance.Complete(false);
         yield return new WaitForSeconds(.4f);
         var failure=Binding("UIFailPopup");
-        Assert.That(failure.Get<TMP_Text>("continuePriceText").text,Is.EqualTo("Retry"));
+        Assert.That(failure.Get<TMP_Text>("continuePriceText").text,Is.EqualTo("150"),"First continue costs the base price");
         failure.Get<Button>("currencyButton").onClick.Invoke();Assert.That(KitApp.Instance.IsLoading,Is.False);
-        Dump("failure");yield return null;Click(failure.Get<Button>("replayButton"));yield return Ready("VisualIngame");
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(75));Assert.That(KitApp.Instance.Session.State,Is.EqualTo(SessionState.Playing));
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<BounceModule>().BallsRemaining,Is.EqualTo(20));
-        KitApp.Instance.Complete(false);yield return new WaitForSeconds(.3f);
+        Dump("failure");yield return null;Click(failure.Get<Button>("replayButton"));yield return null;
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(75),"Unaffordable continue charges nothing");
+        Assert.That(KitApp.Instance.Session.State,Is.EqualTo(SessionState.Lost));
         Click(Binding("UIFailPopup").Get<Button>("lobbyButton"));yield return Ready("VisualLobby");
-        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(75));Assert.That(KitApp.Instance.Progress.unlockedLevel,Is.EqualTo(1));
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(75));Assert.That(KitApp.Instance.UnlockedLevel,Is.EqualTo(1));
+    }
+
+    [UnityTest]
+    public IEnumerator ContinueBuysExtraBallsOnTheLadderAndHeartsGateLaterStages()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        KitTestSaves.Seed(folder,gold:1000,level:4);
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        var app=KitApp.Instance;
+        Assert.That(app.Hearts,Is.EqualTo(5));
+        app.Play(4);yield return Ready("VisualIngame");
+        Assert.That(app.Hearts,Is.EqualTo(4),"Stage 4 charges a heart on entry");
+        Assert.That(KitTestSaves.Hearts(folder),Is.EqualTo(4));
+        var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
+        int balls=game.BallsRemaining;
+        app.Complete(false);yield return new WaitForSeconds(.4f);
+        Assert.That(app.Hearts,Is.EqualTo(4),"Failing keeps the heart spent");
+        Assert.That(Binding("UIFailPopup").Get<TMP_Text>("continuePriceText").text,Is.EqualTo("150"));
+        Click(Binding("UIFailPopup").Get<Button>("replayButton"));yield return null;
+        Assert.That(app.Session.State,Is.EqualTo(SessionState.Playing));
+        Assert.That(app.Gold,Is.EqualTo(850));Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(850));
+        Assert.That(game.BallsRemaining,Is.EqualTo(balls+5));
+        Assert.That(UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsSortMode.None).Any(b=>b.role=="UIFailPopup"),Is.False,"Continue closes the fail popup");
+        app.Complete(false);yield return new WaitForSeconds(.4f);
+        Assert.That(Binding("UIFailPopup").Get<TMP_Text>("continuePriceText").text,Is.EqualTo("300"),"Second continue climbs the ladder");
+        Click(Binding("UIFailPopup").Get<Button>("replayButton"));yield return null;
+        Assert.That(app.Gold,Is.EqualTo(550));Assert.That(game.BallsRemaining,Is.EqualTo(balls+10));
+        app.Complete(true);yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(app.Hearts,Is.EqualTo(5),"Clearing refunds the entry heart");
+        Assert.That(app.UnlockedLevel,Is.EqualTo(5));
+        Binding("StageClearPopup").Get<Button>("basic.claimButton").onClick.Invoke();
+        yield return Ready("VisualLobby");
+        Assert.That(app.DisplayedGold,Is.EqualTo(600),"Display lock is released once the coins landed");
+        KitTestSaves.Seed(folder,hearts:0);
+        UnityEngine.Object.Destroy(app.gameObject);yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        app=KitApp.Instance;
+        Assert.That(app.Hearts,Is.Zero);Assert.That(app.CanEnter(5),Is.False);Assert.That(app.CanEnter(2),Is.True);
+        app.Play(5);
+        yield return WaitFor<MessagePopupView>();
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<MessagePopupView>(),Is.Not.Null,"No hearts: Play explains instead of loading");
+        Assert.That(SceneManager.GetActiveScene().name,Is.EqualTo("VisualLobby"));
+        UnityEngine.Object.FindFirstObjectByType<MessagePopupView>().GetComponentsInChildren<Button>(true).First(b=>b.name=="Confirm").onClick.Invoke();
+        yield return new WaitForSecondsRealtime(.4f);
+        app.Play(2);yield return Ready("VisualIngame");
+        Assert.That(app.Session.Level,Is.EqualTo(2),"Free stages stay playable without hearts");
+    }
+
+    private static IEnumerator WaitFor<T>() where T:Component
+    {
+        float limit=Time.realtimeSinceStartup+5;
+        while(UnityEngine.Object.FindFirstObjectByType<T>()==null && Time.realtimeSinceStartup<limit)yield return null;
+        yield return null;
+    }
+    private static void ExpectSaveFailure()
+    {
+        LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("save failed WalletData"));
+        LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("BK_Kit: progress could not be saved"));
     }
 
     private static IEnumerator CheckFontLicenses(bool ingame)

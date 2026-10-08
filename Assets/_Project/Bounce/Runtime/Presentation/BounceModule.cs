@@ -260,7 +260,8 @@ namespace BK.Kit
             CountersChanged?.Invoke();
         }
         private void Resolve(bool won) {if(!playing)return;playing=false;holding=false;lost=!won;line.enabled=false;StartCoroutine(Report(won));}
-        public override bool CanContinue=>lost && rig!=null && blocks.Count>0 && !IsUsingBooster;
+        // Board intact (blocks left, rig alive): a bought continue can resume whether the loss came from the physics or from the hub.
+        public override bool CanContinue=>rig!=null && blocks.Count>0 && !IsUsingBooster;
         public override void Continue(int extraBalls)
         {
             if(!CanContinue)return;

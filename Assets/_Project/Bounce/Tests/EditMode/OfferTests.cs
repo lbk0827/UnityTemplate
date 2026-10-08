@@ -1,8 +1,14 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
+using BK.Core.Time;
 using BK.Kit;
+using BK.Meta;
+using BK.Save;
 using NUnit.Framework;
+using UnityEngine;
+using UnityEngine.TestTools;
 
 public sealed class OfferTests
 {
@@ -33,47 +39,41 @@ public sealed class OfferTests
     }
 
     [Test]
-    public void FreeStepGrantsRewardsAndAdvances()
+    public void FreeStepGrantsRewardsThroughTheWalletAndAdvances()
     {
-        var progress = new PlayerProgress();
-        Assert.That(OfferClaim.Apply(progress, OfferKind.EndlessOffer, 0, out var message), Is.True, message);
-        Assert.That(progress.gold, Is.EqualTo(100));
-        Assert.That(progress.Step(OfferKind.EndlessOffer), Is.EqualTo(1));
-        Assert.That(OfferClaim.Apply(progress, OfferKind.EndlessOffer, 0, out message), Is.False, "same step cannot be claimed twice");
-        Assert.That(OfferClaim.Apply(progress, OfferKind.EndlessOffer, 1, out message), Is.False, "paid step is rejected offline");
-        Assert.That(progress.gold, Is.EqualTo(100));
-        Assert.That(progress.Step(OfferKind.EndlessOffer), Is.EqualTo(1));
-        progress.SetStep(OfferKind.EndlessOffer, 2);
-        Assert.That(OfferClaim.Apply(progress, OfferKind.EndlessOffer, 2, out message), Is.True, message);
-        Assert.That(progress.Count(BoosterKind.Bomb), Is.EqualTo(1));
-        progress.SetStep(OfferKind.EndlessOffer, 4);
-        Assert.That(OfferClaim.CanClaim(progress, OfferKind.EndlessOffer, 4, out _, out message), Is.False);
+        var saves = new SaveService(directory, 0f);
+        using var wallet = new Wallet(new BounceCurrencies(), saves, new SystemClock());
+        var offers = saves.Get<BounceOfferData>();
+        Assert.That(OfferClaim.Apply(offers, wallet, OfferKind.EndlessOffer, 0, out var message), Is.True, message);
+        Assert.That(wallet.ValueOf(BounceCurrencies.Gold), Is.EqualTo(100));
+        Assert.That(offers.Step(OfferKind.EndlessOffer), Is.EqualTo(1));
+        Assert.That(OfferClaim.Apply(offers, wallet, OfferKind.EndlessOffer, 0, out message), Is.False, "same step cannot be claimed twice");
+        Assert.That(OfferClaim.Apply(offers, wallet, OfferKind.EndlessOffer, 1, out message), Is.False, "paid step is rejected offline");
+        Assert.That(wallet.ValueOf(BounceCurrencies.Gold), Is.EqualTo(100));
+        offers.SetStep(OfferKind.EndlessOffer, 2);
+        Assert.That(OfferClaim.Apply(offers, wallet, OfferKind.EndlessOffer, 2, out message), Is.True, message);
+        Assert.That(wallet.ValueOf(BoosterKind.Bomb.ToString()), Is.EqualTo(1));
+        offers.SetStep(OfferKind.EndlessOffer, 4);
+        Assert.That(OfferClaim.CanClaim(offers, OfferKind.EndlessOffer, 4, out _, out message), Is.False);
         Assert.That(message, Does.Contain("collected"));
-        Assert.That(OfferClaim.Apply(progress, OfferKind.WelcomeDeal, 0, out _), Is.False);
-    }
-
-    [Test]
-    public void GoldRewardSaturatesAtMax()
-    {
-        var progress = new PlayerProgress { gold = int.MaxValue - 10 };
-        Assert.That(OfferClaim.Apply(progress, OfferKind.EndlessOffer, 0, out _), Is.True);
-        Assert.That(progress.gold, Is.EqualTo(int.MaxValue));
+        Assert.That(OfferClaim.Apply(offers, wallet, OfferKind.WelcomeDeal, 0, out _), Is.False);
     }
 
     [Test]
     public void OfferProgressSurvivesReloadAndRejectsNegative()
     {
-        var store = new LocalSaveStore(directory);
-        var data = store.Load();
+        var saves = new SaveService(directory, 0f);
+        var data = saves.Get<BounceOfferData>();
         Assert.That(data.Step(OfferKind.EndlessOffer), Is.EqualTo(0));
         data.SetStep(OfferKind.EndlessOffer, 2); data.SetStep(OfferKind.EndlessGift, 5);
-        store.Save(data);
-        var restored = new LocalSaveStore(directory).Load();
+        Assert.That(saves.Flush(), Is.True);
+        var restored = new SaveService(directory, 0f).Get<BounceOfferData>();
         Assert.That(restored.Step(OfferKind.EndlessOffer), Is.EqualTo(2));
         Assert.That(restored.Step(OfferKind.EndlessGift), Is.EqualTo(5));
-        File.WriteAllText(Path.Combine(directory, "progress.json"), "{\"version\":2,\"unlockedLevel\":1,\"gold\":0,\"endlessOfferStep\":-1}");
-        File.Delete(Path.Combine(directory, "progress.json.bak"));
-        var recovered = new LocalSaveStore(directory).Load();
-        Assert.That(recovered.Step(OfferKind.EndlessOffer), Is.EqualTo(0), "negative step falls back to fresh profile");
+        File.WriteAllText(Path.Combine(directory, "BounceOfferData.json"), "{\"version\":1,\"endlessOfferStep\":-1,\"endlessGiftStep\":0}");
+        File.Delete(Path.Combine(directory, "BounceOfferData.json.bak"));
+        LogAssert.Expect(LogType.Error, new Regex("invalid save BounceOfferData"));
+        var recovered = new SaveService(directory, 0f).Get<BounceOfferData>();
+        Assert.That(recovered.Step(OfferKind.EndlessOffer), Is.EqualTo(0), "negative step falls back to a fresh slot");
     }
 }

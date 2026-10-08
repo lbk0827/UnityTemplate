@@ -56,22 +56,21 @@ public sealed class OfferFlowTests
         Assert.That(OnScreen(canvasRect,slot0.Get<Button>("buyButton")),Is.True,"Current slot's button must be on screen");
         yield return null;
         Dump("offer-endless");
-        int goldBefore=app.Progress.gold;
+        long goldBefore=app.Gold;
         var buy=slot0.Get<Button>("buyButton");
         Assert.That(buy.interactable,Is.True);
         buy.onClick.Invoke();
         yield return null;
-        Assert.That(app.Progress.gold,Is.EqualTo(goldBefore+100),"Free step grants local gold");
-        Assert.That(app.Progress.Step(OfferKind.EndlessOffer),Is.EqualTo(1));
-        var saved=new LocalSaveStore(folder).Load();
-        Assert.That(saved.gold,Is.EqualTo(goldBefore+100));Assert.That(saved.Step(OfferKind.EndlessOffer),Is.EqualTo(1));
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+100),"Free step grants local gold");
+        Assert.That(app.OfferStep(OfferKind.EndlessOffer),Is.EqualTo(1));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(goldBefore+100));Assert.That(KitTestSaves.OfferStep(folder,OfferKind.EndlessOffer),Is.EqualTo(1));
         Assert.That(slot0.Get<GameObject>("checkRoot").activeSelf,Is.True,"Claimed step shows the check stamp");
         Assert.That(slot0.Get<Button>("buyButton").interactable,Is.False);
         Assert.That(slot1.Get<GameObject>("currentRoot").activeSelf,Is.True);
         Assert.That(slot1.Get<Button>("buyButton").interactable,Is.True);
         slot1.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Progress.gold,Is.EqualTo(goldBefore+100),"Paid step grants nothing offline");
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+100),"Paid step grants nothing offline");
         var notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null,"Paid step explains that payments are not connected");
         notice.Close();yield return null;
@@ -84,7 +83,7 @@ public sealed class OfferFlowTests
         if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.False,"Current step is paid, so the red dot hides");
 
         // Later steps live below the screen in the authored rail; opening must bring the current step into view.
-        app.Progress.SetStep(OfferKind.EndlessOffer,OfferCatalog.EndlessOffer.Count-1);
+        app.SetOfferStep(OfferKind.EndlessOffer,OfferCatalog.EndlessOffer.Count-1);
         offers.Open(OfferKind.EndlessOffer);
         yield return null;
         binding=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIEndlessOfferPopup");
@@ -96,7 +95,7 @@ public sealed class OfferFlowTests
         yield return null;
         Dump("offer-endless-last");
         offers.Close();yield return null;
-        app.Progress.SetStep(OfferKind.EndlessOffer,1);
+        app.SetOfferStep(OfferKind.EndlessOffer,1);
 
         // Welcome deal: visuals and local reward list, purchase only informs.
         var welcome=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains("Welcome"));
@@ -110,7 +109,7 @@ public sealed class OfferFlowTests
         Dump("offer-welcome");
         deal.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Progress.gold,Is.EqualTo(goldBefore+100));
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+100));
         notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null);notice.Close();yield return null;
         deal.Get<Button>("dimButton").onClick.Invoke();
