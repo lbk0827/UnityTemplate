@@ -1,0 +1,47 @@
+{
+  "package": {
+    "name": "com.brunomikoski.animationsequencer",
+    "version": "0.5.5",
+    "license": "MIT",
+    "source": "https://github.com/brunomikoski/Animation-Sequencer",
+    "commit": "1ed78c4c69ccf295d02098da2ae31e44a5dd16fa",
+    "installedVia": "OpenUPM scoped registry (scope com.brunomikoski)"
+  },
+  "dotween": {
+    "version": "1.3.030",
+    "edition": "free",
+    "source": "https://dotween.demigiant.com/downloads/DOTween_1_3_030.zip",
+    "license": "https://dotween.demigiant.com/license.php",
+    "path": "Assets/Plugins/Demigiant/DOTween",
+    "notes": "Modules asmdef and DOTweenSettings.asset were authored by hand instead of the Utility Panel. Settings are stored in DOTween/Resources (storeSettingsLocation=1). Do not regenerate the asmdef from the Utility Panel: it would drop the hand-written UnityEngine.UI reference. DOTween's editor adds its own DOTWEEN define to every platform group on first load; that is expected."
+  },
+  "defines": [
+    "DOTWEEN_ENABLED",
+    "TMP_ENABLED"
+  ],
+  "testAssemblyNote": "BK.Kit.EditModeTests uses overrideReferences=true with precompiledReferences [nunit.framework.dll, DOTween.dll]; the legacy optionalUnityReferences form did not pick up DOTween.dll.",
+  "importedFromSf": {
+    "source": "D:/ngfe_sf/Assets/Application/Bundles/UI/Common",
+    "files": [
+      "SQ_Popup_Open.prefab",
+      "SQ_Popup_Close.prefab"
+    ],
+    "target": "Assets/_Project/UI/Sequences",
+    "guidRemap": {
+      "a3dbb958357cc5b4f9bf0b1b2226c664": "c10d422b52559da41aa9676770a8fc65"
+    },
+    "droppedForkOnlyFields": [
+      "enable",
+      "isResetToFromState",
+      "skipResetOnDisable",
+      "fromAlpha",
+      "fromLocalScale",
+      "findCamera",
+      "delayBySiblingOrder",
+      "firstDelay",
+      "oneTimeDelay",
+      "findChild"
+    ],
+    "notPorted": "sf의 DoubleU 포크(0.5.20) 전용 액션(LayoutElement/MaterialProperty/Renderer/ParticleSystemParam/Spine/TMP_TextColor)과 Recipe/Sequence 프리팹은 RootBox UIElements·scopeduiservice에 묶여 있어 로비 재구현 마일스톤(G)에서 다룬다."
+  }
+}
