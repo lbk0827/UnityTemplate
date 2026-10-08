@@ -4,6 +4,7 @@
     "references": [
         "BK.Core",
         "BK.Assets",
+        "BK.Scene",
         "VContainer",
         "UniTask",
         "R3.Unity",
