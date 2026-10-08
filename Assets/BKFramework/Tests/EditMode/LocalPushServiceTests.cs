@@ -91,6 +91,17 @@ namespace BK.Tests
         }
 
         [Test]
+        public async Task UnsupportedPlatformNeverSchedules()
+        {
+            var platform = new Platform { Supported = false };
+            using var push = new LocalPushService(new SaveService(_dir, 0f), new FakeClock(T0), platform, new[] { Soon(60) });
+            push.MarkPendingPermissionRequest();
+            await push.TryRequestPendingPermissionAsync();
+            Assert.That(push.OnBackgrounded(), Is.Zero);
+            Assert.That(platform.Scheduled, Is.Empty);
+        }
+
+        [Test]
         public async Task FailingProviderDoesNotBlockOthers()
         {
             var platform = new Platform();

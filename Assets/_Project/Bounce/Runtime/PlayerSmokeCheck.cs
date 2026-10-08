@@ -45,7 +45,7 @@ namespace BK.Kit
             yield return new WaitForSecondsRealtime(1);
             if(!Check(app.UnlockedLevel==2 && app.BoosterCount(BoosterKind.ExtraBall)==0,"Progress and inventory"))yield break;
             string folder=Environment.GetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR");
-            if(!Check(new BK.Save.SaveService(folder).Get<BK.Meta.WalletData>().Find("Gold").value==400,"Persisted reward"))yield break;
+            if(!Check(new BK.Save.SaveService(folder,0f).Get<BK.Meta.WalletData>().Find("Gold").value==400,"Persisted reward"))yield break;
             if(!Check(CaptureLobby(Path.Combine(folder,"smoke-lobby.png")),"Rendered lobby contains visible UI"))yield break;
             yield return new WaitForSecondsRealtime(.5f);
             Debug.Log("BK_KIT_PLAYER_SMOKE_OK");Application.Quit(0);

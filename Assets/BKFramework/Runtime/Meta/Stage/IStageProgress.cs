@@ -37,7 +37,7 @@ namespace BK.Meta
         Observable<StageStarted> Started { get; }
         Observable<StageCleared> Cleared { get; }
 
-        /// <summary>Tools and tests only: moves the saved pointer without charging, refunding or raising events.</summary>
+        /// <summary>Tools and tests only: moves the saved pointer without charging, refunding or raising events (per-attempt state such as ContinueOffers.UsedCount is untouched until the next TryStart).</summary>
         void SetCurrentStage(int stage);
     }
 }

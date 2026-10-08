@@ -124,6 +124,8 @@ namespace BK.Kit
             if (!UsesFrameworkServices) throw new InvalidOperationException("Open the integrated bootstrap first.");
             IsLoading = true;
             Changed?.Invoke();
+            // Leaving a round before the coin flight landed: the HUD must not keep showing the pre-reward balance.
+            ReleaseRewardDisplay();
             try
             {
                 // Close the outgoing game view before changing its world scene.
@@ -141,7 +143,7 @@ namespace BK.Kit
             if (scene == lobbyScene && services.Push.IsPermissionPending)
             {
                 await services.Push.TryRequestPendingPermissionAsync();
-                Flush();
+                if (this != null) Flush(); // the prompt can outlive this hub (scene teardown, test cleanup)
             }
         }
 

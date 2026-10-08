@@ -346,6 +346,7 @@ public sealed class VisualFlowTests
         yield return new WaitForSecondsRealtime(.2f);
         Assert.That(UnityEngine.Object.FindFirstObjectByType<ClearRewardView>().IsCollecting,Is.True);
         app.GoToLobby();yield return Ready("VisualLobby");
+        Assert.That(app.DisplayedGold,Is.EqualTo(75),"Leaving mid-flight releases the display lock");
         app.Play(2);yield return Ready("VisualIngame");
         yield return new WaitForSecondsRealtime(1.2f);
         Assert.That(SceneManager.GetActiveScene().name,Is.EqualTo("VisualIngame"),"Destroyed collection cannot return a later game to lobby");

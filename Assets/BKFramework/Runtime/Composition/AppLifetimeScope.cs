@@ -42,7 +42,8 @@ namespace BK.Composition
             builder.Register<SceneService>(Lifetime.Singleton).AsImplementedInterfaces();
 
             var saveDirectory = SaveDirectory;
-            builder.Register<ISaveService>(_ => new SaveService(saveDirectory), Lifetime.Singleton);
+            var flushInterval = SaveFlushIntervalSeconds;
+            builder.Register<ISaveService>(_ => new SaveService(saveDirectory, flushInterval), Lifetime.Singleton);
             builder.Register<IOptionsService>(container => new OptionsService(
                 container.Resolve<ISaveService>(), _settings.DefaultLanguage), Lifetime.Singleton);
             NotificationsInstaller.Install(builder);
@@ -92,6 +93,9 @@ namespace BK.Composition
         /// Folder for save slots. Override to isolate test runs or to namespace a game's profile.
         /// </summary>
         protected virtual string SaveDirectory => SaveService.DefaultDirectory;
+
+        /// <summary>Periodic flush cadence; 0 disables the background flusher (tests).</summary>
+        protected virtual float SaveFlushIntervalSeconds => 5f;
 
         /// <summary>
         /// Order comes from each step's <see cref="IBootStep.Order"/>, not from this

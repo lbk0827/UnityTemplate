@@ -3,7 +3,6 @@ using System.IO;
 using BK.Composition;
 using BK.Core.App;
 using BK.Core.Events;
-using BK.Core.Time;
 using BK.Meta;
 using BK.Notifications;
 using BK.Options;
@@ -24,16 +23,14 @@ namespace BK.Kit
         /// <summary>Tests point this at an isolated folder so the real profile is never touched.</summary>
         public const string TestSaveDirectoryVariable = "BK_KIT_TEST_SAVE_DIR";
 
+        private static bool IsTestRun => !string.IsNullOrEmpty(Environment.GetEnvironmentVariable(TestSaveDirectoryVariable));
+
         protected override string SaveDirectory
-        {
-            get
-            {
-                var folder = Environment.GetEnvironmentVariable(TestSaveDirectoryVariable);
-                return string.IsNullOrEmpty(folder)
-                    ? Path.Combine(Application.persistentDataPath, "Bounce", "Profiles", "local")
-                    : folder;
-            }
-        }
+            => IsTestRun ? Environment.GetEnvironmentVariable(TestSaveDirectoryVariable)
+                         : Path.Combine(Application.persistentDataPath, "Bounce", "Profiles", "local");
+
+        // Tests flush explicitly and assert on files immediately; a background flusher would race their blocked-write windows.
+        protected override float SaveFlushIntervalSeconds => IsTestRun ? 0f : base.SaveFlushIntervalSeconds;
 
         protected override void ConfigureProject(IContainerBuilder builder)
         {
@@ -71,15 +68,14 @@ namespace BK.Kit
         public readonly PendingRewardQueue Rewards;
         public readonly CurrencyDisplayLock DisplayLock;
         public readonly ContinueOffers Continues;
-        public readonly IClock Clock;
         public readonly LocalPushService Push;
 
         public KitServices(ISceneService scenes, IUIService ui, ITableService tables, ISaveService saves, IWallet wallet,
             IStageProgress progress, IOptionsService options, IMessageService messages, PendingRewardQueue rewards,
-            CurrencyDisplayLock displayLock, ContinueOffers continues, IClock clock, LocalPushService push)
+            CurrencyDisplayLock displayLock, ContinueOffers continues, LocalPushService push)
         {
             Scenes = scenes; UI = ui; Tables = tables; Saves = saves; Wallet = wallet; Progress = progress;
-            Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues; Clock = clock;
+            Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues;
             Push = push;
         }
     }

@@ -44,12 +44,6 @@ namespace BK.Notifications
         /// <summary>Last background pass, for diagnostics and tests.</summary>
         public IReadOnlyList<NotificationRequest> LastScheduled { get; private set; } = Array.Empty<NotificationRequest>();
 
-        public void Register(IPushProvider provider)
-        {
-            if (!_providers.Contains(provider))
-                _providers.Add(provider);
-        }
-
         /// <summary>Game code: the player has progressed enough to be asked. No-op once the prompt was shown.</summary>
         public void MarkPendingPermissionRequest()
         {
@@ -85,7 +79,7 @@ namespace BK.Notifications
         public int OnBackgrounded()
         {
             _platform.CancelAll();
-            if (!_data.permissionGranted)
+            if (!_platform.IsSupported || !_data.permissionGranted)
             {
                 LastScheduled = Array.Empty<NotificationRequest>();
                 return 0;
