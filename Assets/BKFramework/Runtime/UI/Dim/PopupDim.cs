@@ -9,6 +9,7 @@ namespace BK.UI
         private readonly ReactiveProperty<bool> _isActive = new(false);
         private readonly DimRefCounter _counter;
 
+        [VContainer.Inject]
         public PopupDim(UIRoot root)
             : this(PopupDimView.Create(root.GetAuxiliaryRoot(UIRoot.DimCanvas, (int)UILayer.Popup - 1)), new UniTaskDimScheduler()) { }
 

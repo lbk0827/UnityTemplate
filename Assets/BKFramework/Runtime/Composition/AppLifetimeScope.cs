@@ -54,6 +54,18 @@ namespace BK.Composition
             builder.Register<PopupDim>(Lifetime.Singleton).As<IPopupDim>();
 
             builder.Register<UIService>(Lifetime.Singleton).As<IUIService>();
+            builder.Register<IScreenCover>(container => new ScreenCover(ScreenCoverView.Create(container.Resolve<UIRoot>())), Lifetime.Singleton);
+            builder.Register<ISceneFlow>(container => new SceneFlow(
+                container.Resolve<ISceneService>(),
+                container.Resolve<IUIService>(),
+                container.Resolve<IScreenCover>(),
+                container.Resolve<IPopupDim>()), Lifetime.Singleton);
+            builder.Register<IMessagePresenter>(container => new UIMessagePresenter(
+                container.Resolve<IUIService>(),
+                new AssetKey(_settings.MessagePopupAddress),
+                new AssetKey(_settings.ToastAddress),
+                _settings.ToastSeconds), Lifetime.Singleton);
+            builder.Register<MessageService>(Lifetime.Singleton).As<IMessageService>();
 
             RegisterBootSteps(builder);
 
