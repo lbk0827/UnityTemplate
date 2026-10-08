@@ -1,0 +1,286 @@
+.root {
+    padding: 10px;
+    min-width: 380px;
+    min-height: 480px;
+}
+
+.title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    -unity-text-align: middle-center;
+}
+
+.section {
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.section-title {
+    font-size: 13px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+.current-prefab-label {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgba(100, 200, 255, 1);
+}
+
+.folder-list {
+    margin-bottom: 6px;
+}
+
+.folder-row {
+    flex-direction: row;
+    margin-bottom: 4px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.folder-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 100px;
+    margin-right: 4px;
+}
+
+.remove-folder-btn {
+    width: 24px;
+    min-width: 24px;
+    height: 20px;
+    background-color: rgba(200, 50, 50, 0.5);
+    color: white;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+.remove-folder-btn:hover {
+    background-color: rgba(200, 50, 50, 0.7);
+}
+
+.add-folder-btn {
+    margin-top: 4px;
+    height: 26px;
+    background-color: rgba(50, 150, 50, 0.3);
+}
+
+.add-folder-btn:hover {
+    background-color: rgba(50, 150, 50, 0.5);
+}
+
+.preset-row {
+    flex-direction: row;
+    margin-bottom: 8px;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.preset-dropdown {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+    margin-right: 4px;
+}
+
+.preset-btn {
+    width: 36px;
+    min-width: 36px;
+    height: 22px;
+    font-size: 11px;
+    margin-left: 2px;
+    flex-shrink: 0;
+}
+
+.save-preset-btn {
+    background-color: rgba(50, 120, 200, 0.4);
+}
+
+.save-preset-btn:hover {
+    background-color: rgba(50, 120, 200, 0.6);
+}
+
+.delete-preset-btn {
+    background-color: rgba(200, 80, 80, 0.4);
+}
+
+.delete-preset-btn:hover {
+    background-color: rgba(200, 80, 80, 0.6);
+}
+
+.action-button {
+    height: 28px;
+    background-color: rgba(0, 100, 200, 0.3);
+}
+
+.action-button:hover {
+    background-color: rgba(0, 100, 200, 0.5);
+}
+
+.result-section {
+    flex-grow: 1;
+}
+
+.prefab-list {
+    min-height: 150px;
+    max-height: 300px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+}
+
+.prefab-item {
+    padding: 6px;
+    margin-bottom: 4px;
+    background-color: rgba(60, 60, 60, 0.5);
+    border-radius: 3px;
+    cursor: link;
+}
+
+.prefab-item:hover {
+    background-color: rgba(80, 120, 180, 0.5);
+}
+
+.prefab-header-row {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.prefab-name {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgba(255, 255, 255, 1);
+    flex-grow: 1;
+}
+
+.replace-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.replace-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+.replace-btn {
+    width: 55px;
+    min-width: 55px;
+    height: 18px;
+    font-size: 10px;
+    background-color: rgba(200, 150, 50, 0.5);
+    flex-shrink: 0;
+}
+
+.replace-btn:hover {
+    background-color: rgba(200, 150, 50, 0.8);
+}
+
+.prefab-path {
+    font-size: 10px;
+    color: rgba(180, 180, 180, 1);
+    margin-top: 2px;
+}
+
+.prefab-source {
+    font-size: 9px;
+    color: rgba(140, 140, 140, 1);
+    -unity-font-style: italic;
+    margin-top: 1px;
+}
+
+.empty-label {
+    font-size: 11px;
+    color: rgba(150, 150, 150, 1);
+    -unity-font-style: italic;
+    padding: 10px;
+    -unity-text-align: middle-center;
+}
+
+.status-label {
+    font-size: 11px;
+    color: rgba(180, 180, 180, 1);
+    margin-top: 6px;
+    padding: 4px;
+}
+
+.resource-item {
+    padding: 6px;
+    margin-bottom: 4px;
+    background-color: rgba(60, 80, 60, 0.5);
+    border-radius: 3px;
+    cursor: link;
+}
+
+.resource-item:hover {
+    background-color: rgba(80, 150, 80, 0.5);
+}
+
+.resource-name {
+    font-size: 12px;
+    -unity-font-style: bold;
+    color: rgba(200, 255, 200, 1);
+}
+
+.resource-type {
+    font-size: 10px;
+    color: rgba(180, 200, 180, 1);
+    margin-top: 2px;
+}
+
+.resource-path {
+    font-size: 9px;
+    color: rgba(140, 160, 140, 1);
+    -unity-font-style: italic;
+    margin-top: 1px;
+}
+
+.resource-used-by {
+    font-size: 9px;
+    color: rgba(120, 140, 120, 1);
+    margin-top: 1px;
+}
+
+.resource-ref-count {
+    font-size: 9px;
+    color: rgba(150, 180, 150, 1);
+    margin-top: 2px;
+}
+
+.resource-replace-row {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.resource-replace-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+    min-width: 80px;
+    height: 18px;
+    margin-right: 4px;
+}
+
+.resource-replace-btn {
+    width: 55px;
+    min-width: 55px;
+    height: 18px;
+    font-size: 10px;
+    background-color: rgba(80, 160, 80, 0.5);
+    flex-shrink: 0;
+}
+
+.resource-replace-btn:hover {
+    background-color: rgba(80, 160, 80, 0.8);
+}

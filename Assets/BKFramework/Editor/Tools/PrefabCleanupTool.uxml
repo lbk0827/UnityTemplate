@@ -1,0 +1,35 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="PrefabCleanupTool.uss" />
+    <ui:VisualElement name="root" class="root">
+        <ui:Label text="Prefab Cleanup Tool" class="title" />
+
+        <ui:VisualElement name="prefab-section" class="section">
+            <ui:Label text="Selected Prefab" class="section-title" />
+            <uie:ObjectField name="prefab-field" type="UnityEngine.GameObject, UnityEngine.CoreModule" label="Prefab" allow-scene-objects="false" />
+            <ui:Label name="prefab-info" text="No prefab selected" class="info-label" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="missing-scripts-section" class="section">
+            <ui:Label text="Missing Scripts" class="section-title" />
+            <ui:Button name="remove-missing-btn" text="Remove All Missing Scripts" class="action-button" />
+            <ui:Label name="missing-scripts-info" text="" class="info-label" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="script-removal-section" class="section">
+            <ui:Label text="Remove Specific Scripts" class="section-title" />
+            <ui:TextField name="script-search-field" label="Search Scripts" class="search-field" />
+            <ui:ScrollView name="script-list" class="script-list" />
+            <ui:Button name="remove-selected-scripts-btn" text="Remove Selected Scripts" class="action-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="options-section" class="section">
+            <ui:Label text="Options" class="section-title" />
+            <ui:Toggle name="include-children-toggle" label="Apply to All Children" value="true" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="progress-section" class="section">
+            <ui:Label name="status-label" text="Ready" class="status-label" />
+            <ui:ProgressBar name="progress-bar" title="" class="progress-bar" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

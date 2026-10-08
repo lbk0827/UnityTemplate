@@ -12,7 +12,8 @@ namespace BK.Data
         /// <summary>Row type this table serves. Used as the service's lookup key.</summary>
         public abstract System.Type RowType { get; }
 
-        internal abstract void BuildIndex();
+        /// <summary>(Re)builds the id index. The service calls it on load; editor importers call it after replacing rows.</summary>
+        public abstract void BuildIndex();
     }
 
     /// <summary>
@@ -51,7 +52,7 @@ namespace BK.Data
             return _index.ContainsKey(id);
         }
 
-        internal override void BuildIndex()
+        public override void BuildIndex()
         {
             _index = new Dictionary<TKey, TRow>(_rows.Count);
             foreach (var row in _rows)

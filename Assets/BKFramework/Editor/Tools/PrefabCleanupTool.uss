@@ -1,0 +1,77 @@
+.root {
+    padding: 10px;
+    min-width: 400px;
+    min-height: 600px;
+}
+
+.title {
+    font-size: 20px;
+    -unity-font-style: bold;
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    -unity-text-align: middle-center;
+}
+
+.section {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.section-title {
+    font-size: 14px;
+    -unity-font-style: bold;
+    margin-bottom: 8px;
+}
+
+.action-button {
+    margin-top: 8px;
+    height: 30px;
+    background-color: rgba(0, 100, 200, 0.3);
+}
+
+.action-button:hover {
+    background-color: rgba(0, 100, 200, 0.5);
+}
+
+.action-button:active {
+    background-color: rgba(0, 100, 200, 0.7);
+}
+
+.info-label {
+    margin-top: 5px;
+    font-size: 11px;
+    color: rgba(200, 200, 200, 1);
+    -unity-font-style: italic;
+}
+
+.search-field {
+    margin-bottom: 8px;
+    margin-top: 5px;
+}
+
+.script-list {
+    max-height: 300px;
+    min-height: 150px;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px;
+}
+
+.script-item {
+    margin-bottom: 3px;
+}
+
+.status-label {
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.progress-bar {
+    height: 20px;
+}

@@ -1,0 +1,39 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:VisualElement name="root" class="root">
+        <ui:Label text="Asset Dependency Finder" class="title" />
+
+        <ui:VisualElement name="preset-section" class="section">
+            <ui:Label text="Preset" class="section-title" />
+            <ui:VisualElement name="preset-row" class="preset-row">
+                <ui:DropdownField name="preset-dropdown" class="preset-dropdown" />
+                <ui:Button name="save-preset-btn" text="Save" class="preset-btn save-preset-btn" />
+                <ui:Button name="delete-preset-btn" text="Del" class="preset-btn delete-preset-btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="folder-section" class="section">
+            <ui:Label text="Folders" class="section-title" />
+
+            <ui:VisualElement name="source-folder-section" class="folder-section">
+                <ui:Label text="Source Folder (A)" class="folder-label source-label" />
+                <uie:ObjectField name="source-folder-field" class="folder-field" />
+            </ui:VisualElement>
+
+            <ui:VisualElement name="target-folder-section" class="folder-section">
+                <ui:Label text="Target Folder (B)" class="folder-label target-label" />
+                <uie:ObjectField name="target-folder-field" class="folder-field" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <ui:VisualElement name="control-section" class="section">
+            <ui:Button name="search-btn" text="Search Dependencies" class="action-button" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="result-section" class="section result-section">
+            <ui:Label text="Dependencies Found" class="section-title" />
+            <ui:ScrollView name="dependency-list" class="dependency-list" />
+        </ui:VisualElement>
+
+        <ui:Label name="status-label" text="Set folders and click Search" class="status-label" />
+    </ui:VisualElement>
+</ui:UXML>

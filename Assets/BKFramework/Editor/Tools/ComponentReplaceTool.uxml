@@ -1,0 +1,71 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <Style src="ComponentReplaceTool.uss" />
+    <ui:ScrollView name="main-scroll" class="main-scroll">
+        <ui:VisualElement name="root" class="root">
+            <ui:Label text="Component Replace Tool" class="title" />
+
+            <!-- Folder Selection Section -->
+            <ui:VisualElement name="folder-section" class="section">
+                <ui:Label text="Target Folder" class="section-title" />
+                <uie:ObjectField name="folder-field" label="Scan Folder" allow-scene-objects="false" />
+                <ui:Label name="folder-info" text="No folder selected" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Component Selection Section -->
+            <ui:VisualElement name="component-section" class="section">
+                <ui:Label text="Component Types" class="section-title" />
+
+                <ui:VisualElement class="component-row">
+                    <ui:Label text="Source (A)" class="component-label source-label" />
+                    <uie:ObjectField name="source-script-field" label="" allow-scene-objects="false" class="script-field" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="arrow-container">
+                    <ui:Label text="v" class="arrow-label" />
+                </ui:VisualElement>
+
+                <ui:VisualElement class="component-row">
+                    <ui:Label text="Target (B)" class="component-label target-label" />
+                    <uie:ObjectField name="target-script-field" label="" allow-scene-objects="false" class="script-field" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- Compatible Fields Preview Section -->
+            <ui:VisualElement name="fields-section" class="section">
+                <ui:Label text="Compatible Fields Preview" class="section-title" />
+                <ui:ScrollView name="field-list" class="field-list" />
+                <ui:Label name="fields-summary" text="" class="info-label" />
+            </ui:VisualElement>
+
+            <!-- Scan Controls Section -->
+            <ui:VisualElement name="scan-section" class="section">
+                <ui:Toggle name="include-nested-toggle" label="Include Nested Prefabs" value="false" />
+                <ui:Button name="scan-btn" text="Scan Prefabs" class="action-button scan-button" />
+            </ui:VisualElement>
+
+            <!-- Prefab List Section -->
+            <ui:VisualElement name="prefab-section" class="section">
+                <ui:VisualElement class="section-header">
+                    <ui:Label text="Found Prefabs" class="section-title" />
+                    <ui:Label name="prefab-count" text="" class="count-label" />
+                </ui:VisualElement>
+                <ui:VisualElement class="select-buttons-row">
+                    <ui:Button name="select-all-btn" text="Select All" class="small-button" />
+                    <ui:Button name="deselect-all-btn" text="Deselect All" class="small-button" />
+                </ui:VisualElement>
+                <ui:ScrollView name="prefab-list" class="prefab-list" />
+            </ui:VisualElement>
+
+            <!-- Execute Section -->
+            <ui:VisualElement name="execute-section" class="section">
+                <ui:Button name="execute-btn" text="Execute Replacement" class="action-button execute-button" />
+            </ui:VisualElement>
+
+            <!-- Progress Section -->
+            <ui:VisualElement name="progress-section" class="section">
+                <ui:Label name="status-label" text="Ready" class="status-label" />
+                <ui:ProgressBar name="progress-bar" title="" class="progress-bar" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:ScrollView>
+</ui:UXML>

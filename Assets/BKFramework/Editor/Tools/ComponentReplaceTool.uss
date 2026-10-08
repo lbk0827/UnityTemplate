@@ -1,0 +1,227 @@
+.main-scroll {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.root {
+    padding: 10px;
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: 18px;
+    -unity-font-style: bold;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.2);
+    -unity-text-align: middle-center;
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.section {
+    margin-bottom: 8px;
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    flex-shrink: 0;
+}
+
+.section-title {
+    font-size: 12px;
+    -unity-font-style: bold;
+    margin-bottom: 6px;
+}
+
+.section-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.component-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.component-label {
+    width: 70px;
+    -unity-font-style: bold;
+    font-size: 11px;
+    flex-shrink: 0;
+}
+
+.source-label {
+    color: rgba(255, 180, 100, 1);
+}
+
+.target-label {
+    color: rgba(100, 200, 255, 1);
+}
+
+.script-field {
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+.arrow-container {
+    -unity-text-align: middle-center;
+    margin: 2px 0;
+}
+
+.arrow-label {
+    font-size: 14px;
+    color: rgba(150, 150, 150, 1);
+}
+
+.field-list {
+    max-height: 120px;
+    min-height: 60px;
+    margin-top: 4px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.field-item {
+    flex-direction: row;
+    padding: 3px;
+    margin-bottom: 2px;
+    border-radius: 2px;
+    align-items: center;
+}
+
+.field-item-compatible {
+    background-color: rgba(50, 150, 50, 0.3);
+}
+
+.field-item-incompatible {
+    background-color: rgba(150, 50, 50, 0.3);
+}
+
+.field-status-icon {
+    width: 14px;
+    margin-right: 4px;
+    -unity-font-style: bold;
+    flex-shrink: 0;
+}
+
+.field-name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 10px;
+    overflow: hidden;
+}
+
+.field-type {
+    font-size: 9px;
+    color: rgba(180, 180, 180, 1);
+    margin-left: 6px;
+    flex-shrink: 0;
+}
+
+.select-buttons-row {
+    flex-direction: row;
+    margin-bottom: 4px;
+}
+
+.action-button {
+    height: 26px;
+    margin-top: 6px;
+}
+
+.scan-button {
+    background-color: rgba(0, 100, 200, 0.3);
+}
+
+.scan-button:hover {
+    background-color: rgba(0, 100, 200, 0.5);
+}
+
+.execute-button {
+    background-color: rgba(200, 100, 0, 0.4);
+}
+
+.execute-button:hover {
+    background-color: rgba(200, 100, 0, 0.6);
+}
+
+.execute-button:disabled {
+    background-color: rgba(100, 100, 100, 0.3);
+}
+
+.small-button {
+    height: 18px;
+    font-size: 10px;
+    margin-right: 4px;
+    padding: 2px 6px;
+}
+
+.prefab-list {
+    max-height: 150px;
+    min-height: 60px;
+    margin-top: 4px;
+    border-width: 1px;
+    border-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    border-radius: 3px;
+}
+
+.prefab-item {
+    flex-direction: row;
+    align-items: center;
+    padding: 3px;
+    margin-bottom: 2px;
+    background-color: rgba(60, 60, 60, 0.5);
+    border-radius: 3px;
+}
+
+.prefab-item:hover {
+    background-color: rgba(80, 120, 180, 0.4);
+}
+
+.prefab-checkbox {
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+
+.prefab-name {
+    flex-grow: 1;
+    flex-shrink: 1;
+    font-size: 10px;
+    overflow: hidden;
+}
+
+.prefab-count-badge {
+    background-color: rgba(100, 100, 200, 0.5);
+    border-radius: 8px;
+    padding: 2px 5px;
+    font-size: 9px;
+    flex-shrink: 0;
+}
+
+.count-label {
+    font-size: 10px;
+    color: rgba(180, 180, 180, 1);
+}
+
+.info-label {
+    margin-top: 4px;
+    font-size: 10px;
+    color: rgba(180, 180, 180, 1);
+    -unity-font-style: italic;
+}
+
+.status-label {
+    margin-bottom: 4px;
+    font-size: 11px;
+}
+
+.progress-bar {
+    height: 18px;
+}

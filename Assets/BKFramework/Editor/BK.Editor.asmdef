@@ -8,9 +8,12 @@
     "UnityEngine.UI",
     "Unity.Addressables",
     "Unity.Addressables.Editor",
-    "Unity.ResourceManager"
+    "Unity.ResourceManager",
+    "BK.Data"
   ],
-  "includePlatforms": ["Editor"],
+  "includePlatforms": [
+    "Editor"
+  ],
   "excludePlatforms": [],
   "allowUnsafeCode": false,
   "overrideReferences": false,
