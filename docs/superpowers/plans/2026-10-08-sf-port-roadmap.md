@@ -20,7 +20,7 @@
 | # | 마일스톤 | 계획 문서 | 상태 |
 |---|---|---|---|
 | A | Animation Sequencer + DOTween 설치, sf 팝업 시퀀스 프리팹 이식 | `2026-10-08-animation-sequencer-install.md` | 완료 (EditMode 16/16) |
-| B | 프레임워크 기반: 범용 세이브 서비스, 옵션 통일, Back/Escape 스택 | (예정) | |
+| B | 프레임워크 기반: 범용 세이브 서비스, 옵션 통일, Back/Escape 스택 | `2026-10-08-save-options-back.md` | 완료 (EditMode 32/32, PlayMode 11/11). 암호화(sf PlayerDataCrypto 상당)는 미포함, 필요 시 SaveFile에 바이트 계층 추가. Bounce `LocalSaveStore`는 G에서 교체 |
 | C | UI 계층: 팝업 딤, StageRevealCoordinator, 메시지/토스트, 씬 전환 페이드 | (예정) | |
 | D | 메타 루프: 하트, 스테이지 클리어 플로우(PendingRewardQueue), 실패/컨티뉴 | (예정) | |
 | E | 툴링: TableExporter 적응, 범용 에디터 툴, 테스트 관례 | (예정) | |

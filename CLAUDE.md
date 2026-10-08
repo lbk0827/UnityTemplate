@@ -98,6 +98,8 @@ Local-only by design — no backend, no analytics, no remote config.
 ```
 Assets/BKFramework/Runtime/   framework, one asmdef per layer (BK.*)
   Core/      lifecycle, boot sequence, DI helpers, logging
+  Save/      typed save slots: atomic write, .bak recovery, .corrupt-* preservation, version migration
+  Options/   reactive player options (music/sfx/haptics/language) persisted through Save
   Assets/    Addressables abstraction, scope-bound asset lifetime
   Scene/     scene scopes tied to DI + asset scopes
   UI/        layered view stack, per-view scopes
@@ -109,8 +111,10 @@ Assets/_Project/              game-side content; framework never depends on this
 
 ## Rules
 
-- Framework layers depend downward only: `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization`.
+- Framework layers depend downward only: `Core` ← `Save` ← `Options`, and `Core` ← `Assets` ← `Scene`/`Data` ← `UI`/`Localization` (`UI` may use `Scene`).
   Never introduce an upward or sideways reference between `BK.*` assemblies.
+- Back/Escape는 `BackInputDriver` 한 곳에서만 읽는다. 뷰는 `IUIView.OnBackRequested`로 소비하고, 게임 코드는 `Input.GetKeyDown(KeyCode.Escape)`를 직접 폴링하지 않는다.
+- 세이브는 `ISaveService.Get<T>()`로 슬롯을 받고 변경 후 `MarkDirty()`. 파일은 `persistentDataPath/Save/<Type>.json`. 암호화는 아직 없다.
 - Asset and view lifetime is owned by scopes, never by callers. If you find yourself
   pairing a manual load with a manual release, use a scope instead.
 - MCP: Unity is driven over `UnityMCP` (HTTP, `127.0.0.1:8080`). Prefer verifying package

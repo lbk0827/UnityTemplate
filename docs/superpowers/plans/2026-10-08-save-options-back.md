@@ -45,7 +45,7 @@ EOF
 **Files:**
 - Create: `Assets/BKFramework/Tests/EditMode/BK.Framework.EditModeTests.asmdef` (+ meta, 폴더 meta)
 
-- [ ] **Step 1: asmdef 작성**
+- [x] **Step 1: asmdef 작성**
 
 ```json
 {
@@ -77,7 +77,7 @@ EOF
 
 `BK.Save`는 Task 2에서 만들어지므로 그 전까지 이 asmdef는 "missing reference" 경고가 난다. Task 2 완료 전에는 컴파일을 돌리지 않는다. `BK.Options`는 Task 4에서 references에 추가한다. (R3 코어는 asmdef가 아니라 패키지 안의 프리컴파일 `R3.dll`이다. `overrideReferences: true`인 이 테스트 어셈블리는 `precompiledReferences`에 `R3.dll`을 명시해야 하고, `overrideReferences: false`인 런타임 asmdef는 자동으로 참조한다.)
 
-- [ ] **Step 2: 폴더/asmdef meta 생성** (`addmeta` 사용). 커밋은 Task 2와 함께.
+- [x] **Step 2: 폴더/asmdef meta 생성** (`addmeta` 사용). 커밋은 Task 2와 함께.
 
 ---
 
@@ -89,7 +89,7 @@ EOF
 - Create: `Assets/BKFramework/Runtime/Save/SaveFile.cs`
 - Test: `Assets/BKFramework/Tests/EditMode/SaveFileTests.cs`
 
-- [ ] **Step 1: asmdef**
+- [x] **Step 1: asmdef**
 
 ```json
 {
@@ -108,7 +108,7 @@ EOF
 }
 ```
 
-- [ ] **Step 2: SaveData.cs**
+- [x] **Step 2: SaveData.cs**
 
 ```csharp
 using System;
@@ -152,7 +152,7 @@ namespace BK.Save
 }
 ```
 
-- [ ] **Step 3: 실패 테스트 — SaveFileTests.cs**
+- [x] **Step 3: 실패 테스트 — SaveFileTests.cs**
 
 ```csharp
 using System.IO;
@@ -224,7 +224,7 @@ namespace BK.Tests
 }
 ```
 
-- [ ] **Step 4: SaveFile.cs 구현**
+- [x] **Step 4: SaveFile.cs 구현**
 
 ```csharp
 using System;
@@ -347,11 +347,11 @@ namespace BK.Save
 
 `BKLog.Warn(string category, string message)` 시그니처는 `Assets/BKFramework/Runtime/Core/Diagnostics/BKLog.cs`에서 확인한다. 카테고리가 상수 문자열이면 `"Save"`를 그대로 쓴다.
 
-- [ ] **Step 5: meta 생성 → 컴파일 → 테스트 (SaveFileTests 5/5)**
+- [x] **Step 5: meta 생성 → 컴파일 → 테스트 (SaveFileTests 5/5)**
 
 `addmeta`를 Save 폴더, asmdef, 각 .cs, 테스트 .cs에 적용.
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add Assets/BKFramework/Tests Assets/BKFramework/Runtime/Save Assets/BKFramework/Runtime/Save.meta
@@ -368,7 +368,7 @@ git commit -m "feat(save): add crash-safe save file primitives with framework Ed
 - Create: `Assets/BKFramework/Runtime/Save/SaveFlushDriver.cs`
 - Test: `Assets/BKFramework/Tests/EditMode/SaveServiceTests.cs`
 
-- [ ] **Step 1: ISaveService.cs**
+- [x] **Step 1: ISaveService.cs**
 
 ```csharp
 namespace BK.Save
@@ -391,7 +391,7 @@ namespace BK.Save
 }
 ```
 
-- [ ] **Step 2: 실패 테스트 — SaveServiceTests.cs**
+- [x] **Step 2: 실패 테스트 — SaveServiceTests.cs**
 
 ```csharp
 using System.IO;
@@ -519,7 +519,7 @@ namespace BK.Tests
 }
 ```
 
-- [ ] **Step 3: SaveService.cs 구현**
+- [x] **Step 3: SaveService.cs 구현**
 
 ```csharp
 using System;
@@ -671,7 +671,7 @@ namespace BK.Save
 
 주의: `BKLog.Error` 시그니처 확인(Task 2 Step 4와 같은 방식). `JsonUtility.ToJson(obj, prettyPrint)`의 두 번째 인자는 에디터에서만 들여쓰기.
 
-- [ ] **Step 4: SaveFlushDriver.cs**
+- [x] **Step 4: SaveFlushDriver.cs**
 
 ```csharp
 using UnityEngine;
@@ -711,9 +711,9 @@ namespace BK.Save
 }
 ```
 
-- [ ] **Step 5: meta → 컴파일 → 테스트 (SaveServiceTests 7/7 + SaveFileTests 5/5)**
+- [x] **Step 5: meta → 컴파일 → 테스트 (SaveServiceTests 7/7 + SaveFileTests 5/5)**
 
-- [ ] **Step 6: 커밋**
+- [x] **Step 6: 커밋**
 
 ```bash
 git add Assets/BKFramework/Runtime/Save Assets/BKFramework/Tests
@@ -732,7 +732,7 @@ git commit -m "feat(save): add SaveService with lazy typed slots, migration and 
 - Modify: `Assets/BKFramework/Tests/EditMode/BK.Framework.EditModeTests.asmdef` (references에 `BK.Options` 추가)
 - Test: `Assets/BKFramework/Tests/EditMode/OptionsServiceTests.cs`
 
-- [ ] **Step 1: asmdef**
+- [x] **Step 1: asmdef**
 
 ```json
 {
@@ -751,7 +751,7 @@ git commit -m "feat(save): add SaveService with lazy typed slots, migration and 
 }
 ```
 
-- [ ] **Step 2: 실패 테스트 — OptionsServiceTests.cs**
+- [x] **Step 2: 실패 테스트 — OptionsServiceTests.cs**
 
 ```csharp
 using System.IO;
@@ -797,7 +797,7 @@ namespace BK.Tests
 }
 ```
 
-- [ ] **Step 3: 구현**
+- [x] **Step 3: 구현**
 
 `OptionsData.cs`:
 
@@ -887,9 +887,9 @@ namespace BK.Options
 
 R3의 `Skip(1)`은 `Observable` 확장이므로 `ReactiveProperty`에서 바로 호출 가능. `AddTo(CompositeDisposable)`은 R3 기본 제공.
 
-- [ ] **Step 4: 테스트 asmdef에 `BK.Options` 추가, meta → 컴파일 → 테스트 (OptionsServiceTests 2/2)**
+- [x] **Step 4: 테스트 asmdef에 `BK.Options` 추가, meta → 컴파일 → 테스트 (OptionsServiceTests 2/2)**
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add Assets/BKFramework/Runtime/Options Assets/BKFramework/Runtime/Options.meta Assets/BKFramework/Tests
@@ -905,7 +905,7 @@ git commit -m "feat(options): add reactive OptionsService persisted through BK.S
 - Create: `Assets/BKFramework/Runtime/UI/BackInputDriver.cs`
 - Test: `Assets/BKFramework/Tests/EditMode/BackInputDriverTests.cs`
 
-- [ ] **Step 1: 실패 테스트**
+- [x] **Step 1: 실패 테스트**
 
 ```csharp
 using System.Threading;
@@ -969,7 +969,7 @@ namespace BK.Tests
 }
 ```
 
-- [ ] **Step 2: 구현**
+- [x] **Step 2: 구현**
 
 ```csharp
 using System;
@@ -1027,9 +1027,9 @@ VContainer는 등록된 생성자 중 `[Inject]`가 없으면 **매개변수가 
         public BackInputDriver(IUIService ui, ISceneService scenes)
 ```
 
-- [ ] **Step 3: BK.UI asmdef에 `BK.Scene` 추가, meta → 컴파일 → 테스트 (BackInputDriverTests 2/2)**
+- [x] **Step 3: BK.UI asmdef에 `BK.Scene` 추가, meta → 컴파일 → 테스트 (BackInputDriverTests 2/2)**
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add Assets/BKFramework/Runtime/UI
@@ -1046,7 +1046,7 @@ git commit -m "feat(ui): add BackInputDriver that routes Escape/back to IUIServi
 - Modify: `Assets/BKFramework/Runtime/Composition/AppLifetimeScope.cs`
 - Modify: `Assets/_Project/Bounce/Runtime/Presentation/ImportedSceneView.cs` (Update 제거, OnBackRequested로 이동)
 
-- [ ] **Step 1: AppLifetimeScope 등록**
+- [x] **Step 1: AppLifetimeScope 등록**
 
 `using BK.Save; using BK.Options;` 추가. `builder.Register<SceneService>...` 다음에:
 
@@ -1074,7 +1074,7 @@ git commit -m "feat(ui): add BackInputDriver that routes Escape/back to IUIServi
 
 VContainer `Register<ISaveService>(Func<IObjectResolver, ISaveService>, Lifetime)`로 등록한 구현체가 `IDisposable`이면 컨테이너 Dispose 시 함께 Dispose된다 → 종료 시 Flush.
 
-- [ ] **Step 2: ImportedSceneView Escape 통일**
+- [x] **Step 2: ImportedSceneView Escape 통일**
 
 `Update()` 메서드(366–377행)를 삭제하고 `OnBackRequested`(52행)를 다음으로 교체:
 
@@ -1098,7 +1098,7 @@ VContainer `Register<ISaveService>(Func<IObjectResolver, ISaveService>, Lifetime
 
 `using UnityEngine;`의 `Input` 사용이 사라졌는지 확인(다른 곳에서 `Input`을 쓰면 유지).
 
-- [ ] **Step 3: 컴파일 → 전체 EditMode 테스트 → PlayMode 테스트**
+- [x] **Step 3: 컴파일 → 전체 EditMode 테스트 → PlayMode 테스트**
 
 ```bash
 "$UNITY" -batchmode -nographics -projectPath "D:/UnityTemplate" -runTests -testPlatform EditMode -testResults "$SP/all_edit.xml" -logFile "$SP/all_edit.log"; echo exit=$?
@@ -1107,7 +1107,7 @@ VContainer `Register<ISaveService>(Func<IObjectResolver, ISaveService>, Lifetime
 
 Expected: EditMode 16 + 16 = 32 통과(기존 16 + SaveFile 5 + SaveService 7 + Options 2 + Back 2). PlayMode는 기존 통과 수와 동일(VisualFlowTests/OfferFlowTests). PlayMode가 배치모드에서 그래픽 없이 실패하면 `-nographics`를 빼고 다시 시도한다.
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add Assets/BKFramework/Runtime/Composition Assets/_Project/Bounce/Runtime/Presentation/ImportedSceneView.cs
@@ -1122,7 +1122,7 @@ git commit -m "feat: wire save, options and back input into the app scope; route
 - Modify: `CLAUDE.md` (Layout 블록에 `Save/`, `Options/` 추가, Rules 레이어 줄 갱신)
 - Modify: `docs/superpowers/plans/2026-10-08-sf-port-roadmap.md` (B 행 완료, 암호화 미포함 메모)
 
-- [ ] **Step 1: CLAUDE.md**
+- [x] **Step 1: CLAUDE.md**
 
 Layout 블록의 `Core/` 줄 다음에:
 
@@ -1144,7 +1144,7 @@ Rules에 추가:
 - 세이브는 `ISaveService.Get<T>()`로 슬롯을 받고 변경 후 `MarkDirty()`. 파일은 `persistentDataPath/Save/<Type>.json`. 암호화는 아직 없다.
 ```
 
-- [ ] **Step 2: 로드맵 B 행 → `완료`, 비고에 "암호화(sf PlayerDataCrypto 상당)는 미포함, 필요 시 SaveFile에 바이트 계층 추가". 커밋:**
+- [x] **Step 2: 로드맵 B 행 → `완료`, 비고에 "암호화(sf PlayerDataCrypto 상당)는 미포함, 필요 시 SaveFile에 바이트 계층 추가". 커밋:**
 
 ```bash
 git add CLAUDE.md docs/superpowers/plans
