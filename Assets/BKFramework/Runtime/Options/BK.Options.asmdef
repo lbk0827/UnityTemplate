@@ -1,0 +1,14 @@
+{
+  "name": "BK.Options",
+  "rootNamespace": "BK.Options",
+  "references": ["BK.Core", "BK.Save", "R3.Unity", "VContainer", "UniTask"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
