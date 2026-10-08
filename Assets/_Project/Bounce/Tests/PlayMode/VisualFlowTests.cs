@@ -389,7 +389,7 @@ public sealed class VisualFlowTests
         Assert.That(UnityEngine.Object.FindFirstObjectByType<MessagePopupView>(),Is.Null);
         var offers=GameObject.Find("UI_Right");
         // Step offers are hidden below their unlock stage; the remaining authored icons (pass, piggy, ...) show the offline notice.
-        Click(offers.GetComponentsInChildren<Button>().First(b=>{string p=b.name;for(var t=b.transform.parent;t!=null;t=t.parent)p=t.name+"/"+p;return !p.Contains("Welcome") && !p.Contains("Endless");}));yield return null;
+        offers.GetComponentsInChildren<Button>().First(b=>{string p=b.name;for(var t=b.transform.parent;t!=null;t=t.parent)p=t.name+"/"+p;return !p.Contains("Welcome") && !p.Contains("Endless");}).onClick.Invoke();yield return null;
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null,"Offline offer buttons respond without opening a service");
         UnityEngine.Object.FindFirstObjectByType<KitDialog>().Close();yield return null;
         app.Play(1);yield return Ready("VisualIngame");

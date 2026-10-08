@@ -1,5 +1,6 @@
 using System.Linq;
 using BK.Meta;
+using Cysharp.Threading.Tasks;
 using BK.UI;
 using TMPro;
 using UnityEngine;
@@ -54,12 +55,15 @@ namespace BK.Kit
             }
             string pending = streak.Pending.Count > 0 ? "Next round bonus: " + BounceItems.Describe(streak.Pending) : "Win " + tiers[0].Threshold + " in a row for a bonus booster";
             Label(Panel, "Pending", pending, new Vector2(700, 70), new Vector2(0, top - 560), 30);
-            PlayButton = MakeButton(Panel, "Play", "Play", new Vector2(0, top - 720), new Vector2(420, 120), () =>
-            {
-                // Without a heart Play only shows the "No hearts" message; keep the popup up behind it.
-                if (App.CanEnter(level)) RequestClose();
-                App.Play(level);
-            });
+            PlayButton = MakeButton(Panel, "Play", "Play", new Vector2(0, top - 720), new Vector2(420, 120), () => PlayAsync().Forget());
+        }
+
+        private async UniTask PlayAsync()
+        {
+            // Without a heart Play only shows the "No hearts" message; keep the popup up behind it.
+            if (!App.CanEnter(level)) { App.Play(level); return; }
+            await CloseAsync(); // fully released before the scene transition starts
+            if (App != null) App.Play(level);
         }
     }
 }

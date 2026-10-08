@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Bounce Integration
   m_GUID: d55325a079d6e46419feac3e62a2996c
   m_SerializeEntries:
+  - m_GUID: 0bda738222b862e46ac89827532a7af3
+    m_Address: Bounce/UI/DailyRewardPopup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0d334d71b654f4f4aae01a57e39306a9
     m_Address: Bounce/UI/VisualLobby
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41409bf98fae4890a28e2d64ae5734cd
+    m_Address: Bounce/Tables/ShopProductTable
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -30,18 +40,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: fbdb4ed8fc03d474fa2e3c54395ad038
-    m_Address: Bounce/Scenes/VisualLobby
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 41409bf98fae4890a28e2d64ae5734cd
-    m_Address: Bounce/Tables/ShopProductTable
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a86399f2720b4a9ca25b97729db06d98
     m_Address: Bounce/Tables/CurrencyDefinitionTable
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9a6dcdae44f115469f7b52c7c799da0
+    m_Address: Bounce/UI/WinStreakPopup
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbdb4ed8fc03d474fa2e3c54395ad038
+    m_Address: Bounce/Scenes/VisualLobby
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

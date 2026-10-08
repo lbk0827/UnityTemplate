@@ -24,8 +24,8 @@
 | C | UI 계층: 팝업 딤, 스크린 커버(StageReveal)+SceneFlow, 메시지/토스트, 씬 전환 페이드 | `2026-10-08-ui-dim-cover-message.md` | 완료 (프리팹 생성, EditMode 78/78, PlayMode 12/12). StagePreloaderRegistry는 D로 |
 | D | 메타 루프: 지갑/하트 충전, 스테이지 입장 게이트, PendingRewardQueue/DisplayLock, 실패/컨티뉴 사다리, 프리로더 레지스트리 | `2026-10-08-meta-loop.md` | 완료 (EditMode 78/78). 클리어/실패 팝업·코인 플라이 UI는 G에서 |
 | E | 툴링: xlsx 익스포터 CLI + 범용 임포터, sf 에디터 툴 4종 이식, 규약 테스트 | `2026-10-08-tooling.md` | 완료. LocalizationTool(Unity Localization 의존)·BuildSettingsVerifier는 미이식. Bounce `ShopTableImporter`는 범용 임포터로 대체 가능 |
-| F | 메타 확장 | F1 `2026-10-08-meta-extensions.md` (주간 스텝 오퍼·데일리 리워드·윈 스트릭) / F2 `2026-10-08-local-push.md` | F1·F2 코드 완료(Roslyn 컴파일 검증). F2 플랫폼 코드는 실기기 검증 필요. Unity 테스트 실행은 에디터가 닫힌 뒤 |
-| G | 로비/상점 재구현 | G1 `2026-10-08-bounce-migration.md` (Bounce를 BK.Save/BK.Meta/BK.Options 파사드로 이관 + 하트·클리어·컨티뉴) / G2 `2026-10-08-lobby-g2.md` (홈은 stage_slot 유지, 스텝 오퍼→BK.Meta 주간 로테이션, 데일리 리워드 팝업, 윈 스트릭 프리플레이 팝업을 BK.UI로) | G1·G2 코드 완료(Roslyn 컴파일 검증). 상점·설정은 임포트된 sf 프리팹 그대로. 프리팹 생성(`Generate Bounce UI Prefabs`)과 Unity EditMode/PlayMode 실행은 에디터가 닫힌 뒤 |
+| F | 메타 확장 | F1 `2026-10-08-meta-extensions.md` (주간 스텝 오퍼·데일리 리워드·윈 스트릭) / F2 `2026-10-08-local-push.md` | 완료 (2026-10-09 EditMode 110/110, PlayMode 16/16). F2 플랫폼 코드는 실기기 검증 필요 |
+| G | 로비/상점 재구현 | G1 `2026-10-08-bounce-migration.md` (Bounce를 BK.Save/BK.Meta/BK.Options 파사드로 이관 + 하트·클리어·컨티뉴) / G2 `2026-10-08-lobby-g2.md` (홈은 stage_slot 유지, 스텝 오퍼→BK.Meta 주간 로테이션, 데일리 리워드 팝업, 윈 스트릭 프리플레이 팝업을 BK.UI로) | 완료 (2026-10-09 EditMode 110/110, PlayMode 16/16). 상점·설정은 임포트된 sf 프리팹 그대로. 팝업 프리팹은 `Generate Bounce UI Prefabs`로 생성·커밋됨 |
 
 ## 검증 수단
 

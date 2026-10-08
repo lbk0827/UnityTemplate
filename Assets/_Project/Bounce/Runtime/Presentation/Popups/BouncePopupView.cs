@@ -58,11 +58,14 @@ namespace BK.Kit
         }
 
         /// <summary>Idempotent close through the UI service; ignored before the open transition completes.</summary>
-        public void RequestClose()
+        public void RequestClose() => CloseAsync().Forget();
+
+        /// <summary>Completes once the view is released; completed at once when a close is already under way.</summary>
+        protected UniTask CloseAsync()
         {
-            if (closing || !IsOpen) return;
+            if (closing || !IsOpen) return UniTask.CompletedTask;
             closing = true;
-            ui.CloseAsync(this).Forget();
+            return ui.CloseAsync(this);
         }
 
         public override bool OnBackRequested()

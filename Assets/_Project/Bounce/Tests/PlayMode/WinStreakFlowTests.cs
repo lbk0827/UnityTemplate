@@ -36,7 +36,10 @@ public sealed class WinStreakFlowTests
         Assert.That(UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>(),Is.Null,"Close keeps the player in the lobby");
         Stage().Get<Button>("buttons.0.button").onClick.Invoke();
         yield return WaitOpen<WinStreakPopup>();
-        UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>().PlayButton.onClick.Invoke();
+        popup=UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>();
+        popup.PlayButton.onClick.Invoke();
+        yield return null;
+        Assert.That(popup.IsOpen,Is.False,"Play starts closing the popup at once");
         yield return Ready("VisualIngame");
         Assert.That(UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>(),Is.Null,"The popup closes when the round starts");
         app.Complete(true);
@@ -50,9 +53,11 @@ public sealed class WinStreakFlowTests
         Assert.That(app.Streak.Pending.Count,Is.EqualTo(1),"Milestone 3 queues a booster for the next round");
         Assert.That(app.BoosterCount(BoosterKind.Missile),Is.Zero,"Not granted until the next round starts");
         app.GoToLobby();yield return Ready("VisualLobby");
+        yield return SlotTransitionDone(); // the lobby replays the stage advance first and ignores Play meanwhile
         Stage().Get<Button>("buttons.0.button").onClick.Invoke();
         yield return WaitOpen<WinStreakPopup>();
         popup=UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>();
+        Assert.That(popup,Is.Not.Null,"Play opens the pre-play popup once the slot transition is over");
         Assert.That(popup.Level,Is.EqualTo(4));
         Assert.That(popup.GaugeFill,Is.EqualTo(1f/3f).Within(.01f),"Three milestones share the gauge equally");
         Assert.That(popup.GetComponentsInChildren<TMPro.TMP_Text>(true).Any(t=>t.text.Contains("Next round bonus") && t.text.Contains("Missile")),Is.True);
@@ -69,6 +74,13 @@ public sealed class WinStreakFlowTests
 
     private static VisualBindings Stage()
         =>UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Exclude,FindObjectsSortMode.None).First(b=>b.role=="StageInfo");
+    private static IEnumerator SlotTransitionDone()
+    {
+        float limit=Time.realtimeSinceStartup+5;
+        StagePathView path;
+        while((path=UnityEngine.Object.FindFirstObjectByType<StagePathView>())!=null && path.IsAdvancing && Time.realtimeSinceStartup<limit)yield return null;
+        yield return null;
+    }
     private static IEnumerator WaitOpen<T>() where T:BouncePopupView
     {
         float limit=Time.realtimeSinceStartup+5;

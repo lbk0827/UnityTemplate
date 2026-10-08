@@ -37,9 +37,10 @@ namespace BK.Kit
             MetaInstaller.Install(builder, new BounceCurrencies(), new BounceContinueOffers(), BounceEntry.Policy,
                 new BounceStepOffers(), new BounceDailyRewards(), new BounceWinStreak());
             builder.Register<KitServices>(Lifetime.Singleton);
-            builder.Register<IPushProvider>(container => new HeartFullPushProvider(container.Resolve<IWallet>(), BounceCurrencies.Heart, 1001,
-                "Hearts are full", "Your hearts are back. Ready for the next stage?"), Lifetime.Singleton);
-            builder.Register<IPushProvider>(_ => new DailyRetentionPushProvider(new DailyRetentionConfig
+            // Distinct implementation types: VContainer rejects two factory registrations under the same type in a collection.
+            builder.Register(container => new HeartFullPushProvider(container.Resolve<IWallet>(), BounceCurrencies.Heart, 1001,
+                "Hearts are full", "Your hearts are back. Ready for the next stage?"), Lifetime.Singleton).As<IPushProvider>();
+            builder.Register(_ => new DailyRetentionPushProvider(new DailyRetentionConfig
             {
                 Title = "Bounce",
                 Bodies = new[]
@@ -50,7 +51,7 @@ namespace BK.Kit
                     "Hearts are full. Time to bounce!",
                     "A stage a day keeps the blocks away.",
                 },
-            }), Lifetime.Singleton);
+            }), Lifetime.Singleton).As<IPushProvider>();
             builder.RegisterEntryPoint<IntegratedGameFlow>();
         }
     }
