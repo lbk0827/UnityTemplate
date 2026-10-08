@@ -9,6 +9,7 @@ namespace BK.Kit
     {
         public int SelectedPage { get; private set; } = 1;
         public bool IsMoving { get; private set; }
+        public event System.Action<int> PageChanged;
         private ScrollRect pages;
         private Toggle[] tabs;
         private Coroutine movement;
@@ -62,7 +63,7 @@ namespace BK.Kit
         public void Select(int page,bool animate=true)
         {
             if(page<0 || page>=tabs.Length || (animate && KitApp.Instance.IsLoading))return;
-            SelectedPage=page;UpdateTabs();
+            SelectedPage=page;UpdateTabs();PageChanged?.Invoke(page);
             if(movement!=null)StopCoroutine(movement);
             Canvas.ForceUpdateCanvases();
             if(animate)movement=StartCoroutine(Move(page*.5f));

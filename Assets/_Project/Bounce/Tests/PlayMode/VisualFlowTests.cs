@@ -158,10 +158,51 @@ public sealed class VisualFlowTests
         Assert.That(Time.timeScale,Is.EqualTo(1));AssertChannels(false,false);
     }
     [UnityTest]
+    public IEnumerator CategorizedShopScrollsAndPreviewNeverCharges()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        Click(Binding("UIHUDPanel").Get<Toggle>("StoreToggle"));yield return new WaitForSecondsRealtime(.35f);
+        var shop=UnityEngine.Object.FindFirstObjectByType<BoosterShopView>();
+        Assert.That(shop.Scroll.vertical,Is.True);
+        Assert.That(GameObject.Find("Category_No-Ad Offers"),Is.Not.Null);
+        Assert.That(GameObject.Find("Category_Bundles"),Is.Not.Null);
+        Assert.That(GameObject.Find("Category_Coins"),Is.Not.Null);
+        Assert.That(shop.Scroll.content.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Preview_Bundle_")),Is.EqualTo(5));
+        Assert.That(shop.Scroll.content.GetComponentsInChildren<Button>().Count(b=>b.name.StartsWith("Preview_Coins_")),Is.EqualTo(6));
+        Dump("shop-top");
+        Dump("shop-top-tall",1846);
+        Assert.That(GameObject.Find("Shop canopy"),Is.Not.Null);
+        Assert.That(GameObject.Find("UI_Top"),Is.Null,"Home HUD must be hidden on Shop");
+        int balance=KitApp.Instance.Progress.gold;
+        Click(GameObject.Find("Preview_NoAds_7").GetComponent<Button>());yield return null;
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
+        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(balance));
+        Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
+        shop.Scroll.content.anchoredPosition=new Vector2(0,1300);Canvas.ForceUpdateCanvases();yield return null;
+        Dump("shop-bundles");
+        shop.Scroll.content.anchoredPosition=new Vector2(0,-shop.CoinsSection.anchoredPosition.y-82);Canvas.ForceUpdateCanvases();yield return null;
+        Dump("shop-coins");
+        Click(GameObject.Find("Preview_Coins_1000").GetComponent<Button>());yield return null;
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
+        Assert.That(KitApp.Instance.Progress.gold,Is.EqualTo(balance));
+        Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
+        shop.Scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();yield return null;
+        Dump("shop-boosters");
+        Click(Binding("UIHUDPanel").Get<Toggle>("HomeToggle"));yield return new WaitForSecondsRealtime(.35f);
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<LobbyNavigation>().SelectedPage,Is.EqualTo(1));
+        Assert.That(GameObject.Find("Shop canopy"),Is.Null);
+        Assert.That(GameObject.Find("UI_Top"),Is.Not.Null,"Home HUD must return after leaving Shop");
+    }
+
+    [UnityTest]
     public IEnumerator ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        var saves=new LocalSaveStore(folder);saves.Save(new PlayerProgress {gold=350});
+        var saves=new LocalSaveStore(folder);saves.Save(new PlayerProgress {gold=3000});
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -170,11 +211,14 @@ public sealed class VisualFlowTests
         Directory.CreateDirectory(Path.Combine(folder,"progress.json.tmp"));
         LogAssert.Expect(LogType.Error,new System.Text.RegularExpressions.Regex("BK_Kit: progress could not be saved"));
         Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.False);
-        Assert.That(app.Progress.gold,Is.EqualTo(350));Assert.That(app.Progress.Count(BoosterKind.ExtraBall),Is.Zero);
+        Assert.That(app.Progress.gold,Is.EqualTo(3000));Assert.That(app.Progress.Count(BoosterKind.ExtraBall),Is.Zero);
         Directory.Delete(Path.Combine(folder,"progress.json.tmp"));
         Click(Binding("UIHUDPanel").Get<Toggle>("StoreToggle"));yield return new WaitForSecondsRealtime(.35f);
+        var shop=UnityEngine.Object.FindFirstObjectByType<BoosterShopView>();
+        shop.Scroll.content.anchoredPosition=new Vector2(0,-shop.BoostersSection.anchoredPosition.y-82);
+        Canvas.ForceUpdateCanvases();yield return null;
         Click(GameObject.Find("Buy_ExtraBall").GetComponent<Button>());
-        Assert.That(app.Progress.gold,Is.EqualTo(300));
+        Assert.That(app.Progress.gold,Is.EqualTo(2400));
         foreach(var kind in new[]{BoosterKind.Missile,BoosterKind.Bomb,BoosterKind.Laser})
             GameObject.Find("Buy_"+kind).GetComponent<Button>().onClick.Invoke();
         Assert.That(app.Progress.gold,Is.Zero);
@@ -445,7 +489,7 @@ public sealed class VisualFlowTests
         Assert.That(UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsSortMode.None).Length,Is.EqualTo(1));
         Assert.That(UnityEngine.Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length,Is.EqualTo(1));
     }
-    private static void Dump(string name)
+    private static void Dump(string name,int height=1600)
     {
         Directory.CreateDirectory("TestResults");
         var all=UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None);
@@ -458,11 +502,11 @@ public sealed class VisualFlowTests
         var camera=Camera.main;
         var canvases=UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None).Where(c=>c.isRootCanvas && c.renderMode==RenderMode.ScreenSpaceOverlay).ToArray();
         foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;}
-        var target=new RenderTexture(900,1600,24);
+        var target=new RenderTexture(900,height,24);
         camera.targetTexture=target;Canvas.ForceUpdateCanvases();
         RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest {destination=target});
         var previous=RenderTexture.active;RenderTexture.active=target;
-        var image=new Texture2D(900,1600,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,900,1600),0,0);image.Apply();
+        var image=new Texture2D(900,height,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,900,height),0,0);image.Apply();
         File.WriteAllBytes("TestResults/"+name+".png",image.EncodeToPNG());
         RenderTexture.active=previous;camera.targetTexture=null;
         foreach(var canvas in canvases)canvas.renderMode=RenderMode.ScreenSpaceOverlay;

@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using BK.Scene;
 using BK.UI;
+using BK.Data;
 using Cysharp.Threading.Tasks;
 
 namespace BK.Kit
@@ -11,6 +12,7 @@ namespace BK.Kit
     public sealed class KitApp : MonoBehaviour
     {
         public static KitApp Instance { get; private set; }
+        public ShopCatalog Shop { get; private set; }
         public GameSession Session { get; } = new GameSession();
         public PlayerProgress Progress { get; private set; }
         public bool IsLoading { get; private set; }
@@ -43,8 +45,9 @@ namespace BK.Kit
         private ISceneService scenes;
         private IUIService ui;
         public bool UsesFrameworkServices => scenes != null && ui != null;
-        public void Initialize(ISceneService sceneService, IUIService uiService)
+        public void Initialize(ISceneService sceneService, IUIService uiService, ITableService tables)
         {
+            Shop = new ShopCatalog(tables.Get<int,ShopProductRow>(),tables.Get<string,CurrencyDefinitionRow>());
             scenes = sceneService;
             ui = uiService;
             ConfigureScenes("VisualLobby", "VisualIngame");
@@ -158,11 +161,12 @@ namespace BK.Kit
         {
             message="";var offer=BoosterCatalog.Find(kind);
             if(IsLoading || Session.State!=SessionState.Lobby || offer==null){message="Return to the shop to buy.";return false;}
-            if(Progress.gold<offer.Price){message="Not enough Gold";return false;}
+            int price=Shop.BoosterPrice(kind);
+            if(Progress.gold<price){message="Not enough Gold";return false;}
             int count=Progress.Count(kind);
             if(count==int.MaxValue){message="Inventory full";return false;}
-            Progress.gold-=offer.Price;Progress.SetCount(kind,count+1);
-            if(!Persist()) {Progress.gold+=offer.Price;Progress.SetCount(kind,count);message="Could not save. Please try again.";return false;}
+            Progress.gold-=price;Progress.SetCount(kind,count+1);
+            if(!Persist()) {Progress.gold+=price;Progress.SetCount(kind,count);message="Could not save. Please try again.";return false;}
             message=offer.Title+" +1";Changed?.Invoke();return true;
         }
 

@@ -135,7 +135,9 @@ namespace BK.Kit
                 Bind(heart,"button",()=>ShowInfo("Unlimited lives","Play and retry freely.\nLives are unlimited in this offline RND kit."));
             }
             var navigation=gameObject.AddComponent<LobbyNavigation>();navigation.Initialize(screen,Role(hud,"UIHUDPanel"));
-            gameObject.AddComponent<BoosterShopView>().Initialize(screen,presentation);
+            gameObject.AddComponent<BoosterShopView>().Initialize(screen,presentation,ShowInfo);
+            var lobbyTop=Named(hud,"UI_Top");
+            navigation.PageChanged+=page=>{if(lobbyTop!=null)lobbyTop.gameObject.SetActive(page!=0);};
             foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
                 Bind(top.Get<VisualBindings>("gold"),"button",()=>navigation.Select(0));
             var profile=Named(hud,"btn_profile")?.GetComponent<Button>();

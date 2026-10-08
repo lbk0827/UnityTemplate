@@ -10,7 +10,8 @@
     "BK.Assets",
     "BK.Composition",
     "UniTask",
-    "VContainer"
+    "VContainer",
+    "BK.Data"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

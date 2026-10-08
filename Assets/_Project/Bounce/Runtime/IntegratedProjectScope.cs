@@ -4,6 +4,7 @@ using BK.Core.App;
 using BK.Core.Events;
 using BK.Scene;
 using BK.UI;
+using BK.Data;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -25,11 +26,12 @@ namespace BK.Kit
         private readonly IEventBus events;
         private readonly ISceneService scenes;
         private readonly IUIService ui;
+        private readonly ITableService tables;
         private IDisposable subscription;
         private KitApp app;
 
-        public IntegratedGameFlow(IEventBus events, ISceneService scenes, IUIService ui)
-        { this.events = events; this.scenes = scenes; this.ui = ui; }
+        public IntegratedGameFlow(IEventBus events, ISceneService scenes, IUIService ui, ITableService tables)
+        { this.events = events; this.scenes = scenes; this.ui = ui; this.tables = tables; }
 
         public void Start()
         {
@@ -37,7 +39,7 @@ namespace BK.Kit
             {
                 if (app != null) return;
                 app = new GameObject("BounceSession").AddComponent<KitApp>();
-                app.Initialize(scenes, ui);
+                app.Initialize(scenes, ui, tables);
             });
         }
 
