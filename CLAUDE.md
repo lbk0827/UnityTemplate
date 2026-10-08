@@ -68,6 +68,15 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 # Project: BKFrameWork
 
+## Integrated Bounce project (2026-10-08)
+
+- Active game: `Assets/_Project/Bounce/`, imported from BK_Kit and adapted to BKFramework.
+- Open `BK > Integration > Open Bounce Bootstrap`, then Play. Entry scene: `Assets/_Project/Bounce/Scenes/VisualBootstrap.unity`.
+- `IntegratedProjectScope` boots BKFramework; `KitApp` owns Bounce progress/save state and delegates scenes/UI to `ISceneService`/`IUIService`. Do not start the sample `ProjectScope` alongside it.
+- Keep the existing `BKFramework` independent of the game module. Imported presentation remains game content, with its existing provenance.
+- DUG-named fonts were replaced with Kenney Future Narrow (CC0), including TMP atlases. Preserve `Assets/_Project/ThirdParty/KenneyFonts/License.txt` and `source.json`; do not reimport the old fonts from the historical handover.
+- Target editor remains 6000.3.21f1. See `docs/bk-kit-integration.json` for actual validation versions/results.
+
 A reusable Unity template framework for personal side projects. Unity 6000.3.21f1, URP.
 
 ## Stack

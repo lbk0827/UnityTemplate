@@ -1,5 +1,7 @@
 # 인수인계: grp1 로비 이식 (BK.UI) — 2026-09-10
 
+> 2026-10-08 업데이트: 아래 내용은 이전 작업 기록입니다. 현재 실행 진입점은 `BK > Integration > Open Bounce Bootstrap`이며, BK_Kit의 화면·게임이 `Assets/_Project/Bounce/`에 통합되어 있습니다. DUG 폰트는 Kenney Future Narrow(CC0)로 교체했으므로 아래 옛 폰트 이식 절차는 다시 실행하지 않습니다. 현재 검증 결과와 구성은 `docs/bk-kit-integration.json`을 확인하세요.
+
 Claude Code 세션이 토큰 한도로 중단되어 Codex가 이어받는 문서. 아래 "남은 작업"부터 진행하면 된다.
 프로젝트 규칙은 `CLAUDE.md`, 프레임워크 API는 `Assets/BKFramework/Runtime/**` 참고.
 
