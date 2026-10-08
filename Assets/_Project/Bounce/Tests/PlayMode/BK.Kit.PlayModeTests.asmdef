@@ -15,7 +15,8 @@
     "BK.Save",
     "BK.Meta",
     "BK.Options",
-    "BK.Core"
+    "BK.Core",
+    "BK.Notifications"
   ],
   "optionalUnityReferences": [
     "TestAssemblies"

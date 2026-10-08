@@ -5,6 +5,7 @@ using BK.Core.App;
 using BK.Core.Events;
 using BK.Core.Time;
 using BK.Meta;
+using BK.Notifications;
 using BK.Options;
 using BK.Save;
 using BK.Scene;
@@ -38,6 +39,20 @@ namespace BK.Kit
         {
             MetaInstaller.Install(builder, new BounceCurrencies(), new BounceContinueOffers(), BounceEntry.Policy);
             builder.Register<KitServices>(Lifetime.Singleton);
+            builder.Register<IPushProvider>(container => new HeartFullPushProvider(container.Resolve<IWallet>(), BounceCurrencies.Heart, 1001,
+                "Hearts are full", "Your hearts are back. Ready for the next stage?"), Lifetime.Singleton);
+            builder.Register<IPushProvider>(_ => new DailyRetentionPushProvider(new DailyRetentionConfig
+            {
+                Title = "Bounce",
+                Bodies = new[]
+                {
+                    "The blocks are waiting. One quick round?",
+                    "Your cannon misses you. Come back for a stage!",
+                    "New day, new high score. Play a round now.",
+                    "Hearts are full. Time to bounce!",
+                    "A stage a day keeps the blocks away.",
+                },
+            }), Lifetime.Singleton);
             builder.RegisterEntryPoint<IntegratedGameFlow>();
         }
     }
@@ -57,13 +72,15 @@ namespace BK.Kit
         public readonly CurrencyDisplayLock DisplayLock;
         public readonly ContinueOffers Continues;
         public readonly IClock Clock;
+        public readonly LocalPushService Push;
 
         public KitServices(ISceneService scenes, IUIService ui, ITableService tables, ISaveService saves, IWallet wallet,
             IStageProgress progress, IOptionsService options, IMessageService messages, PendingRewardQueue rewards,
-            CurrencyDisplayLock displayLock, ContinueOffers continues, IClock clock)
+            CurrencyDisplayLock displayLock, ContinueOffers continues, IClock clock, LocalPushService push)
         {
             Scenes = scenes; UI = ui; Tables = tables; Saves = saves; Wallet = wallet; Progress = progress;
             Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues; Clock = clock;
+            Push = push;
         }
     }
 

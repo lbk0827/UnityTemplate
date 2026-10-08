@@ -16,7 +16,8 @@
     "BK.Save",
     "BK.Meta",
     "BK.Options",
-    "BK.Core"
+    "BK.Core",
+    "BK.Notifications"
   ],
   "includePlatforms": [
     "Editor"

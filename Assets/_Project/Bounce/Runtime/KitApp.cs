@@ -21,6 +21,8 @@ namespace BK.Kit
         public const string ReasonBooster = "booster";
         public const string ReasonOffer = "offer";
         public const string SaveFailedLog = "BK_Kit: progress could not be saved.";
+        /// <summary>Clearing this stage (or later) is when we first ask for notification permission (sf asks at 15; Bounce is short).</summary>
+        public const int PushPermissionStage = 3;
 
         public ShopCatalog Shop { get; private set; }
         public GameSession Session { get; } = new GameSession();
@@ -135,6 +137,12 @@ namespace BK.Kit
                 IsLoading = false;
                 Changed?.Invoke();
             }
+            // The OS prompt is shown in the lobby, after the player has seen a few stages, never mid-round.
+            if (scene == lobbyScene && services.Push.IsPermissionPending)
+            {
+                await services.Push.TryRequestPendingPermissionAsync();
+                Flush();
+            }
         }
 
         // ----- round results -----
@@ -153,6 +161,7 @@ namespace BK.Kit
                 services.Rewards.Enqueue(new PendingReward(BounceCurrencies.Gold, ClearGoldReward, from, from + ClearGoldReward, alreadyCredited: true));
                 if (Session.Level == UnlockedLevel) pendingStageAdvance = Session.Level;
                 services.Progress.Clear(Session.Level); // pointer first, then the heart refund
+                if (Session.Level >= PushPermissionStage) services.Push.MarkPendingPermissionRequest();
                 Flush();
             }
             Changed?.Invoke();

@@ -16,6 +16,7 @@
     "BK.Data",
     "BK.Save",
     "BK.Meta",
-    "BK.Options"
+    "BK.Options",
+    "BK.Notifications"
   ]
 }
