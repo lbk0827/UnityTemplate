@@ -90,7 +90,7 @@ Local-only by design — no backend, no analytics, no remote config.
 | Async | UniTask 2.5.11 |
 | Reactive | R3 1.3.1 |
 | Content | Addressables |
-| Tween / sequencing | LitMotion |
+| Tween / sequencing | LitMotion (코드 트윈), Animation Sequencer 0.5.5 + DOTween 1.3.030 free (프리팹 UI 연출) |
 | String building | ZString |
 
 ## Layout
@@ -118,6 +118,8 @@ Assets/_Project/              game-side content; framework never depends on this
   Unity's domain reload and will report `running` forever.
   When checking for compile errors, read the console with `types: ["all"]` — filtering on
   `"error"` alone returned nothing for a batch of ~50 package compile errors that `"all"` showed.
+- Animation Sequencer는 `DOTWEEN_ENABLED;TMP_ENABLED` define이 있어야 컴파일된다. DOTween은 `Assets/Plugins/Demigiant/DOTween`에 벤더링(출처 `docs/animation-sequencer.json`). 코드에서 트윈이 필요하면 LitMotion, 디자이너가 프리팹에서 조립하는 연출은 Animation Sequencer.
+- Unity 배치모드로 검증한다(MCP 불통 시에도 가능, 에디터가 열려 있으면 실패): 컴파일 `Unity.exe -batchmode -nographics -quit -projectPath D:\UnityTemplate -logFile <log>`, 테스트 `-runTests -testPlatform EditMode -testResults <xml>` (`-quit` 없이).
 - If a token usage limit interrupts work mid-task, resume that task where it stopped once the
   limit resets. Do not restart from scratch or drop the remaining scope; re-read the files
   touched so far and continue from the last unfinished step.

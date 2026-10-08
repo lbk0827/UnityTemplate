@@ -27,7 +27,7 @@
 - Modify: `Packages/manifest.json`
 - Modify: `ProjectSettings/ProjectSettings.asset` (`scriptingDefineSymbols: {}` 줄, 833행 부근)
 
-- [ ] **Step 1: manifest에 의존성과 스코프 추가 (Edit 툴, 수동 삽입)**
+- [x] **Step 1: manifest에 의존성과 스코프 추가 (Edit 툴, 수동 삽입)**
 
 파일은 CRLF이고 의존성이 알파벳순이 아니므로 스크립트로 재정렬하지 않는다. 두 곳만 Edit 한다.
 
@@ -46,7 +46,7 @@
 
 `git diff --stat Packages/manifest.json` → 변경 2~3줄만.
 
-- [ ] **Step 2: Scripting Define 추가**
+- [x] **Step 2: Scripting Define 추가**
 
 `ProjectSettings/ProjectSettings.asset`에서
 
@@ -65,7 +65,7 @@
 
 로 바꾼다 (Edit 툴, 2-space 들여쓰기 유지).
 
-- [ ] **Step 3: 커밋은 Task 2와 합친다**
+- [x] **Step 3: 커밋은 Task 2와 합친다**
 
 이 시점은 `DOTWEEN_ENABLED`는 켜졌는데 `DOTween.Modules`가 없어 패키지 어셈블리가 스킵되는 중간 상태다. Task 2 Step 5에서 함께 커밋한다.
 
@@ -78,7 +78,7 @@
 - Create: `Assets/Plugins/Demigiant/DOTween/Modules/DOTween.Modules.asmdef` (+ `.meta`)
 - Create: `Assets/Plugins/Demigiant/DOTween/Resources/DOTweenSettings.asset` (+ `.meta`, 폴더 `.meta`)
 
-- [ ] **Step 1: unitypackage 내용을 .meta와 함께 복사**
+- [x] **Step 1: unitypackage 내용을 .meta와 함께 복사**
 
 ```bash
 python -I - <<'EOF'
@@ -107,7 +107,7 @@ Expected: `copied 28` (파일 24 + 폴더 4). `find Assets/Plugins/Demigiant -ty
 
 unitypackage에는 `Assets/Plugins/Demigiant` 폴더 항목이 없으므로 `Assets/Plugins/Demigiant.meta`를 아래 폴더 meta 템플릿(새 GUID)으로 직접 만든다. `Assets/Plugins.meta`는 이미 있다.
 
-- [ ] **Step 2: Modules asmdef 작성**
+- [x] **Step 2: Modules asmdef 작성**
 
 `Assets/Plugins/Demigiant/DOTween/Modules/DOTween.Modules.asmdef`:
 
@@ -141,7 +141,7 @@ AssemblyDefinitionImporter:
   assetBundleVariant: 
 ```
 
-- [ ] **Step 3: DOTweenSettings.asset 작성**
+- [x] **Step 3: DOTweenSettings.asset 작성**
 
 `Assets/Plugins/Demigiant/DOTween/Resources/DOTweenSettings.asset` — sf의 것을 기반으로 하되 `storeSettingsLocation: 1`(DOTween 폴더 안 Resources), `textMeshProEnabled: 0`, `createASMDEF: 1`:
 
@@ -228,7 +228,7 @@ DefaultImporter:
   assetBundleVariant: 
 ```
 
-- [ ] **Step 4: 배치모드 컴파일로 검증**
+- [x] **Step 4: 배치모드 컴파일로 검증**
 
 ```bash
 "/c/Program Files/Unity/Hub/Editor/6000.3.21f1/Editor/Unity.exe" -batchmode -nographics -quit -projectPath "D:/UnityTemplate" -logFile "<scratchpad>/compile_task2.log"; echo exit=$?
@@ -241,7 +241,7 @@ Expected: `exit=0`, 에러 0, `com.brunomikoski.animationsequencer@…` 폴더 �
 
 `DOTWEEN_NOUI` 류 정의가 없으니 UI 모듈이 컴파일된다. 만약 `UnityEngine.UI` 참조 오류가 나면 asmdef의 references를 확인한다.
 
-- [ ] **Step 5: 커밋**
+- [x] **Step 5: 커밋**
 
 ```bash
 git add Packages/manifest.json ProjectSettings/ProjectSettings.asset Assets/Plugins/Demigiant Assets/Plugins/Demigiant.meta
@@ -257,7 +257,7 @@ git commit -m "build: install Animation Sequencer 0.5.5 and vendor DOTween 1.3.0
 - Modify: `Assets/_Project/Bounce/Tests/EditMode/BK.Kit.EditModeTests.asmdef` (references에 `BrunoMikoski.AnimationSequencer`, `DOTween.Modules` 추가)
 - Create: `Assets/_Project/Bounce/Tests/EditMode/AnimationSequencerInstallTests.cs` (+ `.meta`, MonoImporter)
 
-- [ ] **Step 1: 실패하는 테스트 작성**
+- [x] **Step 1: 실패하는 테스트 작성**
 
 ```csharp
 using BrunoMikoski.AnimationSequencer;
@@ -324,7 +324,7 @@ MonoImporter:
   assetBundleVariant: 
 ```
 
-- [ ] **Step 2: 테스트 실행 → 프리팹 테스트 2개 실패 확인**
+- [x] **Step 2: 테스트 실행 → 프리팹 테스트 2개 실패 확인**
 
 ```bash
 "/c/Program Files/Unity/Hub/Editor/6000.3.21f1/Editor/Unity.exe" -batchmode -nographics -projectPath "D:/UnityTemplate" -runTests -testPlatform EditMode -testFilter AnimationSequencerInstallTests -testResults "<scratchpad>/tests_task3a.xml" -logFile "<scratchpad>/tests_task3a.log"; echo exit=$?
@@ -333,7 +333,7 @@ python -I -c "import xml.etree.ElementTree as E;r=E.parse(r'<scratchpad>/tests_t
 
 Expected: `3 1 2` (타입 테스트 통과, 프리팹 2개는 파일 없음으로 실패). exit 코드는 실패 시 2 또는 3.
 
-- [ ] **Step 3: 커밋 (테스트만)**
+- [x] **Step 3: 커밋 (테스트만)**
 
 ```bash
 git add Assets/_Project/Bounce/Tests/EditMode
@@ -348,7 +348,7 @@ git commit -m "test: verify Animation Sequencer install and imported popup seque
 - Create: `Assets/_Project/UI/Sequences/SQ_Popup_Open.prefab` (+ `.meta`), `SQ_Popup_Close.prefab` (+ `.meta`), 폴더 `.meta`
 - Create: `docs/animation-sequencer.json` (출처·리맵 기록)
 
-- [ ] **Step 1: 리맵 복사**
+- [x] **Step 1: 리맵 복사**
 
 ```bash
 python -I - <<'EOF'
@@ -372,13 +372,13 @@ grep -c c10d422b52559da41aa9676770a8fc65 /d/UnityTemplate/Assets/_Project/UI/Seq
 
 Expected: 각 프리팹 1회.
 
-- [ ] **Step 2: 테스트 실행 → 3개 통과**
+- [x] **Step 2: 테스트 실행 → 3개 통과**
 
 Task 3 Step 2 명령을 `tests_task4`로 다시 실행. Expected: `3 3 0`, exit=0.
 
 실패 시 로그에서 `Unknown managed type referenced` 또는 `AnimationSteps` 길이 0을 찾는다. 길이 0이면 SerializeReference 타입명(`asm: BrunoMikoski.AnimationSequencer`)이 설치된 어셈블리명과 다른 것이므로 `Library/PackageCache/.../BrunoMikoski.AnimationSequencer.asmdef`의 `name`을 확인한다.
 
-- [ ] **Step 3: 출처 기록**
+- [x] **Step 3: 출처 기록**
 
 `docs/animation-sequencer.json`:
 
@@ -412,7 +412,7 @@ Task 3 Step 2 명령을 `tests_task4`로 다시 실행. Expected: `3 3 0`, exit=
 }
 ```
 
-- [ ] **Step 4: 커밋**
+- [x] **Step 4: 커밋**
 
 ```bash
 git add Assets/_Project/UI/Sequences Assets/_Project/UI/Sequences.meta docs/animation-sequencer.json
@@ -427,7 +427,7 @@ git commit -m "assets: import popup open/close sequences from sf with remapped s
 **Files:**
 - Modify: `CLAUDE.md` Stack 표 (`| Tween / sequencing | LitMotion |` 행)
 
-- [ ] **Step 1: Stack 표 갱신**
+- [x] **Step 1: Stack 표 갱신**
 
 ```markdown
 | Tween / sequencing | LitMotion (코드 트윈), Animation Sequencer 0.5.5 + DOTween 1.3.030 free (프리팹 UI 연출) |
@@ -439,7 +439,7 @@ git commit -m "assets: import popup open/close sequences from sf with remapped s
 - Animation Sequencer는 `DOTWEEN_ENABLED;TMP_ENABLED` define이 있어야 컴파일된다. DOTween은 `Assets/Plugins/Demigiant/DOTween`에 벤더링(출처 `docs/animation-sequencer.json`). 코드에서 트윈이 필요하면 LitMotion, 디자이너가 프리팹에서 조립하는 연출은 Animation Sequencer.
 ```
 
-- [ ] **Step 2: 전체 EditMode 테스트 한 번 더 실행 후 커밋**
+- [x] **Step 2: 전체 EditMode 테스트 한 번 더 실행 후 커밋**
 
 ```bash
 "/c/Program Files/Unity/Hub/Editor/6000.3.21f1/Editor/Unity.exe" -batchmode -nographics -projectPath "D:/UnityTemplate" -runTests -testPlatform EditMode -testResults "<scratchpad>/tests_all.xml" -logFile "<scratchpad>/tests_all.log"; echo exit=$?
