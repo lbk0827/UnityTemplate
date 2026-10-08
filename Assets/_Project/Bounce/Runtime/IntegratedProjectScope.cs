@@ -34,7 +34,8 @@ namespace BK.Kit
 
         protected override void ConfigureProject(IContainerBuilder builder)
         {
-            MetaInstaller.Install(builder, new BounceCurrencies(), new BounceContinueOffers(), BounceEntry.Policy);
+            MetaInstaller.Install(builder, new BounceCurrencies(), new BounceContinueOffers(), BounceEntry.Policy,
+                new BounceStepOffers(), new BounceDailyRewards(), new BounceWinStreak());
             builder.Register<KitServices>(Lifetime.Singleton);
             builder.Register<IPushProvider>(container => new HeartFullPushProvider(container.Resolve<IWallet>(), BounceCurrencies.Heart, 1001,
                 "Hearts are full", "Your hearts are back. Ready for the next stage?"), Lifetime.Singleton);
@@ -69,14 +70,18 @@ namespace BK.Kit
         public readonly CurrencyDisplayLock DisplayLock;
         public readonly ContinueOffers Continues;
         public readonly LocalPushService Push;
+        public readonly StepOffers Offers;
+        public readonly DailyRewards Daily;
+        public readonly WinStreak Streak;
 
         public KitServices(ISceneService scenes, IUIService ui, ITableService tables, ISaveService saves, IWallet wallet,
             IStageProgress progress, IOptionsService options, IMessageService messages, PendingRewardQueue rewards,
-            CurrencyDisplayLock displayLock, ContinueOffers continues, LocalPushService push)
+            CurrencyDisplayLock displayLock, ContinueOffers continues, LocalPushService push,
+            StepOffers offers, DailyRewards daily, WinStreak streak)
         {
             Scenes = scenes; UI = ui; Tables = tables; Saves = saves; Wallet = wallet; Progress = progress;
             Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues;
-            Push = push;
+            Push = push; Offers = offers; Daily = daily; Streak = streak;
         }
     }
 

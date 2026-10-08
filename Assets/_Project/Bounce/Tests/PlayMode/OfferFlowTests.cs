@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using BK.Kit;
+using BK.Meta;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -19,9 +21,10 @@ public sealed class OfferFlowTests
     private string folder;
 
     [UnityTest]
-    public IEnumerator LobbyIconsOpenImportedOfferPopupsAndFreeStepsGrantLocalRewards()
+    public IEnumerator WeeklyStepOfferShowsOneIconAndFreeStepsGrantLocalRewards()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        KitTestSaves.Seed(folder,level:new BounceStepOffers().UnlockStage);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
@@ -30,103 +33,114 @@ public sealed class OfferFlowTests
         var app=KitApp.Instance;
         var offers=UnityEngine.Object.FindFirstObjectByType<LobbyOffersView>();
         Assert.That(offers,Is.Not.Null,"Lobby must own a LobbyOffersView");
+        var campaign=app.Offers.GetActive();
+        Assert.That(campaign.HasValue,Is.True,"The epoch is in the past, so some week is always live");
+        bool vertical=campaign.Value.Definition.Type==StepOfferType.Vertical;
+        var type=campaign.Value.Definition.Type;
+        string activeName=vertical?"Lobby_EndlessOffer":"Lobby_EndlessGift",otherName=vertical?"Lobby_EndlessGift":"Lobby_EndlessOffer";
+        int firstReward=vertical?100:50;int paidProduct=vertical?1001:1011;
         var right=UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(t=>t.name=="UI_Right");
-        var icon=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains("Lobby_EndlessOffer"));
-        var dot=right.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="IMG_RedDot" && HierarchyPath(t).Contains("Lobby_EndlessOffer"));
+        var icon=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains(activeName));
+        var other=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains(otherName));
+        Assert.That(icon.gameObject.activeInHierarchy,Is.True,"The week's type is shown");
+        Assert.That(other.gameObject.activeInHierarchy,Is.False,"Only one step offer type is live per week (sf)");
+        var remain=right.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t=>t.name=="TXT_Remain" && HierarchyPath(t.transform).Contains(activeName));
+        if(remain!=null)Assert.That(remain.text,Does.Match(@"^\d+d \d+h$|^\d+h \d+m$|^\d+m \d+s$"),"Remaining time uses the sf format, got "+remain.text);
+        var dot=right.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="IMG_RedDot" && HierarchyPath(t).Contains(activeName));
         if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.True,"First step is free, so the icon shows a red dot");
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Null);
         Click(icon);
         yield return null;
-        Assert.That(offers.IsOpen,Is.True,"Clicking the lobby icon opens the imported popup instead of an offline notice");
+        Assert.That(offers.IsOpen,Is.True,"Clicking the lobby icon opens the imported popup");
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Null,"No offline notice dialog");
-        var binding=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIEndlessOfferPopup");
+        string role=vertical?"UIEndlessOfferPopup":"UIEndlessGiftsPopup";
+        var binding=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role==role);
         Assert.That(binding.gameObject.activeInHierarchy,Is.True);
         var slot0=binding.Get<VisualBindings>("slots.0");var slot1=binding.Get<VisualBindings>("slots.1");
         Assert.That(slot0,Is.Not.Null);Assert.That(slot1,Is.Not.Null);
         Assert.That(slot0.Get<GameObject>("currentRoot").activeSelf,Is.True);
         Assert.That(slot1.Get<GameObject>("lockRoot").activeSelf,Is.True);
         Assert.That(slot0.Get<TMP_Text>("priceText").text,Is.EqualTo("FREE"));
-        Assert.That(slot1.Get<TMP_Text>("priceText").text,Is.EqualTo(OfferCatalog.EndlessOffer[1].Price));
-        Assert.That(slot0.Get<Transform>("rewardContainer").Cast<Transform>().Count(t=>t.name=="Reward clone" && t.gameObject.activeSelf),Is.EqualTo(OfferCatalog.EndlessOffer[0].Rewards.Count));
+        string paidPrice=ShopCatalog.Price(app.Shop.Products.Get(paidProduct));
+        Assert.That(slot1.Get<TMP_Text>("priceText").text,Is.EqualTo(paidPrice),"Paid steps show the linked shop product's price");
+        Assert.That(slot0.Get<Transform>("rewardContainer").Cast<Transform>().Count(t=>t.name=="Reward clone" && t.gameObject.activeSelf),Is.EqualTo(1));
+        Assert.That(slot1.Get<Transform>("rewardContainer").Cast<Transform>().Count(t=>t.name=="Reward clone" && t.gameObject.activeSelf),Is.EqualTo(app.Shop.Products.Get(paidProduct).rewards.Length),"Paid steps list the product contents");
         Assert.That(slot0.transform.lossyScale.x,Is.GreaterThan(0.1f),"Authored Target node must be scaled open");
         var canvasRect=(RectTransform)offers.Popup.transform.parent;
-        var closeRect=(RectTransform)binding.Get<Button>("closeButton").transform;
-        var closeCenter=canvasRect.InverseTransformPoint(closeRect.TransformPoint(closeRect.rect.center));
-        Assert.That(canvasRect.rect.Contains(closeCenter),Is.True,"Close button must sit inside the canvas, got "+closeCenter+" in "+canvasRect.rect);
+        Assert.That(OnScreen(canvasRect,binding.Get<Button>("closeButton")),Is.True,"Close button must sit inside the canvas");
         Assert.That(OnScreen(canvasRect,slot0.Get<Button>("buyButton")),Is.True,"Current slot's button must be on screen");
         yield return null;
-        Dump("offer-endless");
+        Dump("offer-active");
         long goldBefore=app.Gold;
         var buy=slot0.Get<Button>("buyButton");
         Assert.That(buy.interactable,Is.True);
         buy.onClick.Invoke();
         yield return null;
-        Assert.That(app.Gold,Is.EqualTo(goldBefore+100),"Free step grants local gold");
-        Assert.That(app.OfferStep(OfferKind.EndlessOffer),Is.EqualTo(1));
-        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(goldBefore+100));Assert.That(KitTestSaves.OfferStep(folder,OfferKind.EndlessOffer),Is.EqualTo(1));
-        Assert.That(slot0.Get<GameObject>("checkRoot").activeSelf,Is.True,"Claimed step shows the check stamp");
-        Assert.That(slot0.Get<Button>("buyButton").interactable,Is.False);
-        Assert.That(slot1.Get<GameObject>("currentRoot").activeSelf,Is.True);
-        Assert.That(slot1.Get<Button>("buyButton").interactable,Is.True);
-        slot1.Get<Button>("buyButton").onClick.Invoke();
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward),"Free step grants local gold");
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(goldBefore+firstReward));
+        Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(2),"Progress is saved through StepOfferData");
+        Assert.That(offers.IsOpen,Is.True,"Claiming a step keeps the popup open");
+        // sf: past steps disappear; the paid step 2 is now the first visible card.
+        Assert.That(slot0.Get<GameObject>("currentRoot").activeSelf,Is.True);
+        Assert.That(slot0.Get<TMP_Text>("priceText").text,Is.EqualTo(paidPrice));
+        Assert.That(slot0.Get<Button>("buyButton").interactable,Is.True);
+        Assert.That(slot1.Get<GameObject>("lockRoot").activeSelf,Is.True);
+        Assert.That(slot1.Get<TMP_Text>("priceText").text,Is.EqualTo("FREE"),"Step 3 is free again");
+        slot0.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Gold,Is.EqualTo(goldBefore+100),"Paid step grants nothing offline");
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward),"Paid step grants nothing offline");
+        Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(2),"Paid step does not advance without a store");
         var notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null,"Paid step explains that payments are not connected");
         notice.Close();yield return null;
+        Dump("offer-paid-step");
         var close=binding.Get<Button>("closeButton");
         Assert.That(close,Is.Not.Null);
         close.onClick.Invoke();
         yield return null;
         Assert.That(offers.IsOpen,Is.False);
-        Assert.That(UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).Any(b=>b.role=="UIEndlessOfferPopup"),Is.False,"Popup instance is destroyed");
+        Assert.That(UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).Any(b=>b.role==role),Is.False,"Popup instance is destroyed");
         if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.False,"Current step is paid, so the red dot hides");
-
-        // Later steps live below the screen in the authored rail; opening must bring the current step into view.
-        app.SetOfferStep(OfferKind.EndlessOffer,OfferCatalog.EndlessOffer.Count-1);
-        offers.Open(OfferKind.EndlessOffer);
-        yield return null;
-        binding=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIEndlessOfferPopup");
-        var lastSlot=binding.Get<VisualBindings>("slots."+(OfferCatalog.EndlessOffer.Count-1));
-        Assert.That(lastSlot.Get<GameObject>("currentRoot").activeSelf,Is.True);
-        Assert.That(OnScreen(canvasRect,lastSlot.Get<Button>("buyButton")),Is.True,"Rail must move so the current (last) step is visible");
-        Assert.That(OnScreen(canvasRect,binding.Get<Button>("closeButton")),Is.True,"Close button stays on screen while the rail moves");
-        Assert.That(binding.Get<VisualBindings>("slots.0").Get<GameObject>("root").activeSelf,Is.False,"Slots pushed above the content area are switched off, keeping the title clear");
-        yield return null;
-        Dump("offer-endless-last");
-        offers.Close();yield return null;
-        app.SetOfferStep(OfferKind.EndlessOffer,1);
+        Assert.That(icon.gameObject.activeInHierarchy,Is.True,"The icon stays until the week ends or the ladder completes");
 
         // Welcome deal: visuals and local reward list, purchase only informs.
         var welcome=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains("Welcome"));
         Click(welcome);
         yield return null;
-        Assert.That(offers.IsOpen,Is.True);Assert.That(offers.OpenKind,Is.EqualTo(OfferKind.WelcomeDeal));
+        Assert.That(offers.IsOpen,Is.True);Assert.That(offers.OpenKind,Is.EqualTo(LobbyOfferIcon.WelcomeDeal));
         var deal=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIWelcomeDealPopup");
-        Assert.That(deal.Get<TMP_Text>("priceText").text,Is.EqualTo(OfferCatalog.WelcomeDeal.Price));
-        Assert.That(deal.Get<Transform>("rewardContainer").GetComponentsInChildren<VisualBindings>(false).Count(b=>b.role=="UIWelcomeDealRewardItem"),Is.EqualTo(OfferCatalog.WelcomeDeal.Rewards.Count));
+        Assert.That(deal.Get<TMP_Text>("priceText").text,Is.EqualTo(LobbyOffersView.WelcomePrice));
+        Assert.That(deal.Get<Transform>("rewardContainer").GetComponentsInChildren<VisualBindings>(false).Count(b=>b.role=="UIWelcomeDealRewardItem"),Is.EqualTo(LobbyOffersView.WelcomeRewards.Length));
         yield return null;
         Dump("offer-welcome");
         deal.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Gold,Is.EqualTo(goldBefore+100));
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward));
         notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null);notice.Close();yield return null;
         deal.Get<Button>("dimButton").onClick.Invoke();
         yield return null;
         Assert.That(offers.IsOpen,Is.False);
-
-        // Gifts popup opens too and the stage path still works after closing.
-        var gift=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains("Lobby_EndlessGift"));
-        Click(gift);yield return null;
-        Assert.That(offers.OpenKind,Is.EqualTo(OfferKind.EndlessGift));
-        var gifts=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIEndlessGiftsPopup");
-        Assert.That(gifts.Get<VisualBindings>("slots.6"),Is.Not.Null);
-        yield return null;
-        Dump("offer-gifts");
-        offers.Close();yield return null;
         var stage=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageInfo");
         Assert.That(stage.Get<Button>("buttons.0.button").interactable,Is.True);
+    }
+
+    [UnityTest]
+    public IEnumerator StepOffersStayHiddenBelowTheUnlockStage()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");
+        yield return Ready("VisualLobby");
+        Assert.That(KitApp.Instance.Offers.GetActive().HasValue,Is.False,"Stage 1 is below the unlock stage");
+        var right=UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(t=>t.name=="UI_Right");
+        foreach(var button in right.GetComponentsInChildren<Button>(true))
+            if(HierarchyPath(button.transform).Contains("Endless"))Assert.That(button.gameObject.activeInHierarchy,Is.False,HierarchyPath(button.transform));
+        var offers=UnityEngine.Object.FindFirstObjectByType<LobbyOffersView>();
+        offers.Open(LobbyOfferIcon.EndlessOffer);offers.Open(LobbyOfferIcon.EndlessGift);
+        Assert.That(offers.IsOpen,Is.False,"Locked offers cannot be opened by code either");
     }
 
     private static bool OnScreen(RectTransform canvas,Component target)

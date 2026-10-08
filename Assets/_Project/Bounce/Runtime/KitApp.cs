@@ -19,7 +19,7 @@ namespace BK.Kit
         public const int ClearGoldReward = 50;
         public const string ReasonClear = "stage_clear";
         public const string ReasonBooster = "booster";
-        public const string ReasonOffer = "offer";
+        public const string ReasonStreak = "win_streak";
         public const string SaveFailedLog = "BK_Kit: progress could not be saved.";
         /// <summary>Clearing this stage (or later) is when we first ask for notification permission (sf asks at 15; Bounce is short).</summary>
         public const int PushPermissionStage = 3;
@@ -34,7 +34,6 @@ namespace BK.Kit
 
         private KitServices services;
         private BounceProfileData profile;
-        private BounceOfferData offers;
         private readonly CompositeDisposable subscriptions = new();
         private int pendingStageAdvance;
         private float nextSaveAttempt;
@@ -48,13 +47,15 @@ namespace BK.Kit
         public CurrencyDisplayLock DisplayLock => services.DisplayLock;
         public ContinueOffers Continues => services.Continues;
         public IMessageService Messages => services.Messages;
+        public StepOffers Offers => services.Offers;
+        public DailyRewards Daily => services.Daily;
+        public WinStreak Streak => services.Streak;
 
         // Read model for views. Kept flat so the imported bindings stay simple.
         public int UnlockedLevel => services.Progress.CurrentStage.CurrentValue;
         public long Gold => services.Wallet.ValueOf(BounceCurrencies.Gold);
         public long DisplayedGold => services.DisplayLock.GetDisplayValueOr(BounceCurrencies.Gold, Gold);
         public int BoosterCount(BoosterKind kind) => (int)Math.Min(int.MaxValue, services.Wallet.ValueOf(kind.ToString()));
-        public int OfferStep(OfferKind kind) => offers.Step(kind);
         public string PlayerName => profile.playerName;
         public bool MusicEnabled => services.Options.Music.Value;
         public bool EffectsEnabled => services.Options.Sfx.Value;
@@ -80,7 +81,6 @@ namespace BK.Kit
             services = kitServices;
             Shop = new ShopCatalog(services.Tables.Get<int, ShopProductRow>(), services.Tables.Get<string, CurrencyDefinitionRow>());
             profile = services.Saves.Get<BounceProfileData>();
-            offers = services.Saves.Get<BounceOfferData>();
             services.Wallet.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             services.Progress.CurrentStage.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             services.DisplayLock.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
@@ -106,6 +106,7 @@ namespace BK.Kit
                 services.Messages.ShowAsync("No hearts", "Next heart in " + FormatTimer(TimeToNextHeart), "OK").Forget();
                 return;
             }
+            GrantStreakRewards();
             Flush();
             pendingStageAdvance = 0;
             LastGoldReward = 0;
@@ -116,7 +117,16 @@ namespace BK.Kit
         public void GoToLobby()
         {
             Time.timeScale = 1;
-            if (!IsLoading) Load(lobbyScene, Session.ReturnToLobby).Forget();
+            if (IsLoading) return;
+            if (Session.State != SessionState.Lobby) services.Streak.Abandon(); // leaving a round forfeits the streak (sf); no-op after a clear
+            Load(lobbyScene, Session.ReturnToLobby).Forget();
+        }
+
+        // sf hands milestone rewards to the next attempt as entry boosters; Bounce credits them to the inventory instead.
+        private void GrantStreakRewards()
+        {
+            var pending = services.Streak.ConsumePending();
+            if (pending.Count > 0) services.Wallet.GrantAll(pending, ReasonStreak);
         }
 
         private async UniTask Load(string scene, Action updateSession)
@@ -283,21 +293,35 @@ namespace BK.Kit
             return true;
         }
 
-        /// <summary>Tools and tests only: positions a step offer ladder without granting anything.</summary>
-        public void SetOfferStep(OfferKind kind, int step)
-        {
-            offers.SetStep(kind, Math.Max(0, step));
-            Flush();
-            Changed?.Invoke();
-        }
+        public const string PaymentsNotConnected = "Payments are not connected in this offline kit.\nConnect a store backend to enable purchases.";
 
-        // Free offer steps grant local rewards; paid steps are rejected until a payment backend is connected.
-        public bool TryClaimOfferStep(OfferKind kind, int step, out string message)
+        // Free steps grant through StepOffers; paid steps wait for a store backend (ConfirmPaid hook).
+        public bool TryClaimStepOffer(in StepOfferCampaign campaign, out string message)
         {
             message = "";
             if (IsLoading || Session.State != SessionState.Lobby) { message = "Return to the lobby to collect."; return false; }
-            if (!OfferClaim.Apply(offers, services.Wallet, kind, step, out message)) return false;
+            var step = campaign.Current;
+            if (step == null) { message = "All rewards collected."; return false; }
+            if (step.IsPaid) { message = PaymentsNotConnected; return false; }
+            if (!services.Offers.TryClaimFree(campaign)) { message = "This offer has changed. Reopen it."; return false; }
             Flush();
+            message = "Collected " + BounceItems.Describe(step.Rewards);
+            Changed?.Invoke();
+            return true;
+        }
+
+        public bool TryClaimDaily(out string message) => Claim(services.Daily.TryClaimDaily, out message);
+        public bool TryClaimDailyBonus(int index, out string message) => Claim((out ItemGrant[] g) => services.Daily.TryClaimBonus(index, out g), out message);
+        public bool TryClaimHourly(out string message) => Claim(services.Daily.TryClaimHourly, out message);
+
+        private delegate bool ClaimFunc(out ItemGrant[] granted);
+        private bool Claim(ClaimFunc claim, out string message)
+        {
+            message = "";
+            if (IsLoading || Session.State != SessionState.Lobby) { message = "Return to the lobby to collect."; return false; }
+            if (!claim(out var granted)) { message = "Not available yet."; return false; }
+            Flush();
+            message = "Collected " + BounceItems.Describe(granted);
             Changed?.Invoke();
             return true;
         }

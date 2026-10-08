@@ -73,6 +73,9 @@ namespace BK.Meta
         public IReadOnlyList<StepOfferSlotView> Window(in StepOfferCampaign campaign, int slotCount)
             => StepOfferLogic.VisibleWindow(campaign.Definition, campaign.NextStep, slotCount);
 
+        /// <summary>Time left on the clock the service runs on; zero once the week has ended.</summary>
+        public TimeSpan Remaining(in StepOfferCampaign campaign) => campaign.Remaining(_clock.UtcNow);
+
         /// <summary>Free step only: advances first, then grants. False on a stale campaign, a paid step or completion.</summary>
         public bool TryClaimFree(in StepOfferCampaign campaign)
         {
