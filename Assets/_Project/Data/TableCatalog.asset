@@ -13,9 +13,5 @@ MonoBehaviour:
   m_Name: TableCatalog
   m_EditorClassIdentifier: BK.Data::BK.Data.TableCatalog
   _addresses:
-  - Data/SampleTable
-  - Data/ShopProductTable
-  - Data/DailyRewardTable
-  - Data/ProfileItemTable
   - Bounce/Tables/ShopProductTable
   - Bounce/Tables/CurrencyDefinitionTable

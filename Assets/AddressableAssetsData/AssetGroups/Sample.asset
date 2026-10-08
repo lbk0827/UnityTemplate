@@ -15,58 +15,8 @@ MonoBehaviour:
   m_GroupName: Sample
   m_GUID: ad9ed79ec86ce424dbac694fb150087d
   m_SerializeEntries:
-  - m_GUID: 0cd748d72d2f33645ab015a28bf236a3
-    m_Address: UI/Popups/DailyRewards
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 14bed5e1b8ee4cd4d80bbee7f8ca9c06
-    m_Address: UI/Lobby/LobbyPanel
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 45329f24bd712e94c8d9645fc06cf3e0
     m_Address: Localization/ko
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 4ce3c03555034c74d9445401923fd98c
-    m_Address: UI/Popups/Reward
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 506e7cd9c8c49ef428468a5cdd3851b1
-    m_Address: UI/Popups/Toast
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 573144ee369cb6645a6b159518da5550
-    m_Address: UI/Popups/Profile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 59215f8d01e58a64eb48a8300dab6769
-    m_Address: Data/DailyRewardTable
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5dd18f94b80d3884ea9775791ad7a298
-    m_Address: UI/Popups/Option
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8b71ac2d21987d74c9e18922362522ba
-    m_Address: UI/Popups/Language
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9245a360fe11c1d44982f71e225c7f29
-    m_Address: Data/ProfileItemTable
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9f2b92b583f3db942b703430a94ee170
-    m_Address: UI/Popups/Refill
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -75,33 +25,8 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: bb0b4024e1b688b49a4d01be5077f258
-    m_Address: Data/SampleTable
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: be50543ce5c42cf40a01ad540ca158ec
-    m_Address: UI/Popups/Message
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c051110f2d85ca24893cadf610cc2275
-    m_Address: Scenes/Lobby
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: cf14cc1e1af185640aab3657e4183f9e
-    m_Address: Data/ShopProductTable
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dad15a2f054c7be44a319b669bee33cd
     m_Address: Localization/en
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: eceaf52e31b18154eb1baa2405880323
-    m_Address: UI/Lobby/Hud
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
