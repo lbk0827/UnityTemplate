@@ -1,0 +1,14 @@
+{
+  "name": "BK.Save",
+  "rootNamespace": "BK.Save",
+  "references": ["BK.Core", "VContainer", "UniTask"],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
