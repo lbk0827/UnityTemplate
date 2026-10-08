@@ -27,24 +27,24 @@
 - Modify: `Packages/manifest.json`
 - Modify: `ProjectSettings/ProjectSettings.asset` (`scriptingDefineSymbols: {}` 줄, 833행 부근)
 
-- [ ] **Step 1: manifest에 의존성과 스코프 추가**
+- [ ] **Step 1: manifest에 의존성과 스코프 추가 (Edit 툴, 수동 삽입)**
 
-`dependencies`의 알파벳 순서상 `"com.annulusgames.lit-motion"` 다음에 추가하고, `scopedRegistries[0].scopes`에 `"com.brunomikoski"`를 추가한다.
+파일은 CRLF이고 의존성이 알파벳순이 아니므로 스크립트로 재정렬하지 않는다. 두 곳만 Edit 한다.
 
-```bash
-python -I - <<'EOF'
-import json,io
-p='D:/UnityTemplate/Packages/manifest.json'
-d=json.load(open(p,encoding='utf-8'))
-d['dependencies']['com.brunomikoski.animationsequencer']='0.5.5'
-d['dependencies']=dict(sorted(d['dependencies'].items()))
-s=d['scopedRegistries'][0]['scopes']
-if 'com.brunomikoski' not in s: s.append('com.brunomikoski')
-json.dump(d,open(p,'w',encoding='utf-8'),indent=2,ensure_ascii=False); open(p,'a',encoding='utf-8').write('\n')
-EOF
+`"com.annulusgames.lit-motion": "2.0.2",` 바로 다음 줄에:
+
+```json
+    "com.brunomikoski.animationsequencer": "0.5.5",
 ```
 
-주의: 기존 파일은 2-space 들여쓰기. 저장 후 `git diff Packages/manifest.json`으로 의존성 1줄 + 스코프 1줄만 바뀌었는지 확인한다(모듈 순서가 바뀌면 원래 순서를 유지하도록 정렬을 빼고 수동 삽입한다).
+`scopedRegistries[0].scopes` 배열의 `"com.github-glitchenzo"` 뒤에:
+
+```json
+        "com.github-glitchenzo",
+        "com.brunomikoski"
+```
+
+`git diff --stat Packages/manifest.json` → 변경 2~3줄만.
 
 - [ ] **Step 2: Scripting Define 추가**
 
@@ -65,12 +65,9 @@ EOF
 
 로 바꾼다 (Edit 툴, 2-space 들여쓰기 유지).
 
-- [ ] **Step 3: 커밋**
+- [ ] **Step 3: 커밋은 Task 2와 합친다**
 
-```bash
-git add Packages/manifest.json ProjectSettings/ProjectSettings.asset
-git commit -m "build: add Animation Sequencer package and DOTween defines"
-```
+이 시점은 `DOTWEEN_ENABLED`는 켜졌는데 `DOTween.Modules`가 없어 패키지 어셈블리가 스킵되는 중간 상태다. Task 2 Step 5에서 함께 커밋한다.
 
 ---
 
@@ -106,7 +103,9 @@ print('copied',n)
 EOF
 ```
 
-Expected: `copied 27`. `find Assets/Plugins/Demigiant -type f | wc -l` → 54 (27 항목 × 파일+meta, 폴더는 meta만이므로 실제로는 51).
+Expected: `copied 28` (파일 24 + 폴더 4). `find Assets/Plugins/Demigiant -type f | wc -l` → 52.
+
+unitypackage에는 `Assets/Plugins/Demigiant` 폴더 항목이 없으므로 `Assets/Plugins/Demigiant.meta`를 아래 폴더 meta 템플릿(새 GUID)으로 직접 만든다. `Assets/Plugins.meta`는 이미 있다.
 
 - [ ] **Step 2: Modules asmdef 작성**
 
@@ -245,8 +244,9 @@ Expected: `exit=0`, 에러 0, `com.brunomikoski.animationsequencer@…` 폴더 �
 - [ ] **Step 5: 커밋**
 
 ```bash
-git add Assets/Plugins/Demigiant
-git commit -m "assets: vendor DOTween 1.3.030 free with modules asmdef and settings"
+git add Packages/manifest.json ProjectSettings/ProjectSettings.asset Assets/Plugins/Demigiant Assets/Plugins/Demigiant.meta
+git status --short   # 남는 미추적 파일이 없어야 한다
+git commit -m "build: install Animation Sequencer 0.5.5 and vendor DOTween 1.3.030"
 ```
 
 ---
@@ -296,7 +296,17 @@ public sealed class AnimationSequencerInstallTests
 }
 ```
 
-`DOTweenAnimationStep.Actions` 프로퍼티 이름은 설치 후 `Library/PackageCache/com.brunomikoski.animationsequencer@*/Scripts/Runtime/Core/Steps/DOTweenAnimationStep.cs`에서 확인하고 맞춘다(없으면 리플렉션 대신 `AnimationSteps[0].GetType()` 검증까지만).
+(0.5.5 확인됨: `AnimationSequencerController.AnimationSteps`, `DOTweenAnimationStep.Actions` 모두 public 프로퍼티.)
+
+asmdef 최종 references:
+
+```json
+  "references": [
+    "BK.Kit.Runtime", "BK.UI", "BK.Scene", "BK.Assets", "BK.Composition",
+    "UniTask", "VContainer", "BK.Data",
+    "BrunoMikoski.AnimationSequencer", "DOTween.Modules"
+  ],
+```
 
 `.meta`:
 
@@ -388,7 +398,7 @@ Task 3 Step 2 명령을 `tests_task4`로 다시 실행. Expected: `3 3 0`, exit=
     "source": "https://dotween.demigiant.com/downloads/DOTween_1_3_030.zip",
     "license": "https://dotween.demigiant.com/license.php",
     "path": "Assets/Plugins/Demigiant/DOTween",
-    "notes": "Modules asmdef and DOTweenSettings.asset were authored by hand instead of the Utility Panel. Settings are stored in DOTween/Resources (storeSettingsLocation=1)."
+    "notes": "Modules asmdef and DOTweenSettings.asset were authored by hand instead of the Utility Panel. Settings are stored in DOTween/Resources (storeSettingsLocation=1). Do not regenerate the asmdef from the Utility Panel: it would drop the hand-written UnityEngine.UI reference."
   },
   "defines": ["DOTWEEN_ENABLED", "TMP_ENABLED"],
   "importedFromSf": {
@@ -405,7 +415,8 @@ Task 3 Step 2 명령을 `tests_task4`로 다시 실행. Expected: `3 3 0`, exit=
 - [ ] **Step 4: 커밋**
 
 ```bash
-git add Assets/_Project/UI/Sequences docs/animation-sequencer.json
+git add Assets/_Project/UI/Sequences Assets/_Project/UI/Sequences.meta docs/animation-sequencer.json
+git status --short
 git commit -m "assets: import popup open/close sequences from sf with remapped sequencer GUID"
 ```
 
