@@ -242,8 +242,10 @@ public sealed class VisualFlowTests
         KitApp.Instance.Complete(true);KitApp.Instance.Complete(false);
         Assert.That(KitApp.Instance.Gold,Is.EqualTo(50),"Repeated results cannot grant more gold");
         Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(50),"Reward is saved before Continue");
-        yield return new WaitForSeconds(.4f);
+        // Wait for both celebration and result transitions before visual capture / input.
+        yield return new WaitForSecondsRealtime(2f);
         Dump("result");
+        Dump("result-tall",1846);
         var result=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageClearPopup");
         Assert.That(result.Get<TMP_Text>("rewardAmountText").text,Is.EqualTo("50"));
         var claim=result.Get<Button>("basic.claimButton");
