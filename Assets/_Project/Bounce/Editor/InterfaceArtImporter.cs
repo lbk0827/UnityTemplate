@@ -13,6 +13,38 @@ namespace BK.Kit.Editor
         private const string Root="Assets/_Project/Bounce/Content/UI/Toy/";
         private static SpriteMetaData Slice(string name,int x,int y,int w,int h,int border=0)
             =>new SpriteMetaData{name=name,rect=new Rect(x,1254-y-h,w,h),pivot=new Vector2(.5f,.5f),border=Vector4.one*border};
+        private static SpriteMetaData Caps(string name,int x,int y,int w,int h,int left,int right)
+        {
+            var entry=Slice(name,x,y,w,h);entry.border=new Vector4(left,0,right,0);return entry;
+        }
+        private static SpriteMetaData[] ShopSlices()
+        {
+            var entries=new List<SpriteMetaData>();
+            foreach(var n in new[]{"IMG_Bundle_Bg","IMG_NoADBundle_Bg","IMG_Coin_Goods_Bg"})
+                entries.Add(Slice(n,28,499,390,282,80));
+            foreach(var n in new[]{"IMG_Bundle_Goods_Btn","BTN_CoinBuy"})
+                entries.Add(Caps(n,393,194,435,180,100,100));
+            foreach(var n in new[]{"IMG_ShopTitle_Coin","IMG_ShopTitle_NoAd","IMG_ShopTitle_Package","IMG_ShopBar_Coin","IMG_ShopBar_NoAds","IMG_ShopBar_Package","IMG_ShopBox"})
+                entries.Add(Caps(n,422,557,459,180,110,110));
+            entries.Add(Caps("Shop_Footer",832,194,410,177,100,100));
+            entries.Add(Caps("Shop_Sign",832,194,410,177,100,100));
+            entries.Add(Slice("Shop_RewardWell",893,490,307,304,80));
+            return entries.ToArray();
+        }
+        // Update only shop aliases: HUD and popup sprites share the source texture, not these borders.
+        [MenuItem("BK/Integration/Update Shop Sprite Borders")]
+        public static void ImportShopSlices()
+        {
+            var path=Root+"Interface.png";var importer=(TextureImporter)AssetImporter.GetAtPath(path);
+            var aliases=ShopSlices();var names=new HashSet<string>(aliases.Select(e=>e.name));
+#pragma warning disable CS0618
+            var entries=importer.spritesheet.Where(e=>!names.Contains(e.name)).Concat(aliases).ToArray();
+#pragma warning restore CS0618
+            var sprites=Sheet(path,entries);
+            var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            p.shopSprites=p.shopSprites.Concat(aliases.Select(e=>sprites[e.name])).GroupBy(s=>s.name).Select(g=>g.Last()).ToArray();
+            EditorUtility.SetDirty(p);AssetDatabase.SaveAssets();Debug.Log("BK_SHOP_SLICES_OK");
+        }
         private static Dictionary<string,Sprite> Sheet(string path,SpriteMetaData[] entries)
         {
             var t=(TextureImporter)AssetImporter.GetAtPath(path);t.textureType=TextureImporterType.Sprite;
@@ -34,15 +66,12 @@ namespace BK.Kit.Editor
             var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
 
             // Keep the shop's semantic sprite names so existing renderers and reward flows remain stable.
-            var aliases=new List<SpriteMetaData>();
-            foreach(var n in new[]{"IMG_Bundle_Bg","IMG_NoADBundle_Bg","IMG_Coin_Goods_Bg"})aliases.Add(Slice(n,28,499,390,282,55));
-            foreach(var n in new[]{"IMG_Bundle_Goods_Btn","BTN_CoinBuy"})aliases.Add(Slice(n,393,194,435,180));
-            foreach(var n in new[]{"IMG_ShopTitle_Coin","IMG_ShopTitle_NoAd","IMG_ShopTitle_Package","IMG_ShopBar_Coin","IMG_ShopBar_NoAds","IMG_ShopBar_Package","IMG_ShopBox"})aliases.Add(Slice(n,422,557,459,180,45));
+            var aliases=ShopSlices();
             var s=Sheet(Root+"Interface.png",entries.Concat(aliases).ToArray());
             var details=Sheet(Root+"InterfaceDetails.png",new[]{Slice("Canopy",6,182,1242,383),Slice("Sound",12,774,304,309),
                 Slice("Music",319,774,303,309),Slice("Haptic",627,774,303,309),Slice("Restart",934,774,309,309)});
             var shop=p.shopSprites.Where(x=>x!=null).ToDictionary(x=>x.name);
-            p.shopSprites=p.shopSprites.Select(x=>s.TryGetValue(x.name,out var value)?value:x).Concat(new[]{s["Tile"],s["Level"],details["Canopy"]}).GroupBy(x=>x.name).Select(g=>g.Last()).ToArray();
+            p.shopSprites=p.shopSprites.Select(x=>s.TryGetValue(x.name,out var value)?value:x).Concat(aliases.Select(e=>s[e.name])).Concat(new[]{s["Tile"],s["Level"],details["Canopy"]}).GroupBy(x=>x.name).Select(g=>g.Last()).ToArray();
             EditorUtility.SetDirty(p);
             var paths=new[]{p.home,p.lobby,p.hud,p.ingame,p.settings,p.ingameSettings}.Select(AssetDatabase.GetAssetPath).Concat(new[]{"Assets/_Project/Bounce/Content/Imported/KitResources/Template/Prefabs/UI/Panel/Lobby/Sub/HomeSub/stage_slot.prefab"});
             foreach(var path in paths)

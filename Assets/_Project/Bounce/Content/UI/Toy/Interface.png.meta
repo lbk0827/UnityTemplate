@@ -5,6 +5,15 @@ TextureImporter:
   - first:
       213: 8941664399919397806
     second: Navigation
+  - first:
+      213: 8714994865716371072
+    second: Shop_Footer
+  - first:
+      213: 3410149735224682210
+    second: Shop_Sign
+  - first:
+      213: 3691947014960747904
+    second: Shop_RewardWell
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -355,7 +364,7 @@ TextureImporter:
         height: 282
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 55, y: 55, z: 55, w: 55}
+      border: {x: 80, y: 80, z: 80, w: 80}
       customData: 
       outline: []
       physicsShape: []
@@ -377,7 +386,7 @@ TextureImporter:
         height: 282
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 55, y: 55, z: 55, w: 55}
+      border: {x: 80, y: 80, z: 80, w: 80}
       customData: 
       outline: []
       physicsShape: []
@@ -399,7 +408,7 @@ TextureImporter:
         height: 282
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 55, y: 55, z: 55, w: 55}
+      border: {x: 80, y: 80, z: 80, w: 80}
       customData: 
       outline: []
       physicsShape: []
@@ -421,7 +430,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 100, y: 0, z: 100, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -443,7 +452,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 100, y: 0, z: 100, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -465,7 +474,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -487,7 +496,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -509,7 +518,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -531,7 +540,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -553,7 +562,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -575,7 +584,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -597,7 +606,7 @@ TextureImporter:
         height: 180
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 45, y: 45, z: 45, w: 45}
+      border: {x: 110, y: 0, z: 110, w: 0}
       customData: 
       outline: []
       physicsShape: []
@@ -605,6 +614,72 @@ TextureImporter:
       bones: []
       spriteID: a8022cda626ac9160800000000000000
       internalID: 7033679403100020874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Footer
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 883
+        width: 410
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 100, y: 0, z: 100, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08e906608a1e1f870800000000000000
+      internalID: 8714994865716371072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sign
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 883
+        width: 410
+        height: 177
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 100, y: 0, z: 100, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e6a5fecd19435f20800000000000000
+      internalID: 3410149735224682210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_RewardWell
+      rect:
+        serializedVersion: 2
+        x: 893
+        y: 460
+        width: 307
+        height: 304
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 80, y: 80, z: 80, w: 80}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0859c44df3e6c3330800000000000000
+      internalID: 3691947014960747904
       vertices: []
       indices: 
       edges: []
@@ -642,6 +717,9 @@ TextureImporter:
       Navigation: 8941664399919397806
       Play: 4530770355093785710
       Plus: -4941193113615179719
+      Shop_Footer: 8714994865716371072
+      Shop_RewardWell: 3691947014960747904
+      Shop_Sign: 3410149735224682210
       Stage: -6814378374533660807
       Switch: 7254018856460239251
       Tile: 5426970061134755516

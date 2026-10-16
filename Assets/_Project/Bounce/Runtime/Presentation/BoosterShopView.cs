@@ -102,7 +102,7 @@ namespace BK.Kit
             safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
             header.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
-            var sign=Image(header,"Shop sign",new Vector2(280,100),new Vector2(0,5),Sprite("Level"));
+            var sign=Image(header,"Shop sign",new Vector2(280,100),new Vector2(0,5),Sprite("Shop_Sign"));
             Label(sign.transform,"Shop",new Vector2(240,80),Vector2.zero,60,Color.white);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
@@ -113,7 +113,7 @@ namespace BK.Kit
             bool noAds=product.layout=="NoAds";
             var card=Card((noAds?"NoAds_":"Bundle_")+product.id,noAds?410:420,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
             // Reward wells group the contents without moving the existing items or hit targets.
-            if(!noAds)Image(card,"Reward well",new Vector2(405,260),new Vector2(178,66),Sprite("Tile"));
+            if(!noAds)Image(card,"Reward well",new Vector2(405,260),new Vector2(178,66),Sprite("Shop_RewardWell"));
             if(noAds)
             {
                 Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
@@ -175,7 +175,7 @@ namespace BK.Kit
         private void Footer(RectTransform card,string title,string price,Action click)
         {
             float y=-card.sizeDelta.y*.285f;
-            var strip=Image(card,"Product footer",new Vector2(814,117),new Vector2(0,y-5),Sprite("Level"));
+            var strip=Image(card,"Product footer",new Vector2(814,117),new Vector2(0,y-5),Sprite("Shop_Footer"));
             strip.color=new Color(.75f,.9f,1);
             var label=Label(card,title,new Vector2(455,84),new Vector2(-140,y),49,Color.white);
             label.alignment=TextAlignmentOptions.Left;
@@ -207,7 +207,12 @@ namespace BK.Kit
         private Image Image(Transform parent,string name,Vector2 size,Vector2 position,Sprite sprite,bool sliced=true)
         {
             var image=Rect(parent,name,size,position).gameObject.AddComponent<Image>();image.sprite=sprite;
-            image.type=sliced?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;image.raycastTarget=false;return image;
+            image.type=sliced && sprite!=null && sprite.border!=Vector4.zero?UnityEngine.UI.Image.Type.Sliced:UnityEngine.UI.Image.Type.Simple;
+            // Full-height end caps scale uniformly with the control's height. Only the middle stretches.
+            // A conventional four-sided slice cuts through the rounded ends of these illustrated pills.
+            if(image.type==UnityEngine.UI.Image.Type.Sliced && sprite.border.y==0 && sprite.border.w==0 && size.y>0)
+                image.pixelsPerUnitMultiplier=sprite.rect.height/(size.y*image.pixelsPerUnit);
+            image.raycastTarget=false;return image;
         }
         private TMP_Text Label(Transform parent,string text,Vector2 size,Vector2 position,float fontSize,Color color)
         {
