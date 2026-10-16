@@ -1,0 +1,25 @@
+{
+  "unity": "6000.3.21f1",
+  "result": "Passed",
+  "passed": 3,
+  "failed": 0,
+  "tests": [
+    "VisualFlowTests.ImportedLobbyStartsBounceAndSupportsRetryAndReturn",
+    "VisualFlowTests.CategorizedShopScrollsAndPreviewNeverCharges",
+    "VisualFlowTests.OfflineProfileDialogsAndSaveRecoveryWork"
+  ],
+  "import": "BK_TOY_UI_OK: 20 HUD images; 6 icons; 18 surfaces; shop bindings updated",
+  "visualReview": [
+    "Lobby currency symbols, readable amounts, profile tile, settings and navigation icons",
+    "Selected-tab plate stays below the Play label without moving RectTransforms",
+    "Currency capsules and purchase buttons preserve their rounded silhouettes",
+    "Shop header, category labels, no-ad offer, bundle cards, six coin cards and booster cards",
+    "900x1600 and 900x1846 shop captures"
+  ],
+  "fixes": [
+    "Use unsliced art for currency capsules and purchase buttons to avoid pinched edges",
+    "Reset CanvasRenderer alpha for selected navigation graphics after taking over Unity Toggle visuals",
+    "Include transparent top padding in selected-tab sprite bounds to clear the existing Play button"
+  ],
+  "scope": "HUD and shop visual resources only. Existing layout, prices and navigation destinations retained. Stage map, Play button art and promotional side badges remain outside this pass."
+}

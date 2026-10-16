@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-17",
+  "direction": "3D toy HUD and shop surfaces with existing layout retained",
+  "tool": "built-in image_gen",
+  "icons": {
+    "path": "Assets/_Project/Bounce/Content/UI/Toy/HudIcons.png",
+    "prompt": "Production transparent game UI sprite atlas, exactly 3 columns and 2 rows, six isolated icons, equal square cells, landscape 1536x1024. Rendered 3D toy objects, high quality soft studio lighting upper left, convincing thick sculpted volume and side faces, rounded bevels, glossy candy plastic and metallic gold accents, orthographic three-quarter view. Lavender purple, coral pink and gold cohesive playful casual puzzle game. Each complete icon contained in central 65% of its cell with large fully transparent gutters on ALL sides. Row1 left to right: thick gold coin embossed with five-point star, tilted slightly to show thick rim; puffy deep pink heart with soft specular highlights; adorable little purple toy shop with coral and cream striped awning and tiny gold star sign, no wheels. Row2: cozy purple toy house with coral roof, cream door and gold star above door; rounded lavender padlock with gold shackle and tiny keyhole; thick lavender gear with cream center. ONLY these six objects, no lettering, no numbers, no buttons, no interface, no ground plane, no background. Real alpha transparency, no painted checkerboard. Clear silhouettes, soft ambient occlusion on objects, no long drop shadows. Do not flatten into vector art.",
+    "refinement": "Remove background, haze and glows; preserve six objects and composition with real alpha transparency."
+  },
+  "surfaces": {
+    "path": "Assets/_Project/Bounce/Content/UI/Toy/Surfaces.png",
+    "prompt": "Production transparent game UI COMPONENT sprite atlas, exactly 3 columns x 3 rows, square canvas, nine isolated blank GUI pieces, equally spaced cell centers, wide transparent gutters. High-end 3D toy/candy UI rendered head-on orthographically for Unity nine slicing. Real dimensional side thickness, rounded beveled rims, soft upper-left studio highlights, gentle short shadows. No text, NO icons, NO symbols, NO decorative objects. Purple/lavender and cream palette, with green purchase button. Each component stays inside central 75% of its square cell. Row1: (1) wide cream horizontal currency capsule 3:1 with thick pale lavender raised rim and soft purple underside (2) wide light-lavender rectangular product card 2:1, softly rounded corners, substantial rounded purple outer rim and light flat empty center (3) wide fresh green purchase button 2.5:1, big rounded corners, glossy top edge, darker green thick bottom lip. Row2: (1) square active navigation tab plate, light lavender thick rounded square with raised rim and creamy center, blank (2) wide purple navigation bar base 3:1, softly beveled top and bottom, empty purple center (3) wide lavender header panel 3:1, smooth lightly convex surface and soft beveled edges, empty center. Row3: (1) square profile tile, thick lavender rounded frame, dark purple empty inset (2) square lavender button plate for settings icon, rounded corners, raised edge and pale lavender empty inset (3) wide section heading plaque 3:1, very pale lavender inset and soft purple raised rounded rim. All objects front-facing no perspective distortion so borders can be sliced. Do not merge cells. Keep highlights subtle enough for white text on green button and dark purple text on light panels. Transparent background."
+  },
+  "integration": "HudArtImporter.Import slices explicit rectangles, updates only HUD prefab image/material overrides and Presentation.shopSprites. BoosterShopView uses Sliced header and purple header text.",
+  "preserved": [
+    "RectTransform positions and dimensions",
+    "Button and toggle bindings",
+    "Shop product table, pricing and purchase behavior",
+    "Gameplay and stage-path visuals"
+  ],
+  "scope": "Lobby coin, heart, profile tile, settings, lower navigation icons and surfaces; shop card, price button, category heading, top header and balance panel."
+}
