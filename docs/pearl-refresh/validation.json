@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-17",
+  "concept": "Original scallop-shell cannon and lagoon pearl ammunition",
+  "unity": "6000.3.21f1",
+  "assets": "Assets/_Project/Bounce/Content/Pearl",
+  "rebuildMenu": "BK/Integration/Build Pearl Cannon And Ball",
+  "authoring": "Project-authored parametric scallop, tube, ring and pearl band meshes; Unity sphere primitive; existing URP Lit shader and project OFL font. No imported cannon or ball geometry.",
+  "integration": "Presentation.asset references PearlCannon, PearlBall and PearlHit. CannonRigPreshoot triggers barrel recoil and shell squeeze; CannonExplodeParticle emits the muzzle ring. TXT_BallCount retains the existing counter binding.",
+  "dimensions": "Cannon uses the existing 1.8 scale. Barrel centre is y=0.5004 and muzzle is z=-7.6 in world space; ball nominal radius is 0.5 before gameplay scaling. Collisions, speed, aim and damage logic are unchanged.",
+  "validation": {
+    "assetGeneration": "Batch build completed with exit code 0",
+    "playMode": {"passed": 7, "failed": 0},
+    "testFilter": "VisualFlowTests.PearlCannonPreservesLaunchAndRecoilContract;VisualFlowTests.SfEffectsPlayPauseAndCleanUpWithTheBoard;BounceAimTests",
+    "checks": ["Launch plane and muzzle alignment", "Counter decrement", "Deterministically sampled recoil and height preservation", "Return to idle", "Ball drainage and damage", "Effect pause and cleanup", "Aim and reflection regressions"],
+    "visualReview": ["ingame.png", "detail.png", "shot.png"],
+    "detailView": "Same 60-degree game camera, zoomed with a display pearl placed beside the cannon. Ingame and shot images use the normal gameplay camera.",
+    "scope": "Editor PlayMode on Windows; mobile device performance was not measured. Existing arena, HUD, booster art and audio remain in use."
+  }
+}

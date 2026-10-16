@@ -23,8 +23,8 @@ MonoBehaviour:
   welcomeDeal: {fileID: 1200675569979142226, guid: 793421872a98e644fa1d9af13aebdd12, type: 3}
   endlessOffer: {fileID: 5813000000000000001, guid: c3e6b9a42d8f6e3a0b5c7f1d4a92e863, type: 3}
   endlessGifts: {fileID: 5812000000000000001, guid: b2d5a8f31c7e5d2f9a4b6e0c3f81d752, type: 3}
-  cannon: {fileID: 9129061533232291603, guid: 7ce0c39d75af6ba48862bd7973a33627, type: 3}
-  ball: {fileID: 2654036639705651332, guid: f707b4c9a7d0abc4293f410c2321bc42, type: 3}
+  cannon: {fileID: 6062292837664767747, guid: 3b001fccacfc6f041b60906a7f8ed42d, type: 3}
+  ball: {fileID: 164123979620136528, guid: 1df51654bd6271549b9fc393bf0cabd1, type: 3}
   shopSprites:
   - {fileID: 1402367691520311383, guid: 887e05987db36114b9437762ac7ccbf1, type: 3}
   - {fileID: 127108033125234509, guid: 887e05987db36114b9437762ac7ccbf1, type: 3}
@@ -79,7 +79,7 @@ MonoBehaviour:
   - {fileID: 1709254077376921, guid: 8fed1592a370329438124bba71b505b2, type: 3}
   - {fileID: 1709254077376921, guid: e579c5520866a594e87a6381fcd43bbd, type: 3}
   blockBreakParticle: {fileID: 1709254077376921, guid: 4a3594d14f1c6ca4780932ffdd4f1693, type: 3}
-  ballHitParticle: {fileID: 1709254077376921, guid: 71197516779921b419f4b92c8961acea, type: 3}
+  ballHitParticle: {fileID: 4765438678128117087, guid: 8b0fabf5bde64fd4bbd318eeb4120f1c, type: 3}
   ballTrailMaterial: {fileID: 2100000, guid: 4a5e497ef1899c14d9730fad989abb81, type: 2}
   blockHitSound: {fileID: 8300000, guid: b1c16f6fb13654b468f6f91d21276ebe, type: 3}
   blockBreakSound: {fileID: 8300000, guid: 6ead6119610820240a3a554a2224c4a9, type: 3}

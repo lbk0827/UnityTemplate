@@ -41,7 +41,7 @@ namespace BK.Kit
         private const int SolidLayer = 10;
         // Blocks are unit cubes centred on their root; Height lifts them so their base rests on the grass top (y=0).
         private const float Height = .5f, Speed = 18f;
-        // Smash_Ball's SphereCollider radius at scale 1; the visual is scaled from it to match the gameplay radius.
+        // Authored ball mesh radius at scale 1; visual size matches the gameplay radius.
         private const float BallPrefabRadius = .5f;
         // Default for the static preview; matches IngameConfig.ballRadius's default.
         private const float DefaultRadius = .25f;

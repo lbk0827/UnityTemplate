@@ -21,6 +21,48 @@ public sealed class VisualFlowTests
 {
     private string folder;
     [UnityTest]
+    public IEnumerator PearlCannonPreservesLaunchAndRecoilContract()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
+        Assert.That(game.presentation.cannon.name,Is.EqualTo("PearlCannon"));
+        Assert.That(game.presentation.ball.name,Is.EqualTo("PearlBall"));
+        var cannon=GameObject.Find("Bounce_Cannon");var barrel=cannon.transform.Find("Barrel");
+        Assert.That(cannon.GetComponentsInChildren<Collider>(),Is.Empty);
+        Assert.That(cannon.GetComponentsInChildren<MonoBehaviour>().All(c=>c!=null),Is.True);
+        Assert.That(barrel.position.y,Is.EqualTo(.5f).Within(.025f));
+        Assert.That(barrel.Find("CannonExplodeParticle").position.z,Is.EqualTo(-7.6f).Within(.025f));
+        Dump("pearl-ingame");
+        // Detail view uses the same 60-degree gameplay angle, without changing the authored assets.
+        var camera=Camera.main;var position=camera.transform.position;var size=camera.orthographicSize;
+        camera.transform.position=cannon.transform.position-camera.transform.forward*12;camera.orthographicSize=3.4f;
+        var sample=UnityEngine.Object.Instantiate(game.presentation.ball);
+        sample.transform.position=cannon.transform.position+new Vector3(1.15f,.5f,1.1f);sample.transform.localScale=Vector3.one*.5f;
+        Dump("pearl-detail");UnityEngine.Object.Destroy(sample);
+        camera.transform.position=position;camera.orthographicSize=size;
+        yield return null;
+        int count=game.BallsRemaining;Assert.That(game.Fire(Vector3.forward),Is.True);
+        Assert.That(game.BallsRemaining,Is.EqualTo(count-1));
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<BounceEffects>().MuzzlePlaying,Is.True);
+        // Explicit sampling avoids screenshot/shader compilation stalls skipping a short recoil.
+        var animator=cannon.GetComponent<Animator>();animator.Update(0);animator.Update(.06f);
+        Assert.That(barrel.localPosition.z,Is.LessThan(-.02f),"New barrel recoils on the existing launch trigger");
+        Assert.That(barrel.localPosition.y,Is.EqualTo(.278f).Within(.005f),"Recoil preserves the launch plane");
+        Dump("pearl-shot");
+        yield return new WaitForSeconds(.3f);
+        Assert.That(barrel.localPosition.z,Is.EqualTo(0).Within(.005f));
+        Assert.That(cannon.transform.Find("Shell").localScale.x,Is.EqualTo(1).Within(.005f));
+        yield return new WaitForSeconds(2);
+        Assert.That(game.ActiveBalls,Is.Zero);
+        Assert.That(game.BlocksRemaining,Is.LessThan(24));
+    }
+
+    [UnityTest]
     public IEnumerator SfEffectsPlayPauseAndCleanUpWithTheBoard()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));

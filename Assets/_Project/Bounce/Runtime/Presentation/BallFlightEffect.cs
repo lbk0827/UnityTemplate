@@ -15,7 +15,7 @@ namespace BK.Kit
             var go=new GameObject("SF ball flight trail");go.layer=2;go.transform.SetParent(transform,false);
             trail=go.AddComponent<TrailRenderer>();trail.sharedMaterial=material;
             trail.time=.13f;trail.minVertexDistance=.08f;trail.startWidth=.22f;trail.endWidth=0;
-            trail.startColor=new Color(.72f,.91f,1,.65f);trail.endColor=new Color(.72f,.91f,1,0);
+            trail.startColor=new Color(1,.95f,.78f,.65f);trail.endColor=new Color(.65f,.94f,.9f,0);
             trail.numCapVertices=3;trail.numCornerVertices=2;trail.alignment=LineAlignment.View;
             trail.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;trail.receiveShadows=false;trail.Clear();
         }
