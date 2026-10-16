@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-17",
+  "tool": "built-in image_gen",
+  "purpose": "Reduce excessive 3D surface treatment while retaining dimensional icons and the existing layout.",
+  "asset": "Assets/_Project/Bounce/Content/UI/Toy/Surfaces.png",
+  "prompt": "Edit the supplied transparent UI surface atlas. The user finds the current 3D effect FAR TOO STRONG. Replace the visual style of all nine panels with restrained modern casual mobile UI: matte surfaces, almost flat softly rounded shapes, a very thin subtle border, and ONLY a faint 2-pixel short soft underside shadow. Remove ALL thick raised rims, recessed troughs, hard bevels, bright gloss, white specular streaks, neon greens and dark extruded bottom slabs. Reduce perceived depth by at least 85%. Large clean interiors. Pale warm cream currency capsule; pale lavender product card; moderate fresh green purchase button with tiny tonal gradient (no gloss); warm cream selected tab; muted medium lavender navigation bar; very pale lavender header; muted dark purple profile tile with thin lilac border; pale lavender settings tile; very pale lavender heading strip. Keep EXACTLY the same nine objects, exact positions, outer shapes, sizes, bounding boxes and transparent gaps as the input image. Same square canvas. No text, icons, additions, layout change, checkerboard or backdrop. Preserve real alpha transparency. The result should feel light and quiet, closer to flat UI with just a hint of softness, not plastic toys.",
+  "changes": [
+    "Remove thick bevels and glossy highlights",
+    "Use thin lavender borders and short soft shadows",
+    "Use dark purple price text on softer green buttons"
+  ],
+  "unchanged": [
+    "HUD and product icons",
+    "Sprite names and existing references",
+    "UI geometry, prices and button behavior"
+  ]
+}
