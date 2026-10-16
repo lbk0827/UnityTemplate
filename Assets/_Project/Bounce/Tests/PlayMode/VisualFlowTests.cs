@@ -175,6 +175,21 @@ public sealed class VisualFlowTests
         var store=hud.Get<Toggle>("StoreToggle");var home=hud.Get<Toggle>("HomeToggle");
         Assert.That(home.isOn,Is.True);
         Assert.That(store.targetGraphic.raycastTarget,Is.True);
+        // Reversing selection while paused must finish with one highlighted tab and visible icons.
+        Time.timeScale=0;
+        navigation.Select(0);yield return new WaitForSecondsRealtime(.08f);
+        var storePlate=store.transform.Find("Checkmark").GetComponent<CanvasGroup>();
+        Assert.That(storePlate.alpha,Is.GreaterThan(0).And.LessThan(1));
+        navigation.Select(2);navigation.Select(1);
+        yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(storePlate.alpha,Is.EqualTo(0));
+        Assert.That(home.transform.Find("Checkmark").GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
+        foreach(var tab in new[]{store,home})
+        {
+            var icon=tab.transform.Find("IMG_On").GetComponent<Image>();
+            Assert.That(icon.enabled,Is.True);Assert.That(icon.color.a,Is.EqualTo(1));
+        }
+        Time.timeScale=1;
         Click(store);
         yield return new WaitForSecondsRealtime(.35f);
         Assert.That(navigation.SelectedPage,Is.EqualTo(0));

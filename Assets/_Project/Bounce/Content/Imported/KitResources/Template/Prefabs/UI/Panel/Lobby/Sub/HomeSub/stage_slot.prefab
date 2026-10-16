@@ -118,14 +118,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.29882812, y: 0.39746094, z: 0.59375, w: 0.6923828}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &479135056596309188
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,14 +194,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.29882812, y: 0.8017578, z: 0.38085938, w: 0.88371474}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &714262169916696361
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,20 +229,13 @@ Transform:
 --- !u!114 &4895412578364523446
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject:
-    fileID: 0
-  m_PrefabInstance:
-    fileID: 0
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 714262169916696361
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714262169916696361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
+  m_Script: {fileID: 11500000, guid: bb010001000000000000000000000001, type: 3}
   m_Name: null
   m_EditorClassIdentifier: null
   tracks: []
@@ -332,14 +309,14 @@ MonoBehaviour:
   m_text: Hard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2d7dc4188c3c594f84224cca3cbe1f4, type: 2}
-  m_sharedMaterial: {fileID: 3016017569448666075, guid: d2d7dc4188c3c594f84224cca3cbe1f4, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79686338f53b0d04390934f6d267075f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -367,20 +344,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -395,54 +375,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -515,14 +447,14 @@ MonoBehaviour:
   m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 421a7255f1992af47936b9ebf965e33b, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4292606203
-  m_fontColor: {r: 0.9843137, g: 0.972549, b: 0.85882354, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -550,20 +482,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -578,54 +513,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -705,14 +592,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.59765625, y: 0.62409776, z: 0.6796875, w: 0.705052}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &4848416853296902718
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,14 +667,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.5058594, y: 0.69628906, z: 0.5830078, w: 0.7968489}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &4974032756959754009
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,14 +736,14 @@ MonoBehaviour:
   m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 4bdc52f43b5d2d14b947d9c22df433ec, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4292606203
-  m_fontColor: {r: 0.9843137, g: 0.972549, b: 0.85882354, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -900,20 +771,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -928,54 +802,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -1014,20 +840,13 @@ Transform:
 --- !u!114 &4988171106070341404
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject:
-    fileID: 0
-  m_PrefabInstance:
-    fileID: 0
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 5233232316541001786
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5233232316541001786}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
+  m_Script: {fileID: 11500000, guid: bb010001000000000000000000000001, type: 3}
   m_Name: null
   m_EditorClassIdentifier: null
   tracks: []
@@ -1108,14 +927,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.29882812, y: 0.39746094, z: 0.59375, w: 0.6923828}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &5566578679107062315
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,36 +962,22 @@ Transform:
 --- !u!114 &8361628008630551847
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject:
-    fileID: 0
-  m_PrefabInstance:
-    fileID: 0
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 5566578679107062315
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5566578679107062315}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
+  m_Script: {fileID: 11500000, guid: bb010001000000000000000000000001, type: 3}
   m_Name: null
   m_EditorClassIdentifier: null
   tracks:
-  - target:
-      fileID: 7838055091569103448
+  - target: {fileID: 7838055091569103448}
     kind: 0
     start: 0
     duration: 1
-    from:
-      x: 1
-      y: 1
-      z: 1
-    to:
-      x: 1.05
-      y: 1.05
-      z: 1.05
+    from: {x: 1, y: 1, z: 1}
+    to: {x: 1.05, y: 1.05, z: 1.05}
     reverse: 0
     relative: 0
     curve:
@@ -1259,14 +1056,14 @@ MonoBehaviour:
   m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2d7dc4188c3c594f84224cca3cbe1f4, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 2dc9a63c2a06b614f9c1d58bda0ab1fe, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79686338f53b0d04390934f6d267075f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4292606203
-  m_fontColor: {r: 0.9843137, g: 0.972549, b: 0.85882354, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1294,20 +1091,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: -10
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1322,54 +1122,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -1441,14 +1193,14 @@ MonoBehaviour:
   m_text: Super Hard
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d2d7dc4188c3c594f84224cca3cbe1f4, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 08b83836f93ac2c438bcd42f9d12b60e, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 79686338f53b0d04390934f6d267075f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1476,20 +1228,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 00000000
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -1504,54 +1259,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -1590,20 +1297,13 @@ Transform:
 --- !u!114 &4259756134960943395
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject:
-    fileID: 0
-  m_PrefabInstance:
-    fileID: 0
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 6341664327586997430
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6341664327586997430}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
+  m_Script: {fileID: 11500000, guid: bb010001000000000000000000000001, type: 3}
   m_Name: null
   m_EditorClassIdentifier: null
   tracks: []
@@ -1684,14 +1384,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _uv1: {x: 0.43164062, y: 0, z: 0.8251953, w: 0.3935547}
-  mesh: {fileID: 0}
-  meshPivot: {x: 0.5, y: 0.5}
-  meshRotate: {x: 0, y: 0, z: 0}
-  _meshSliderType: 0
-  m_CenterLineTransform: {fileID: 0}
-  sidePolygonSize: 10
-  uvType: 0
 --- !u!1 &7838055091569103448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,74 +1468,40 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  m_OnPointerUp:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnPointerDown:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnClickInInactive:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &-8146627860422511370
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject:
-    fileID: 0
-  m_PrefabInstance:
-    fileID: 0
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 7838055091569103448
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838055091569103448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000003
-    type: 3
+  m_Script: {fileID: 11500000, guid: bb010001000000000000000000000003, type: 3}
   m_Name: null
   m_EditorClassIdentifier: null
   role: StageSlot
   entries:
   - key: levelBackground
-    value:
-      fileID: 7643180843940587405
+    value: {fileID: 7643180843940587405}
   - key: normalText
-    value:
-      fileID: 130312817440232128
+    value: {fileID: 130312817440232128}
   - key: hardText
-    value:
-      fileID: 1559540634935995253
+    value: {fileID: 1559540634935995253}
   - key: veryHardText
-    value:
-      fileID: 913942805123086724
+    value: {fileID: 913942805123086724}
   - key: feverText
-    value:
-      fileID: 5084093090338867419
+    value: {fileID: 5084093090338867419}
   - key: dim
-    value:
-      fileID: 5428620815560486719
+    value: {fileID: 5428620815560486719}
   - key: normalSprite
-    value:
-      fileID: 21300000
-      guid: 981ea09637df5d198434463ed45de4f7
-      type: 3
+    value: {fileID: -6814378374533660807, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
   - key: hardSprite
-    value:
-      fileID: 21300000
-      guid: 6f90518bb2a05c129bc8e49b595bebe5
-      type: 3
+    value: {fileID: -6814378374533660807, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
   - key: veryHardSprite
-    value:
-      fileID: 21300000
-      guid: 36a47021139d524b9e67ee32b69eee35
-      type: 3
+    value: {fileID: -6814378374533660807, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
   - key: feverSprite
-    value:
-      fileID: 21300000
-      guid: f2efb2a2787e1f64b8f486fd0b706a85
-      type: 3
+    value: {fileID: 21300000, guid: f2efb2a2787e1f64b8f486fd0b706a85, type: 3}
 --- !u!1 &8199125039978387974
 GameObject:
   m_ObjectHideFlags: 0
@@ -1948,14 +1606,14 @@ MonoBehaviour:
   m_text: 99
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 29e6d1c08c2333f4fa7196bab95daa6e, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4292606203
-  m_fontColor: {r: 0.9843137, g: 0.972549, b: 0.85882354, a: 1}
+  m_fontColor: {r: 1, g: 0.98, b: 0.89, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1983,20 +1641,23 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
+  m_ActiveFontFeatures: 6e72656b
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
+  m_EmojiFallbackSupport: 1
   m_parseCtrlCharacters: 1
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -2011,54 +1672,6 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  _rotateText: 0
-  _radius: 500
-  _isFlipped: 0
-  _spacingWeight: 0.5
-  m_waitDelay: 0
-  m_speedRate: 1
-  m_waitForNormalChars: 0.02
-  m_waitLong: 0.1
-  m_waitMiddle: 0.05
-  m_waitCharSpeedRateCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_playOnEnable: 1
-  defaultTagsMode: 0
-  defaultAppearancesTags: []
-  defaultBehaviorsTags: []
-  defaultStyleTags: []
-  triggerShowedAfterEffectsEnd: 0
-  onTextShowed:
-    m_PersistentCalls:
-      m_Calls: []
-  onCharacterVisible:
-    m_PersistentCalls:
-      m_Calls: []
-  onMessage:
-    m_PersistentCalls:
-      m_Calls: []
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
@@ -2075,11 +1688,11 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3546427795924084809, guid: 7822b591cfd50464aa58d691479f31e0, type: 3}
-      propertyPath: animationSteps.Array.data[1]
+      propertyPath: 'animationSteps.Array.data[1]'
       value: 6317639220793180171
       objectReference: {fileID: 0}
     - target: {fileID: 3546427795924084809, guid: 7822b591cfd50464aa58d691479f31e0, type: 3}
-      propertyPath: managedReferences[6317639220793180171]
+      propertyPath: 'managedReferences[6317639220793180171]'
       value: BrunoMikoski.AnimationSequencer BrunoMikoski.AnimationSequencer.PlaySequenceAnimationStep
       objectReference: {fileID: 0}
     - target: {fileID: 3546427795924084809, guid: 7822b591cfd50464aa58d691479f31e0, type: 3}
@@ -2159,29 +1772,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7822b591cfd50464aa58d691479f31e0, type: 3}
---- !u!114 &1279865299936576073 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject:
-    fileID: 3546427795924084809
-    guid: 7822b591cfd50464aa58d691479f31e0
-    type: 3
-  m_PrefabInstance:
-    fileID: 2374962708026092032
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 0
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
-  m_Name: null
-  m_EditorClassIdentifier: null
-  tracks: []
-  autoplay: 0
-  repeat: 0
 --- !u!4 &7638281892323378124 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5401275102061537740, guid: 7822b591cfd50464aa58d691479f31e0, type: 3}
@@ -2200,23 +1790,23 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
-      propertyPath: animationSteps.Array.data[0]
+      propertyPath: 'animationSteps.Array.data[0]'
       value: 3100629781639593984
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
-      propertyPath: animationSteps.Array.data[1]
+      propertyPath: 'animationSteps.Array.data[1]'
       value: 9172250656949665792
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
-      propertyPath: animationSteps.Array.data[2]
+      propertyPath: 'animationSteps.Array.data[2]'
       value: 9172250656949665792
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
-      propertyPath: managedReferences[6317639220793180169]
+      propertyPath: 'managedReferences[6317639220793180169]'
       value: BrunoMikoski.AnimationSequencer BrunoMikoski.AnimationSequencer.PlaySequenceAnimationStep
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
-      propertyPath: managedReferences[6317639220793180170]
+      propertyPath: 'managedReferences[6317639220793180170]'
       value: BrunoMikoski.AnimationSequencer StudioG.AnimationSequencer.StopSequenceAnimationStep
       objectReference: {fileID: 0}
     - target: {fileID: 180737161092367243, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
@@ -2345,26 +1935,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7518759884603939959, guid: cae016035d5aec443bbb6823b2948edb, type: 3}
   m_PrefabInstance: {fileID: 6174127808337392189}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6281663835632841142 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject:
-    fileID: 180737161092367243
-    guid: cae016035d5aec443bbb6823b2948edb
-    type: 3
-  m_PrefabInstance:
-    fileID: 6174127808337392189
-  m_PrefabAsset:
-    fileID: 0
-  m_GameObject:
-    fileID: 0
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script:
-    fileID: 11500000
-    guid: bb010001000000000000000000000001
-    type: 3
-  m_Name: null
-  m_EditorClassIdentifier: null
-  tracks: []
-  autoplay: 0
-  repeat: 0

@@ -67,7 +67,7 @@ namespace BK.Kit
                         var reward=app.Shop.Rewards(product,0).First();
                         float x=(index%3-1)*287,y=top+index/3*390;
                         var card=Image(content,"Coins_"+reward.amount,new Vector2(274,370),new Vector2(x,-y-185),Sprite("IMG_Coin_Goods_Bg")).rectTransform;
-                        // Preserve the existing shop content positions within the new flat card.
+                        // The existing card geometry also reserves the footer for the purchase action.
                         Icon(card,product.icon,new Vector2(200,160),new Vector2(0,78));
                         Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Ink);
                         Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
@@ -80,7 +80,7 @@ namespace BK.Kit
                 {
                     float height=Mathf.Ceil(index/3f)*390;cursor=top+height;
                     var background=Image(content,"Coin section background",new Vector2(940,height+180),new Vector2(0,-top-height/2+80),null);
-                    background.color=new Color(.985f,.972f,.952f);background.transform.SetAsFirstSibling();
+                    background.color=new Color(.24f,.14f,.56f);background.transform.SetAsFirstSibling();
                 }
                 Gap(30);
             }
@@ -92,18 +92,18 @@ namespace BK.Kit
             foreach(var child in store.GetComponentsInChildren<Transform>(true))
                 if(child.name=="UI_ShopTitle" || child.name=="IMG_Bg_Blue" || child.name=="IMG_Bg_Red")child.gameObject.SetActive(false);
             var background=Image(store,"Shop background",Vector2.zero,Vector2.zero,null);
-            background.color=new Color(.985f,.972f,.952f);
+            background.color=new Color(.24f,.14f,.56f);
             background.rectTransform.anchorMin=Vector2.zero;background.rectTransform.anchorMax=Vector2.one;
             background.rectTransform.offsetMin=background.rectTransform.offsetMax=Vector2.zero;background.transform.SetAsFirstSibling();
             var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
             header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;header.sizeDelta=new Vector2(0,300);
-            var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("IMG_ShopBox"));
-            art.type=UnityEngine.UI.Image.Type.Sliced;
+            var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("Canopy"),false);
             art.rectTransform.anchorMin=Vector2.zero;art.rectTransform.anchorMax=Vector2.one;
             safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
             header.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
-            Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Ink);
+            var sign=Image(header,"Shop sign",new Vector2(280,100),new Vector2(0,5),Sprite("Level"));
+            Label(sign.transform,"Shop",new Vector2(240,80),Vector2.zero,60,Color.white);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
             goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,Ink);
@@ -112,7 +112,8 @@ namespace BK.Kit
         {
             bool noAds=product.layout=="NoAds";
             var card=Card((noAds?"NoAds_":"Bundle_")+product.id,noAds?410:420,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
-            // Preserve the existing shop content positions within the new flat card.
+            // Reward wells group the contents without moving the existing items or hit targets.
+            if(!noAds)Image(card,"Reward well",new Vector2(405,260),new Vector2(178,66),Sprite("Tile"));
             if(noAds)
             {
                 Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
@@ -163,7 +164,7 @@ namespace BK.Kit
         private RectTransform Section(string title,string sprite)
         {
             var heading=Image(content,"Category_"+title,new Vector2(860,124),new Vector2(0,-cursor-62),Sprite(sprite)).rectTransform;
-            Label(heading,title,new Vector2(790,90),new Vector2(0,5),53,Ink);
+            Label(heading,title,new Vector2(790,90),new Vector2(0,5),53,Color.white);
             cursor+=165;return heading;
         }
         private RectTransform Card(string name,float height,string sprite)
@@ -174,7 +175,9 @@ namespace BK.Kit
         private void Footer(RectTransform card,string title,string price,Action click)
         {
             float y=-card.sizeDelta.y*.285f;
-            var label=Label(card,title,new Vector2(490,84),new Vector2(-155,y),49,Ink);
+            var strip=Image(card,"Product footer",new Vector2(814,117),new Vector2(0,y-5),Sprite("Level"));
+            strip.color=new Color(.75f,.9f,1);
+            var label=Label(card,title,new Vector2(455,84),new Vector2(-140,y),49,Color.white);
             label.alignment=TextAlignmentOptions.Left;
             Buy(card,"Preview_"+card.name,price,new Vector2(305,120),new Vector2(250,y),51,click);
         }
@@ -182,7 +185,7 @@ namespace BK.Kit
         {
             var image=Image(parent,name,size,position,Sprite("IMG_Bundle_Goods_Btn"));image.raycastTarget=true;
             var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;
-            Label(button.transform,text,size-new Vector2(28,18),Vector2.zero,fontSize,Ink);
+            Label(button.transform,text,size-new Vector2(28,18),new Vector2(0,3),fontSize,Color.white);
             button.onClick.AddListener(()=>click());return button;
         }
         private Image Icon(Transform parent,string sprite,Vector2 size,Vector2 position)
