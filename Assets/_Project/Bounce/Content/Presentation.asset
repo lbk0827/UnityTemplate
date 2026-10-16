@@ -68,3 +68,4 @@ MonoBehaviour:
   shotSound: {fileID: 8300000, guid: 189ef4e097890e34eac02d30f8cb6b07, type: 3}
   arenaMaterial: {fileID: 2100000, guid: 047e176e0c41db04c926f43789d94d40, type: 2}
   trajectoryMaterial: {fileID: 2100000, guid: db41185a14fdf0049b092fa894d4e00d, type: 2}
+  ingameConfig: {fileID: 11400000, guid: 47074d8e35214ac3b07f1cd1db01fe2e, type: 2}

@@ -34,7 +34,11 @@ namespace BK.Kit
         private int columns;
         private Vector3 aim = Vector3.forward;
         private const int SolidLayer = 10;
-        private const float Radius = .25f, Height = .5f, Speed = 18f;
+        // Blocks are unit cubes centred on their root; Height lifts them so their base rests on the grass top (y=0).
+        private const float Height = .5f, Speed = 18f;
+        // Smash_Ball's SphereCollider radius at scale 1; the visual is scaled from it to match the gameplay radius.
+        private const float BallPrefabRadius = .5f;
+        private float Radius => presentation.ingameConfig.ballRadius;
 
         public override void Begin(int level, Action<bool> onCompleted)
         {
@@ -62,7 +66,7 @@ namespace BK.Kit
                     if (hp<1 || hp>9) continue;
                     var root=new GameObject("Block_"+col+"_"+row).transform;
                     root.SetParent(rig.transform,false);
-                    root.position=new Vector3(col-(columns-1)*.5f,0,7-row);
+                    root.position=new Vector3(col-(columns-1)*.5f,Height,7-row);
                     var block=new Block {root=root,hp=hp};
                     blocks.Add(block); BuildBlock(block);
                 }
@@ -71,6 +75,7 @@ namespace BK.Kit
             cannon.transform.position=new Vector3(0,0,-8.5f);
             cannon.transform.localScale=Vector3.one*1.8f;
             PrepareVisual(cannon,false);
+            RestOnGround(cannon);
             line=new GameObject("Aim trajectory",typeof(LineRenderer)).GetComponent<LineRenderer>();
             line.transform.SetParent(rig.transform,false);
             line.sharedMaterial=presentation.trajectoryMaterial;
@@ -92,7 +97,7 @@ namespace BK.Kit
             float delta=1.5f*Mathf.Sqrt(.5f);
             Box("Bumper left",new Vector3(-half+delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),45,wall,true);
             Box("Bumper right",new Vector3(half-delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),135,wall,true);
-            Box("Grass",new Vector3(0,-.08f,1.25f),new Vector3(columns+4,.1f,16.5f),0,new Color(.45f,.78f,.3f),false);
+            Box("Grass",new Vector3(0,-.05f,1.25f),new Vector3(columns+4,.1f,16.5f),0,new Color(.45f,.78f,.3f),false);
             Box("Water",new Vector3(0,-.1f,-10),new Vector3(columns+4,.1f,6),0,new Color(.25f,.55f,.95f),false);
         }
         private void Box(string name,Vector3 position,Vector3 scale,float yaw,Color color,bool solid)
@@ -117,6 +122,14 @@ namespace BK.Kit
             foreach(var joint in go.GetComponentsInChildren<Joint>(true)) Destroy(joint);
             foreach(var t in go.GetComponentsInChildren<Transform>(true)) t.gameObject.layer=solid?SolidLayer:2;
             if(!solid) foreach(var collider in go.GetComponentsInChildren<Collider>(true)) {collider.enabled=false;Destroy(collider);}
+        }
+        // Lifts a visual so its lowest mesh sits on the grass top (y=0). Text meshes are skipped: they are empty until TMP builds them.
+        private static void RestOnGround(GameObject go)
+        {
+            float bottom=float.MaxValue;
+            foreach(var renderer in go.GetComponentsInChildren<Renderer>())
+                if((renderer is MeshRenderer || renderer is SkinnedMeshRenderer) && renderer.GetComponent<TMP_Text>()==null)bottom=Mathf.Min(bottom,renderer.bounds.min.y);
+            if(bottom!=float.MaxValue)go.transform.position+=Vector3.up*-bottom;
         }
         private void Update()
         {
@@ -146,6 +159,7 @@ namespace BK.Kit
             if(!playing || IsUsingBooster || BallsRemaining<=0 || KitApp.Instance.IsLoading || Time.timeScale==0)return false;
             direction.y=0;if(direction.z<=0 || direction.sqrMagnitude<.001f)return false;direction.Normalize();
             var visual=Instantiate(presentation.ball,rig.transform);PrepareVisual(visual,false);
+            visual.transform.localScale=Vector3.one*(Radius/BallPrefabRadius);
             var position=new Vector3(0,Height,-8.5f)+direction*.9f;
             visual.transform.position=position;
             shots.Add(new Shot {visual=visual,position=position,direction=direction});
@@ -198,7 +212,8 @@ namespace BK.Kit
         {
             var points=new List<Vector3>();var pos=new Vector3(0,Height,-8.5f)+aim*.9f;var direction=aim;float length=30;
             points.Add(pos);
-            for(int i=0;i<4;i++)
+            // Guide shows the first bounce only: path to the first hit, then the reflected leg up to the next contact.
+            for(int i=0;i<2;i++)
             {
                 if(Physics.SphereCast(pos,Radius,direction,out var hit,length,1<<SolidLayer,QueryTriggerInteraction.Ignore))
                 {pos+=direction*hit.distance;points.Add(pos);length-=hit.distance;direction=Reflect(direction,hit.normal);pos+=direction*.001f;}

@@ -12,5 +12,6 @@ namespace BK.Kit
         public TextAsset levels;
         public AudioClip lobbyMusic, ingameMusic, startSound, shotSound;
         public Material arenaMaterial, trajectoryMaterial;
+        public IngameConfig ingameConfig;
     }
 }
