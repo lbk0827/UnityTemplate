@@ -127,30 +127,6 @@ namespace BK.Kit
         private static StepOfferStep Paid(int step, int productId) => new() { Step = step, IsPaid = true, ProductId = productId.ToString() };
     }
 
-    /// <summary>Seven-day login cycle, three daily bonus slots and an hourly gift (sf template rules).</summary>
-    public sealed class BounceDailyRewards : IDailyRewardCatalog
-    {
-        public IReadOnlyList<ItemGrant[]> Days { get; } = new[]
-        {
-            new[] { BounceItems.Gold(200) },
-            new[] { BounceItems.Gold(300) },
-            new[] { BounceItems.Booster(BoosterKind.Missile, 1) },
-            new[] { BounceItems.Gold(500) },
-            new[] { BounceItems.Booster(BoosterKind.Bomb, 1) },
-            new[] { BounceItems.Gold(800) },
-            new[] { BounceItems.Gold(1500), BounceItems.Booster(BoosterKind.ExtraBall, 1) },
-        };
-
-        public IReadOnlyList<ItemGrant[]> BonusSlots { get; } = new[]
-        {
-            new[] { BounceItems.Gold(50) },
-            new[] { BounceItems.Gold(50) },
-            new[] { BounceItems.Gold(100) },
-        };
-
-        public ItemGrant[] Hourly { get; } = { BounceItems.Gold(20) };
-    }
-
     /// <summary>Consecutive clears up to 10; milestones hand boosters to the next attempt (sf 3/5/10).</summary>
     public sealed class BounceWinStreak : IWinStreakCatalog
     {

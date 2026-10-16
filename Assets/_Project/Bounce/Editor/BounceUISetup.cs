@@ -9,7 +9,7 @@ using UnityEngine;
 namespace BK.Kit.Editor
 {
     /// <summary>
-    /// Generates Bounce's BK.UI popup prefabs (daily rewards, win-streak pre-play) and registers them as Addressables.
+    /// Generates Bounce's BK.UI popup prefabs (win-streak pre-play) and registers them as Addressables.
     /// The prefabs carry only the view component and the presentation reference; the views skin themselves at runtime.
     /// </summary>
     public static class BounceUISetup
@@ -26,7 +26,6 @@ namespace BK.Kit.Editor
             var settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null) throw new InvalidOperationException("Missing Addressables settings.");
             var group = IntegrationSetup.EnsureGroup(settings);
-            Build<DailyRewardPopup>("DailyRewardPopup", DailyRewardPopup.Address, presentation, settings, group);
             Build<WinStreakPopup>("WinStreakPopup", WinStreakPopup.Address, presentation, settings, group);
             AssetDatabase.SaveAssets();
             Debug.Log("BK_BOUNCE_UI_OK");

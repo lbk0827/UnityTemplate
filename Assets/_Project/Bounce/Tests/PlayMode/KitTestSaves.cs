@@ -20,7 +20,6 @@ public static class KitTestSaves
     public static string PlayerName(string folder) => Open(folder).Get<BounceProfileData>().playerName;
     public static OptionsData Options(string folder) => Open(folder).Get<OptionsData>();
     public static int StepOfferNextStep(string folder, StepOfferType type) => Open(folder).Get<StepOfferData>().Find(type)?.nextStep ?? 0;
-    public static int DailyNextDay(string folder) => Open(folder).Get<DailyRewardsData>().nextDay;
     public static int WinStreak(string folder) => Open(folder).Get<WinStreakData>().streak;
 
     private static long Currency(string folder, string id)

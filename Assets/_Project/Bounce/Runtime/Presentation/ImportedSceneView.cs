@@ -27,8 +27,6 @@ namespace BK.Kit
         private GameObject saveNotice;
         private TMP_Text profileInitials;
         private VisualBindings heartHud;
-        private TMP_Text dailyCount;
-        private GameObject dailyDot;
 
         public UILayer Layer => UILayer.Content;
         public bool IsOpen { get; private set; }
@@ -178,7 +176,6 @@ namespace BK.Kit
                 offersView=gameObject.AddComponent<LobbyOffersView>();
                 offersView.Initialize(screen,canvas,presentation,()=>popup!=null || dialog!=null || (stagePath!=null && stagePath.IsAdvancing),ShowInfo);
             }
-            BuildDailyButton(navigation);
             Active(screen,"store_no_wifi",false);
             var pages=screen.GetComponentsInChildren<ScrollRect>(true).First(s=>s.name=="svl_lobby");
             var offlinePage=pages.content.GetChild(2);
@@ -232,7 +229,6 @@ namespace BK.Kit
         {
             RefreshBoosters();
             if(saveNotice!=null)saveNotice.SetActive(app.HasPendingSave);
-            UpdateDailyBadge();
             if(profileInitials!=null)profileInitials.text=new string(app.PlayerName.Where(char.IsLetterOrDigit).Take(2).ToArray()).ToUpperInvariant();
             if(lobby && hud!=null)
                 foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
@@ -383,43 +379,10 @@ namespace BK.Kit
             if(PopupBlocked)return;
             OpenPopup(app.UI.OpenAsync<WinStreakPopup,int>(WinStreakPopup.Address,level)).Forget();
         }
-        private void OpenDaily()
-        {
-            if(app.IsLoading || PopupBlocked)return;
-            OpenPopup(app.UI.OpenAsync<DailyRewardPopup>(DailyRewardPopup.Address)).Forget();
-        }
         private async UniTask OpenPopup<T>(UniTask<T> open)
         {
             opening=true;
             try{await open;}finally{opening=false;}
-        }
-        private void UpdateDailyBadge()
-        {
-            if(dailyCount==null || app==null)return;
-            int claimable=app.Daily.ClaimableCount;dailyCount.text=claimable.ToString();dailyDot.SetActive(claimable>0);
-        }
-        // The imported home panel has no daily entry (sf left it unassigned), so the button is built here and shown on the Home page only.
-        private void BuildDailyButton(LobbyNavigation navigation)
-        {
-            var rect=KitUI.Box(canvas,"Daily button",new Vector2(190,84),Vector2.zero,Color.white);
-            rect.anchorMin=rect.anchorMax=new Vector2(0,.5f);rect.pivot=new Vector2(0,.5f);rect.anchoredPosition=new Vector2(20,140);
-            var image=rect.GetComponent<Image>();
-            var win=Role(presentation.win,"StageClearPopup");
-            var skin=win.Get<Button>("basic.claimButton").targetGraphic as Image;
-            if(skin!=null){image.sprite=skin.sprite;image.type=Image.Type.Sliced;}
-            var button=rect.gameObject.AddComponent<Button>();button.targetGraphic=image;button.onClick.AddListener(OpenDaily);
-            var source=presentation.settings.GetComponentInChildren<TMP_Text>(true);
-            var label=new GameObject("Daily label",typeof(RectTransform),typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
-            label.transform.SetParent(rect,false);label.rectTransform.sizeDelta=new Vector2(170,70);
-            label.font=source.font;label.fontSharedMaterial=source.fontSharedMaterial;label.fontSize=30;
-            label.text="Daily";label.alignment=TextAlignmentOptions.Center;label.raycastTarget=false;
-            var dot=KitUI.Box(rect,"Daily red dot",new Vector2(44,44),new Vector2(178,36),new Color(.9f,.15f,.15f));
-            dot.GetComponent<Image>().raycastTarget=false;dailyDot=dot.gameObject;
-            dailyCount=new GameObject("Daily count",typeof(RectTransform),typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
-            dailyCount.transform.SetParent(dot,false);dailyCount.rectTransform.sizeDelta=new Vector2(44,44);
-            dailyCount.font=source.font;dailyCount.fontSharedMaterial=source.fontSharedMaterial;dailyCount.fontSize=22;
-            dailyCount.alignment=TextAlignmentOptions.Center;dailyCount.raycastTarget=false;
-            navigation.PageChanged+=page=>rect.gameObject.SetActive(page==1);
         }
         private void SetupSaveNotice()
         {
@@ -468,7 +431,7 @@ namespace BK.Kit
         private IEnumerator HeartTicker()
         {
             var wait=new WaitForSecondsRealtime(.5f);
-            while(heartHud!=null){UpdateHeartHud();UpdateDailyBadge();yield return wait;}
+            while(heartHud!=null){UpdateHeartHud();yield return wait;}
         }
         private void OnDestroy()
         {

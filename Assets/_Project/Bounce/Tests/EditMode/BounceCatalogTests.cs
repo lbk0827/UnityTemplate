@@ -41,20 +41,6 @@ public sealed class BounceCatalogTests
     }
 
     [Test]
-    public void DailyCatalogFollowsTheTemplateShape()
-    {
-        var catalog = new BounceDailyRewards();
-        Assert.That(catalog.Days.Count, Is.EqualTo(7));
-        Assert.That(catalog.BonusSlots.Count, Is.EqualTo(3));
-        Assert.That(catalog.Hourly.Length, Is.EqualTo(1));
-        foreach (var grant in catalog.Days.Concat(catalog.BonusSlots).SelectMany(d => d).Concat(catalog.Hourly))
-        {
-            Assert.That(grant.amount, Is.GreaterThan(0));
-            Assert.That(BounceItems.IsGold(grant) || BounceItems.TryGetBooster(grant, out _), Is.True, grant.itemId);
-        }
-    }
-
-    [Test]
     public void WinStreakTiersAscendBelowTheCap()
     {
         var catalog = new BounceWinStreak();

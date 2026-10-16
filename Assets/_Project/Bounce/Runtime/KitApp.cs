@@ -10,7 +10,7 @@ namespace BK.Kit
 {
     /// <summary>
     /// The game hub the imported views talk to. Owns no state of its own: progress lives in
-    /// IStageProgress, currencies in IWallet, settings in IOptionsService, step offers, daily rewards
+    /// IStageProgress, currencies in IWallet, settings in IOptionsService, step offers
     /// and the win streak in their BK.Meta services, the player name in a save slot. Every mutation flushes the save immediately.
     /// </summary>
     public sealed class KitApp : MonoBehaviour
@@ -49,7 +49,6 @@ namespace BK.Kit
         public IMessageService Messages => services.Messages;
         public IUIService UI => services.UI;
         public StepOffers Offers => services.Offers;
-        public DailyRewards Daily => services.Daily;
         public WinStreak Streak => services.Streak;
 
         // Read model for views. Kept flat so the imported bindings stay simple.
@@ -307,22 +306,6 @@ namespace BK.Kit
             if (!services.Offers.TryClaimFree(campaign)) { message = "This offer has changed. Reopen it."; return false; }
             Flush();
             message = "Collected " + BounceItems.Describe(step.Rewards);
-            Changed?.Invoke();
-            return true;
-        }
-
-        public bool TryClaimDaily(out string message) => Claim(services.Daily.TryClaimDaily, out message);
-        public bool TryClaimDailyBonus(int index, out string message) => Claim((out ItemGrant[] g) => services.Daily.TryClaimBonus(index, out g), out message);
-        public bool TryClaimHourly(out string message) => Claim(services.Daily.TryClaimHourly, out message);
-
-        private delegate bool ClaimFunc(out ItemGrant[] granted);
-        private bool Claim(ClaimFunc claim, out string message)
-        {
-            message = "";
-            if (IsLoading || Session.State != SessionState.Lobby) { message = "Return to the lobby to collect."; return false; }
-            if (!claim(out var granted)) { message = "Not available yet."; return false; }
-            Flush();
-            message = "Collected " + BounceItems.Describe(granted);
             Changed?.Invoke();
             return true;
         }
