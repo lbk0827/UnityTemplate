@@ -16,6 +16,7 @@ namespace BK.Kit
         private readonly Dictionary<string,Sprite> sprites=new Dictionary<string,Sprite>();
         private KitApp app;
         private TMP_Text fontSource,feedback,goldBalance;
+        private Material shopFontMaterial;
         private RectTransform content;
         private Action<string,string> showInfo;
         private float cursor;
@@ -30,6 +31,11 @@ namespace BK.Kit
             var store=screen.GetComponentsInChildren<Transform>(true).First(t=>t.name=="store");
             Scroll=store.GetComponentsInChildren<ScrollRect>(true).First();
             fontSource=store.GetComponentsInChildren<Transform>(true).First(t=>t.name=="IMG_SpecialBundleTitle").GetComponentInChildren<TMP_Text>(true);
+            shopFontMaterial=new Material(fontSource.fontSharedMaterial);
+            shopFontMaterial.SetFloat("_OutlineWidth",0);
+            shopFontMaterial.SetColor("_FaceColor",Color.white);
+            shopFontMaterial.DisableKeyword("UNDERLAY_ON");
+            shopFontMaterial.DisableKeyword("UNDERLAY_INNER");
             content=Scroll.content;
             foreach(var group in content.GetComponents<LayoutGroup>())group.enabled=false;
             var fitter=content.GetComponent<ContentSizeFitter>();if(fitter!=null)fitter.enabled=false;
@@ -64,7 +70,7 @@ namespace BK.Kit
                         var reward=app.Shop.Rewards(product,0).First();
                         float x=(index%3-1)*287,y=top+index/3*390;
                         var card=Image(content,"Coins_"+reward.amount,new Vector2(274,370),new Vector2(x,-y-185),Sprite("IMG_Coin_Goods_Bg")).rectTransform;
-                        // Art: cream y 185..-56, coloured band -56..-173 (centre -114).
+                        // Preserve the existing shop content positions within the new flat card.
                         Icon(card,product.icon,new Vector2(200,160),new Vector2(0,78));
                         Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Ink);
                         Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
@@ -86,7 +92,7 @@ namespace BK.Kit
             for(int i=0;i<BoosterCatalog.All.Count;i++)
             {
                 var offer=BoosterCatalog.All[i];var card=Card("Shop_"+offer.Kind,290,"IMG_Bundle_Bg");
-                // Art: cream y 145..-30, band -30..-136 (centre -83). Text column starts at x -235.
+                // Preserve the existing shop content positions within the new flat card.
                 Image(card,"Icon",new Vector2(130,130),new Vector2(-320,55),boosterIcons[i],false).preserveAspect=true;
                 Label(card,offer.Title,new Vector2(620,52),new Vector2(80,85),35,Ink).alignment=TextAlignmentOptions.Left;
                 Label(card,offer.Description,new Vector2(620,56),new Vector2(80,30),27,Ink).alignment=TextAlignmentOptions.Left;
@@ -123,7 +129,7 @@ namespace BK.Kit
         {
             bool noAds=product.layout=="NoAds";
             var card=Card((noAds?"NoAds_":"Bundle_")+product.id,noAds?410:420,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
-            // Art (both card sprites): cream from the top rim to y≈-43, coloured band below it (centre ≈ -0.285 × height).
+            // Preserve the existing shop content positions within the new flat card.
             if(noAds)
             {
                 Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
@@ -226,10 +232,10 @@ namespace BK.Kit
         private TMP_Text Label(Transform parent,string text,Vector2 size,Vector2 position,float fontSize,Color color)
         {
             var label=Rect(parent,"Label",size,position).gameObject.AddComponent<TextMeshProUGUI>();
-            label.font=fontSource.font;label.fontSharedMaterial=fontSource.fontSharedMaterial;label.fontSize=fontSize;
+            label.font=fontSource.font;label.fontSharedMaterial=shopFontMaterial;label.fontSize=fontSize;
             label.enableAutoSizing=true;label.fontSizeMin=fontSize*.75f;label.fontSizeMax=fontSize;label.color=color;
             label.alignment=TextAlignmentOptions.Center;label.text=text;label.raycastTarget=false;return label;
         }
-        private void OnDestroy(){if(app!=null)app.Changed-=Refresh;}
+        private void OnDestroy(){if(app!=null)app.Changed-=Refresh;if(shopFontMaterial!=null)Destroy(shopFontMaterial);}
     }
 }
