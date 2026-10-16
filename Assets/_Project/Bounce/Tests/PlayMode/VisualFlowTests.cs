@@ -54,9 +54,13 @@ public sealed class VisualFlowTests
         var shard=fragments.transform.GetChild(0);var beforePause=shard.position;
         Time.timeScale=0;yield return new WaitForSecondsRealtime(.2f);
         Assert.That(shard.position,Is.EqualTo(beforePause));Time.timeScale=1;
-        yield return new WaitForSeconds(1.1f);
-        Assert.That(fragments.Opacity,Is.LessThan(1));Dump("sf-fragment-fade");
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.1f);Dump("sf-fragment-air");
+        Assert.That(shard.position.y,Is.GreaterThan(beforePause.y),"Debris pops up instead of sliding flat");
+        var launched=shard.localScale;
+        yield return new WaitForSeconds(.3f);Dump("sf-fragment-fade");
+        Assert.That(shard.localScale.x,Is.LessThan(launched.x),"Debris shrinks away instead of popping out");
+        Assert.That(shard.position.y,Is.GreaterThanOrEqualTo(0),"Debris never sinks under the grass");
+        yield return new WaitForSeconds(.4f);
         Assert.That(fragments==null,Is.True,"SF fade releases debris");
         Assert.That(game.ActiveBalls,Is.Zero,"Returning ball still drains normally");
         Assert.That(GameObject.Find("SF ball flight trail"),Is.Null,"Detached trail expires");

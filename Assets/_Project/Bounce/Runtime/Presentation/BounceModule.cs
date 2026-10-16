@@ -320,8 +320,9 @@ namespace BK.Kit
                     {
                         shot.position+=shot.direction*hit.distance;remaining-=hit.distance;
                         effects.Hit(hit.point);
+                        var incoming=shot.direction;
                         shot.direction=Reflect(shot.direction,hit.normal);shot.position+=shot.direction*.001f;
-                        for(int b=blocks.Count-1;b>=0;b--)if(hit.collider.transform.IsChildOf(blocks[b].root)) {HitBlock(b);break;}
+                        for(int b=blocks.Count-1;b>=0;b--)if(hit.collider.transform.IsChildOf(blocks[b].root)) {HitBlock(b,incoming);break;}
                     }
                     else {shot.position+=shot.direction*travel;drained=toWater<=remaining;break;}
                 }
@@ -330,17 +331,17 @@ namespace BK.Kit
             }
             if(blocks.Count==0)Resolve(true);else if(BallsRemaining==0 && shots.Count==0)Resolve(false);
         }
-        private void HitBlock(int index)
+        private void HitBlock(int index,Vector3 incoming)
         {
             var block=blocks[index];block.hp--;
-            if(block.hp==0)RemoveBlock(block);
+            if(block.hp==0)RemoveBlock(block,incoming);
             else {PlayImpactSound(presentation.blockHitSound);BuildBlock(block);StartCoroutine(Punch(block.root));}
             PushCounts();
         }
-        private void RemoveBlock(Block block)
+        private void RemoveBlock(Block block,Vector3 push=default)
         {
             PlayImpactSound(presentation.blockBreakSound);
-            effects.Break(block.visual,Mathf.Max(0,block.hp-1));
+            effects.Break(block.visual,Mathf.Max(0,block.hp-1),push);
             block.root.gameObject.SetActive(false);Destroy(block.root.gameObject);blocks.Remove(block);
         }
         private void PlayImpactSound(AudioClip clip)

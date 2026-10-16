@@ -11,7 +11,6 @@ Shader "BK/Toon"
   _MatCapTex("Matcap",2D)="black"{}
   _MatCapColor("Matcap Color",Color)=(0,0,0,1)
   _UseMatCap("Use Matcap",Float)=0
-  _Opacity("Effect opacity",Range(0,1))=1
  }
  SubShader
  {
@@ -26,15 +25,13 @@ Shader "BK/Toon"
    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
    TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);TEXTURE2D(_MatCapTex);SAMPLER(sampler_MatCapTex);
    CBUFFER_START(UnityPerMaterial)
-   float4 _BaseMap_ST,_BaseColor,_HColor,_SColor,_MatCapColor;float _RampThreshold,_RampSmoothing,_UseMatCap,_Opacity;
+   float4 _BaseMap_ST,_BaseColor,_HColor,_SColor,_MatCapColor;float _RampThreshold,_RampSmoothing,_UseMatCap;
    CBUFFER_END
    struct Attributes {float4 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;};
    struct Varyings {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;};
    Varyings vert(Attributes v){Varyings o;o.positionCS=TransformObjectToHClip(v.positionOS.xyz);o.normalWS=TransformObjectToWorldNormal(v.normalOS);o.uv=TRANSFORM_TEX(v.uv,_BaseMap);return o;}
    half4 frag(Varyings i):SV_Target
    {
-    // Screen-space dissolve keeps the original opaque toon lighting on SF debris.
-    clip(_Opacity-frac(dot(floor(i.positionCS.xy),float2(.75487766,.56984029))));
     float3 normal=normalize(i.normalWS);Light sun=GetMainLight();
     float diffuse=saturate(dot(normal,sun.direction)*.5+.5);
     float ramp=smoothstep(_RampThreshold-_RampSmoothing*.5,_RampThreshold+_RampSmoothing*.5,diffuse);

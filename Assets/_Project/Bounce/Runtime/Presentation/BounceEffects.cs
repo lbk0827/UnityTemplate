@@ -37,23 +37,29 @@ namespace BK.Kit
 
         public void Hit(Vector3 point)
         {
-            // SF object-hit bursts face the camera; our camera looks down the Y axis.
-            Burst(presentation.ballHitParticle,point+Vector3.up*.35f,Quaternion.LookRotation(Vector3.up),.55f,null);
+            Burst(presentation.ballHitParticle,point+Vector3.up*.35f,FacingCamera(),.55f,null);
         }
 
-        public void Break(GameObject visual,int skin)
+        public void Break(GameObject visual,int skin,Vector3 push)
         {
             Color? tint=null;
             foreach(var renderer in visual.GetComponentsInChildren<Renderer>())
                 if(renderer.sharedMaterial!=null && renderer.sharedMaterial.HasProperty("_BaseColor"))
                 {tint=renderer.sharedMaterial.GetColor("_BaseColor");break;}
-            Burst(presentation.blockBreakParticle,visual.transform.position+Vector3.up*.5f,Quaternion.identity,.65f,tint);
+            Burst(presentation.blockBreakParticle,visual.transform.position+Vector3.up*.5f,FacingCamera(),.65f,tint);
             if(presentation.brokenBlocks==null || presentation.brokenBlocks.Length==0 || LiveCount>=40)return;
             var prefab=presentation.brokenBlocks[Mathf.Clamp(skin,0,presentation.brokenBlocks.Length-1)];
             if(prefab==null)return;
             var fragments=Instantiate(prefab,visual.transform.position,visual.transform.rotation,transform);
             fragments.name="SF block fragments";fragments.transform.localScale=visual.transform.lossyScale;
-            MakeCosmetic(fragments);fragments.AddComponent<BlockBreakEffect>();live.Add(fragments);
+            MakeCosmetic(fragments);fragments.AddComponent<BlockBreakEffect>().Launch(push);live.Add(fragments);
+        }
+
+        // SF bursts are authored in their XY plane with +Z toward the camera.
+        private static Quaternion FacingCamera()
+        {
+            var camera=Camera.main;
+            return camera==null?Quaternion.LookRotation(Vector3.up):Quaternion.LookRotation(-camera.transform.forward,camera.transform.up);
         }
 
         private void Burst(GameObject prefab,Vector3 position,Quaternion rotation,float scale,Color? tint)
