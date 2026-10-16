@@ -1,0 +1,20 @@
+{
+  "reference": "D:/grp1_common/Assets/Application/Scripts/Game/UI/UILobbyTabButton.cs",
+  "referenceSequences": "D:/grp1_common/Assets/RootBoxResource/Template/Prefabs/UI/Panel/HUD/hud.prefab: FX_Click / FX_Selected / FX_Deselected / FX_Idle",
+  "changes": [
+    "선택 시 아이콘 49px 상승: 참조의 0.2초 반동 곡선 적용",
+    "선택 배경은 아래쪽을 기준으로 세로 90%에서 100%로 0.25초 복원",
+    "텍스트는 0.1초 지연 후 0.2초 동안 나타남",
+    "선택 해제 시 아이콘과 텍스트가 먼저 복귀하고 배경이 사라짐",
+    "각 탭의 단일 타임라인으로 연속 선택 시 이전 완료 콜백의 상태 덮어쓰기 방지",
+    "현재 게임의 아이콘과 받침을 사용하며 기존 탭 클릭 영역 유지",
+    "로비 우측 플로팅 버튼 받침은 Simple + Preserve Aspect로 변경하여 모서리 왜곡 제거"
+  ],
+  "validationWorkspace": "D:/UnityTemplateShopSliceReview",
+  "validationReason": "동시에 진행 중인 레벨 편집기와 기믹 작업을 분리하여 검증",
+  "testCases": [
+    "VisualFlowTests.LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound",
+    "VisualFlowTests.ImportedLobbyStartsBounceAndSupportsRetryAndReturn",
+    "VisualFlowTests.CategorizedShopScrollsAndPreviewNeverCharges"
+  ]
+}
