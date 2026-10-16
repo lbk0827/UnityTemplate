@@ -12,7 +12,7 @@ namespace BK.Kit
     {
         [Serializable] public sealed class Level { public int balls; public string[] rows; }
         [Serializable] public sealed class Levels { public Level[] levels; }
-        [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp; }
+        [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp, skin; }
         private sealed class Shot { public GameObject visual; public Vector3 position, direction; public float age; }
         public GamePresentation presentation;
         [Range(45,90),Tooltip("Camera tilt from the ground plane. 90 = straight top-down.")]
@@ -73,12 +73,13 @@ namespace BK.Kit
             for (int row=0;row<data.rows.Length;row++)
                 for (int col=0;col<columns;col++)
                 {
-                    int hp=data.rows[row][col]-'0';
-                    if (hp<1 || hp>9) continue;
+                    // Level digits select box colours; durability is independent of appearance.
+                    int colour=data.rows[row][col]-'0';
+                    if (colour<1 || colour>9) continue;
                     var root=new GameObject("Block_"+col+"_"+row).transform;
                     root.SetParent(rig.transform,false);
                     root.position=new Vector3(col-(columns-1)*.5f,Height,7-row);
-                    var block=new Block {root=root,hp=hp};
+                    var block=new Block {root=root,hp=1,skin=Mathf.Clamp(colour-1,0,presentation.blocks.Length-1)};
                     blocks.Add(block); BuildBlock(block);
                 }
             cannon=Instantiate(presentation.cannon,rig.transform);
@@ -133,7 +134,7 @@ namespace BK.Kit
         private void BuildBlock(Block block)
         {
             if(block.visual!=null) { block.visual.SetActive(false);Destroy(block.visual); }
-            block.visual=Instantiate(presentation.blocks[Mathf.Clamp(block.hp-1,0,presentation.blocks.Length-1)],block.root);
+            block.visual=Instantiate(presentation.blocks[block.skin],block.root);
             block.visual.transform.localPosition=Vector3.zero;block.visual.transform.localRotation=Quaternion.identity;
             PrepareVisual(block.visual,true);
         }
@@ -341,7 +342,7 @@ namespace BK.Kit
         private void RemoveBlock(Block block,Vector3 push=default)
         {
             PlayImpactSound(presentation.blockBreakSound);
-            effects.Break(block.visual,Mathf.Max(0,block.hp-1),push);
+            effects.Break(block.visual,block.skin,push);
             block.root.gameObject.SetActive(false);Destroy(block.root.gameObject);blocks.Remove(block);
         }
         private void PlayImpactSound(AudioClip clip)

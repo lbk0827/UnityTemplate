@@ -21,6 +21,53 @@ public sealed class VisualFlowTests
 {
     private string folder;
     [UnityTest]
+    public IEnumerator EveryBoxColourBreaksInOneHitWithSmallMatchingFragments()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
+        var originalLevels=game.presentation.levels;
+        var colourLevel=new TextAsset("{\"levels\":[{\"balls\":10,\"rows\":[\"123456789\"]}]}");
+        try
+        {
+            game.presentation.levels=colourLevel;
+            game.Begin(1,_=>{});
+            yield return null;
+            var hit=typeof(BounceModule).GetMethod("HitBlock",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+            for(int colour=1;colour<=9;colour++)
+            {
+                int skin=Mathf.Clamp(colour-1,0,game.presentation.blocks.Length-1);
+                var root=GameObject.Find("Block_"+(colour-1)+"_0");
+                Assert.That(root.transform.GetChild(0).name,Is.EqualTo(game.presentation.blocks[skin].name+"(Clone)"));
+                var bounds=root.GetComponentInChildren<Collider>().bounds;
+                Assert.That(bounds.size.x,Is.InRange(.9f,1.1f),"Box occupies one column");
+                Assert.That(bounds.size.z,Is.InRange(.9f,1.1f),"Box occupies one row");
+                hit.Invoke(game,new object[]{0,Vector3.forward});
+                Assert.That(game.BlocksRemaining,Is.EqualTo(9-colour),"Every colour breaks after a single hit");
+                var effects=UnityEngine.Object.FindFirstObjectByType<BounceEffects>();
+                var fragments=effects.GetComponentsInChildren<BlockBreakEffect>().Last();
+                var actual=fragments.GetComponentsInChildren<MeshRenderer>();
+                var authored=game.presentation.brokenBlocks[skin].GetComponentsInChildren<MeshRenderer>();
+                Assert.That(actual.Length,Is.EqualTo(authored.Length));
+                for(int i=0;i<actual.Length;i++)
+                {
+                    Assert.That(actual[i].sharedMaterial,Is.EqualTo(authored[i].sharedMaterial),"Debris keeps the destroyed box colour");
+                    Assert.That(actual[i].transform.localScale.x,Is.EqualTo(authored[i].transform.localScale.x*.4f).Within(.001f));
+                }
+            }
+        }
+        finally
+        {
+            game.End();game.presentation.levels=originalLevels;
+            UnityEngine.Object.Destroy(colourLevel);
+        }
+    }
+
+    [UnityTest]
     public IEnumerator PearlCannonPreservesLaunchAndRecoilContract()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));

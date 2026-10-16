@@ -8,6 +8,7 @@ namespace BK.Kit
         public GameObject welcomeDeal, endlessOffer, endlessGifts;
         public GameObject cannon, ball;
         public Sprite[] shopSprites;
+        [Tooltip("One-cell box prefabs by colour. Colour does not determine HP.")]
         public GameObject[] blocks;
         public TextAsset levels;
         public AudioClip lobbyMusic, ingameMusic, startSound, shotSound;

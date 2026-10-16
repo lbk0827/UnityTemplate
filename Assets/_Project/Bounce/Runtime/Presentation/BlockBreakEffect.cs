@@ -6,6 +6,7 @@ namespace BK.Kit
     public sealed class BlockBreakEffect : MonoBehaviour
     {
         private const float Gravity=22f, Restitution=.35f, GroundY=0f, Life=.75f, ShrinkTime=.35f;
+        private const float PieceScale=.4f;
         private Transform[] pieces;
         private Vector3[] velocities, spins, scales;
         private float[] restHeights;
@@ -18,7 +19,9 @@ namespace BK.Kit
             scales=new Vector3[pieces.Length];restHeights=new float[pieces.Length];
             for(int i=0;i<pieces.Length;i++)
             {
-                pieces[i]=renderers[i].transform;scales[i]=pieces[i].localScale;
+                pieces[i]=renderers[i].transform;
+                // Shrink each shard at its own pivot, preserving the box's break-apart positions.
+                pieces[i].localScale*=PieceScale;scales[i]=pieces[i].localScale;
                 // Pieces settle on their thinnest side, so rest the pivot that far above the grass.
                 var extents=renderers[i].bounds.extents;
                 restHeights[i]=GroundY+Mathf.Min(extents.x,Mathf.Min(extents.y,extents.z));
