@@ -15,6 +15,8 @@ namespace BK.Kit
         [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp; }
         private sealed class Shot { public GameObject visual; public Vector3 position, direction; public float age; }
         public GamePresentation presentation;
+        [Range(45,90),Tooltip("Camera tilt from the ground plane. 90 = straight top-down.")]
+        public float cameraPitch = 60;
         public int BallsRemaining { get; private set; }
         public int BlocksRemaining => blocks.Count;
         public int ActiveBalls => shots.Count;
@@ -46,7 +48,9 @@ namespace BK.Kit
             camera = Camera.main;
             camera.orthographic = true;
             camera.orthographicSize = Mathf.Max((columns*.5f+1)/Mathf.Max(.3f,camera.aspect),9.5f)+1;
-            camera.transform.SetPositionAndRotation(new Vector3(0,20,1),Quaternion.Euler(90,0,0));
+            // Orthographic keeps every row the same size; the tilt only reveals block and wall sides.
+            var view=Quaternion.Euler(cameraPitch,0,0);
+            camera.transform.SetPositionAndRotation(new Vector3(0,0,1)-view*Vector3.forward*40,view);
             camera.backgroundColor = new Color(.25f,.55f,.95f);
             audioSource = rig.AddComponent<AudioSource>();
             rig.AddComponent<KitAudioChannel>().Initialize(audioSource,KitAudioChannel.Category.Effects);
