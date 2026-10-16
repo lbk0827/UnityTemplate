@@ -80,7 +80,11 @@ namespace BK.Kit
                 {
                     check.gameObject.SetActive(selected);
                     foreach(var graphic in check.GetComponentsInChildren<Graphic>(true))
-                    {var color=graphic.color;color.a=1;graphic.color=color;}
+                    {
+                        var color=graphic.color;color.a=1;graphic.color=color;
+                        // Toggle's initial fade can remain on the renderer after we take over its graphic.
+                        graphic.canvasRenderer.SetAlpha(1);
+                    }
                 }
             }
         }

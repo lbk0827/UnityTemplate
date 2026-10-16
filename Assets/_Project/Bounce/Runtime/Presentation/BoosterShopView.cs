@@ -98,12 +98,12 @@ namespace BK.Kit
             var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
             header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;header.sizeDelta=new Vector2(0,300);
             var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("IMG_ShopBox"));
-            art.type=UnityEngine.UI.Image.Type.Tiled;
+            art.type=UnityEngine.UI.Image.Type.Sliced;
             art.rectTransform.anchorMin=Vector2.zero;art.rectTransform.anchorMax=Vector2.one;
             safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
             header.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
-            Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Color.white);
+            Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Ink);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
             goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,Ink);
