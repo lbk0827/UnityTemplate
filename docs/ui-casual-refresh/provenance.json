@@ -1,0 +1,22 @@
+{
+  "tool": "built-in image_gen",
+  "direction": "첨부한 캐주얼 상점 예시: 선명한 색, 크림 카드, 컬러 띠, 얇은 테두리와 짧은 그림자",
+  "assets": [
+    {
+      "path": "Assets/_Project/Bounce/Content/UI/Toy/Interface.png",
+      "prompt": "Create a production Unity UI sprite atlas inspired by the attached casual mobile shop screenshot's visual STYLE ONLY. This is a NEW atlas, NOT a screenshot mockup. Transparent background. Square canvas, 3x3 equal grid, 9 isolated assets each contained in its own cell with generous empty margins. Saturated colorful casual illustrated 2.5D, thin warm golden rims, shallow darker bottom lip, restrained broad highlight; crisp simple shapes. No text or numbers. Row1: rounded diamond green stage tile with cream-gold narrow rim and plain number area; wide bright green rounded rectangular Play button aspect2.6:1 with narrow cream rim; wide blue-violet level badge aspect2.6:1 with cream rim. Row2: cream rounded rectangular card aspect1.3:1 gold rim and shallow golden bottom edge; violet wide rounded rectangular panel aspect2.6:1; cream rounded square selection/reward tile with subtle tan border. Row3: coral circular close button simple white X; blue circular plus button white plus; green pill toggle with cream knob on right. Match reference confident cheerful colors and clean readable depth, not glossy inflated plastic and not desaturated flat pastel. Orthographic front-view, no perspective. No text, watermark, other icons, or full screen UI. Background truly transparent."
+    },
+    {
+      "path": "Assets/_Project/Bounce/Content/UI/Toy/InterfaceDetails.png",
+      "prompt": "Use case stylized-concept. Production transparent sprite sheet for cheerful casual mobile game, saturated blue purple green with cream/gold narrow edging, modest illustrated 2.5D depth. Square canvas. Upper half: ONE wide red and warm cream striped shop awning, front view, scalloped bottom, only cloth canopy no stand, stretches across almost full width, no text. Lower half: FOUR separate icons in one equally spaced row, each within own cell: cream speaker with sound waves on blue circular button; cream music note on violet circular button; cream smartphone with vibration marks on blue circular button; cream circular clockwise restart arrow on violet circular button. No text, no labels. Clear readable simple silhouettes. Thin bevel, shallow bottom shadow, no metallic realism. Transparent empty gaps around all five objects. Canopy confined upper 45percent, icons confined lower 45percent. No checkerboard."
+    }
+  ],
+  "scope": [
+    "로비 Stage Slot / Play / 이벤트 아이콘",
+    "HUD 탭 선택 0.22초 비스케일 애니메이션",
+    "인게임 Level / 설정 / 부스터 받침",
+    "설정 팝업 배경과 음향 아이콘",
+    "상점 차양 / 카드 / 상품 하단 띠 / 구매 버튼"
+  ],
+  "layout": "기존 화면 배치와 상품 데이터 유지. 탭의 장식 영역만 재정렬."
+}
