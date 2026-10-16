@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="6" result="Passed" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-16 18:02:48Z" end-time="2026-10-16 18:03:20Z" duration="32.2896214">
+  <test-suite type="TestSuite" id="1055" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="40" result="Passed" start-time="2026-10-16 18:02:48Z" end-time="2026-10-16 18:03:20Z" duration="32.289621" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1051" name="BK.Kit.PlayModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.PlayModeTests.dll" runstate="Runnable" testcasecount="39" result="Passed" start-time="2026-10-16 18:02:48Z" end-time="2026-10-16 18:03:20Z" duration="32.284153" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="407116" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1012" name="CommonPopupFlowTests" fullname="CommonPopupFlowTests" classname="CommonPopupFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-16 18:02:48Z" end-time="2026-10-16 18:03:04Z" duration="16.269991" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1014" name="ConfirmationAndBoosterFlowNeverSpendOnCancelOrDoubleTap" fullname="CommonPopupFlowTests.ConfirmationAndBoosterFlowNeverSpendOnCancelOrDoubleTap" methodname="ConfirmationAndBoosterFlowNeverSpendOnCancelOrDoubleTap" classname="CommonPopupFlowTests" runstate="Runnable" seed="53040735" result="Passed" start-time="2026-10-16 18:02:48Z" end-time="2026-10-16 18:02:55Z" duration="6.359772" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1013" name="FirstGimmickGuidesQueueAndPersistAcrossSceneReloads" fullname="CommonPopupFlowTests.FirstGimmickGuidesQueueAndPersistAcrossSceneReloads" methodname="FirstGimmickGuidesQueueAndPersistAcrossSceneReloads" classname="CommonPopupFlowTests" runstate="Runnable" seed="110249436" result="Passed" start-time="2026-10-16 18:02:55Z" end-time="2026-10-16 18:02:58Z" duration="3.045334" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+The character with Unicode value \u221E was not found in the [LilitaOne SDF] font asset or any potential fallbacks. It was replaced by Unicode character \u0020 in text object [txt_iconnum].
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+The character with Unicode value \u221E was not found in the [LilitaOne SDF] font asset or any potential fallbacks. It was replaced by Unicode character \u0020 in text object [txt_iconnum].
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1015" name="ImportedPopupsHaveValidBindingsAndCloseExactlyOnce" fullname="CommonPopupFlowTests.ImportedPopupsHaveValidBindingsAndCloseExactlyOnce" methodname="ImportedPopupsHaveValidBindingsAndCloseExactlyOnce" classname="CommonPopupFlowTests" runstate="Runnable" seed="518189964" result="Passed" start-time="2026-10-16 18:02:58Z" end-time="2026-10-16 18:03:04Z" duration="6.856481" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1033" name="VisualFlowTests" fullname="VisualFlowTests" classname="VisualFlowTests" runstate="Runnable" testcasecount="15" result="Passed" start-time="2026-10-16 18:03:04Z" end-time="2026-10-16 18:03:20Z" duration="16.012319" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1037" name="ImportedLobbyStartsBounceAndSupportsRetryAndReturn" fullname="VisualFlowTests.ImportedLobbyStartsBounceAndSupportsRetryAndReturn" methodname="ImportedLobbyStartsBounceAndSupportsRetryAndReturn" classname="VisualFlowTests" runstate="Runnable" seed="826221812" result="Passed" start-time="2026-10-16 18:03:04Z" end-time="2026-10-16 18:03:14Z" duration="9.170783" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[UI] opened WinStreakPopup on Popup
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1044" name="InterruptedCollectionKeepsSavedBalance" fullname="VisualFlowTests.InterruptedCollectionKeepsSavedBalance" methodname="InterruptedCollectionKeepsSavedBalance" classname="VisualFlowTests" runstate="Runnable" seed="1505541720" result="Passed" start-time="2026-10-16 18:03:14Z" end-time="2026-10-16 18:03:18Z" duration="4.305955" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1039" name="LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound" fullname="VisualFlowTests.LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound" methodname="LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound" classname="VisualFlowTests" runstate="Runnable" seed="104161255" result="Passed" start-time="2026-10-16 18:03:18Z" end-time="2026-10-16 18:03:20Z" duration="2.533215" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/DG-2507-PC-061/AppData/LocalLow/DefaultCompany/BKFrameWork\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

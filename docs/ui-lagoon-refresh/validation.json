@@ -1,0 +1,19 @@
+{
+  "title": "로비 라군 배경 및 StageClear 아트 개선",
+  "changes": [
+    "진주 대포와 청록색 인게임 테라스에 맞춘 신규 라군 배경. 기존 로비 배치 유지.",
+    "배경은 Simple 이미지와 EnvelopeParent로 비율을 유지하며 화면을 채움. Sliced 미사용.",
+    "StageClear는 크림·골드 카드, 보라색 헤더, 녹색 Collect 버튼과 HUD 별 코인으로 구성.",
+    "기존 광고·난이도별 미사용 프리팹 요소를 제거하고 현재 사용 중인 보상 바인딩으로 재구성.",
+    "보상 저장·중복 지급 방지·코인 비행·닫기 버튼 수령·로비 복귀 로직 유지."
+  ],
+  "rebuildMenu": "BK/Integration/Apply Lagoon Lobby And Clear Art",
+  "validation": {
+    "unity": "6000.3.21f1",
+    "playModeTests": "6 passed, 0 failed (playmode-results.xml)",
+    "coverage": ["보상 수령과 중복 클릭", "수령 중 화면 이탈", "로비 탭과 Floating 버튼", "공통 팝업 3개 흐름"],
+    "screenshots": ["lobby.png", "lobby-tall.png", "stage-clear.png", "stage-clear-tall.png", "reward-flight.png"],
+    "resolutions": ["900x1600", "900x1846"]
+  },
+  "generation": "Built-in image_gen; 최종 프롬프트와 리소스 경로는 generation.json 참조"
+}
