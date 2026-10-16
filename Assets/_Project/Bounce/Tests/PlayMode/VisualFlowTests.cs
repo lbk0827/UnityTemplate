@@ -21,6 +21,54 @@ public sealed class VisualFlowTests
 {
     private string folder;
     [UnityTest]
+    public IEnumerator SfEffectsPlayPauseAndCleanUpWithTheBoard()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
+        var effects=UnityEngine.Object.FindFirstObjectByType<BounceEffects>();
+        Assert.That(game.presentation.brokenBlocks.Length,Is.EqualTo(4));
+        Assert.That(game.Fire(Vector3.forward),Is.True);
+        var flight=UnityEngine.Object.FindFirstObjectByType<BallFlightEffect>();
+        Assert.That(flight,Is.Not.Null);Assert.That(flight.Trail,Is.Not.Null);
+        Assert.That(effects.MuzzlePlaying,Is.True,"The embedded SF cannon burst is actually triggered");
+        var initialScale=flight.transform.localScale;
+        yield return new WaitForSeconds(.06f);Dump("sf-muzzle");
+        yield return new WaitForSeconds(.12f);Dump("sf-flight");
+        Assert.That(flight.transform.localScale.x,Is.GreaterThan(initialScale.x));
+        Assert.That(flight.Trail.positionCount,Is.GreaterThan(1));
+        float deadline=Time.time+2;
+        while(game.BlocksRemaining==24 && Time.time<deadline)yield return null;
+        Assert.That(game.BlocksRemaining,Is.EqualTo(23),"Visual effects do not add damage");
+        yield return new WaitForSeconds(.06f);Dump("sf-block-impact");
+        var fragments=UnityEngine.Object.FindFirstObjectByType<BlockBreakEffect>();
+        Assert.That(fragments,Is.Not.Null);
+        Assert.That(fragments.GetComponentsInChildren<MeshRenderer>().Length,Is.EqualTo(3),"Uses SF's authored three-piece mesh");
+        Assert.That(fragments.GetComponentsInChildren<Collider>(),Is.Empty,"Debris cannot intercept balls or guides");
+        Assert.That(fragments.GetComponentsInChildren<MonoBehaviour>().All(c=>c!=null),Is.True);
+        Assert.That(effects.GetComponentsInChildren<ParticleSystem>().Sum(ps=>ps.particleCount),Is.GreaterThan(0));
+        var shard=fragments.transform.GetChild(0);var beforePause=shard.position;
+        Time.timeScale=0;yield return new WaitForSecondsRealtime(.2f);
+        Assert.That(shard.position,Is.EqualTo(beforePause));Time.timeScale=1;
+        yield return new WaitForSeconds(1.1f);
+        Assert.That(fragments.Opacity,Is.LessThan(1));Dump("sf-fragment-fade");
+        yield return new WaitForSeconds(.5f);
+        Assert.That(fragments==null,Is.True,"SF fade releases debris");
+        Assert.That(game.ActiveBalls,Is.Zero,"Returning ball still drains normally");
+        Assert.That(GameObject.Find("SF ball flight trail"),Is.Null,"Detached trail expires");
+        // Retry while a new muzzle/trail is still live must clean the entire old effect scope.
+        Assert.That(game.Fire(Vector3.forward),Is.True);
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        Assert.That(effects==null,Is.True);
+        Assert.That(UnityEngine.Object.FindObjectsByType<BallFlightEffect>(FindObjectsSortMode.None),Is.Empty);
+        Assert.That(UnityEngine.Object.FindObjectsByType<BlockBreakEffect>(FindObjectsSortMode.None),Is.Empty);
+    }
+
+    [UnityTest]
     public IEnumerator ImportedLobbyStartsBounceAndSupportsRetryAndReturn()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
@@ -67,6 +115,13 @@ public sealed class VisualFlowTests
         var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
         Assert.That(game.BlocksRemaining,Is.EqualTo(24));
         Assert.That(game.BallsRemaining,Is.EqualTo(20));
+        var preview=new Vector3[3];
+        int previewCount=BounceModule.TraceTrajectory(Vector3.forward,preview);
+        Assert.That(previewCount,Is.EqualTo(3),"The board preview includes exactly one reflection");
+        for(int i=0;i<previewCount;i++)Assert.That(preview[i].z,Is.GreaterThanOrEqualTo(BounceModule.DeadZoneZ-.001f));
+        var guide=GameObject.Find("Aim trajectory").GetComponent<LineRenderer>();
+        guide.positionCount=previewCount;for(int i=0;i<previewCount;i++)guide.SetPosition(i,preview[i]);
+        guide.enabled=true;Dump("ingame-aim");guide.enabled=false;
         Assert.That(game.Fire(Vector3.forward),Is.True);
         Assert.That(game.BallsRemaining,Is.EqualTo(19));
         yield return new WaitForSeconds(1);
