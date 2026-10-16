@@ -1,0 +1,28 @@
+{
+  "source": "D:/grp1_common/Assets/RootBoxResource/Template/Prefabs/UI/Popup",
+  "imported": [
+    "quit",
+    "retry",
+    "heart",
+    "unlockGimmick",
+    "unlockBooster",
+    "useBooster",
+    "celebration",
+    "reward",
+    "profile"
+  ],
+  "validation": {
+    "project": "D:/UnityTemplatePopupReview",
+    "unity": "6000.3.21f1",
+    "playModePassed": 10,
+    "playModeFailed": 0
+  },
+  "runtime": "Assets/_Project/Bounce/Runtime/Presentation/CommonPopupView.cs",
+  "notes": [
+    "Visual-only import; RootBox behaviours are rebound to local services.",
+    "Existing card, button, coin, heart and booster art reused.",
+    "Guide acknowledgements and profile appearance saved locally.",
+    "Paid heart refill, advertising, IAP, mission and localization remain deferred.",
+    "Unrelated concurrent gimmick edits were excluded from the isolated validation."
+  ]
+}
