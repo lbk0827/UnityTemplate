@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="2" result="Passed" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-16 15:05:33Z" end-time="2026-10-16 15:05:42Z" duration="8.6842545">
+  <test-suite type="TestSuite" id="1034" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="21" result="Passed" start-time="2026-10-16 15:05:33Z" end-time="2026-10-16 15:05:42Z" duration="8.684255" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1030" name="BK.Kit.PlayModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.PlayModeTests.dll" runstate="Runnable" testcasecount="20" result="Passed" start-time="2026-10-16 15:05:33Z" end-time="2026-10-16 15:05:42Z" duration="8.677864" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="3028" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1015" name="VisualFlowTests" fullname="VisualFlowTests" classname="VisualFlowTests" runstate="Runnable" testcasecount="12" result="Passed" start-time="2026-10-16 15:05:33Z" end-time="2026-10-16 15:05:42Z" duration="8.676398" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1019" name="CategorizedShopScrollsAndPreviewNeverCharges" fullname="VisualFlowTests.CategorizedShopScrollsAndPreviewNeverCharges" methodname="CategorizedShopScrollsAndPreviewNeverCharges" classname="VisualFlowTests" runstate="Runnable" seed="363378751" result="Passed" start-time="2026-10-16 15:05:33Z" end-time="2026-10-16 15:05:36Z" duration="2.976307" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1020" name="ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable" fullname="VisualFlowTests.ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable" methodname="ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable" classname="VisualFlowTests" runstate="Runnable" seed="1710288163" result="Passed" start-time="2026-10-16 15:05:36Z" end-time="2026-10-16 15:05:42Z" duration="5.689828" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Save] save failed WalletData: Access to the path 'C:\Users\DG-250~1\AppData\Local\Temp\BKKitTests\7afa6fa4fa724a8f8b5cafbe8155a304\WalletData.json.tmp' is denied.
+BK_Kit: progress could not be saved.
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Save] save failed WalletData: Access to the path 'C:\Users\DG-250~1\AppData\Local\Temp\BKKitTests\7afa6fa4fa724a8f8b5cafbe8155a304\WalletData.json.tmp' is denied.
+BK_Kit: progress could not be saved.
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/DG-2507-PC-061/AppData/LocalLow/DefaultCompany/BKFrameWork\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

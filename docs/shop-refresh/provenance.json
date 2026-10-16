@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-17",
+  "scope": "Shop-only original art refresh; existing layout and economy unchanged",
+  "generation": {
+    "tool": "built-in image_gen",
+    "atlas": "Assets/_Project/Bounce/Content/Shop/Original/ShopIcons.png",
+    "prompt": "Create a production game sprite atlas on a genuinely TRANSPARENT background, square 2048x2048 or larger. Exactly 4 columns and 5 rows, 20 equally sized square cells, no visible grid lines, no text or labels anywhere. Each icon centered in its own cell, generous 12% empty padding on every side, no overlaps between cells. Consistent adorable puffy polished mobile casual game illustration, softly shaded dimensional objects, purple and pink gift ribbons, bright gold coins embossed with a five pointed star, small restrained glossy highlights. Crisp silhouettes readable at 90px. ROW 1 left to right: 1 small pile of 3 gold coins; 2 two short stacks of gold coins; 3 medium heap of gold coins; 4 overflowing purple coin pouch. ROW 2: 1 open small purple chest filled with gold coins; 2 large open purple treasure chest overflowing with gold coins; 3 small purple gift with pink ribbon and few coins; 4 medium purple gift with pink ribbon and more coins. ROW 3: 1 large purple gift with pink ribbon and gold coin stacks; 2 two purple gift boxes with coral ribbons and coin stacks; 3 deluxe purple gift chest with pink bow and many coins; 4 single gold star coin face on. ROW 4: 1 glossy pink heart; 2 thick white infinity symbol with purple outline ONLY, horizontal; 3 cute purple television with a simple white play triangle covered by a coral prohibition circle and diagonal slash, meaning no ads, NO LETTERS; 4 pink red toy rocket with gold star pointing upper right. ROW 5: 1 three glossy pale blue balls together, meaning extra balls; 2 round purple cartoon bomb with gold fuse and tiny spark; 3 cute turquoise and purple laser emitter shooting one short vertical cyan beam upward, clear laser symbol; 4 subtle translucent lavender four-point sparkle cluster, no object. Every cell contains ONLY its specified isolated icon and transparent background. No floor, no backdrop, no interface, no words, no checkerboard drawn into pixels. Match the cute object illustrations in a polished casual puzzle-game shop while leaving panels out entirely.",
+    "refinement": "Keep the same 20 icons in a 4-column, 5-row atlas; reduce objects to central 65% of each cell with transparent gutters.",
+    "reference": "docs/shop-refresh/approved-direction.png"
+  },
+  "panels": {
+    "source": "Tools/art/New-ShopPanels.ps1",
+    "method": "Original geometric surfaces rendered with System.Drawing; existing PNG dimensions and GUIDs retained.",
+    "palette": {
+      "canvas": "#FBF8F3",
+      "card": "#EEE6FF",
+      "heading": "#E2D7FA",
+      "header": "#9983D9",
+      "button": "#39B957",
+      "ink": "#30175C"
+    }
+  },
+  "import": "BK/Integration/Import Original Shop Art; SpriteMetaData rectangles index the unmodified generated atlas. Old icon files and original import provenance are retained for history; Presentation.shopSprites now binds atlas sprites.",
+  "boosterScope": "Shop_Missile, Shop_ExtraBall, Shop_Bomb, Shop_Laser are shop-only replacements. In-game booster resources are untouched."
+}

@@ -1,0 +1,15 @@
+{
+  "unity": "6000.3.21f1",
+  "result": "Passed",
+  "tests": [
+    "VisualFlowTests.CategorizedShopScrollsAndPreviewNeverCharges",
+    "VisualFlowTests.ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable"
+  ],
+  "passed": 2,
+  "failed": 0,
+  "import": "BK_SHOP_ART_OK: 20 original icons; 34 shop bindings",
+  "reviewedScreenshots": ["shop-top.png", "shop-top-tall.png", "shop-bundles.png", "shop-coins.png", "shop-boosters.png"],
+  "layout": "Existing RectTransform positions, dimensions, scrolling offsets, product table and purchase logic retained.",
+  "scope": "Shared bottom navigation and in-game booster sprites retained. Shop-only icons, surfaces, text colors and font material refreshed.",
+  "fixesFromVisualReview": ["Explicit sprite rectangles exclude adjacent atlas artwork", "Opaque tiled header has no seams", "Shop-only TMP material removes the old heavy outline and underlay"]
+}
