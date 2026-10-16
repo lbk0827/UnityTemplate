@@ -11,18 +11,15 @@ namespace BK.Kit
     public sealed class BoosterShopView : MonoBehaviour
     {
         private static readonly Color Ink = new Color(.19f,.09f,.36f);
-        private sealed class Row { public BoosterOffer offer; public TMP_Text owned; public Button buy; }
-        private readonly List<Row> rows=new List<Row>();
         private readonly Dictionary<string,Sprite> sprites=new Dictionary<string,Sprite>();
         private KitApp app;
-        private TMP_Text fontSource,feedback,goldBalance;
+        private TMP_Text fontSource,goldBalance;
         private Material shopFontMaterial;
         private RectTransform content;
         private Action<string,string> showInfo;
         private float cursor;
         public ScrollRect Scroll { get; private set; }
         public RectTransform CoinsSection { get; private set; }
-        public RectTransform BoostersSection { get; private set; }
 
         public void Initialize(GameObject screen,GamePresentation presentation,Action<string,string> showInfo)
         {
@@ -86,20 +83,6 @@ namespace BK.Kit
                     background.color=new Color(.985f,.972f,.952f);background.transform.SetAsFirstSibling();
                 }
                 Gap(30);
-            }
-            BoostersSection=Section("Boosters","IMG_ShopTitle_Package");
-            feedback=Label(content,"Use Gold earned from levels",new Vector2(840,50),new Vector2(0,-cursor-25),28,Ink);cursor+=65;
-            for(int i=0;i<BoosterCatalog.All.Count;i++)
-            {
-                var offer=BoosterCatalog.All[i];var card=Card("Shop_"+offer.Kind,290,"IMG_Bundle_Bg");
-                // Preserve the existing shop content positions within the new flat card.
-                Image(card,"Icon",new Vector2(130,130),new Vector2(-320,55),boosterIcons[i],false).preserveAspect=true;
-                Label(card,offer.Title,new Vector2(620,52),new Vector2(80,85),35,Ink).alignment=TextAlignmentOptions.Left;
-                Label(card,offer.Description,new Vector2(620,56),new Vector2(80,30),27,Ink).alignment=TextAlignmentOptions.Left;
-                var owned=Label(card,"",new Vector2(470,50),new Vector2(-160,-83),29,Ink);owned.alignment=TextAlignmentOptions.Left;
-                var buy=Buy(card,"Buy_"+offer.Kind,app.Shop.BoosterPrice(offer.Kind)+" Gold",new Vector2(290,80),new Vector2(250,-83),32,
-                    ()=>{app.TryBuyBooster(offer.Kind,out var message);feedback.text=message;});
-                rows.Add(new Row {offer=offer,owned=owned,buy=buy});
             }
             content.sizeDelta=new Vector2(0,cursor+30);
             app.Changed+=Refresh;Refresh();StartCoroutine(ScrollToTop());
@@ -166,7 +149,7 @@ namespace BK.Kit
             if(!string.IsNullOrEmpty(product.badge))
             {
                 var tag=Icon(card,"IMG_Shop_Tag",new Vector2(175,175),new Vector2(-336,127));
-                var badge=Label(tag.transform,product.badge,new Vector2(180,42),new Vector2(-10,8),27,Color.white);
+                var badge=Label(tag.transform,product.badge,new Vector2(180,42),new Vector2(-17,23),27,Color.white);
                 badge.rectTransform.localEulerAngles=new Vector3(0,0,45);
             }
             Footer(card,product.name,ShopCatalog.Price(product),()=>Preview(product));
@@ -211,12 +194,6 @@ namespace BK.Kit
         private void Refresh()
         {
             if(goldBalance!=null)goldBalance.text=app.Gold.ToString();
-            foreach(var row in rows)
-            {
-                row.owned.text="Owned: "+app.BoosterCount(row.offer.Kind);
-                row.buy.interactable=!app.IsLoading && app.BoosterCount(row.offer.Kind)<int.MaxValue;
-                row.buy.GetComponent<Image>().color=app.Gold>=app.Shop.BoosterPrice(row.offer.Kind)?Color.white:new Color(.6f,.6f,.6f,1);
-            }
         }
         private RectTransform Rect(Transform parent,string name,Vector2 size,Vector2 position)
         {

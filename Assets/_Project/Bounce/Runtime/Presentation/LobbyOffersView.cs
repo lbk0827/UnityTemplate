@@ -58,7 +58,7 @@ namespace BK.Kit
                     var value=kind.Value;button.onClick.AddListener(()=>Open(value));
                     Add(icons,value,IconRoot(button.transform,offers));
                 }
-                else button.onClick.AddListener(()=>showInfo("Offline kit","Ads and real-money offers are not enabled.\nUse Gold earned from stages in the Booster shop."));
+                else button.onClick.AddListener(()=>showInfo("Offline kit","Ads and real-money offers are not enabled."));
                 EnsureHit(button);
             }
             foreach(var marker in offers.GetComponentsInChildren<Transform>(true))

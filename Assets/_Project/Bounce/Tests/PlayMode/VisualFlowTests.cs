@@ -252,8 +252,7 @@ public sealed class VisualFlowTests
         Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
         Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance));
         Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
-        shop.Scroll.verticalNormalizedPosition=0;Canvas.ForceUpdateCanvases();yield return null;
-        Dump("shop-boosters");
+        Assert.That(GameObject.Find("Category_Boosters"),Is.Null,"Boosters are not sold for Gold in the shop");
         Click(Binding("UIHUDPanel").Get<Toggle>("HomeToggle"));yield return new WaitForSecondsRealtime(.35f);
         Assert.That(UnityEngine.Object.FindFirstObjectByType<LobbyNavigation>().SelectedPage,Is.EqualTo(1));
         Assert.That(GameObject.Find("Shop canopy"),Is.Null);
@@ -261,38 +260,15 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator ShopPurchasesPersistAndBoostersConsumeOnlyWhenUsable()
+    public IEnumerator BoostersPersistAndConsumeOnlyWhenUsable()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        KitTestSaves.Seed(folder,gold:3600);
+        KitTestSaves.Seed(folder,boosters:KitTestSaves.Boosters(missiles:1,extraBalls:2,bombs:1,lasers:1));
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         var app=KitApp.Instance;
-        // A blocked write keeps the purchase in memory, flags the pending save and leaves the file untouched (no rollback).
-        Directory.CreateDirectory(Path.Combine(folder,"WalletData.json.tmp"));
-        ExpectSaveFailure();
-        Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.True);
-        Assert.That(app.Gold,Is.EqualTo(3000));Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(1));
-        Assert.That(app.HasPendingSave,Is.True);Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(3600));
-        Directory.Delete(Path.Combine(folder,"WalletData.json.tmp"));
-        Assert.That(app.RetryPendingSave(),Is.True);Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(3000));
-        Click(Binding("UIHUDPanel").Get<Toggle>("StoreToggle"));yield return new WaitForSecondsRealtime(.35f);
-        var shop=UnityEngine.Object.FindFirstObjectByType<BoosterShopView>();
-        shop.Scroll.content.anchoredPosition=new Vector2(0,-shop.BoostersSection.anchoredPosition.y-82);
-        Canvas.ForceUpdateCanvases();yield return null;
-        Click(GameObject.Find("Buy_ExtraBall").GetComponent<Button>());
-        Assert.That(app.Gold,Is.EqualTo(2400));
-        foreach(var kind in new[]{BoosterKind.Missile,BoosterKind.Bomb,BoosterKind.Laser})
-            GameObject.Find("Buy_"+kind).GetComponent<Button>().onClick.Invoke();
-        Assert.That(app.Gold,Is.Zero);
-        foreach(var offer in BoosterCatalog.All)Assert.That(app.BoosterCount(offer.Kind),Is.EqualTo(offer.Kind==BoosterKind.ExtraBall?2:1));
-        Assert.That(app.TryBuyBooster(BoosterKind.ExtraBall,out _),Is.False);
-        Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(2));Dump("shop-stock");
-        UnityEngine.Object.Destroy(app.gameObject);yield return null;
-        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
-        app=KitApp.Instance;
         foreach(var offer in BoosterCatalog.All)Assert.That(app.BoosterCount(offer.Kind),Is.EqualTo(offer.Kind==BoosterKind.ExtraBall?2:1));
         app.Play(1);yield return Ready("VisualIngame");
         var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();

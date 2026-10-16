@@ -277,22 +277,6 @@ namespace BK.Kit
 
         // ----- economy -----
 
-        public bool TryBuyBooster(BoosterKind kind, out string message)
-        {
-            message = "";
-            var offer = BoosterCatalog.Find(kind);
-            if (IsLoading || Session.State != SessionState.Lobby || offer == null) { message = "Return to the shop to buy."; return false; }
-            int price = Shop.BoosterPrice(kind);
-            if (!services.Wallet.CanAfford(BounceCurrencies.Gold, price)) { message = "Not enough Gold"; return false; }
-            if (BoosterCount(kind) == int.MaxValue) { message = "Inventory full"; return false; }
-            services.Wallet.Add(BounceCurrencies.Gold, -price, ReasonBooster);
-            services.Wallet.Add(kind.ToString(), 1, ReasonBooster);
-            Flush();
-            message = offer.Title + " +1";
-            Changed?.Invoke();
-            return true;
-        }
-
         public const string PaymentsNotConnected = "Payments are not connected in this offline kit.\nConnect a store backend to enable purchases.";
 
         // Free steps grant through StepOffers; paid steps wait for a store backend (ConfirmPaid hook).
