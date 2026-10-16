@@ -38,6 +38,95 @@ public sealed class GimmickFlowTests
     }
 
     [UnityTest]
+    public IEnumerator MineDestroysAllEightNeighboursAndCannotExplodeTwice()
+    {
+        var board=Begin(17);var mine=board.Targets.Single();
+        Assert.That(game.BlocksRemaining,Is.EqualTo(9));
+        Capture("gimmick-mine-before");
+        Assert.That(board.Hit(mine.collider,1),Is.True);
+        Assert.That(game.BlocksRemaining,Is.Zero);
+        Assert.That(board.Hit(mine.collider,1),Is.False);
+        yield return null;Capture("gimmick-mine-explosion");
+    }
+
+    [UnityTest]
+    public IEnumerator MineChainTerminatesAndHitsLongTubeOnlyOncePerBlast()
+    {
+        var board=Begin(18);var tube=board.Targets.Single(t=>t.spec.type=="tube");
+        var mine=board.Targets.First(t=>t.spec.type=="mine");
+        Assert.That(tube.Remaining,Is.EqualTo(2));
+        board.Hit(mine.collider,1);
+        Assert.That(board.Targets.Where(t=>t.spec.type=="mine").All(t=>t.completed),Is.True);
+        Assert.That(tube.Remaining,Is.EqualTo(1));
+        Assert.That(game.BlocksRemaining,Is.EqualTo(1));
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator SwitchOnlyOpensItsLinkedGateAndGateIsNotAnObjective()
+    {
+        var board=Begin(19);var button=board.Targets.Single(t=>t.spec.type=="switch");
+        var gate=board.Targets.Single(t=>t.spec.type=="door");
+        Assert.That(board.ObjectivesRemaining,Is.Zero);
+        gate.spec.link="B";board.Hit(button.collider,1);
+        Assert.That(gate.collider.enabled,Is.True,"Different group stays closed");
+        board=Begin(19);button=board.Targets.Single(t=>t.spec.type=="switch");gate=board.Targets.Single(t=>t.spec.type=="door");
+        Capture("gimmick-gate-closed");
+        Assert.That(board.Hit(gate.collider,1),Is.False);
+        board.Hit(button.collider,1);
+        Assert.That(gate.collider.enabled,Is.False);
+        Assert.That(button.view.activeVisual.activeSelf,Is.True);
+        board.Hit(button.collider,2);
+        Assert.That(gate.collider.enabled,Is.False);
+        yield return new WaitForSeconds(.35f);Capture("gimmick-gate-open");
+    }
+
+    [UnityTest]
+    public IEnumerator DoubleHitRequiresTheSameLivingBallAndResetsAfterDrain()
+    {
+        var board=Begin(20);var combo=board.Targets.Single();
+        board.Hit(combo.collider,11);board.Hit(combo.collider,12);
+        Assert.That(combo.Remaining,Is.EqualTo(1),"Two different balls cannot complete a combo");
+        Assert.That(combo.view.activeVisual.activeSelf,Is.True);
+        Capture("gimmick-combo-armed");
+        board.ShotEnded(11);Assert.That(combo.view.activeVisual.activeSelf,Is.True);
+        board.ShotEnded(12);Assert.That(combo.view.activeVisual.activeSelf,Is.False);
+        board.Hit(combo.collider,13);board.Hit(combo.collider,13);
+        Assert.That(game.BlocksRemaining,Is.Zero);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator ArmorRejectsWrongFaceAndAcceptsPhysicsHitOnConfiguredWeakSide()
+    {
+        var board=Begin(21);var armor=board.Targets.Single();
+        Assert.That(board.Hit(armor.collider,1,Vector3.forward,Vector3.back),Is.False);
+        Assert.That(armor.Remaining,Is.EqualTo(1));Capture("gimmick-armor");
+        Assert.That(Physics.SphereCast(armor.origin+Vector3.right*1.5f,.25f,Vector3.left,out var hit,2,1<<10),Is.True);
+        Assert.That(hit.collider,Is.EqualTo(armor.collider));
+        Assert.That(board.Hit(hit.collider,1,Vector3.left,hit.normal),Is.True);
+        Assert.That(game.BlocksRemaining,Is.Zero);
+        yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator CombinedBoardUsesPrefabBindingsAndPowerHitsBreakSpecialArmor()
+    {
+        var board=Begin(22);
+        foreach(var t in board.Targets)
+        {
+            Assert.That(t.view,Is.Not.Null);Assert.That(t.view.GetComponentsInChildren<Renderer>().Length,Is.GreaterThan(0));
+            Assert.That(t.view.GetComponentsInChildren<TMPro.TMP_Text>(),Is.Empty);
+        }
+        yield return null;Capture("gimmick-all-prefabs");
+        foreach(var t in board.Targets.Where(t=>t.spec.type=="combo" || t.spec.type=="armor"))
+        {
+            board.HitArea(p=>(p-t.origin).sqrMagnitude<.1f);
+            Assert.That(t.completed,Is.True);
+        }
+    }
+
+    [UnityTest]
     public IEnumerator TubeShortensFromEndAndReleasesCollisionImmediately()
     {
         var board=Begin(11);var tube=board.Targets.Single();

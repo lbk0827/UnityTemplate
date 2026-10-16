@@ -71,7 +71,7 @@ public sealed class BounceLevelEditorTests
     public IEnumerator WindowRendersEachGimmickInspectorWithoutGuiErrors()
     {
         window.Show();
-        foreach (int index in new[] {10, 13, 14, 15})
+        foreach (int index in new[] {10, 13, 14, 15, 16, 18, 19, 20, 21})
         {
             Field("stage").SetValue(window, index); Field("selected").SetValue(window, 0);
             window.Repaint(); yield return null; yield return null;

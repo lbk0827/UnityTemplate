@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26f5658145f7d7146b3771790b537570, type: 3}
+  m_Name: GimmickPrefabs
+  m_EditorClassIdentifier: BK.Kit.Runtime::BK.Kit.GimmickPrefabCatalog
+  tube: {fileID: 5005578518635099356, guid: 8effe8ffe71be5249986732ace59d723, type: 3}
+  cupboard: {fileID: 7527711421642741021, guid: 8036b8c076a4fba40b1b94c80a5922bd, type: 3}
+  panel: {fileID: 3387608944156831272, guid: e9cd70189cbcef641aedcad82ea9948f, type: 3}
+  mine: {fileID: 6893653587162310560, guid: 21307a8f18b67144c8cdee6f08a1b1f6, type: 3}
+  switchButton: {fileID: 2877259733181837795, guid: 832fc9473fc2b264ab0c020792f8d462, type: 3}
+  door: {fileID: 8464619140463026345, guid: d0ee4d5c1dfe006409a6d95ca35066a8, type: 3}
+  combo: {fileID: 709040829902337720, guid: a26a9b8bfc87d5f4cbc95917483961f7, type: 3}
+  armor: {fileID: 7692988973587761009, guid: c93d10a93b72ab742b3d9b2ca778135d, type: 3}
+  tubeSegment: {fileID: 3442350345692268206, guid: 0e8d197d5bca28244883852bae4ebef6, type: 3}
+  shard: {fileID: 2523822069592755878, guid: d9f57587ee6e65b4195c87ebbec74f90, type: 3}
+  blast: {fileID: 2202637013007197932, guid: fc12cbd3c2aa0e94aae5866e4526df4c, type: 3}
+  link: {fileID: 4163435196080100505, guid: dbd9452f59c65904ab5b971534a89cff, type: 3}

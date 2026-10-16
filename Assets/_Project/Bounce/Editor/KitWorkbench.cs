@@ -32,7 +32,9 @@ namespace BK.Kit.Editor
                 EditorGUILayout.LabelField("Gimmick demos",EditorStyles.boldLabel);
                 foreach(var demo in new[] { (11,"Metal tube / first hit"), (12,"Metal tube / open a route"),
                     (13,"Metal tube / bank shots"), (14,"Cupboard / ten plates"),
-                    (15,"Moving panel / timing"), (16,"All three gimmicks") })
+                    (15,"Moving panel / timing"), (16,"First three gimmicks"),
+                    (17,"Mine / area damage"), (18,"Mine / chain reaction"), (19,"Switch and gate"),
+                    (20,"Same-ball double hit"), (21,"Directional armor"), (22,"All gimmicks") })
                     if(GUILayout.Button(demo.Item2))
                     {
                         level=demo.Item1;

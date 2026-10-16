@@ -26,7 +26,7 @@
     "play_note": "Save and Play sets local sandbox progress and grants 10 of each booster, as in RND Workbench."
   },
   "rules": {
-    "durability": "No numerical durability labels; tube length and visible plates communicate progress.",
+    "durability": "No numerical durability labels; remaining pieces, exposed core, weak-face marking and switch illumination communicate state.",
     "tube": {
       "col_row": "First pipe cell; furnace is one cell left, or one row above when vertical.",
       "length": "Number of pipe cells, excluding furnace.",
@@ -47,6 +47,23 @@
       "speed": "Radians per second; editor displays period in seconds.",
       "goal": false,
       "preview": "Aim line ends at moving panel because later reflection depends on timing."
+    },
+    "mine": {
+      "hit": "Explodes once; hits all eight neighbouring cells and chains other mines. Each explosion hits a multi-cell gimmick once."
+    },
+    "switch_gate": {
+      "link": "Matching string link IDs connect switches and gates. Both require a matching counterpart.",
+      "hit": "Switch permanently opens all linked gates; both are excluded from clear objectives."
+    },
+    "combo": {
+      "hit": "The same living ball must hit twice; each ball tracks its own first hit. Draining removes that ball progress.",
+      "visual": "First hit exposes cyan core; shell closes when no armed balls remain.",
+      "power": "Direct power or mine blast clears it."
+    },
+    "armor": {
+      "hit": "Only an incoming physical hit on the configured weak face clears it.",
+      "weakSide": "0 launcher-facing, 1 right, 2 far-facing, 3 left",
+      "power": "Direct power or mine blast clears it."
     }
   },
   "demo_stages": {
@@ -55,34 +72,67 @@
     "13": "Vertical tubes and bank shots",
     "14": "Ten-plate cupboard",
     "15": "Moving panel",
-    "16": "Combined"
+    "16": "Combined",
+    "17": "Mine eight-neighbour blast",
+    "18": "Mine chain reaction",
+    "19": "Linked switch and gate",
+    "20": "Same-ball double hit",
+    "21": "Directional armor bank shot",
+    "22": "All gimmicks combined"
   },
   "validation": {
     "edit_mode": {
-      "passed": 10,
+      "passed": 13,
       "failed": 0,
       "suites": [
         "BounceLevelLayoutTests",
-        "BounceLevelEditorTests"
+        "BounceLevelEditorTests",
+        "GimmickPrefabTests"
       ],
       "environment": "isolated worktree with final task sources"
     },
     "play_mode": {
-      "passed": 13,
+      "passed": 19,
       "failed": 0,
-      "environment": "current project including shop fixes",
+      "environment": "isolated worktree with final task sources and generated prefab assets",
       "suites": [
         "GimmickFlowTests",
         "BounceAimTests",
         "VisualFlowTests.EveryBoxColourBreaksInOneHitWithSmallMatchingFragments"
       ]
     },
-    "visual_review": "Combined board, furnace feeding, pipe shortening and cooled furnace screenshots"
+    "visual_review": "Combined prefab board and open gate captures inspected; mechanics verified by tests. Demo difficulty has not been comprehensively play-balanced."
   },
   "screenshots": [
     "gimmick-all.png",
     "gimmick-furnace-cooled.png",
     "gimmick-furnace-feeding.png",
-    "gimmick-tube-before.png"
-  ]
+    "gimmick-tube-before.png",
+    "gimmick-all-prefabs.png",
+    "gimmick-gate-open.png",
+    "gimmick-combo-armed.png",
+    "gimmick-mine-explosion.png"
+  ],
+  "prefabs": {
+    "directory": "Assets/_Project/Bounce/Content/Gimmicks",
+    "catalog": "GimmickPrefabs.asset",
+    "configuration": "IngameConfig.gimmickPrefabs",
+    "gimmicks": [
+      "MetalTube.prefab",
+      "Cupboard.prefab",
+      "MovingPanel.prefab",
+      "SeaMine.prefab",
+      "Switch.prefab",
+      "Gate.prefab",
+      "DoubleHitBlock.prefab",
+      "DirectionalArmor.prefab"
+    ],
+    "support": [
+      "TubeSegment.prefab",
+      "PorcelainShard.prefab",
+      "MineBurst.prefab",
+      "SwitchLink.prefab"
+    ],
+    "authoring": "All visuals instantiate saved prefabs. Edit prefabs directly; Create Missing Prefabs preserves existing prefab files."
+  }
 }

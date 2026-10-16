@@ -13,13 +13,14 @@ namespace BK.Kit
         [Serializable] public sealed class Level { public int balls; public string[] rows; public GimmickSpec[] gimmicks; }
         [Serializable] public sealed class Levels { public Level[] levels; }
         [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp, skin; }
-        private sealed class Shot { public GameObject visual; public Vector3 position, direction; public float age; }
+        private sealed class Shot { public int id; public GameObject visual; public Vector3 position, direction; public float age; }
         public GamePresentation presentation;
         [Range(45,90),Tooltip("Camera tilt from the ground plane. 90 = straight top-down.")]
         public float cameraPitch = 60;
         public int BallsRemaining { get; private set; }
         public int BlocksRemaining => blocks.Count + (gimmicks == null ? 0 : gimmicks.ObjectivesRemaining);
         private BounceGimmicks gimmicks;
+        private int nextShotId;
         public int ActiveBalls => shots.Count;
         public bool IsUsingBooster { get; private set; }
         public event Action CountersChanged;
@@ -54,7 +55,7 @@ namespace BK.Kit
         public override void Begin(int level, Action<bool> onCompleted)
         {
             End();
-            nextImpactSound=0;
+            nextImpactSound=0;nextShotId=0;
             completed = onCompleted;
             var library = JsonUtility.FromJson<Levels>(presentation.levels.text);
             var data = library.levels[(Mathf.Max(1, level)-1)%library.levels.Length];
@@ -84,7 +85,7 @@ namespace BK.Kit
                     blocks.Add(block); BuildBlock(block);
                 }
             gimmicks=rig.AddComponent<BounceGimmicks>();
-            gimmicks.Build(data.gimmicks,columns,presentation.arenaMaterial,PushCounts);
+            gimmicks.Build(data.gimmicks,columns,presentation.ingameConfig.gimmickPrefabs,PushCounts,BlastBlocks);
             cannon=Instantiate(presentation.cannon,rig.transform);
             cannon.name="Bounce_Cannon";
             cannon.transform.position=new Vector3(0,0,-8.5f);
@@ -224,7 +225,7 @@ namespace BK.Kit
             var position=LaunchOrigin+direction*.9f;
             visual.transform.position=position;
             effects.Launch(visual);
-            shots.Add(new Shot {visual=visual,position=position,direction=direction});
+            shots.Add(new Shot {id=++nextShotId,visual=visual,position=position,direction=direction});
             BallsRemaining--;PushCounts();
             KitHaptics.Pulse();
             if(presentation.shotSound!=null)audioSource.PlayOneShot(presentation.shotSound);
@@ -341,15 +342,24 @@ namespace BK.Kit
                         effects.Hit(hit.point);
                         var incoming=shot.direction;
                         shot.direction=Reflect(shot.direction,hit.normal);shot.position+=shot.direction*.001f;
-                        if(gimmicks.Hit(hit.collider))PlayImpactSound(presentation.blockHitSound);
+                        if(gimmicks.Hit(hit.collider,shot.id,incoming,hit.normal))PlayImpactSound(presentation.blockHitSound);
                         for(int b=blocks.Count-1;b>=0;b--)if(hit.collider.transform.IsChildOf(blocks[b].root)) {HitBlock(b,incoming);break;}
                     }
                     else {shot.position+=shot.direction*travel;drained=toWater<=remaining;break;}
                 }
                 shot.visual.transform.position=shot.position;
-                if(drained || shot.age>20) {shot.visual.GetComponent<BallFlightEffect>()?.ReleaseTrail();Destroy(shot.visual);shots.RemoveAt(i);}
+                if(drained || shot.age>20) {gimmicks.ShotEnded(shot.id);shot.visual.GetComponent<BallFlightEffect>()?.ReleaseTrail();Destroy(shot.visual);shots.RemoveAt(i);}
             }
             if(BlocksRemaining==0)Resolve(true);else if(BallsRemaining==0 && shots.Count==0)Resolve(false);
+        }
+        private void BlastBlocks(Vector3 center)
+        {
+            var victims=blocks.Where(b=>Mathf.Abs(b.root.position.x-center.x)<=1.01f && Mathf.Abs(b.root.position.z-center.z)<=1.01f).ToArray();
+            foreach(var victim in victims)
+            {
+                int index=blocks.IndexOf(victim);
+                if(index>=0)HitBlock(index,(victim.root.position-center).normalized);
+            }
         }
         private void HitBlock(int index,Vector3 incoming)
         {

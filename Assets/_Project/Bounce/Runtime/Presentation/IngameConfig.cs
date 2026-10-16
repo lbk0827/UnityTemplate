@@ -7,5 +7,6 @@ namespace BK.Kit
     {
         [Min(.05f), Tooltip("Ball radius in world units. Drives both the collision cast and the ball visual (one block = 1 unit).")]
         public float ballRadius = .25f;
+        public GimmickPrefabCatalog gimmickPrefabs;
     }
 }

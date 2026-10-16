@@ -8,6 +8,8 @@ namespace BK.Kit
     public static class BounceLevelLayout
     {
         public const int MaxRows = 13;
+        public static readonly string[] Types = { "tube", "cupboard", "panel", "mine", "switch", "door", "combo", "armor" };
+        public static readonly string[] Labels = { "금속관", "찬장", "이동 판", "기뢰", "스위치", "문", "연속 타격", "방향 장갑" };
 
         public static IEnumerable<Vector2Int> Cells(GimmickSpec spec)
         {
@@ -21,6 +23,7 @@ namespace BK.Kit
             else if (spec.type == "cupboard")
                 for (int row = 0; row < 2; row++) for (int col = 0; col < 3; col++)
                     yield return start + new Vector2Int(col, row);
+            else if (spec.type != "panel") yield return start;
         }
 
         public static Rect PanelArea(GimmickSpec spec) => new Rect(spec.col - spec.travel - spec.width / 2,
@@ -60,9 +63,16 @@ namespace BK.Kit
                     panels.Add(area);
                     continue;
                 }
-                if (spec.type != "tube" && spec.type != "cupboard")
+                if (!Types.Contains(spec.type))
                 { errors.Add(label + ": 알 수 없는 기믹입니다."); continue; }
-                hasGoal = true;
+                if (spec.type != "switch" && spec.type != "door") hasGoal = true;
+                if (spec.type == "switch" || spec.type == "door")
+                {
+                    string partner = spec.type == "switch" ? "door" : "switch";
+                    if (string.IsNullOrWhiteSpace(spec.link) || !(level.gimmicks ?? new GimmickSpec[0]).Any(s => s != null && s.type == partner && s.link == spec.link))
+                        errors.Add(label + ": 같은 연결 ID의 스위치와 문이 필요합니다.");
+                }
+                if (spec.type == "armor" && (spec.weakSide < 0 || spec.weakSide > 3)) errors.Add(label + ": 약점 방향은 0~3이어야 합니다.");
                 if (spec.type == "tube" && (spec.length < 1 || spec.length > MaxRows))
                 { errors.Add(label + ": 관 길이는 1~13칸입니다."); continue; }
                 foreach (var cell in Cells(spec))

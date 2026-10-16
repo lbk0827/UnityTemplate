@@ -10,7 +10,7 @@ namespace BK.Kit.Editor
     public sealed class BounceLevelEditor : EditorWindow
     {
         public const string DataPath = "Assets/_Project/Bounce/Content/bounce-levels.json";
-        private enum Brush { Select, Block, Erase, Tube, Cupboard, Panel }
+        private enum Brush { Select, Block, Erase, Tube, Cupboard, Panel, Mine, Switch, Door, Combo, Armor }
         [SerializeField] private BounceLevelDraft draft;
         [SerializeField] private int stage, selected = -1, colour = 1;
         [SerializeField] private Brush brush;
@@ -98,10 +98,10 @@ namespace BK.Kit.Editor
                         }
                     }
             }
-            EditorGUILayout.LabelField("???? ?? ??? ???? ????? ???? ?????.", EditorStyles.miniLabel);
+            EditorGUILayout.LabelField("Play sets the local sandbox stage and booster inventory.", EditorStyles.miniLabel);
             int balls = EditorGUILayout.IntField("발사 가능한 공", Level.balls);
             if (balls != Level.balls) Change("Change ball budget", () => Level.balls = balls);
-            brush = (Brush)GUILayout.Toolbar((int)brush, new[] { "선택", "블록", "지우개", "금속관", "찬장", "이동 판" });
+            brush = (Brush)GUILayout.SelectionGrid((int)brush, new[] { "\uC120\uD0DD", "\uBE14\uB85D", "\uC9C0\uC6B0\uAC1C" }.Concat(BounceLevelLayout.Labels).ToArray(), 6);
             if (brush == Brush.Block) colour = EditorGUILayout.IntSlider("블록 색상", colour, 1, 9);
             EditorGUILayout.HelpBox("도구를 선택하고 칸을 클릭해 배치하세요. 우클릭은 삭제, Ctrl+Z는 실행 취소입니다. 금속관의 용광로는 관 시작 칸의 왼쪽(세로는 위쪽) 한 칸을 차지합니다.", MessageType.Info);
             using (new EditorGUILayout.HorizontalScope())
@@ -138,8 +138,8 @@ namespace BK.Kit.Editor
                 if (index >= 0)
                 {
                     var spec = specs[index];
-                    color = spec.type == "tube" ? new Color(.4f, .5f, .65f) : spec.type == "cupboard" ? new Color(.55f, .32f, .13f) : new Color(.65f, .5f, .13f);
-                    label = spec.type == "tube" ? "관" : spec.type == "cupboard" ? "접시" : "↔";
+                    color = spec.type switch { "tube" => new Color(.4f,.5f,.65f), "cupboard" => new Color(.55f,.32f,.13f), "mine" => new Color(.7f,.2f,.15f), "switch" => new Color(.1f,.6f,.6f), "door" => new Color(.5f,.4f,.15f), "combo" => new Color(.5f,.2f,.7f), "armor" => new Color(.2f,.3f,.45f), _ => new Color(.65f,.5f,.13f) };
+                    label = BounceLevelLayout.Labels[Math.Max(0, Array.IndexOf(BounceLevelLayout.Types, spec.type))];
                     if (spec.type == "tube" && point == BounceLevelLayout.Cells(spec).First()) { color = new Color(.45f, .16f, .65f); label = "용광로"; }
                 }
                 EditorGUI.DrawRect(rect, color);
@@ -184,7 +184,7 @@ namespace BK.Kit.Editor
                 Change("Paint block", () => SetBlock(point, (char)('0' + colour))); return;
             }
             if (index >= 0) { selected = index; brush = Brush.Select; return; }
-            var spec = new GimmickSpec { type = brush == Brush.Tube ? "tube" : brush == Brush.Cupboard ? "cupboard" : "panel", col = point.x, row = point.y };
+            var spec = new GimmickSpec { type = BounceLevelLayout.Types[(int)brush - 3], col = point.x, row = point.y };
             Change("Place gimmick", () => Level.gimmicks = (Level.gimmicks ?? new GimmickSpec[0]).Concat(new[] {spec}).ToArray());
             selected = Level.gimmicks.Length - 1; brush = Brush.Select;
         }
@@ -202,12 +202,13 @@ namespace BK.Kit.Editor
             if (selected < 0 || Level.gimmicks == null || selected >= Level.gimmicks.Length)
             { EditorGUILayout.LabelField("기믹을 선택하면 설정이 표시됩니다."); return; }
             var spec = Level.gimmicks[selected];
-            EditorGUILayout.LabelField(spec.type == "tube" ? "금속관 + 용광로" : spec.type == "cupboard" ? "찬장 · 접시 10개" : "좌우 이동 판", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(BounceLevelLayout.Labels[Math.Max(0, Array.IndexOf(BounceLevelLayout.Types, spec.type))], EditorStyles.boldLabel);
             EditorGUI.BeginChangeCheck();
             int col = EditorGUILayout.IntField("열 (0부터)", spec.col);
             int row = EditorGUILayout.IntField("행 (0부터)", spec.row);
             int length = spec.length; bool vertical = spec.vertical;
             float width = spec.width, travel = spec.travel, speed = spec.speed;
+            string link = spec.link; int weakSide = spec.weakSide;
             if (spec.type == "tube")
             {
                 length = EditorGUILayout.IntSlider("관 길이 (용광로 제외)", length, 1, 13);
@@ -221,8 +222,16 @@ namespace BK.Kit.Editor
                 float period = EditorGUILayout.Slider("왕복 주기 (초)", 2 * Mathf.PI / Mathf.Max(.01f, speed), 2.1f, 30);
                 speed = 2 * Mathf.PI / period;
             }
+            if (spec.type == "switch" || spec.type == "door")
+            {
+                link = EditorGUILayout.TextField("연결 ID", link);
+                EditorGUILayout.HelpBox("같은 연결 ID의 스위치를 맞히면 연결된 문이 모두 열립니다. 연결선은 게임 화면에도 표시됩니다.", MessageType.None);
+            }
+            if (spec.type == "armor") weakSide = EditorGUILayout.Popup("약점 방향", weakSide, new[] { "아래 (발사대)", "오른쪽", "위", "왼쪽" });
+            if (spec.type == "combo") EditorGUILayout.HelpBox("동일한 공으로 두 번 맞혀야 파괴됩니다. 해당 공이 사라지면 외피가 다시 닫힙니다.", MessageType.None);
+            if (spec.type == "mine") EditorGUILayout.HelpBox("한 번 맞으면 주변 8칸에 피해를 주며 다른 기뢰를 연쇄 폭발시킵니다. 금속관은 폭발당 한 칸만 감소합니다.", MessageType.None);
             if (EditorGUI.EndChangeCheck()) Change("Configure gimmick", () =>
-            { spec.col = col; spec.row = row; spec.length = length; spec.vertical = vertical; spec.width = width; spec.travel = travel; spec.speed = speed; });
+            { spec.col = col; spec.row = row; spec.length = length; spec.vertical = vertical; spec.width = width; spec.travel = travel; spec.speed = speed; spec.link = link; spec.weakSide = weakSide; });
             if (spec.type == "cupboard")
             {
                 EditorGUILayout.HelpBox("3×2칸을 차지합니다. 상하좌우 인접 블록을 타격할 때 접시가 하나씩 깨집니다.", MessageType.None);
@@ -235,6 +244,15 @@ namespace BK.Kit.Editor
                         if (!cells.Contains(other) && Find(other) < 0 && !BounceLevelLayout.HasBlock(Level, other.x, other.y)) SetBlock(other, '2');
                     }
                 });
+            }
+            if (GUILayout.Button("기믹 프리팹 열기"))
+            {
+                var config = AssetDatabase.LoadAssetAtPath<IngameConfig>("Assets/_Project/Bounce/Content/IngameConfig.asset");
+                if (config != null && config.gimmickPrefabs != null)
+                {
+                    var prefab = config.gimmickPrefabs.Find(spec.type);
+                    if (prefab != null) AssetDatabase.OpenAsset(prefab.gameObject);
+                }
             }
             if (GUILayout.Button("선택한 기믹 삭제"))
             { Change("Delete gimmick", () => Level.gimmicks = Level.gimmicks.Where((_, i) => i != selected).ToArray()); selected = -1; }

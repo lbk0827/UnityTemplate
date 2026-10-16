@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: IngameConfig
   m_EditorClassIdentifier: BK.Kit.Runtime::BK.Kit.IngameConfig
   ballRadius: 0.25
+  gimmickPrefabs: {fileID: 11400000, guid: 880f23610f458ea4f975a4e52208ec4c, type: 2}

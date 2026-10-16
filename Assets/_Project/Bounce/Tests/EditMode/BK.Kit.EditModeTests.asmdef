@@ -3,6 +3,7 @@
   "references": [
     "BK.Kit.Runtime",
     "BK.Kit.Editor",
+    "Unity.TextMeshPro",
     "BK.UI",
     "BK.Scene",
     "BK.Assets",
