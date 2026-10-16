@@ -13,5 +13,9 @@ namespace BK.Kit
         public AudioClip lobbyMusic, ingameMusic, startSound, shotSound;
         public Material arenaMaterial, trajectoryMaterial;
         public IngameConfig ingameConfig;
+        public GameObject[] brokenBlocks;
+        public GameObject blockBreakParticle, ballHitParticle;
+        public Material ballTrailMaterial;
+        public AudioClip blockHitSound, blockBreakSound;
     }
 }

@@ -28,9 +28,14 @@ namespace BK.Kit
         private GameObject rig, cannon;
         private Camera camera;
         private LineRenderer line;
+        private Texture2D trajectoryDots;
         private AudioSource audioSource;
+        private BounceEffects effects;
+        private float nextImpactSound;
         private Action<bool> completed;
         private bool playing, holding;
+        private int pointerId = -1;
+        private readonly Vector3[] trajectoryPoints = new Vector3[3];
         private int columns;
         private Vector3 aim = Vector3.forward;
         private const int SolidLayer = 10;
@@ -38,11 +43,17 @@ namespace BK.Kit
         private const float Height = .5f, Speed = 18f;
         // Smash_Ball's SphereCollider radius at scale 1; the visual is scaled from it to match the gameplay radius.
         private const float BallPrefabRadius = .5f;
+        // Default for the static preview; matches IngameConfig.ballRadius's default.
+        private const float DefaultRadius = .25f;
         private float Radius => presentation.ingameConfig.ballRadius;
+        // The lagoon starts here. Preview rays may leave the launcher, but never enter water.
+        public const float DeadZoneZ = -7f;
+        private static readonly Vector3 LaunchOrigin = new Vector3(0, Height, -8.5f);
 
         public override void Begin(int level, Action<bool> onCompleted)
         {
             End();
+            nextImpactSound=0;
             completed = onCompleted;
             var library = JsonUtility.FromJson<Levels>(presentation.levels.text);
             var data = library.levels[(Mathf.Max(1, level)-1)%library.levels.Length];
@@ -51,11 +62,11 @@ namespace BK.Kit
             rig = new GameObject("Bounce_Rig");
             camera = Camera.main;
             camera.orthographic = true;
-            camera.orthographicSize = Mathf.Max((columns*.5f+1)/Mathf.Max(.3f,camera.aspect),9.5f)+1;
+            camera.orthographicSize = Mathf.Max((columns*.5f+2)/Mathf.Max(.3f,camera.aspect),11.5f);
             // Orthographic keeps every row the same size; the tilt only reveals block and wall sides.
             var view=Quaternion.Euler(cameraPitch,0,0);
-            camera.transform.SetPositionAndRotation(new Vector3(0,0,1)-view*Vector3.forward*40,view);
-            camera.backgroundColor = new Color(.25f,.55f,.95f);
+            camera.transform.SetPositionAndRotation(new Vector3(0,0,.3f)-view*Vector3.forward*40,view);
+            camera.backgroundColor = new Color(.075f,.34f,.43f);
             audioSource = rig.AddComponent<AudioSource>();
             rig.AddComponent<KitAudioChannel>().Initialize(audioSource,KitAudioChannel.Category.Effects);
             BuildArena();
@@ -76,11 +87,22 @@ namespace BK.Kit
             cannon.transform.localScale=Vector3.one*1.8f;
             PrepareVisual(cannon,false);
             RestOnGround(cannon);
+            effects=rig.AddComponent<BounceEffects>();effects.Initialize(presentation,cannon);
             line=new GameObject("Aim trajectory",typeof(LineRenderer)).GetComponent<LineRenderer>();
             line.transform.SetParent(rig.transform,false);
-            line.sharedMaterial=presentation.trajectoryMaterial;
-            line.startWidth=line.endWidth=.055f;
-            line.startColor=line.endColor=new Color(1,1,1,.75f);
+            var guideMaterial=new Material(presentation.trajectoryMaterial);
+            materials.Add(guideMaterial);
+            trajectoryDots=new Texture2D(64,16,TextureFormat.RGBA32,false) {name="Aim beads",wrapMode=TextureWrapMode.Repeat,filterMode=FilterMode.Bilinear};
+            var pixels=new Color[64*16];
+            for(int y=0;y<16;y++)for(int x=0;x<64;x++)
+                pixels[y*64+x]=new Color(.9f,1,1,1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(5,7,Vector2.Distance(new Vector2(x+.5f,y+.5f),new Vector2(32,8)))));
+            trajectoryDots.SetPixels(pixels);trajectoryDots.Apply(false,true);
+            guideMaterial.SetTexture("_BaseMap",trajectoryDots);
+            guideMaterial.SetFloat("_AlphaClip",1);guideMaterial.SetFloat("_Cutoff",.4f);guideMaterial.EnableKeyword("_ALPHATEST_ON");
+            line.sharedMaterial=guideMaterial;line.textureMode=LineTextureMode.Tile;line.textureScale=new Vector2(2.5f,1);
+            line.startWidth=line.endWidth=.13f;
+            line.numCapVertices=4;line.numCornerVertices=4;
+            line.startColor=new Color(.87f,1,1,1);line.endColor=new Color(.6f,.95f,1,1);
             line.enabled=false;
             playing=true;
             Physics.SyncTransforms();
@@ -90,22 +112,21 @@ namespace BK.Kit
         private void BuildArena()
         {
             float half=columns*.5f;
-            Color wall=new Color(.85f,.8f,.65f);
+            Color wall=new Color(.96f,.86f,.65f);
             Box("Wall left",new Vector3(-half-.5f,.6f,1.25f),new Vector3(1,1.2f,14.5f),0,wall,true);
             Box("Wall right",new Vector3(half+.5f,.6f,1.25f),new Vector3(1,1.2f,14.5f),0,wall,true);
             Box("Wall top",new Vector3(0,.6f,8),new Vector3(columns+2,1.2f,1),0,wall,true);
             float delta=1.5f*Mathf.Sqrt(.5f);
             Box("Bumper left",new Vector3(-half+delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),45,wall,true);
             Box("Bumper right",new Vector3(half-delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),135,wall,true);
-            Box("Grass",new Vector3(0,-.05f,1.25f),new Vector3(columns+4,.1f,16.5f),0,new Color(.45f,.78f,.3f),false);
-            Box("Water",new Vector3(0,-.1f,-10),new Vector3(columns+4,.1f,6),0,new Color(.25f,.55f,.95f),false);
+            rig.AddComponent<LagoonArena>().Build(columns,presentation.arenaMaterial);
         }
         private void Box(string name,Vector3 position,Vector3 scale,float yaw,Color color,bool solid)
         {
             var go=GameObject.CreatePrimitive(PrimitiveType.Cube);go.name=name;
             go.transform.SetParent(rig.transform,false);go.transform.SetPositionAndRotation(position,Quaternion.Euler(0,yaw,0));go.transform.localScale=scale;
             go.layer=solid?SolidLayer:2;
-            if(!solid) Destroy(go.GetComponent<Collider>());
+            if(!solid) {go.GetComponent<Collider>().enabled=false;Destroy(go.GetComponent<Collider>());}
             var material=new Material(presentation.arenaMaterial);material.color=color;materials.Add(material);
             go.GetComponent<Renderer>().sharedMaterial=material;
         }
@@ -133,35 +154,72 @@ namespace BK.Kit
         }
         private void Update()
         {
-            if(!playing || IsUsingBooster || KitApp.Instance==null || KitApp.Instance.IsLoading || Time.timeScale==0) { if(line!=null)line.enabled=false;holding=false;return; }
-            if(Input.GetMouseButtonDown(0))
-                holding=EventSystem.current==null || !(Input.touchCount>0?EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId):EventSystem.current.IsPointerOverGameObject());
+            if(!playing || IsUsingBooster || BallsRemaining<=0 || KitApp.Instance==null || KitApp.Instance.IsLoading || Time.timeScale==0) { CancelAim();return; }
+            Vector2 screen=Input.mousePosition;
+            bool began=Input.GetMouseButtonDown(0),released=Input.GetMouseButtonUp(0),canceled=false;
+            int id=-1;
+            if(Input.touchCount>0)
+            {
+                bool found=false;
+                for(int i=0;i<Input.touchCount;i++)
+                {
+                    var touch=Input.GetTouch(i);
+                    if(holding ? touch.fingerId!=pointerId : touch.phase!=TouchPhase.Began)continue;
+                    found=true;id=touch.fingerId;screen=touch.position;
+                    began=touch.phase==TouchPhase.Began;released=touch.phase==TouchPhase.Ended;
+                    canceled=touch.phase==TouchPhase.Canceled;break;
+                }
+                if(!found) {if(holding)CancelAim();return;}
+            }
+            else if(holding && pointerId>=0) {CancelAim();return;}
+            if(canceled) {CancelAim();return;}
+            if(began)
+            {
+                holding=EventSystem.current==null || !EventSystem.current.IsPointerOverGameObject(id);
+                pointerId=id;
+            }
             if(!holding)return;
             var plane=new Plane(Vector3.up,new Vector3(0,Height,0));
             bool valid=false;
-            var ray=camera.ScreenPointToRay(Input.mousePosition);
+            var ray=camera.ScreenPointToRay(screen);
             if(plane.Raycast(ray,out var distance))
             {
-                var direction=ray.GetPoint(distance)-new Vector3(0,Height,-8.5f);direction.y=0;
-                valid=direction.z>0 && direction.sqrMagnitude>.001f;
+                var direction=ray.GetPoint(distance)-LaunchOrigin;direction.y=0;
+                valid=TryGetAim(direction,out var nextAim) && camera.pixelRect.Contains(screen);
                 if(valid)
                 {
-                    float angle=Mathf.Clamp(Mathf.Atan2(direction.x,direction.z)*Mathf.Rad2Deg,-80,80);
-                    aim=Quaternion.Euler(0,angle,0)*Vector3.forward;
-                    cannon.transform.rotation=Quaternion.Euler(0,angle,0);ShowTrajectory();
+                    aim=nextAim;
+                    cannon.transform.rotation=Quaternion.LookRotation(aim);ShowTrajectory();
                 }
             }
             line.enabled=valid;
-            if(Input.GetMouseButtonUp(0)) { holding=false;line.enabled=false;if(valid)Fire(aim); }
+            if(released)
+            {
+                bool overUI=EventSystem.current!=null && EventSystem.current.IsPointerOverGameObject(pointerId);
+                CancelAim();if(valid && !overUI)Fire(aim);
+            }
+        }
+        private void CancelAim() {holding=false;pointerId=-1;if(line!=null)line.enabled=false;}
+        private void OnApplicationFocus(bool focused) {if(!focused)CancelAim();}
+        private void OnApplicationPause(bool paused) {if(paused)CancelAim();}
+        public static bool TryGetAim(Vector3 offset,out Vector3 direction)
+        {
+            direction=Vector3.forward;offset.y=0;
+            // A small dead band prevents the barrel flipping when the finger crosses its pivot.
+            if(float.IsNaN(offset.x) || float.IsNaN(offset.z) || float.IsInfinity(offset.x) || float.IsInfinity(offset.z)
+                || offset.z<=.15f || offset.sqrMagnitude<.36f)return false;
+            float angle=Mathf.Clamp(Mathf.Atan2(offset.x,offset.z)*Mathf.Rad2Deg,-75,75);
+            direction=Quaternion.Euler(0,angle,0)*Vector3.forward;return true;
         }
         public bool Fire(Vector3 direction)
         {
-            if(!playing || IsUsingBooster || BallsRemaining<=0 || KitApp.Instance.IsLoading || Time.timeScale==0)return false;
-            direction.y=0;if(direction.z<=0 || direction.sqrMagnitude<.001f)return false;direction.Normalize();
+            if(!playing || IsUsingBooster || BallsRemaining<=0 || KitApp.Instance==null || KitApp.Instance.IsLoading || Time.timeScale==0)return false;
+            if(!TryGetAim(direction,out direction))return false;
             var visual=Instantiate(presentation.ball,rig.transform);PrepareVisual(visual,false);
             visual.transform.localScale=Vector3.one*(Radius/BallPrefabRadius);
-            var position=new Vector3(0,Height,-8.5f)+direction*.9f;
+            var position=LaunchOrigin+direction*.9f;
             visual.transform.position=position;
+            effects.Launch(visual);
             shots.Add(new Shot {visual=visual,position=position,direction=direction});
             BallsRemaining--;PushCounts();
             KitHaptics.Pulse();
@@ -210,16 +268,34 @@ namespace BK.Kit
         }
         private void ShowTrajectory()
         {
-            var points=new List<Vector3>();var pos=new Vector3(0,Height,-8.5f)+aim*.9f;var direction=aim;float length=30;
-            points.Add(pos);
-            // Guide shows the first bounce only: path to the first hit, then the reflected leg up to the next contact.
-            for(int i=0;i<2;i++)
+            int count=TraceTrajectory(aim,trajectoryPoints,Radius);
+            line.positionCount=count;
+            for(int i=0;i<count;i++)line.SetPosition(i,trajectoryPoints[i]);
+        }
+        // At most two segments: incoming ray and the first reflection. Uses the ball's cast radius.
+        public static int TraceTrajectory(Vector3 direction,Vector3[] points,float radius=DefaultRadius)
+        {
+            if(points==null || points.Length<3)throw new ArgumentException("Three trajectory points are required.",nameof(points));
+            if(!TryGetAim(direction,out direction))return 0;
+            var pos=LaunchOrigin+direction*.9f;
+            // Cast through the launch area as well, so an unseen bumper cannot change the prediction.
+            float entry=(DeadZoneZ-pos.z)/direction.z;
+            if(entry>0)
             {
-                if(Physics.SphereCast(pos,Radius,direction,out var hit,length,1<<SolidLayer,QueryTriggerInteraction.Ignore))
-                {pos+=direction*hit.distance;points.Add(pos);length-=hit.distance;direction=Reflect(direction,hit.normal);pos+=direction*.001f;}
-                else {points.Add(pos+direction*length);break;}
+                if(Physics.SphereCast(pos,radius,direction,out _,entry,1<<SolidLayer,QueryTriggerInteraction.Ignore))return 0;
+                pos+=direction*entry;
             }
-            line.positionCount=points.Count;line.SetPositions(points.ToArray());
+            int count=1;points[0]=pos;float length=30;
+            for(int segment=0;segment<2;segment++)
+            {
+                float limit=direction.z<0?Mathf.Min(length,Mathf.Max(0,(DeadZoneZ-pos.z)/direction.z)):length;
+                if(limit<=.0001f)break;
+                if(!Physics.SphereCast(pos,radius,direction,out var hit,limit,1<<SolidLayer,QueryTriggerInteraction.Ignore))
+                {points[count++]=pos+direction*limit;break;}
+                pos+=direction*hit.distance;points[count++]=pos;length-=hit.distance;
+                direction=Reflect(direction,hit.normal);pos+=direction*.001f;
+            }
+            return count;
         }
         private static Vector3 Reflect(Vector3 direction,Vector3 normal)
         {
@@ -235,18 +311,22 @@ namespace BK.Kit
             for(int i=shots.Count-1;i>=0;i--)
             {
                 var shot=shots[i];shot.age+=Time.fixedDeltaTime;float remaining=Speed*Time.fixedDeltaTime;
+                bool drained=false;
                 for(int bounce=0;bounce<4 && remaining>.00001f;bounce++)
                 {
-                    if(Physics.SphereCast(shot.position,Radius,shot.direction,out var hit,remaining,1<<SolidLayer,QueryTriggerInteraction.Ignore))
+                    float toWater=shot.direction.z<0?Mathf.Max(0,(DeadZoneZ-shot.position.z)/shot.direction.z):float.PositiveInfinity;
+                    float travel=Mathf.Min(remaining,toWater);
+                    if(Physics.SphereCast(shot.position,Radius,shot.direction,out var hit,travel,1<<SolidLayer,QueryTriggerInteraction.Ignore))
                     {
                         shot.position+=shot.direction*hit.distance;remaining-=hit.distance;
+                        effects.Hit(hit.point);
                         shot.direction=Reflect(shot.direction,hit.normal);shot.position+=shot.direction*.001f;
                         for(int b=blocks.Count-1;b>=0;b--)if(hit.collider.transform.IsChildOf(blocks[b].root)) {HitBlock(b);break;}
                     }
-                    else {shot.position+=shot.direction*remaining;break;}
+                    else {shot.position+=shot.direction*travel;drained=toWater<=remaining;break;}
                 }
                 shot.visual.transform.position=shot.position;
-                if(shot.position.z<-10 || shot.age>20) {Destroy(shot.visual);shots.RemoveAt(i);}
+                if(drained || shot.age>20) {shot.visual.GetComponent<BallFlightEffect>()?.ReleaseTrail();Destroy(shot.visual);shots.RemoveAt(i);}
             }
             if(blocks.Count==0)Resolve(true);else if(BallsRemaining==0 && shots.Count==0)Resolve(false);
         }
@@ -254,18 +334,19 @@ namespace BK.Kit
         {
             var block=blocks[index];block.hp--;
             if(block.hp==0)RemoveBlock(block);
-            else {BuildBlock(block);StartCoroutine(Punch(block.root));}
+            else {PlayImpactSound(presentation.blockHitSound);BuildBlock(block);StartCoroutine(Punch(block.root));}
             PushCounts();
         }
         private void RemoveBlock(Block block)
         {
-            // Detach before deleting the gameplay root. The cosmetic mesh never participates in casts.
-            var visual=block.visual;
-            visual.transform.SetParent(rig.transform,true);
-            visual.name="Breaking block";
-            PrepareVisual(visual,false);
-            visual.AddComponent<BlockBreakEffect>();
+            PlayImpactSound(presentation.blockBreakSound);
+            effects.Break(block.visual,Mathf.Max(0,block.hp-1));
             block.root.gameObject.SetActive(false);Destroy(block.root.gameObject);blocks.Remove(block);
+        }
+        private void PlayImpactSound(AudioClip clip)
+        {
+            if(clip==null || Time.time<nextImpactSound)return;
+            nextImpactSound=Time.time+.04f;audioSource.PlayOneShot(clip,.65f);
         }
         private IEnumerator Punch(Transform target)
         {
@@ -292,6 +373,7 @@ namespace BK.Kit
             StopAllCoroutines();playing=false;holding=false;IsUsingBooster=false;completed=null;
             if(rig!=null)Destroy(rig);rig=null;shots.Clear();blocks.Clear();
             foreach(var material in materials)Destroy(material);materials.Clear();
+            if(trajectoryDots!=null)Destroy(trajectoryDots);trajectoryDots=null;
         }
         private void OnDestroy()=>End();
     }

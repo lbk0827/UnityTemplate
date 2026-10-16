@@ -10,6 +10,7 @@ namespace BK.Kit
 {
     public sealed class BoosterShopView : MonoBehaviour
     {
+        private static readonly Color Ink = new Color(.19f,.09f,.36f);
         private sealed class Row { public BoosterOffer offer; public TMP_Text owned; public Button buy; }
         private readonly List<Row> rows=new List<Row>();
         private readonly Dictionary<string,Sprite> sprites=new Dictionary<string,Sprite>();
@@ -49,9 +50,7 @@ namespace BK.Kit
             Scroll.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>Scroll.gameObject.SetActive(page==0);
             cursor=20;
-            var ingame=presentation.ingame.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIIngamePanel");
-            var boosterIcons=BoosterCatalog.All.Select(offer=>ingame.GetComponentsInChildren<Transform>(true)
-                .First(t=>t.name=="BTN_"+offer.Kind).GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_Item").sprite).ToArray();
+            var boosterIcons=BoosterCatalog.All.Select(offer=>Sprite("Shop_"+offer.Kind)).ToArray();
             foreach(var category in app.Shop.VisibleProducts().GroupBy(p=>p.category))
             {
                 bool coins=category.Key=="Coins";
@@ -67,7 +66,7 @@ namespace BK.Kit
                         var card=Image(content,"Coins_"+reward.amount,new Vector2(274,370),new Vector2(x,-y-185),Sprite("IMG_Coin_Goods_Bg")).rectTransform;
                         // Art: cream y 185..-56, coloured band -56..-173 (centre -114).
                         Icon(card,product.icon,new Vector2(200,160),new Vector2(0,78));
-                        Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Color.white);
+                        Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Ink);
                         Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
                             ()=>Preview(product));
                     }
@@ -78,20 +77,20 @@ namespace BK.Kit
                 {
                     float height=Mathf.Ceil(index/3f)*390;cursor=top+height;
                     var background=Image(content,"Coin section background",new Vector2(940,height+180),new Vector2(0,-top-height/2+80),null);
-                    background.color=new Color(.32f,.045f,.015f);background.transform.SetAsFirstSibling();
+                    background.color=new Color(.985f,.972f,.952f);background.transform.SetAsFirstSibling();
                 }
                 Gap(30);
             }
             BoostersSection=Section("Boosters","IMG_ShopTitle_Package");
-            feedback=Label(content,"Use Gold earned from levels",new Vector2(840,50),new Vector2(0,-cursor-25),28,Color.white);cursor+=65;
+            feedback=Label(content,"Use Gold earned from levels",new Vector2(840,50),new Vector2(0,-cursor-25),28,Ink);cursor+=65;
             for(int i=0;i<BoosterCatalog.All.Count;i++)
             {
                 var offer=BoosterCatalog.All[i];var card=Card("Shop_"+offer.Kind,290,"IMG_Bundle_Bg");
                 // Art: cream y 145..-30, band -30..-136 (centre -83). Text column starts at x -235.
                 Image(card,"Icon",new Vector2(130,130),new Vector2(-320,55),boosterIcons[i],false).preserveAspect=true;
-                Label(card,offer.Title,new Vector2(620,52),new Vector2(80,85),35,Color.white).alignment=TextAlignmentOptions.Left;
-                Label(card,offer.Description,new Vector2(620,56),new Vector2(80,30),27,Color.white).alignment=TextAlignmentOptions.Left;
-                var owned=Label(card,"",new Vector2(470,50),new Vector2(-160,-83),29,Color.white);owned.alignment=TextAlignmentOptions.Left;
+                Label(card,offer.Title,new Vector2(620,52),new Vector2(80,85),35,Ink).alignment=TextAlignmentOptions.Left;
+                Label(card,offer.Description,new Vector2(620,56),new Vector2(80,30),27,Ink).alignment=TextAlignmentOptions.Left;
+                var owned=Label(card,"",new Vector2(470,50),new Vector2(-160,-83),29,Ink);owned.alignment=TextAlignmentOptions.Left;
                 var buy=Buy(card,"Buy_"+offer.Kind,app.Shop.BoosterPrice(offer.Kind)+" Gold",new Vector2(290,80),new Vector2(250,-83),32,
                     ()=>{app.TryBuyBooster(offer.Kind,out var message);feedback.text=message;});
                 rows.Add(new Row {offer=offer,owned=owned,buy=buy});
@@ -104,7 +103,7 @@ namespace BK.Kit
             foreach(var child in store.GetComponentsInChildren<Transform>(true))
                 if(child.name=="UI_ShopTitle" || child.name=="IMG_Bg_Blue" || child.name=="IMG_Bg_Red")child.gameObject.SetActive(false);
             var background=Image(store,"Shop background",Vector2.zero,Vector2.zero,null);
-            background.color=new Color(.27f,.055f,.38f);
+            background.color=new Color(.985f,.972f,.952f);
             background.rectTransform.anchorMin=Vector2.zero;background.rectTransform.anchorMax=Vector2.one;
             background.rectTransform.offsetMin=background.rectTransform.offsetMax=Vector2.zero;background.transform.SetAsFirstSibling();
             var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
@@ -118,7 +117,7 @@ namespace BK.Kit
             Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Color.white);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
-            goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,new Color(.26f,.09f,0));
+            goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,Ink);
         }
         private void RenderPackage(ShopProductRow product,Sprite[] boosterIcons)
         {
@@ -129,14 +128,14 @@ namespace BK.Kit
             {
                 Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
                 Label(card,product.rewards.Length>1?app.Shop.Describe(product):product.description,
-                    new Vector2(490,170),new Vector2(120,72),43,new Color(1,.88f,.25f));
+                    new Vector2(490,170),new Vector2(120,72),43,Ink);
             }
             else
             {
                 var main=app.Shop.Rewards(product,0).First();
                 Icon(card,"IMG_GoodsLight",new Vector2(335,245),new Vector2(-230,100));
                 Icon(card,product.icon,new Vector2(300,190),new Vector2(-230,100));
-                Label(card,app.Shop.Amount(main),new Vector2(320,46),new Vector2(-230,-18),44,Color.white);
+                Label(card,app.Shop.Amount(main),new Vector2(320,46),new Vector2(-230,-18),44,Ink);
                 var secondary=app.Shop.Rewards(product,1).ToArray();
                 for(int i=0;i<secondary.Length;i++)
                 {
@@ -144,7 +143,7 @@ namespace BK.Kit
                     var definition=app.Shop.Currencies.Get(secondary[i].currencyId);
                     Icon(card,definition.icon,new Vector2(92,80),new Vector2(x,150));
                     if(definition.duration)Icon(card,"IMG_HeartInfinite",new Vector2(76,44),new Vector2(x,156));
-                    Label(card,app.Shop.Amount(secondary[i]),new Vector2(110,40),new Vector2(x,95),33,Color.white);
+                    Label(card,app.Shop.Amount(secondary[i]),new Vector2(110,40),new Vector2(x,95),33,Ink);
                 }
                 var extras=app.Shop.Rewards(product,2).ToArray();
                 float width=Mathf.Min(100,400f/Mathf.Max(1,extras.Length));
@@ -155,7 +154,7 @@ namespace BK.Kit
                         boosterIcons[BoosterCatalog.All.ToList().FindIndex(o=>o.Kind.ToString()==definition.boosterKind)];
                     float x=180+(i-(extras.Length-1)*.5f)*width;
                     Image(card,"Reward_"+extras[i].currencyId,new Vector2(width-4,86),new Vector2(x,30),icon,false).preserveAspect=true;
-                    Label(card,"x"+app.Shop.Amount(extras[i]),new Vector2(width,34),new Vector2(x,-22),30,Color.white);
+                    Label(card,"x"+app.Shop.Amount(extras[i]),new Vector2(width,34),new Vector2(x,-22),30,Ink);
                 }
             }
             if(!string.IsNullOrEmpty(product.badge))
@@ -175,7 +174,7 @@ namespace BK.Kit
         private RectTransform Section(string title,string sprite)
         {
             var heading=Image(content,"Category_"+title,new Vector2(860,124),new Vector2(0,-cursor-62),Sprite(sprite)).rectTransform;
-            Label(heading,title,new Vector2(790,90),new Vector2(0,5),53,new Color(1,1,.82f));
+            Label(heading,title,new Vector2(790,90),new Vector2(0,5),53,Ink);
             cursor+=165;return heading;
         }
         private RectTransform Card(string name,float height,string sprite)
@@ -186,7 +185,7 @@ namespace BK.Kit
         private void Footer(RectTransform card,string title,string price,Action click)
         {
             float y=-card.sizeDelta.y*.285f;
-            var label=Label(card,title,new Vector2(490,84),new Vector2(-155,y),49,new Color(1,1,.82f));
+            var label=Label(card,title,new Vector2(490,84),new Vector2(-155,y),49,Ink);
             label.alignment=TextAlignmentOptions.Left;
             Buy(card,"Preview_"+card.name,price,new Vector2(305,120),new Vector2(250,y),51,click);
         }

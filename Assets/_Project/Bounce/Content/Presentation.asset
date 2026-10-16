@@ -69,3 +69,13 @@ MonoBehaviour:
   arenaMaterial: {fileID: 2100000, guid: 047e176e0c41db04c926f43789d94d40, type: 2}
   trajectoryMaterial: {fileID: 2100000, guid: db41185a14fdf0049b092fa894d4e00d, type: 2}
   ingameConfig: {fileID: 11400000, guid: 47074d8e35214ac3b07f1cd1db01fe2e, type: 2}
+  brokenBlocks:
+  - {fileID: 1709254077376921, guid: e660fc3a423f8c54aa4354348a701c66, type: 3}
+  - {fileID: 1709254077376921, guid: f9f8c2eecb2ccf24f8d002ae2a41c0e3, type: 3}
+  - {fileID: 1709254077376921, guid: 8fed1592a370329438124bba71b505b2, type: 3}
+  - {fileID: 1709254077376921, guid: e579c5520866a594e87a6381fcd43bbd, type: 3}
+  blockBreakParticle: {fileID: 1709254077376921, guid: 4a3594d14f1c6ca4780932ffdd4f1693, type: 3}
+  ballHitParticle: {fileID: 1709254077376921, guid: 71197516779921b419f4b92c8961acea, type: 3}
+  ballTrailMaterial: {fileID: 2100000, guid: 4a5e497ef1899c14d9730fad989abb81, type: 2}
+  blockHitSound: {fileID: 8300000, guid: b1c16f6fb13654b468f6f91d21276ebe, type: 3}
+  blockBreakSound: {fileID: 8300000, guid: 6ead6119610820240a3a554a2224c4a9, type: 3}
