@@ -10,7 +10,7 @@ namespace BK.Kit
 {
     public sealed class BounceModule : GameModule
     {
-        [Serializable] public sealed class Level { public int balls; public string[] rows; }
+        [Serializable] public sealed class Level { public int balls; public string[] rows; public GimmickSpec[] gimmicks; }
         [Serializable] public sealed class Levels { public Level[] levels; }
         [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp, skin; }
         private sealed class Shot { public GameObject visual; public Vector3 position, direction; public float age; }
@@ -18,7 +18,8 @@ namespace BK.Kit
         [Range(45,90),Tooltip("Camera tilt from the ground plane. 90 = straight top-down.")]
         public float cameraPitch = 60;
         public int BallsRemaining { get; private set; }
-        public int BlocksRemaining => blocks.Count;
+        public int BlocksRemaining => blocks.Count + (gimmicks == null ? 0 : gimmicks.ObjectivesRemaining);
+        private BounceGimmicks gimmicks;
         public int ActiveBalls => shots.Count;
         public bool IsUsingBooster { get; private set; }
         public event Action CountersChanged;
@@ -82,6 +83,8 @@ namespace BK.Kit
                     var block=new Block {root=root,hp=1,skin=Mathf.Clamp(colour-1,0,presentation.blocks.Length-1)};
                     blocks.Add(block); BuildBlock(block);
                 }
+            gimmicks=rig.AddComponent<BounceGimmicks>();
+            gimmicks.Build(data.gimmicks,columns,presentation.arenaMaterial,PushCounts);
             cannon=Instantiate(presentation.cannon,rig.transform);
             cannon.name="Bounce_Cannon";
             cannon.transform.position=new Vector3(0,0,-8.5f);
@@ -230,7 +233,7 @@ namespace BK.Kit
         public bool CanUseBooster(BoosterKind kind)
         {
             var app=KitApp.Instance;
-            return playing && !IsUsingBooster && app!=null && !app.IsLoading && app.Session.State==SessionState.Playing && Time.timeScale>0 && blocks.Count>0
+            return playing && !IsUsingBooster && app!=null && !app.IsLoading && app.Session.State==SessionState.Playing && Time.timeScale>0 && BlocksRemaining>0
                 && BoosterCatalog.Find(kind)!=null && (kind!=BoosterKind.ExtraBall || BallsRemaining<=int.MaxValue-BoosterCatalog.ExtraBallAmount);
         }
         public bool TryUseBooster(BoosterKind kind)
@@ -241,11 +244,15 @@ namespace BK.Kit
             Block[] victims=Array.Empty<Block>();
             if(kind!=BoosterKind.ExtraBall)
             {
-                Block target;
+                Block target=null;
+                if(blocks.Count==0) center=gimmicks.ObjectivePositions.First();
+                else
+                {
                 if(kind==BoosterKind.Bomb)target=blocks.OrderByDescending(b=>blocks.Count(n=>Mathf.Abs(n.root.position.x-b.root.position.x)<=1.01f && Mathf.Abs(n.root.position.z-b.root.position.z)<=1.01f)).First();
                 else if(kind==BoosterKind.Laser)target=blocks.OrderByDescending(b=>blocks.Count(n=>Mathf.Abs(n.root.position.x-b.root.position.x)<.1f)).First();
                 else target=blocks.OrderByDescending(b=>b.hp).First();
                 center=target.root.position;center.y=Height;
+                }
                 victims=blocks.Where(b=>kind==BoosterKind.Missile?b==target:kind==BoosterKind.Laser?Mathf.Abs(b.root.position.x-center.x)<.1f:Mathf.Abs(b.root.position.x-center.x)<=1.01f && Mathf.Abs(b.root.position.z-center.z)<=1.01f).ToArray();
             }
             StartCoroutine(UseBooster(kind,center,victims));PushCounts();return true;
@@ -259,12 +266,19 @@ namespace BK.Kit
             {
                 KitHaptics.Pulse();
                 if(kind==BoosterKind.ExtraBall)BallsRemaining+=BoosterCatalog.ExtraBallAmount;
-                else foreach(var victim in victims)
-                    if(victim.root!=null)RemoveBlock(victim);
+                else
+                {
+                    foreach(var victim in victims)
+                        if(victim.root!=null && blocks.Contains(victim))
+                        { gimmicks.NotifyBlockHit(victim.root.position); RemoveBlock(victim); }
+                    gimmicks.HitArea(p=>kind==BoosterKind.Missile ? (p-center).sqrMagnitude<.1f :
+                        kind==BoosterKind.Laser ? Mathf.Abs(p.x-center.x)<.1f :
+                        Mathf.Abs(p.x-center.x)<=1.01f && Mathf.Abs(p.z-center.z)<=1.01f);
+                }
                 Physics.SyncTransforms();PushCounts();
             });
             Destroy(effect.gameObject);IsUsingBooster=false;
-            if(blocks.Count==0)Resolve(true);
+            if(BlocksRemaining==0)Resolve(true);
             PushCounts();
         }
         private void ShowTrajectory()
@@ -294,6 +308,8 @@ namespace BK.Kit
                 if(!Physics.SphereCast(pos,radius,direction,out var hit,limit,1<<SolidLayer,QueryTriggerInteraction.Ignore))
                 {points[count++]=pos+direction*limit;break;}
                 pos+=direction*hit.distance;points[count++]=pos;length-=hit.distance;
+                var board=hit.collider.GetComponentInParent<BounceGimmicks>();
+                if(board!=null && board.IsMovingPanel(hit.collider))break;
                 direction=Reflect(direction,hit.normal);pos+=direction*.001f;
             }
             return count;
@@ -309,9 +325,11 @@ namespace BK.Kit
         private void FixedUpdate()
         {
             if(!playing || IsUsingBooster)return;
+            gimmicks.Tick(Time.fixedDeltaTime);
             for(int i=shots.Count-1;i>=0;i--)
             {
                 var shot=shots[i];shot.age+=Time.fixedDeltaTime;float remaining=Speed*Time.fixedDeltaTime;
+                gimmicks.SeparateFromPanels(ref shot.position,ref shot.direction,Radius);
                 bool drained=false;
                 for(int bounce=0;bounce<4 && remaining>.00001f;bounce++)
                 {
@@ -323,6 +341,7 @@ namespace BK.Kit
                         effects.Hit(hit.point);
                         var incoming=shot.direction;
                         shot.direction=Reflect(shot.direction,hit.normal);shot.position+=shot.direction*.001f;
+                        if(gimmicks.Hit(hit.collider))PlayImpactSound(presentation.blockHitSound);
                         for(int b=blocks.Count-1;b>=0;b--)if(hit.collider.transform.IsChildOf(blocks[b].root)) {HitBlock(b,incoming);break;}
                     }
                     else {shot.position+=shot.direction*travel;drained=toWater<=remaining;break;}
@@ -330,11 +349,11 @@ namespace BK.Kit
                 shot.visual.transform.position=shot.position;
                 if(drained || shot.age>20) {shot.visual.GetComponent<BallFlightEffect>()?.ReleaseTrail();Destroy(shot.visual);shots.RemoveAt(i);}
             }
-            if(blocks.Count==0)Resolve(true);else if(BallsRemaining==0 && shots.Count==0)Resolve(false);
+            if(BlocksRemaining==0)Resolve(true);else if(BallsRemaining==0 && shots.Count==0)Resolve(false);
         }
         private void HitBlock(int index,Vector3 incoming)
         {
-            var block=blocks[index];block.hp--;
+            var block=blocks[index];gimmicks.NotifyBlockHit(block.root.position);block.hp--;
             if(block.hp==0)RemoveBlock(block,incoming);
             else {PlayImpactSound(presentation.blockHitSound);BuildBlock(block);StartCoroutine(Punch(block.root));}
             PushCounts();
@@ -363,7 +382,7 @@ namespace BK.Kit
         }
         private void Resolve(bool won) {if(!playing)return;playing=false;holding=false;line.enabled=false;StartCoroutine(Report(won));}
         // Board intact (blocks left, rig alive): a bought continue can resume whether the loss came from the physics or from the hub.
-        public override bool CanContinue=>rig!=null && blocks.Count>0 && !IsUsingBooster;
+        public override bool CanContinue=>rig!=null && BlocksRemaining>0 && !IsUsingBooster;
         public override void Continue(int extraBalls)
         {
             if(!CanContinue)return;
@@ -373,7 +392,7 @@ namespace BK.Kit
         public override void End()
         {
             StopAllCoroutines();playing=false;holding=false;IsUsingBooster=false;completed=null;
-            if(rig!=null)Destroy(rig);rig=null;shots.Clear();blocks.Clear();
+            if(rig!=null) {rig.SetActive(false);Destroy(rig);}rig=null;gimmicks=null;shots.Clear();blocks.Clear();
             foreach(var material in materials)Destroy(material);materials.Clear();
             if(trajectoryDots!=null)Destroy(trajectoryDots);trajectoryDots=null;
         }

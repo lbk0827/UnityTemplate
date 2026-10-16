@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-17",
+  "unity": "6000.3.21f1",
+  "editor": {
+    "menu": "BK Kit/Level Editor",
+    "data": "Assets/_Project/Bounce/Content/bounce-levels.json",
+    "workflow": [
+      "Choose or add/duplicate a stage",
+      "Choose a brush and click grid cells",
+      "Select a gimmick to edit its settings",
+      "Fix validation errors, then Save",
+      "Open Bounce Bootstrap, enter Play mode, then Save and Play"
+    ],
+    "controls": {
+      "left_click": "Place/select",
+      "right_click": "Erase entire gimmick or block",
+      "undo": "Ctrl+Z",
+      "cupboard_helper": "Fill surrounding blocks"
+    },
+    "safety": [
+      "Undoable in-memory drafts; explicit save",
+      "Save validates all stages",
+      "External file changes are never silently overwritten",
+      "Furnace footprint and panel sweep are included in overlap checks"
+    ],
+    "play_note": "Save and Play sets local sandbox progress and grants 10 of each booster, as in RND Workbench."
+  },
+  "rules": {
+    "durability": "No numerical durability labels; tube length and visible plates communicate progress.",
+    "tube": {
+      "col_row": "First pipe cell; furnace is one cell left, or one row above when vertical.",
+      "length": "Number of pipe cells, excluding furnace.",
+      "hit": "Pipe or furnace hit consumes one cell; pipe feeds toward the hot furnace.",
+      "complete": "Furnace cools and its collider disables.",
+      "booster": "One cell per objective per direct area hit."
+    },
+    "cupboard": {
+      "footprint": "3 columns by 2 rows, anchored at upper left.",
+      "plates": 10,
+      "hit": "Orthogonally adjacent ordinary block hits remove one plate. Direct booster hits also remove one plate.",
+      "validation": "At least 10 distinct adjacent ordinary blocks."
+    },
+    "panel": {
+      "col_row": "Centre of travel.",
+      "width": "World units; one cell is one unit.",
+      "travel": "Distance from centre to each endpoint.",
+      "speed": "Radians per second; editor displays period in seconds.",
+      "goal": false,
+      "preview": "Aim line ends at moving panel because later reflection depends on timing."
+    }
+  },
+  "demo_stages": {
+    "11": "Tube introduction",
+    "12": "Open a path",
+    "13": "Vertical tubes and bank shots",
+    "14": "Ten-plate cupboard",
+    "15": "Moving panel",
+    "16": "Combined"
+  },
+  "validation": {
+    "edit_mode": {
+      "passed": 10,
+      "failed": 0,
+      "suites": [
+        "BounceLevelLayoutTests",
+        "BounceLevelEditorTests"
+      ],
+      "environment": "isolated worktree with final task sources"
+    },
+    "play_mode": {
+      "passed": 13,
+      "failed": 0,
+      "environment": "current project including shop fixes",
+      "suites": [
+        "GimmickFlowTests",
+        "BounceAimTests",
+        "VisualFlowTests.EveryBoxColourBreaksInOneHitWithSmallMatchingFragments"
+      ]
+    },
+    "visual_review": "Combined board, furnace feeding, pipe shortening and cooled furnace screenshots"
+  },
+  "screenshots": [
+    "gimmick-all.png",
+    "gimmick-furnace-cooled.png",
+    "gimmick-furnace-feeding.png",
+    "gimmick-tube-before.png"
+  ]
+}

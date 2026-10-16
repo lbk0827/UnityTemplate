@@ -28,10 +28,21 @@ namespace BK.Kit.Editor
                 }
                 if(GUILayout.Button("Return to lobby"))app.GoToLobby();
                 if(GUILayout.Button("Retry pending save"))feedback=app.RetryPendingSave()?"Saved.":"Still waiting for save access.";
+                EditorGUILayout.Space();
+                EditorGUILayout.LabelField("Gimmick demos",EditorStyles.boldLabel);
+                foreach(var demo in new[] { (11,"Metal tube / first hit"), (12,"Metal tube / open a route"),
+                    (13,"Metal tube / bank shots"), (14,"Cupboard / ten plates"),
+                    (15,"Moving panel / timing"), (16,"All three gimmicks") })
+                    if(GUILayout.Button(demo.Item2))
+                    {
+                        level=demo.Item1;
+                        if(app.TrySetSandboxProgress(level,gold,boosters))app.Play(level);
+                    }
             }
             if(!string.IsNullOrEmpty(feedback))EditorGUILayout.HelpBox(feedback,MessageType.None);
             if(app!=null)EditorGUILayout.LabelField("State",app.Session.State+" / stage "+app.Session.Level);
             EditorGUILayout.Space();
+            if(GUILayout.Button("Open Level Editor"))BounceLevelEditor.Open();
             if(GUILayout.Button("Open Migrated Bootstrap"))IntegrationSetup.Open();
         }
         private void OnInspectorUpdate()=>Repaint();
