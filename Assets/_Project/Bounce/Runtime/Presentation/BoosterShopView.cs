@@ -182,7 +182,7 @@ namespace BK.Kit
         {
             var image=Image(parent,name,size,position,Sprite("IMG_Bundle_Goods_Btn"));image.raycastTarget=true;
             var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;
-            Label(button.transform,text,size-new Vector2(28,18),Vector2.zero,fontSize,new Color(1,1,.84f));
+            Label(button.transform,text,size-new Vector2(28,18),Vector2.zero,fontSize,Ink);
             button.onClick.AddListener(()=>click());return button;
         }
         private Image Icon(Transform parent,string sprite,Vector2 size,Vector2 position)
