@@ -55,6 +55,24 @@ namespace BK.Kit.Editor
 #pragma warning restore CS0618
             t.SaveAndReimport();return AssetDatabase.LoadAllAssetsAtPath(path).OfType<Sprite>().ToDictionary(s=>s.name);
         }
+        [MenuItem("BK/Integration/Fix Lobby Floating Button Aspect")]
+        public static void FixLobbyFloatingButtons()
+        {
+            var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            foreach(var asset in new[]{p.home,p.lobby})
+            {
+                string path=AssetDatabase.GetAssetPath(asset);var root=PrefabUtility.LoadPrefabContents(path);
+                try
+                {
+                    foreach(var i in root.GetComponentsInChildren<Image>(true))
+                        if(i.name=="IMG_Box" && Path(i.transform).Contains("/UI_Right/"))
+                        {i.type=Image.Type.Simple;i.preserveAspect=true;}
+                    PrefabUtility.SaveAsPrefabAsset(root,path);
+                }
+                finally{PrefabUtility.UnloadPrefabContents(root);}
+            }
+            AssetDatabase.SaveAssets();Debug.Log("BK_LOBBY_FLOATING_ASPECT_OK");
+        }
         [MenuItem("BK/Integration/Import Casual Interface Art")]
         public static void Import()
         {
@@ -114,6 +132,8 @@ namespace BK.Kit.Editor
                         if(replacement==null)continue;
                         i.sprite=replacement;i.type=replacement.border==Vector4.zero?Image.Type.Simple:Image.Type.Sliced;
                         i.enabled=true;i.color=Color.white;i.preserveAspect=replacement.border==Vector4.zero;
+                        if(i.name=="IMG_Box" && hierarchy.Contains("/UI_Right/"))
+                        {i.type=Image.Type.Simple;i.preserveAspect=true;}
                     }
                     foreach(var label in root.GetComponentsInChildren<TMP_Text>(true))
                     {

@@ -248,8 +248,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 5426970061134755516, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2408,12 +2408,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9100941993361300712, guid: 23974b38651ac8e42952208825313a3e, type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9100941993361300712, guid: 23974b38651ac8e42952208825313a3e, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5426970061134755516, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
+    - target: {fileID: 9100941993361300712, guid: 23974b38651ac8e42952208825313a3e, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3159,12 +3163,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5814000000000000009, guid: d4f7c0b53e9a7f4b1c6d8a2e5b03f974, type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5814000000000000009, guid: d4f7c0b53e9a7f4b1c6d8a2e5b03f974, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5426970061134755516, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
+    - target: {fileID: 5814000000000000009, guid: d4f7c0b53e9a7f4b1c6d8a2e5b03f974, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5814000000000000020, guid: d4f7c0b53e9a7f4b1c6d8a2e5b03f974, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -3311,12 +3319,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 597566196841787722, guid: 6f46a89a9bdf4f245ab3e51182848723, type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 597566196841787722, guid: 6f46a89a9bdf4f245ab3e51182848723, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 5426970061134755516, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
+    - target: {fileID: 597566196841787722, guid: 6f46a89a9bdf4f245ab3e51182848723, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3611528499765009552, guid: 6f46a89a9bdf4f245ab3e51182848723, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542

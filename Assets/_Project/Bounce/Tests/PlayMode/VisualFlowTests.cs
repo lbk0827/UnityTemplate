@@ -328,6 +328,44 @@ public sealed class VisualFlowTests
         Assert.That(Time.timeScale,Is.EqualTo(1));AssertChannels(false,false);
     }
     [UnityTest]
+    public IEnumerator LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        var navigation=UnityEngine.Object.FindFirstObjectByType<LobbyNavigation>();
+        var hud=Binding("UIHUDPanel");var store=hud.Get<Toggle>("StoreToggle");var home=hud.Get<Toggle>("HomeToggle");
+        var floating=UnityEngine.Object.FindObjectsByType<Image>(FindObjectsSortMode.None)
+            .Where(i=>i.name=="IMG_Box" && i.transform.GetComponentsInParent<Transform>().Any(t=>t.name=="UI_Right")).ToArray();
+        Assert.That(floating.Length,Is.GreaterThanOrEqualTo(2));
+        foreach(var plate in floating){Assert.That(plate.type,Is.EqualTo(Image.Type.Simple));Assert.That(plate.preserveAspect,Is.True);}
+        // Capture after the timing assertions: synchronous GPU readback can consume a whole transition frame.
+        yield return null;
+        Time.timeScale=0;navigation.Select(0);
+        yield return new WaitForSecondsRealtime(.06f);
+        var icon=(RectTransform)store.transform.Find("IMG_On");
+        Assert.That(icon.anchoredPosition.y,Is.GreaterThan(0));
+        Assert.That(icon.GetComponentInChildren<TMP_Text>().color.a,Is.LessThan(.2f),"Title follows the icon instead of appearing at click time");
+        Dump("lobby-reference-rise");
+        yield return new WaitForSecondsRealtime(.35f);
+        Assert.That(icon.anchoredPosition.y,Is.EqualTo(49).Within(.01f));
+        Assert.That(icon.GetComponentInChildren<TMP_Text>().color.a,Is.EqualTo(1).Within(.001f));
+        Dump("lobby-reference-store");
+        navigation.Select(2);yield return new WaitForSecondsRealtime(.04f);
+        navigation.Select(0);yield return new WaitForSecondsRealtime(.04f);
+        navigation.Select(1);yield return new WaitForSecondsRealtime(.75f);
+        Assert.That(store.transform.Find("Checkmark").GetComponent<CanvasGroup>().alpha,Is.EqualTo(0));
+        Assert.That(home.transform.Find("Checkmark").GetComponent<CanvasGroup>().alpha,Is.EqualTo(1));
+        Assert.That(navigation.SelectedPage,Is.EqualTo(1));
+        navigation.Select(1);
+        Assert.That(((RectTransform)home.transform.Find("IMG_On")).anchoredPosition.y,Is.EqualTo(49).Within(.01f));
+        Time.timeScale=1;
+        Dump("lobby-reference-home");Dump("lobby-reference-home-tall",1846);
+    }
+
+    [UnityTest]
     public IEnumerator CategorizedShopScrollsAndPreviewNeverCharges()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
