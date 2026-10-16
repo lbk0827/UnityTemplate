@@ -65,9 +65,10 @@ namespace BK.Kit
                         var reward=app.Shop.Rewards(product,0).First();
                         float x=(index%3-1)*287,y=top+index/3*390;
                         var card=Image(content,"Coins_"+reward.amount,new Vector2(274,370),new Vector2(x,-y-185),Sprite("IMG_Coin_Goods_Bg")).rectTransform;
-                        Icon(card,product.icon,new Vector2(225,180),new Vector2(0,56));
-                        Label(card,app.Shop.Amount(reward),new Vector2(252,60),new Vector2(0,-30),41,Color.white);
-                        Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,96),new Vector2(0,-127),38,
+                        // Art: cream y 185..-56, coloured band -56..-173 (centre -114).
+                        Icon(card,product.icon,new Vector2(200,160),new Vector2(0,78));
+                        Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Color.white);
+                        Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
                             ()=>Preview(product));
                     }
                     else RenderPackage(product,boosterIcons);
@@ -86,11 +87,12 @@ namespace BK.Kit
             for(int i=0;i<BoosterCatalog.All.Count;i++)
             {
                 var offer=BoosterCatalog.All[i];var card=Card("Shop_"+offer.Kind,290,"IMG_Bundle_Bg");
-                Image(card,"Icon",new Vector2(130,130),new Vector2(-320,40),boosterIcons[i],false).preserveAspect=true;
-                Label(card,offer.Title,new Vector2(390,52),new Vector2(-32,83),35,Color.white);
-                Label(card,offer.Description,new Vector2(580,58),new Vector2(55,27),27,Color.white);
-                var owned=Label(card,"",new Vector2(450,50),new Vector2(-170,-93),29,Color.white);
-                var buy=Buy(card,"Buy_"+offer.Kind,app.Shop.BoosterPrice(offer.Kind)+" Gold",new Vector2(290,90),new Vector2(250,-92),32,
+                // Art: cream y 145..-30, band -30..-136 (centre -83). Text column starts at x -235.
+                Image(card,"Icon",new Vector2(130,130),new Vector2(-320,55),boosterIcons[i],false).preserveAspect=true;
+                Label(card,offer.Title,new Vector2(620,52),new Vector2(80,85),35,Color.white).alignment=TextAlignmentOptions.Left;
+                Label(card,offer.Description,new Vector2(620,56),new Vector2(80,30),27,Color.white).alignment=TextAlignmentOptions.Left;
+                var owned=Label(card,"",new Vector2(470,50),new Vector2(-160,-83),29,Color.white);owned.alignment=TextAlignmentOptions.Left;
+                var buy=Buy(card,"Buy_"+offer.Kind,app.Shop.BoosterPrice(offer.Kind)+" Gold",new Vector2(290,80),new Vector2(250,-83),32,
                     ()=>{app.TryBuyBooster(offer.Kind,out var message);feedback.text=message;});
                 rows.Add(new Row {offer=offer,owned=owned,buy=buy});
             }
@@ -107,12 +109,12 @@ namespace BK.Kit
             background.rectTransform.offsetMin=background.rectTransform.offsetMax=Vector2.zero;background.transform.SetAsFirstSibling();
             var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
             header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;header.sizeDelta=new Vector2(0,300);
-            header.gameObject.SetActive(false);
-            GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
             var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("IMG_ShopBox"));
             art.type=UnityEngine.UI.Image.Type.Tiled;
             art.rectTransform.anchorMin=Vector2.zero;art.rectTransform.anchorMax=Vector2.one;
             safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
+            header.gameObject.SetActive(false);
+            GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
             Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Color.white);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
@@ -122,26 +124,27 @@ namespace BK.Kit
         {
             bool noAds=product.layout=="NoAds";
             var card=Card((noAds?"NoAds_":"Bundle_")+product.id,noAds?410:420,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
+            // Art (both card sprites): cream from the top rim to y≈-43, coloured band below it (centre ≈ -0.285 × height).
             if(noAds)
             {
-                Icon(card,product.icon,new Vector2(245,230),new Vector2(-235,65));
+                Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
                 Label(card,product.rewards.Length>1?app.Shop.Describe(product):product.description,
-                    new Vector2(490,170),new Vector2(120,75),43,new Color(1,.88f,.25f));
+                    new Vector2(490,170),new Vector2(120,72),43,new Color(1,.88f,.25f));
             }
             else
             {
                 var main=app.Shop.Rewards(product,0).First();
-                Icon(card,"IMG_GoodsLight",new Vector2(335,245),new Vector2(-230,65));
-                Icon(card,product.icon,new Vector2(280,235),new Vector2(-235,68));
-                Label(card,app.Shop.Amount(main),new Vector2(320,64),new Vector2(-230,-34),52,Color.white);
+                Icon(card,"IMG_GoodsLight",new Vector2(335,245),new Vector2(-230,100));
+                Icon(card,product.icon,new Vector2(300,190),new Vector2(-230,100));
+                Label(card,app.Shop.Amount(main),new Vector2(320,46),new Vector2(-230,-18),44,Color.white);
                 var secondary=app.Shop.Rewards(product,1).ToArray();
                 for(int i=0;i<secondary.Length;i++)
                 {
                     float x=180+(i-(secondary.Length-1)*.5f)*108;
                     var definition=app.Shop.Currencies.Get(secondary[i].currencyId);
-                    Icon(card,definition.icon,new Vector2(92,80),new Vector2(x,140));
-                    if(definition.duration)Icon(card,"IMG_HeartInfinite",new Vector2(76,44),new Vector2(x,146));
-                    Label(card,app.Shop.Amount(secondary[i]),new Vector2(110,46),new Vector2(x,86),33,Color.white);
+                    Icon(card,definition.icon,new Vector2(92,80),new Vector2(x,150));
+                    if(definition.duration)Icon(card,"IMG_HeartInfinite",new Vector2(76,44),new Vector2(x,156));
+                    Label(card,app.Shop.Amount(secondary[i]),new Vector2(110,40),new Vector2(x,95),33,Color.white);
                 }
                 var extras=app.Shop.Rewards(product,2).ToArray();
                 float width=Mathf.Min(100,400f/Mathf.Max(1,extras.Length));
@@ -151,8 +154,8 @@ namespace BK.Kit
                     var icon=string.IsNullOrEmpty(definition.boosterKind)?Sprite(definition.icon):
                         boosterIcons[BoosterCatalog.All.ToList().FindIndex(o=>o.Kind.ToString()==definition.boosterKind)];
                     float x=180+(i-(extras.Length-1)*.5f)*width;
-                    Image(card,"Reward_"+extras[i].currencyId,new Vector2(width-4,96),new Vector2(x,3),icon,false).preserveAspect=true;
-                    Label(card,"x"+app.Shop.Amount(extras[i]),new Vector2(width,38),new Vector2(x,-42),30,Color.white);
+                    Image(card,"Reward_"+extras[i].currencyId,new Vector2(width-4,86),new Vector2(x,30),icon,false).preserveAspect=true;
+                    Label(card,"x"+app.Shop.Amount(extras[i]),new Vector2(width,34),new Vector2(x,-22),30,Color.white);
                 }
             }
             if(!string.IsNullOrEmpty(product.badge))
@@ -182,7 +185,7 @@ namespace BK.Kit
         }
         private void Footer(RectTransform card,string title,string price,Action click)
         {
-            float y=-card.sizeDelta.y/2+84;
+            float y=-card.sizeDelta.y*.285f;
             var label=Label(card,title,new Vector2(490,84),new Vector2(-155,y),49,new Color(1,1,.82f));
             label.alignment=TextAlignmentOptions.Left;
             Buy(card,"Preview_"+card.name,price,new Vector2(305,120),new Vector2(250,y),51,click);
