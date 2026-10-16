@@ -37,8 +37,11 @@ namespace BK.Kit
             content.anchoredPosition=Vector2.zero;
             Scroll.horizontal=false;Scroll.vertical=true;Scroll.movementType=ScrollRect.MovementType.Elastic;
             // Keep the scrolling viewport between the fixed canopy and navigation on every aspect ratio.
-            SetupHeader(store);
-            var scrollRect=(RectTransform)Scroll.transform;scrollRect.SetParent(transform,false);
+            // Both sit inside the safe area like the HUD; only the canopy art bleeds up under the notch.
+            var safeArea=Rect(transform,"Shop safe area",Vector2.zero,Vector2.zero);
+            safeArea.anchorMin=Vector2.zero;safeArea.anchorMax=Vector2.one;
+            SetupHeader(store,safeArea);
+            var scrollRect=(RectTransform)Scroll.transform;scrollRect.SetParent(safeArea,false);
             scrollRect.anchorMin=Vector2.zero;scrollRect.anchorMax=Vector2.one;
             scrollRect.offsetMin=new Vector2(0,285);scrollRect.offsetMax=new Vector2(0,-300);
             Scroll.viewport.anchorMin=Vector2.zero;Scroll.viewport.anchorMax=Vector2.one;
@@ -94,7 +97,7 @@ namespace BK.Kit
             content.sizeDelta=new Vector2(0,cursor+30);
             app.Changed+=Refresh;Refresh();StartCoroutine(ScrollToTop());
         }
-        private void SetupHeader(Transform store)
+        private void SetupHeader(Transform store,RectTransform safeArea)
         {
             foreach(var child in store.GetComponentsInChildren<Transform>(true))
                 if(child.name=="UI_ShopTitle" || child.name=="IMG_Bg_Blue" || child.name=="IMG_Bg_Red")child.gameObject.SetActive(false);
@@ -102,11 +105,14 @@ namespace BK.Kit
             background.color=new Color(.27f,.055f,.38f);
             background.rectTransform.anchorMin=Vector2.zero;background.rectTransform.anchorMax=Vector2.one;
             background.rectTransform.offsetMin=background.rectTransform.offsetMax=Vector2.zero;background.transform.SetAsFirstSibling();
-            var header=Image(transform,"Shop canopy",new Vector2(900,300),new Vector2(0,-150),Sprite("IMG_ShopBox")).rectTransform;
-            header.GetComponent<Image>().type=UnityEngine.UI.Image.Type.Tiled;
+            var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
             header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;header.sizeDelta=new Vector2(0,300);
             header.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
+            var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("IMG_ShopBox"));
+            art.type=UnityEngine.UI.Image.Type.Tiled;
+            art.rectTransform.anchorMin=Vector2.zero;art.rectTransform.anchorMax=Vector2.one;
+            safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
             Label(header,"Shop",new Vector2(400,110),new Vector2(0,15),70,Color.white);
             var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));

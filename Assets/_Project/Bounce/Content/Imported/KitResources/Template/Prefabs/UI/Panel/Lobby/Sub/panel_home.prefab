@@ -1507,6 +1507,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb010001000000000000000000000002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conformX: 0
+  conformY: 1
+  keepBottom: 0
+  bleedTop: []
+  bleedBottom: []
 --- !u!1 &9195907940998330619
 GameObject:
   m_ObjectHideFlags: 0
