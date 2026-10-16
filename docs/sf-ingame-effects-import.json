@@ -1,0 +1,36 @@
+{
+  "source": "D:/ngfe_sf",
+  "assets": [
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Effect\\Done\\Box_ExplodeParticle_1x1.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Effect\\Done\\CannonBallHitObjectParticle.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Block\\Particle\\Box_Rocket_3DParticle_B_1x1.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Mesh\\Blocks\\Box_Broken.fbx",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Block\\Particle\\Box_Rocket_3DParticle_G_1x1.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Block\\Particle\\Box_Rocket_3DParticle_P_1x1.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\VFXs\\Prefab\\Block\\Particle\\Box_Rocket_3DParticle_Y_1x1.prefab",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\Game\\Sound\\SFX\\AudioClip\\SND_Smash_Box_Hit.wav",
+    "Assets\\_Project\\Bounce\\Content\\Imported\\Application\\Bundles\\Game\\Sound\\SFX\\AudioClip\\SND_Smash_Box_Break.wav"
+  ],
+  "adaptation": "Preserved asset GUIDs, meshes and authored particles. Removed SF-only MonoBehaviours and debris physics components. Existing imported materials reused. Runtime effects owned by Bounce rig; cosmetic fragments use deterministic gravity and SF fade timing.",
+  "validation": {
+    "mode": "Unity 6000.3.21f1 PlayMode, isolated project copy",
+    "passed": 8,
+    "failed": 0,
+    "tests": [
+      "BounceAimTests.AimRejectsPivotBackwardAndInvalidCoordinatesAndLimitsShallowShots",
+      "BounceAimTests.EmptyBoardStartsPreviewAtShoreline",
+      "BounceAimTests.FirstReflectionStopsAtSecondCollider",
+      "BounceAimTests.LaunchObstacleDoesNotProduceFalseUnobstructedPreview",
+      "BounceAimTests.ReflectedPreviewStopsAtWaterBeforeSubmergedCollider",
+      "VisualFlowTests.BoosterFlightPausesBlocksDuplicateInputAndCleansUpOnRetry",
+      "VisualFlowTests.ImportedLobbyStartsBounceAndSupportsRetryAndReturn",
+      "VisualFlowTests.SfEffectsPlayPauseAndCleanUpWithTheBoard"
+    ],
+    "screenshots": [
+      "TestResults/sf-muzzle.png",
+      "TestResults/sf-flight.png",
+      "TestResults/sf-block-impact.png",
+      "TestResults/sf-fragment-fade.png"
+    ]
+  }
+}
