@@ -299,7 +299,7 @@ public sealed class VisualFlowTests
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
-        Binding("UIHUDPanel").Get<Button>("optionButton").onClick.Invoke();yield return null;
+        Binding("UIHUDPanel").Get<Button>("optionButton").onClick.Invoke();yield return new WaitForSecondsRealtime(.3f);
         var settings=Binding("Popup_Settings");
         Click(settings.Get<Toggle>("toggleMusic"));
         Assert.That(KitApp.Instance.MusicEnabled,Is.False);
@@ -315,7 +315,7 @@ public sealed class VisualFlowTests
         Dump("lobby-settings");
         settings.Get<Button>("btnClose").onClick.Invoke();yield return null;
         KitApp.Instance.Play(1);yield return Ready("VisualIngame");AssertChannels(false,true);
-        Binding("UIIngamePanel").Get<Button>("IngameSettingButton").onClick.Invoke();yield return null;
+        Binding("UIIngamePanel").Get<Button>("IngameSettingButton").onClick.Invoke();yield return new WaitForSecondsRealtime(.3f);
         Assert.That(Time.timeScale,Is.Zero);
         settings=Binding("UIIngameSettingPopup");
         Assert.That(settings.Get<Toggle>("musicToggle").isOn,Is.False);
@@ -324,7 +324,9 @@ public sealed class VisualFlowTests
         Click(settings.Get<Toggle>("sfxToggle"));AssertChannels(false,false);
         yield return CheckFontLicenses(true);
         Dump("ingame-settings");
-        settings.Get<Button>("retryButton").onClick.Invoke();yield return Ready("VisualIngame");
+        settings.Get<Button>("retryButton").onClick.Invoke();yield return new WaitForSecondsRealtime(.3f);
+        UnityEngine.Object.FindFirstObjectByType<CommonPopupView>().Binding("UIRetryPopup").Get<Button>("retryButton").onClick.Invoke();
+        yield return new WaitForSecondsRealtime(.25f);yield return Ready("VisualIngame");
         Assert.That(Time.timeScale,Is.EqualTo(1));AssertChannels(false,false);
     }
     [UnityTest]
@@ -522,7 +524,7 @@ public sealed class VisualFlowTests
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         var app=KitApp.Instance;app.Play(1);yield return Ready("VisualIngame");app.Complete(true);
-        yield return new WaitForSecondsRealtime(.25f);
+        yield return new WaitForSecondsRealtime(1.6f);
         Assert.That(app.LastGoldReward,Is.EqualTo(50));Assert.That(app.DisplayedGold,Is.EqualTo(25),"HUD shows the pre-reward balance until the coins land");
         Binding("StageClearPopup").Get<Button>("basic.claimButton").onClick.Invoke();
         yield return new WaitForSecondsRealtime(.2f);
@@ -545,25 +547,25 @@ public sealed class VisualFlowTests
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
         var app=KitApp.Instance;
-        Click(GameObject.Find("btn_profile").GetComponent<Button>());yield return null;
-        var dialog=UnityEngine.Object.FindFirstObjectByType<KitDialog>();Assert.That(dialog,Is.Not.Null);
+        Click(GameObject.Find("btn_profile").GetComponent<Button>());yield return new WaitForSecondsRealtime(.3f);
+        var dialog=UnityEngine.Object.FindFirstObjectByType<CommonPopupView>();Assert.That(dialog,Is.Not.Null);
         var input=dialog.GetComponentInChildren<TMP_InputField>();input.text="Kit Tester";
-        Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Save name"));
+        Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Save profile"));
         Assert.That(KitTestSaves.PlayerName(folder),Is.EqualTo("Kit Tester"));
         Assert.That(app.TrySetPlayerName("   "),Is.False);Assert.That(app.TrySetPlayerName(new string('a',25)),Is.False);
         Dump("local-profile");yield return null;
-        Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Dialog Close"));yield return null;
+        Click(dialog.GetComponentsInChildren<Button>().First(b=>b.name=="Popup close"));yield return new WaitForSecondsRealtime(.25f);
         Assert.That(Time.timeScale,Is.EqualTo(1));
         var top=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsSortMode.None).First(b=>b.role=="UIHUDSub_Top" && b.Get<VisualBindings>("heart")!=null);
         Assert.That(top.Get<VisualBindings>("heart").Get<TMP_Text>("fullText").text,Is.EqualTo("Full"));
         Assert.That(top.Get<VisualBindings>("heart").Get<TMP_Text>("currencyCountText").text,Is.EqualTo("5"));
         Click(top.Get<VisualBindings>("heart").Get<Button>("button"));
-        yield return WaitFor<MessagePopupView>();
-        var heartInfo=UnityEngine.Object.FindFirstObjectByType<MessagePopupView>();
-        Assert.That(heartInfo,Is.Not.Null,"Heart button explains the recharge through the framework message popup");
-        heartInfo.GetComponentsInChildren<Button>(true).First(b=>b.name=="Confirm").onClick.Invoke();
+        yield return WaitFor<CommonPopupView>();
+        var heartInfo=UnityEngine.Object.FindFirstObjectByType<CommonPopupView>();
+        Assert.That(heartInfo,Is.Not.Null,"Heart button opens the dedicated recharge popup");
+        heartInfo.Close();
         yield return new WaitForSecondsRealtime(.4f);
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<MessagePopupView>(),Is.Null);
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<CommonPopupView>(),Is.Null);
         var offers=GameObject.Find("UI_Right");
         // Step offers are hidden below their unlock stage; the remaining authored icons (pass, piggy, ...) show the offline notice.
         offers.GetComponentsInChildren<Button>().First(b=>{string p=b.name;for(var t=b.transform.parent;t!=null;t=t.parent)p=t.name+"/"+p;return !p.Contains("Welcome") && !p.Contains("Endless");}).onClick.Invoke();yield return null;
@@ -670,7 +672,7 @@ public sealed class VisualFlowTests
         Assert.That(Binding("UIFailPopup").Get<TMP_Text>("continuePriceText").text,Is.EqualTo("300"),"Second continue climbs the ladder");
         Click(Binding("UIFailPopup").Get<Button>("replayButton"));yield return null;
         Assert.That(app.Gold,Is.EqualTo(550));Assert.That(game.BallsRemaining,Is.EqualTo(balls+10));
-        app.Complete(true);yield return new WaitForSecondsRealtime(.3f);
+        app.Complete(true);yield return new WaitForSecondsRealtime(1.6f);
         Assert.That(app.Hearts,Is.EqualTo(5),"Clearing refunds the entry heart");
         Assert.That(app.UnlockedLevel,Is.EqualTo(5));
         Binding("StageClearPopup").Get<Button>("basic.claimButton").onClick.Invoke();
@@ -682,10 +684,10 @@ public sealed class VisualFlowTests
         app=KitApp.Instance;
         Assert.That(app.Hearts,Is.Zero);Assert.That(app.CanEnter(5),Is.False);Assert.That(app.CanEnter(2),Is.True);
         app.Play(5);
-        yield return WaitFor<MessagePopupView>();
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<MessagePopupView>(),Is.Not.Null,"No hearts: Play explains instead of loading");
+        yield return WaitFor<CommonPopupView>();
+        Assert.That(UnityEngine.Object.FindFirstObjectByType<CommonPopupView>(),Is.Not.Null,"No hearts: Play explains instead of loading");
         Assert.That(SceneManager.GetActiveScene().name,Is.EqualTo("VisualLobby"));
-        UnityEngine.Object.FindFirstObjectByType<MessagePopupView>().GetComponentsInChildren<Button>(true).First(b=>b.name=="Confirm").onClick.Invoke();
+        UnityEngine.Object.FindFirstObjectByType<CommonPopupView>().Close();
         yield return new WaitForSecondsRealtime(.4f);
         app.Play(2);yield return Ready("VisualIngame");
         Assert.That(app.Session.Level,Is.EqualTo(2),"Free stages stay playable without hearts");
@@ -747,6 +749,9 @@ public sealed class VisualFlowTests
         do {yield return null;Assert.That(Time.realtimeSinceStartup,Is.LessThan(limit));}
         while(KitApp.Instance==null || KitApp.Instance.IsLoading || SceneManager.GetActiveScene().name!=name);
         yield return null;yield return null;
+        // Board tests acknowledge first-seen tutorials; dedicated popup tests verify their behaviour.
+        while(UnityEngine.Object.FindFirstObjectByType<CommonPopupView>() is CommonPopupView guide && guide.name.Contains("unlockgimmick"))
+        {guide.Close();yield return new WaitForSecondsRealtime(.25f);yield return null;}
         var scope=UnityEngine.Object.FindFirstObjectByType<IntegratedProjectScope>();
         Assert.That(scope,Is.Not.Null,"The integrated framework scope must own the flow");
         Assert.That(KitApp.Instance.UsesFrameworkServices,Is.True);

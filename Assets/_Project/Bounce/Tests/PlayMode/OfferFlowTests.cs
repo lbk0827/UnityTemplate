@@ -80,6 +80,9 @@ public sealed class OfferFlowTests
         Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(goldBefore+firstReward));
         Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(2),"Progress is saved through StepOfferData");
         Assert.That(offers.IsOpen,Is.True,"Claiming a step keeps the popup open");
+        var receipt=UnityEngine.Object.FindFirstObjectByType<CommonPopupView>();
+        Assert.That(receipt,Is.Not.Null,"A claimed free step shows the reward popup");
+        receipt.Close();yield return new WaitForSecondsRealtime(.25f);
         // sf: past steps disappear; the paid step 2 is now the first visible card.
         Assert.That(slot0.Get<GameObject>("currentRoot").activeSelf,Is.True);
         Assert.That(slot0.Get<TMP_Text>("priceText").text,Is.EqualTo(paidPrice));
@@ -97,7 +100,7 @@ public sealed class OfferFlowTests
         var close=binding.Get<Button>("closeButton");
         Assert.That(close,Is.Not.Null);
         close.onClick.Invoke();
-        yield return null;
+        yield return new WaitForSecondsRealtime(.25f);
         Assert.That(offers.IsOpen,Is.False);
         Assert.That(UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).Any(b=>b.role==role),Is.False,"Popup instance is destroyed");
         if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.False,"Current step is paid, so the red dot hides");
@@ -119,7 +122,7 @@ public sealed class OfferFlowTests
         notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null);notice.Close();yield return null;
         deal.Get<Button>("dimButton").onClick.Invoke();
-        yield return null;
+        yield return new WaitForSecondsRealtime(.25f);
         Assert.That(offers.IsOpen,Is.False);
         var stage=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageInfo");
         Assert.That(stage.Get<Button>("buttons.0.button").interactable,Is.True);

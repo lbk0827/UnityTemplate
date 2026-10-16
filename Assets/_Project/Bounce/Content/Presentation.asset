@@ -23,6 +23,15 @@ MonoBehaviour:
   welcomeDeal: {fileID: 1200675569979142226, guid: 793421872a98e644fa1d9af13aebdd12, type: 3}
   endlessOffer: {fileID: 5813000000000000001, guid: c3e6b9a42d8f6e3a0b5c7f1d4a92e863, type: 3}
   endlessGifts: {fileID: 5812000000000000001, guid: b2d5a8f31c7e5d2f9a4b6e0c3f81d752, type: 3}
+  quit: {fileID: 4724862262381455025, guid: 92960d136a6ab66409c8515d14e49065, type: 3}
+  retry: {fileID: 8782764758404591136, guid: cc41b2b2b423f34469aea3394f66bf99, type: 3}
+  heart: {fileID: 5647111603286814104, guid: 404d53c720aee1f4dbd8af9d46631505, type: 3}
+  unlockGimmick: {fileID: 8682852458174683493, guid: 4f5573dc33b8d9944838b62d64727b0d, type: 3}
+  unlockBooster: {fileID: 4289719247517230799, guid: f333d9ac91f50204390a7649870ac19d, type: 3}
+  useBooster: {fileID: 7126044958712813414, guid: 62554369aecd8604583fb3fbcc2f82e6, type: 3}
+  celebration: {fileID: 3080149080147634598, guid: 7585ef12114ae264c8e6fb5a55bd2458, type: 3}
+  reward: {fileID: 7554323850816560455, guid: 92a4b77ea22775148b373832e4b1d7cb, type: 3}
+  profile: {fileID: 5587149130893860514, guid: 2a130a9f4b648e747947897e804f508c, type: 3}
   cannon: {fileID: 6062292837664767747, guid: 3b001fccacfc6f041b60906a7f8ed42d, type: 3}
   ball: {fileID: 164123979620136528, guid: 1df51654bd6271549b9fc393bf0cabd1, type: 3}
   shopSprites:

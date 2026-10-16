@@ -188,10 +188,17 @@ namespace BK.Kit
             foreach(var button in popup.GetComponentsInChildren<Button>(true))
                 if(button.name=="btn_common_black" || button.name=="BTN_Close")Bind(button,Close);
             if(kind==LobbyOfferIcon.WelcomeDeal)BindWelcomeDeal();else BindSteps();
+            PopupTransition.Open(popup);
         }
         public void Close()
         {
-            if(popup!=null)Destroy(popup);popup=null;popupBinding=null;feedback=null;
+            if(popup!=null)
+            {
+                var target=popup;var transition=target.GetComponent<PopupTransition>();
+                if(transition!=null){transition.Close(()=>{if(target!=null)Destroy(target);if(popup==target){popup=null;popupBinding=null;feedback=null;}RefreshDots();});return;}
+                Destroy(target);
+            }
+            popup=null;popupBinding=null;feedback=null;
             RefreshDots();
         }
         private static void Bind(Button button,Action action)
@@ -247,8 +254,9 @@ namespace BK.Kit
             var window=app.Offers.Window(campaign,SlotCount());
             if(index>=window.Count || !window[index].IsCurrent)return;
             if(window[index].Step.IsPaid){showInfo("Purchase",KitApp.PaymentsNotConnected);return;}
-            app.TryClaimStepOffer(campaign,out var message); // a successful claim rebinds through ProgressChanged
+            bool claimed=app.TryClaimStepOffer(campaign,out var message); // a successful claim rebinds through ProgressChanged
             if(feedback!=null)feedback.text=message;
+            if(claimed)showInfo("Rewards",message);
         }
         private void BindRewards(VisualBindings slot,IReadOnlyList<ItemGrant> rewards)
         {

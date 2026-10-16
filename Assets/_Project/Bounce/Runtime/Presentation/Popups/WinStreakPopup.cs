@@ -60,8 +60,7 @@ namespace BK.Kit
 
         private async UniTask PlayAsync()
         {
-            // Without a heart Play only shows the "No hearts" message; keep the popup up behind it.
-            if (!App.CanEnter(level)) { App.Play(level); return; }
+            // Release the pre-play modal before showing the dedicated heart popup.
             await CloseAsync(); // fully released before the scene transition starts
             if (App != null) App.Play(level);
         }

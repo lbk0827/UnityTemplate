@@ -26,7 +26,9 @@ namespace BK.Kit
         private LobbyOffersView offersView;
         private GameObject saveNotice;
         private TMP_Text profileInitials;
+        private Image profileAvatar;
         private VisualBindings heartHud;
+        private CommonPopupView commonPopup;
 
         public UILayer Layer => UILayer.Content;
         public bool IsOpen { get; private set; }
@@ -45,6 +47,7 @@ namespace BK.Kit
         {
             IsOpen = false;
             if (app != null) app.Changed -= Refresh;
+            if (app != null) app.HeartsRequired -= OpenRequiredHearts;
             if (game != null) { game.CountersChanged -= UpdateCounts; game.End(); }
             if (music != null) music.Stop();
             Time.timeScale = 1;
@@ -55,6 +58,7 @@ namespace BK.Kit
             // Consumed in every case: this view drives its own settings/result back flow
             // and must never be popped by the framework.
             if(app==null || app.IsLoading)return true;
+            if(commonPopup!=null){commonPopup.Close();return true;}
             if(dialog!=null){dialog.Close();return true;}
             if(offersView!=null && offersView.IsOpen){offersView.Close();return true;}
             if(resultShown)
@@ -62,7 +66,7 @@ namespace BK.Kit
                 var reward=popup==null?null:popup.GetComponent<ClearRewardView>();
                 if(reward!=null)reward.Collect();else app.GoToLobby();
             }
-            else if(popup!=null)ClosePopup();else OpenSettings();
+            else if(popup!=null)CloseSettings();else OpenSettings();
             return true;
         }
         private void InitializePresentation()
@@ -81,6 +85,7 @@ namespace BK.Kit
             if(lobby)SetupLobby();else SetupGame();
             SetupSaveNotice();
             app.Changed+=Refresh;
+            app.HeartsRequired+=OpenRequiredHearts;
             Refresh();
         }
 
@@ -148,7 +153,7 @@ namespace BK.Kit
                 var heart=top.Get<VisualBindings>("heart");
                 heartHud=heart;UpdateHeartHud();
                 StartCoroutine(HeartTicker());
-                Bind(heart,"button",()=>app.Messages.ShowAsync("Hearts",app.HeartsFull?"Hearts are full.":"Next heart in "+KitApp.FormatTimer(app.TimeToNextHeart)+"\nStages 1-"+BounceEntry.FreeUntilStage+" are free.","OK").Forget());
+                Bind(heart,"button",OpenHearts);
             }
             var navigation=gameObject.AddComponent<LobbyNavigation>();navigation.Initialize(screen,Role(hud,"UIHUDPanel"));
             gameObject.AddComponent<BoosterShopView>().Initialize(screen,presentation,ShowInfo);
@@ -167,6 +172,9 @@ namespace BK.Kit
                 profileInitials.font=presentation.settings.GetComponentInChildren<TMP_Text>(true).font;
                 profileInitials.fontSize=36;profileInitials.alignment=TextAlignmentOptions.Center;profileInitials.raycastTarget=false;
                 profileInitials.rectTransform.sizeDelta=new Vector2(100,80);
+                profileInitials.rectTransform.anchoredPosition=new Vector2(0,-42);profileInitials.fontSize=22;
+                profileAvatar=new GameObject("Profile avatar",typeof(RectTransform),typeof(Image)).GetComponent<Image>();profileAvatar.transform.SetParent(profile.transform,false);
+                profileAvatar.rectTransform.sizeDelta=new Vector2(65,65);profileAvatar.rectTransform.anchoredPosition=new Vector2(0,10);profileAvatar.preserveAspect=true;profileAvatar.raycastTarget=false;
             }
             var offers=Named(screen,"UI_Right");
             if(offers!=null)
@@ -174,7 +182,7 @@ namespace BK.Kit
                 var side=(RectTransform)offers;
                 side.anchoredPosition-=new Vector2(0,200); // Keep the authored offer column below the top HUD.
                 offersView=gameObject.AddComponent<LobbyOffersView>();
-                offersView.Initialize(screen,canvas,presentation,()=>popup!=null || dialog!=null || (stagePath!=null && stagePath.IsAdvancing),ShowInfo);
+                offersView.Initialize(screen,canvas,presentation,()=>popup!=null || dialog!=null || commonPopup!=null || (stagePath!=null && stagePath.IsAdvancing),ShowInfo);
             }
             Active(screen,"store_no_wifi",false);
             var pages=screen.GetComponentsInChildren<ScrollRect>(true).First(s=>s.name=="svl_lobby");
@@ -194,7 +202,7 @@ namespace BK.Kit
             Active(screen,"NonStagedPanel",false);Active(screen,"UI_CountInfo",true);
             foreach(var t in screen.GetComponentsInChildren<TMP_Text>(true))if(t.name=="TXT_Level")t.text="Level "+app.Session.Level;
             Bind(ingameBindings,"IngameSettingButton",OpenSettings);
-            Bind(ingameBindings,"RestartButton",()=>app.Play(app.Session.Level));
+            Bind(ingameBindings,"RestartButton",()=>ConfirmExit(true));
             game=GetComponent<BounceModule>();game.CountersChanged+=UpdateCounts;game.Begin(app.Session.Level,app.Complete);
             foreach(var offer in BoosterCatalog.All)
             {
@@ -202,9 +210,10 @@ namespace BK.Kit
                 var hit=root.GetComponent<Image>();if(hit==null)hit=root.AddComponent<Image>();hit.color=Color.clear;hit.raycastTarget=true;
                 var button=root.GetComponent<Button>();if(button==null)button=root.AddComponent<Button>();button.targetGraphic=hit;
                 foreach(var entry in ingameBindings.entries)if(entry.key==offer.ButtonKey)entry.value=button;
-                Bind(ingameBindings,offer.ButtonKey,()=>game.TryUseBooster(offer.Kind));
+                Bind(ingameBindings,offer.ButtonKey,()=>UseBooster(offer));
             }
             UpdateCounts();
+            StartCoroutine(ShowFirstGuides());
         }
         private void UpdateCounts()
         {
@@ -230,13 +239,17 @@ namespace BK.Kit
             RefreshBoosters();
             if(saveNotice!=null)saveNotice.SetActive(app.HasPendingSave);
             if(profileInitials!=null)profileInitials.text=new string(app.PlayerName.Where(char.IsLetterOrDigit).Take(2).ToArray()).ToUpperInvariant();
+            if(profileAvatar!=null){profileAvatar.sprite=CommonPopupView.BoosterIcon(presentation,(BoosterKind)app.AvatarIndex);profileInitials.color=CommonPopupView.ProfileColors[app.FrameIndex];}
             if(lobby && hud!=null)
                 foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
                     Text(top.Get<VisualBindings>("gold"),"currencyCountText",app.DisplayedGold.ToString());
             if(lobby)UpdateHeartHud();
             if(!lobby && !resultShown && (app.Session.State==SessionState.Won || app.Session.State==SessionState.Lost))
             {
-                resultShown=true;ShowResult(app.Session.State==SessionState.Won);
+                resultShown=true;
+                if(app.Session.State==SessionState.Won && presentation.celebration!=null)
+                {commonPopup=CommonPopupView.Show(canvas,presentation,presentation.celebration,()=>ShowResult(true));commonPopup.ConfigureCelebration();}
+                else ShowResult(app.Session.State==SessionState.Won);
             }
         }
         private void ShowResult(bool won)
@@ -290,16 +303,11 @@ namespace BK.Kit
             }
             foreach(var text in popup.GetComponentsInChildren<TMP_Text>(true))
                 if(text.text.Contains("{0}"))text.text=text.text.Replace("{0}",app.LastGoldReward.ToString());
-            StartCoroutine(Reveal(popup));
-        }
-        private IEnumerator Reveal(GameObject go)
-        {
-            var group=go.GetComponent<CanvasGroup>();if(group==null)group=go.AddComponent<CanvasGroup>();group.alpha=0;
-            float elapsed=0;while(go!=null && elapsed<.2f) {elapsed+=Time.unscaledDeltaTime;group.alpha=Mathf.Clamp01(elapsed/.2f);yield return null;}
+            PopupTransition.Open(popup);
         }
         private void OpenSettings()
         {
-            if(popup!=null || (offersView!=null && offersView.IsOpen))return;
+            if(popup!=null || commonPopup!=null || (offersView!=null && offersView.IsOpen))return;
             popup=Mount(lobby?presentation.settings:presentation.ingameSettings);
             var blocker=popup.GetComponent<Image>();if(blocker==null)blocker=popup.AddComponent<Image>();
             blocker.color=Color.clear;blocker.raycastTarget=true;
@@ -307,20 +315,21 @@ namespace BK.Kit
             foreach(var button in popup.GetComponentsInChildren<Button>(true))
             {
                 string name=button.name.ToLowerInvariant();button.onClick.RemoveAllListeners();
-                if(name.Contains("home")||name.Contains("quit")||name.Contains("lobby"))button.onClick.AddListener(()=>{ClosePopup();app.GoToLobby();});
-                else if(name.Contains("retry")||name.Contains("restart"))button.onClick.AddListener(()=>{ClosePopup();app.Play(app.Session.Level);});
+                if(name.Contains("home")||name.Contains("quit")||name.Contains("lobby"))button.onClick.AddListener(()=>ConfirmExit(false));
+                else if(name.Contains("retry")||name.Contains("restart"))button.onClick.AddListener(()=>ConfirmExit(true));
                 else if(name.Contains("sound")||name.Contains("music"))button.onClick.AddListener(app.ToggleSound);
-                else if(name.Contains("close")||name.Contains("resume")||name.Contains("continue"))button.onClick.AddListener(ClosePopup);
+                else if(name.Contains("close")||name.Contains("resume")||name.Contains("continue"))button.onClick.AddListener(CloseSettings);
             }
             var settingsBinding=Role(popup,lobby?"Popup_Settings":"UIIngameSettingPopup");
             BindSetting(settingsBinding,lobby?"toggleMusic":"musicToggle",app.MusicEnabled,app.SetMusic);
             BindSetting(settingsBinding,lobby?"toggleSound":"sfxToggle",app.EffectsEnabled,app.SetEffects);
             BindSetting(settingsBinding,lobby?"toggleViberate":"hapticToggle",app.HapticsEnabled,app.SetHaptics);
-            Bind(settingsBinding,"btnClose",ClosePopup);
-            Bind(settingsBinding,"CloseButton",ClosePopup);Bind(settingsBinding,"BackgroundButton",ClosePopup);
-            Bind(settingsBinding,"gotoLobbyButton",()=>{ClosePopup();app.GoToLobby();});
-            Bind(settingsBinding,"retryButton",()=>{ClosePopup();app.Play(app.Session.Level);});
+            Bind(settingsBinding,"btnClose",CloseSettings);
+            Bind(settingsBinding,"CloseButton",CloseSettings);Bind(settingsBinding,"BackgroundButton",CloseSettings);
+            Bind(settingsBinding,"gotoLobbyButton",()=>ConfirmExit(false));
+            Bind(settingsBinding,"retryButton",()=>ConfirmExit(true));
             AddLicenseButton();
+            PopupTransition.Open(popup);
             if(!lobby)Text(settingsBinding,"txtRetry","Retry");
             if(lobby)
                 foreach(var button in popup.GetComponentsInChildren<Button>(true))
@@ -364,16 +373,65 @@ namespace BK.Kit
         private void ShowInfo(string title,string message)
         {
             if(dialog!=null || app.IsLoading)return;
+            if(title=="Rewards" && presentation.reward!=null)
+            {commonPopup=CommonPopupView.Show(canvas,presentation,presentation.reward);commonPopup.ConfigureReward(message);return;}
             dialog=KitDialog.Show(canvas,presentation,title,message);
         }
         private void OpenProfile()
         {
-            if(dialog!=null || app.IsLoading)return;
-            dialog=KitDialog.Show(canvas,presentation,"Local profile","Level "+app.UnlockedLevel+"\nGold: "+app.Gold+"\nSaved on this device",true);
+            if(PopupBlocked || app.IsLoading)return;
+            commonPopup=CommonPopupView.Show(canvas,presentation,presentation.profile);commonPopup.ConfigureProfile();
+        }
+        private void OpenHearts()
+        {
+            if(PopupBlocked || app.IsLoading)return;
+            commonPopup=CommonPopupView.Show(canvas,presentation,presentation.heart);commonPopup.ConfigureHeart();
+        }
+        private void OpenRequiredHearts()
+        {
+            if(commonPopup!=null || app.IsLoading)return;
+            commonPopup=CommonPopupView.Show(canvas,presentation,presentation.heart);commonPopup.ConfigureHeart();
+        }
+        private void ConfirmExit(bool retry)
+        {
+            if(commonPopup!=null || resultShown || app.IsLoading)return;
+            ClosePopup();
+            commonPopup=CommonPopupView.Show(canvas,presentation,retry?presentation.retry:presentation.quit);
+            commonPopup.ConfigureConfirmation(retry,()=>
+            {
+                commonPopup=null;
+                if(retry && !app.CanEnter(app.Session.Level)){OpenHearts();return;}
+                if(retry)app.Play(app.Session.Level);else app.GoToLobby();
+            });
+        }
+        private void UseBooster(BoosterOffer offer)
+        {
+            if(commonPopup!=null || !game.CanUseBooster(offer.Kind))return;
+            string key="booster."+offer.Kind;
+            if(app.HasSeenGuide(key))
+            {commonPopup=CommonPopupView.Show(canvas,presentation,presentation.useBooster);commonPopup.ConfigureUseBooster(offer,()=>{commonPopup=null;game.TryUseBooster(offer.Kind);RefreshBoosters();});return;}
+            commonPopup=CommonPopupView.Show(canvas,presentation,presentation.unlockBooster,()=>app.MarkGuideSeen(key));
+            commonPopup.ConfigureGuide(offer.Title,offer.Description+"\nTap the booster again to use it.",CommonPopupView.BoosterIcon(presentation,offer.Kind));
+        }
+        private IEnumerator ShowFirstGuides()
+        {
+            yield return null;
+            var library=JsonUtility.FromJson<BounceModule.Levels>(presentation.levels.text);
+            var level=library.levels[(Mathf.Max(1,app.Session.Level)-1)%library.levels.Length];
+            foreach(var type in (level.gimmicks??Array.Empty<GimmickSpec>()).Select(g=>g.type).Distinct())
+            {
+                string key="gimmick."+type;if(app.HasSeenGuide(key))continue;
+                while(popup!=null || commonPopup!=null || app.IsLoading)yield return null;
+                string title=type=="tube"?"Furnace":type=="cupboard"?"Cupboard":"Moving panel";
+                string body=type=="tube"?"Hit the tube to send one block into the furnace.":type=="cupboard"?"Clear the blocks around the cupboard to remove its plates.":"The moving panel reflects balls. Time your shot!";
+                commonPopup=CommonPopupView.Show(canvas,presentation,presentation.unlockGimmick,()=>app.MarkGuideSeen(key));
+                commonPopup.ConfigureGuide(title,body);
+                while(commonPopup!=null)yield return null;
+            }
         }
         // sf: the Play button opens the win-streak pre-play popup; the popup itself calls KitApp.Play.
         private bool opening; // the view is stacked only after its Addressables load; block a second tap meanwhile
-        private bool PopupBlocked=>opening || popup!=null || dialog!=null || (offersView!=null && offersView.IsOpen) || app.UI.Peek(UILayer.Popup)!=null;
+        private bool PopupBlocked=>opening || popup!=null || dialog!=null || commonPopup!=null || (offersView!=null && offersView.IsOpen) || app.UI.Peek(UILayer.Popup)!=null;
         private void OpenPrePlay(int level)
         {
             if(PopupBlocked)return;
@@ -419,6 +477,12 @@ namespace BK.Kit
             toggle.onValueChanged.AddListener(enabled=>{display(enabled);changed(enabled);});
         }
         private void ClosePopup() {if(popup!=null)Destroy(popup);popup=null;Time.timeScale=1;RefreshBoosters();}
+        private void CloseSettings()
+        {
+            if(popup==null)return;
+            var transition=popup.GetComponent<PopupTransition>();
+            if(transition!=null)transition.Close(ClosePopup);else ClosePopup();
+        }
         private void UpdateHeartHud()
         {
             if(heartHud==null || app==null)return;
@@ -436,6 +500,7 @@ namespace BK.Kit
         private void OnDestroy()
         {
             if(app!=null)app.Changed-=Refresh;
+            if(app!=null)app.HeartsRequired-=OpenRequiredHearts;
             if(game!=null)game.CountersChanged-=UpdateCounts;
             Time.timeScale=1;
         }

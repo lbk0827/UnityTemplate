@@ -6,6 +6,7 @@ namespace BK.Kit
     {
         public GameObject lobby, home, hud, ingame, win, lose, settings, ingameSettings;
         public GameObject welcomeDeal, endlessOffer, endlessGifts;
+        public GameObject quit, retry, heart, unlockGimmick, unlockBooster, useBooster, celebration, reward, profile;
         public GameObject cannon, ball;
         public Sprite[] shopSprites;
         [Tooltip("One-cell box prefabs by colour. Colour does not determine HP.")]

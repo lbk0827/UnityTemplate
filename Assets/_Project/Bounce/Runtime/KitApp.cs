@@ -31,6 +31,7 @@ namespace BK.Kit
         public bool HasPendingSave { get; private set; }
         public string LastSaveError { get; private set; }
         public event Action Changed;
+        public event Action HeartsRequired;
 
         private KitServices services;
         private BounceProfileData profile;
@@ -57,6 +58,10 @@ namespace BK.Kit
         public long DisplayedGold => services.DisplayLock.GetDisplayValueOr(BounceCurrencies.Gold, Gold);
         public int BoosterCount(BoosterKind kind) => (int)Math.Min(int.MaxValue, services.Wallet.ValueOf(kind.ToString()));
         public string PlayerName => profile.playerName;
+        public int AvatarIndex => Mathf.Clamp(profile.avatarIndex,0,3);
+        public int FrameIndex => Mathf.Clamp(profile.frameIndex,0,2);
+        public void SetProfileAppearance(int avatar,int frame)
+        {profile.avatarIndex=Mathf.Clamp(avatar,0,3);profile.frameIndex=Mathf.Clamp(frame,0,2);profile.MarkDirty();Flush();Changed?.Invoke();}
         public bool MusicEnabled => services.Options.Music.Value;
         public bool EffectsEnabled => services.Options.Sfx.Value;
         public bool HapticsEnabled => services.Options.Haptics.Value;
@@ -65,6 +70,13 @@ namespace BK.Kit
         public bool HeartsFull => HeartsInfinite || Hearts >= BounceCurrencies.HeartMax;
         public TimeSpan TimeToNextHeart => services.Wallet.TimeToNext(BounceCurrencies.Heart);
         public bool CanEnter(int level) => services.Progress.CanEnter(level);
+        public bool HasSeenGuide(string id) => profile.seenGuides != null && profile.seenGuides.Contains(id);
+        public void MarkGuideSeen(string id)
+        {
+            if(HasSeenGuide(id))return;
+            profile.seenGuides ??= new System.Collections.Generic.List<string>();
+            profile.seenGuides.Add(id);profile.MarkDirty();Flush();
+        }
 
         public void ConfigureScenes(string lobby, string ingame) { lobbyScene = lobby; ingameScene = ingame; }
         public int ConsumeStageAdvance() { int previous = pendingStageAdvance; pendingStageAdvance = 0; return previous; }
@@ -103,7 +115,8 @@ namespace BK.Kit
             level = Mathf.Clamp(level, 1, UnlockedLevel);
             if (!services.Progress.TryStart(level))
             {
-                services.Messages.ShowAsync("No hearts", "Next heart in " + FormatTimer(TimeToNextHeart), "OK").Forget();
+                if(HeartsRequired!=null)HeartsRequired.Invoke();
+                else services.Messages.ShowAsync("No hearts", "Next heart in " + FormatTimer(TimeToNextHeart), "OK").Forget();
                 return;
             }
             GrantStreakRewards();

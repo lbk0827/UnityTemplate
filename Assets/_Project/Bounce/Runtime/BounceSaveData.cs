@@ -9,6 +9,8 @@ namespace BK.Kit
         public const string DefaultName = "BK Player";
         public override int CurrentVersion => 1;
         public string playerName = DefaultName;
+        public int avatarIndex, frameIndex;
+        public System.Collections.Generic.List<string> seenGuides = new System.Collections.Generic.List<string>();
         public override bool Validate() => !string.IsNullOrWhiteSpace(playerName) && playerName.Length <= 24;
     }
 }
