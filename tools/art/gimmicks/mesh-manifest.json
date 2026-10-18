@@ -1,0 +1,97 @@
+[
+  {
+    "name": "Furnace",
+    "vertices": 4104,
+    "triangles": 8112
+  },
+  {
+    "name": "FurnaceGlow",
+    "vertices": 712,
+    "triangles": 1412
+  },
+  {
+    "name": "Pipe",
+    "vertices": 3160,
+    "triangles": 6268
+  },
+  {
+    "name": "Cabinet",
+    "vertices": 4896,
+    "triangles": 9664
+  },
+  {
+    "name": "Plate",
+    "vertices": 2112,
+    "triangles": 4092
+  },
+  {
+    "name": "Panel",
+    "vertices": 2480,
+    "triangles": 4904
+  },
+  {
+    "name": "Rail",
+    "vertices": 152,
+    "triangles": 300
+  },
+  {
+    "name": "RailStop",
+    "vertices": 548,
+    "triangles": 1088
+  },
+  {
+    "name": "Mine",
+    "vertices": 4810,
+    "triangles": 9532
+  },
+  {
+    "name": "SwitchBase",
+    "vertices": 2232,
+    "triangles": 4424
+  },
+  {
+    "name": "SwitchOff",
+    "vertices": 984,
+    "triangles": 1960
+  },
+  {
+    "name": "SwitchOn",
+    "vertices": 984,
+    "triangles": 1960
+  },
+  {
+    "name": "GateFrame",
+    "vertices": 1840,
+    "triangles": 3632
+  },
+  {
+    "name": "GateBars",
+    "vertices": 760,
+    "triangles": 1500
+  },
+  {
+    "name": "GateLamp",
+    "vertices": 266,
+    "triangles": 528
+  },
+  {
+    "name": "ComboClosed",
+    "vertices": 1520,
+    "triangles": 3000
+  },
+  {
+    "name": "ComboOpen",
+    "vertices": 1586,
+    "triangles": 3140
+  },
+  {
+    "name": "Armor",
+    "vertices": 2920,
+    "triangles": 5764
+  },
+  {
+    "name": "Shard",
+    "vertices": 304,
+    "triangles": 600
+  }
+]

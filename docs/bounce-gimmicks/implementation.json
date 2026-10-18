@@ -134,5 +134,10 @@
       "SwitchLink.prefab"
     ],
     "authoring": "All visuals instantiate saved prefabs. Edit prefabs directly; Create Missing Prefabs preserves existing prefab files."
+  },
+  "art_revision": {
+    "date": "2026-10-18",
+    "record": "../gimmick-art-refresh/implementation.json",
+    "preview": "../gimmick-art-refresh/gimmick-all-prefabs.png"
   }
 }

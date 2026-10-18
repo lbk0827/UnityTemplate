@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-18",
+  "unity": "6000.3.21f1",
+  "blender": "5.2",
+  "scope": "Visual replacement of all eight gimmick prefabs, plus pipe segment and porcelain shard. Gameplay code and collider dimensions unchanged.",
+  "reference": "Existing Box_Rocket_Square prefabs: rounded edges, inset panels, stylized highlights and readable silhouette.",
+  "source": "tools/art/gimmicks/GimmickModels.blend",
+  "generator": "tools/art/build_gimmick_models.py",
+  "prefabs": "Assets/_Project/Bounce/Content/Gimmicks",
+  "meshes": "Assets/_Project/Bounce/Content/Gimmicks/Models",
+  "shading": "Vertex-colored enamel, baked short-range vertex ambient occlusion, soft specular highlight, heat tint/emission and URP shadow/depth passes. No numeric durability labels.",
+  "authoring": "Edit each named Blender collection in local Unity Y-up coordinates or edit Unity prefab visuals. Existing per-piece, furnace-heat, active/inactive and panel bindings are retained. Build is an explicit authoring operation, never called at runtime.",
+  "regeneration": [
+    "Run Blender in background with --python tools/art/build_gimmick_models.py -- <project>/TestResults/GimmickArt",
+    "Run Unity -batchmode -quit -projectPath <project> -executeMethod BK.Kit.Editor.GimmickArtImporter.BuildAndCapture",
+    "BuildAndCapture replaces authored art in the ten scoped prefabs; do not run it over independent hand edits without preserving them."
+  ],
+  "validation": {
+    "play": {
+      "passed": 19,
+      "failed": 0
+    },
+    "editor": {
+      "passed": 13,
+      "failed": 0
+    },
+    "environment": "Isolated worktree at a14d080 plus final art sources and assets; matching files copied to primary workspace."
+  },
+  "screenshots": [
+    "Cupboard.png",
+    "DirectionalArmor.png",
+    "DoubleHitBlock.png",
+    "Gate.png",
+    "MetalTube.png",
+    "MovingPanel.png",
+    "SeaMine.png",
+    "Switch.png",
+    "gimmick-all-prefabs.png",
+    "gimmick-combo-armed.png",
+    "gimmick-cupboard-half.png",
+    "gimmick-furnace-cooled.png",
+    "gimmick-furnace-feeding.png",
+    "gimmick-gate-open.png"
+  ],
+  "performance": "One combined vertex-colored mesh per animated/stateful part; shared material and reusable mesh assets, 16-bit indices. On-device performance has not been benchmarked."
+}
