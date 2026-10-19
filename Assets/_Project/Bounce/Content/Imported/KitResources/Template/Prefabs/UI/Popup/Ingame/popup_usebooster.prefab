@@ -211,7 +211,7 @@ MonoBehaviour:
   m_text: Magenet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -378,7 +378,7 @@ MonoBehaviour:
   m_text: Magenet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -547,7 +547,7 @@ MonoBehaviour:
   m_text: Magenet
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -830,7 +830,7 @@ MonoBehaviour:
   m_text: Launch a missile that smashes through blocks!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1106,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 3974028292504613082, guid: c76a38a2fa7bf1f49ba30eab0bef4603, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 4617244221757683099, guid: c76a38a2fa7bf1f49ba30eab0bef4603, type: 3}
       propertyPath: m_SortingLayer
       value: 0
@@ -1214,7 +1214,7 @@ PrefabInstance:
     - target: {fileID: 6193436352702447561, guid: c76a38a2fa7bf1f49ba30eab0bef4603, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 7914063444294352854, guid: c76a38a2fa7bf1f49ba30eab0bef4603, type: 3}
       propertyPath: _uv1.w
       value: 0.30558974

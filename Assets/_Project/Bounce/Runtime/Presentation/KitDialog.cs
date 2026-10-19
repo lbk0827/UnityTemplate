@@ -11,6 +11,7 @@ namespace BK.Kit
         private TMP_FontAsset font;
         private Material fontMaterial;
         private Sprite buttonSprite;
+        private Button buttonTemplate;
         private RectTransform panel;
         private float previousTimeScale;
         private bool closed;
@@ -25,12 +26,19 @@ namespace BK.Kit
             var view=root.GetComponent<KitDialog>();view.previousTimeScale=Time.timeScale;Time.timeScale=0;
             var source=presentation.settings.GetComponentInChildren<TMP_Text>(true);
             view.font=source.font;view.fontMaterial=source.fontSharedMaterial;
-            var skin=presentation.settings.GetComponentsInChildren<Image>(true).First(i=>i.name=="UI_Setting_01");
-            view.panel=view.Image(rect,"Dialog panel",new Vector2(780,760),Vector2.zero,skin.sprite,new Color(.45f,.4f,1)).rectTransform;
+            var skin=presentation.heart.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_Popup");
+            view.panel=view.Image(rect,"Dialog panel",new Vector2(780,820),Vector2.zero,skin.sprite,Color.white).rectTransform;
+            var ribbon=presentation.heart.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_PopRibbon");
+            view.Image(view.panel,"Dialog ribbon",new Vector2(640,160),new Vector2(0,350),ribbon.sprite,Color.white);
+            var well=presentation.heart.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_ContentsBox");
+            view.Image(view.panel,"Dialog well",new Vector2(680,440),new Vector2(0,35),well.sprite,Color.white);
             var win=presentation.win.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="StageClearPopup");
             view.buttonSprite=(win.Get<Button>("basic.claimButton").targetGraphic as Image)?.sprite;
-            view.Label(view.panel,"Title",title,new Vector2(680,90),new Vector2(0,285),44);
+            view.buttonTemplate=presentation.retry.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIRetryPopup").Get<Button>("retryButton");
+            var titleText=view.Label(view.panel,"Title",title,new Vector2(540,100),new Vector2(0,350),52);titleText.enableAutoSizing=true;titleText.fontSizeMin=28;titleText.fontSizeMax=52;
             var body=view.Label(view.panel,"Message",message,new Vector2(670,profile?220:330),new Vector2(0,profile?120:55),28);
+            if(presentation.bodyFont!=null){body.font=presentation.bodyFont;body.fontSharedMaterial=presentation.bodyFont.material;}
+            body.color=new Color(.20f,.15f,.35f);
             body.enableAutoSizing=true;body.fontSizeMin=22;body.fontSizeMax=28;
             view.MakeButton("Dialog Close","Close",new Vector2(0,-275),view.Close);
             if(profile)view.AddNameEditor();
@@ -40,16 +48,19 @@ namespace BK.Kit
         public static KitDialog ShowLicenses(RectTransform parent, GamePresentation presentation)
         {
             string message = "Fonts / SIL Open Font License 1.1\n\n";
-            foreach (string family in new[] { "LilitaOne", "Jua" })
+            foreach (string family in new[] { "LilitaOne", "Jua", "LiberationSans" })
             {
                 var license = Resources.Load<TextAsset>("FontLicenses/" + family + "/OFL");
                 if (license == null) throw new InvalidOperationException("Missing bundled OFL license: " + family);
-                message += family + "\nSource: https://github.com/google/fonts/tree/main/ofl/" + family.ToLowerInvariant()
+                string source=family=="LiberationSans"?"Bundled with TextMesh Pro / Fonts":"https://github.com/google/fonts/tree/main/ofl/" + family.ToLowerInvariant();
+                message += family + "\nSource: " + source
                     + "\nFont license: SIL Open Font License 1.1\n\n" + license.text + "\n\n";
             }
             var view = Show(parent, presentation, "Font Licenses", "");
             view.panel.sizeDelta = new Vector2(780, 1080);
             view.panel.Find("Title").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 455);
+            view.panel.Find("Dialog ribbon").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 455);
+            view.panel.Find("Dialog well").gameObject.SetActive(false);
             view.panel.Find("Dialog Close").GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -445);
             var viewport = view.Image(view.panel, "License viewport", new Vector2(690, 750), Vector2.zero, null, new Color(.08f, .06f, .2f, .95f)).rectTransform;
             viewport.gameObject.AddComponent<RectMask2D>();
@@ -63,6 +74,7 @@ namespace BK.Kit
             body.rectTransform.sizeDelta = new Vector2(-40, 0); body.rectTransform.anchoredPosition = Vector2.zero;
             body.font = view.font.fallbackFontAssetTable.FirstOrDefault() ?? view.font;
             body.fontSharedMaterial = body.font.material;
+            body.color=Color.white;
             body.enableAutoSizing = false; body.fontSize = 26;
             body.alignment = TextAlignmentOptions.TopLeft;
             body.textWrappingMode = TextWrappingModes.Normal;
@@ -97,9 +109,14 @@ namespace BK.Kit
         }
         private void MakeButton(string name,string text,Vector2 position,Action callback)
         {
-            var image=Image(panel,name,new Vector2(360,100),position,buttonSprite,Color.white);
-            var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;button.onClick.AddListener(()=>callback());
-            Label(image.transform,"Label",text,new Vector2(320,85),Vector2.zero,32);
+            var button=Instantiate(buttonTemplate,panel,false);button.gameObject.SetActive(true);button.name=name;
+            var rect=(RectTransform)button.transform;rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=new Vector2(400,150);rect.anchoredPosition=position;
+            foreach(var image in button.GetComponentsInChildren<Image>(true))image.pixelsPerUnitMultiplier*=176f/150f;
+            foreach(var sequence in button.GetComponentsInChildren<VisualSequence>(true))sequence.enabled=false;
+            foreach(var graphic in button.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
+            foreach(var label in button.GetComponentsInChildren<TMP_Text>(true)){label.text=text;label.fontSize=44;label.enableAutoSizing=true;label.fontSizeMax=44;}
+            if(button.targetGraphic!=null)button.targetGraphic.raycastTarget=true;
+            button.onClick=new Button.ButtonClickedEvent();button.onClick.AddListener(()=>callback());
         }
         private void AddNameEditor()
         {

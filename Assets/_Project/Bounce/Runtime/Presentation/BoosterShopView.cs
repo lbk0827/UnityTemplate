@@ -15,6 +15,7 @@ namespace BK.Kit
         private KitApp app;
         private TMP_Text fontSource,goldBalance;
         private Material shopFontMaterial;
+        private Button purchaseTemplate;
         private RectTransform content;
         private Action<string,string> showInfo;
         private float cursor;
@@ -24,12 +25,14 @@ namespace BK.Kit
         public void Initialize(GameObject screen,GamePresentation presentation,Action<string,string> showInfo)
         {
             this.showInfo=showInfo;app=KitApp.Instance;
+            purchaseTemplate=presentation.retry.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIRetryPopup").Get<Button>("retryButton");
             foreach(var sprite in presentation.shopSprites)if(sprite!=null)sprites[sprite.name]=sprite;
             var store=screen.GetComponentsInChildren<Transform>(true).First(t=>t.name=="store");
             Scroll=store.GetComponentsInChildren<ScrollRect>(true).First();
             fontSource=store.GetComponentsInChildren<Transform>(true).First(t=>t.name=="IMG_SpecialBundleTitle").GetComponentInChildren<TMP_Text>(true);
             shopFontMaterial=new Material(fontSource.fontSharedMaterial);
-            shopFontMaterial.SetFloat("_OutlineWidth",0);
+            shopFontMaterial.SetFloat("_OutlineWidth",.13f);
+            shopFontMaterial.SetColor("_OutlineColor",Ink);
             shopFontMaterial.SetColor("_FaceColor",Color.white);
             shopFontMaterial.DisableKeyword("UNDERLAY_ON");
             shopFontMaterial.DisableKeyword("UNDERLAY_INNER");
@@ -47,7 +50,7 @@ namespace BK.Kit
             SetupHeader(store,safeArea);
             var scrollRect=(RectTransform)Scroll.transform;scrollRect.SetParent(safeArea,false);
             scrollRect.anchorMin=Vector2.zero;scrollRect.anchorMax=Vector2.one;
-            scrollRect.offsetMin=new Vector2(0,285);scrollRect.offsetMax=new Vector2(0,-300);
+            scrollRect.offsetMin=new Vector2(0,285);scrollRect.offsetMax=new Vector2(0,-260);
             Scroll.viewport.anchorMin=Vector2.zero;Scroll.viewport.anchorMax=Vector2.one;
             Scroll.viewport.offsetMin=Scroll.viewport.offsetMax=Vector2.zero;
             Scroll.gameObject.SetActive(false);
@@ -90,30 +93,28 @@ namespace BK.Kit
         private void SetupHeader(Transform store,RectTransform safeArea)
         {
             foreach(var child in store.GetComponentsInChildren<Transform>(true))
-                if(child.name=="UI_ShopTitle" || child.name=="IMG_Bg_Blue" || child.name=="IMG_Bg_Red")child.gameObject.SetActive(false);
+                if(child.name=="IMG_Bg_Blue" || child.name=="IMG_Bg_Red")child.gameObject.SetActive(false);
             var background=Image(store,"Shop background",Vector2.zero,Vector2.zero,null);
-            background.color=new Color(.24f,.14f,.56f);
+            background.color=new Color(.16f,.29f,.61f);
             background.rectTransform.anchorMin=Vector2.zero;background.rectTransform.anchorMax=Vector2.one;
             background.rectTransform.offsetMin=background.rectTransform.offsetMax=Vector2.zero;background.transform.SetAsFirstSibling();
-            var header=Rect(safeArea,"Shop canopy",new Vector2(900,300),new Vector2(0,-150));
-            header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;header.sizeDelta=new Vector2(0,300);
-            var art=Image(header,"Canopy art",Vector2.zero,Vector2.zero,Sprite("Canopy"),false);
-            art.rectTransform.anchorMin=Vector2.zero;art.rectTransform.anchorMax=Vector2.one;
+            var header=(RectTransform)store.GetComponentsInChildren<Transform>(true).First(t=>t.name=="UI_ShopTitle");
+            header.name="Shop canopy";
+            header.SetParent(safeArea,false);header.anchorMin=new Vector2(0,1);header.anchorMax=Vector2.one;
+            header.pivot=new Vector2(.5f,1);header.sizeDelta=new Vector2(0,250);header.anchoredPosition=Vector2.zero;header.localScale=Vector3.one;
+            var art=header.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_ShopBox");
             safeArea.gameObject.AddComponent<SafeAreaFit>().Configure(true,false,art.rectTransform);
             header.gameObject.SetActive(false);
             GetComponent<LobbyNavigation>().PageChanged+=page=>header.gameObject.SetActive(page==0);
-            var sign=Image(header,"Shop sign",new Vector2(280,100),new Vector2(0,5),Sprite("Shop_Sign"));
-            Label(sign.transform,"Shop",new Vector2(240,80),Vector2.zero,60,Color.white);
-            var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,10),Sprite("IMG_TimeBox"));
+            var balance=Image(header,"Gold balance",new Vector2(235,75),new Vector2(-275,-72),Sprite("IMG_TimeBox"));
             Icon(balance.transform,"IMG_Coin",new Vector2(85,85),new Vector2(-103,0));
-            goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,Ink);
+            goldBalance=Label(balance.transform,"",new Vector2(165,55),new Vector2(21,0),32,Color.white);
         }
         private void RenderPackage(ShopProductRow product,Sprite[] boosterIcons)
         {
             bool noAds=product.layout=="NoAds";
-            var card=Card((noAds?"NoAds_":"Bundle_")+product.id,noAds?410:420,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
+            var card=Card((noAds?"NoAds_":"Bundle_")+product.id,442,noAds?"IMG_NoADBundle_Bg":"IMG_Bundle_Bg");
             // Reward wells group the contents without moving the existing items or hit targets.
-            if(!noAds)Image(card,"Reward well",new Vector2(405,260),new Vector2(178,66),Sprite("Shop_RewardWell"));
             if(noAds)
             {
                 Icon(card,product.icon,new Vector2(220,198),new Vector2(-235,72));
@@ -175,17 +176,21 @@ namespace BK.Kit
         private void Footer(RectTransform card,string title,string price,Action click)
         {
             float y=-card.sizeDelta.y*.285f;
-            var strip=Image(card,"Product footer",new Vector2(814,117),new Vector2(0,y-5),Sprite("Shop_Footer"));
-            strip.color=new Color(.75f,.9f,1);
             var label=Label(card,title,new Vector2(455,84),new Vector2(-140,y),49,Color.white);
             label.alignment=TextAlignmentOptions.Left;
             Buy(card,"Preview_"+card.name,price,new Vector2(305,120),new Vector2(250,y),51,click);
         }
         private Button Buy(Transform parent,string name,string text,Vector2 size,Vector2 position,float fontSize,Action click)
         {
-            var image=Image(parent,name,size,position,Sprite("IMG_Bundle_Goods_Btn"));image.raycastTarget=true;
-            var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;
-            Label(button.transform,text,size-new Vector2(28,18),new Vector2(0,3),fontSize,Color.white);
+            var button=Instantiate(purchaseTemplate,parent,false);button.gameObject.SetActive(true);button.name=name;
+            var rect=(RectTransform)button.transform;rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(.5f,.5f);rect.sizeDelta=size;rect.anchoredPosition=position;
+            foreach(var image in button.GetComponentsInChildren<Image>(true))image.pixelsPerUnitMultiplier*=176f/size.y;
+            foreach(var sequence in button.GetComponentsInChildren<VisualSequence>(true))sequence.enabled=false;
+            foreach(var graphic in button.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
+            foreach(var label in button.GetComponentsInChildren<TMP_Text>(true))
+            {label.text=text;label.fontSize=fontSize;label.enableAutoSizing=true;label.fontSizeMax=fontSize;label.fontSizeMin=fontSize*.75f;}
+            if(button.targetGraphic!=null)button.targetGraphic.raycastTarget=true;
+            button.onClick=new Button.ButtonClickedEvent();
             button.onClick.AddListener(()=>click());return button;
         }
         private Image Icon(Transform parent,string sprite,Vector2 size,Vector2 position)

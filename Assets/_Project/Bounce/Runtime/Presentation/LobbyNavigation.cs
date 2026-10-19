@@ -55,10 +55,12 @@ namespace BK.Kit
                 var check=(RectTransform)tab.transform.Find("Checkmark");
                 background.gameObject.SetActive(false);
                 check.gameObject.SetActive(true);check.anchorMin=check.anchorMax=new Vector2(.5f,.5f);
-                check.pivot=new Vector2(.5f,0);check.sizeDelta=new Vector2(286,218);check.anchoredPosition=new Vector2(0,-104);
+                check.pivot=new Vector2(.5f,0);check.sizeDelta=new Vector2(300,260);check.anchoredPosition=new Vector2(0,-124);
                 var plate=check.GetComponent<Image>();plate.raycastTarget=false;plateImages[i]=plate;
-                // At this fixed size use the complete illustrated silhouette, not stretched corners.
-                plate.type=Image.Type.Simple;plate.preserveAspect=false;
+                // The source sprite has full-height caps. Scale both caps with the height
+                // and stretch only the narrow central strip, preserving the rounded crest.
+                plate.type=Image.Type.Sliced;plate.preserveAspect=false;plate.color=Color.white;plate.enabled=true;
+                plate.pixelsPerUnitMultiplier=plate.sprite.rect.height/(check.sizeDelta.y*plate.pixelsPerUnit);
                 var icon=(RectTransform)check.Find("IMG_On");
                 icon.SetParent(tab.transform,false);icon.anchorMin=icon.anchorMax=new Vector2(.5f,.5f);
                 icon.sizeDelta=new Vector2(140,130);icon.anchoredPosition=Vector2.zero;tabIcons[i]=icon;

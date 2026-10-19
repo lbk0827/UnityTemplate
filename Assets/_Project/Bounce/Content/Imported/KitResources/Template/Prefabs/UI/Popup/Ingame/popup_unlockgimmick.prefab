@@ -453,7 +453,7 @@ MonoBehaviour:
   m_text: New Item!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -621,7 +621,7 @@ MonoBehaviour:
   m_text: Hit the box to knock it down!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -867,7 +867,7 @@ MonoBehaviour:
   m_text: <color=#4ee830>Box</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6326,7 +6326,7 @@ MonoBehaviour:
   m_text: Play next level to explore!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6714,7 +6714,7 @@ PrefabInstance:
     - target: {fileID: 4914963775475651669, guid: c71788db1343b7e49b14e7b9f9d2d2c9, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 4914963775475651669, guid: c71788db1343b7e49b14e7b9f9d2d2c9, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542

@@ -16,7 +16,7 @@ namespace BK.Kit
         private bool closing, restored;
         private PopupTransition transition;
         private Transform content;
-        private static readonly Color Ink=new Color(.16f,.09f,.34f);
+        private Sprite Skin(string name)=>presentation.refinedSprites?.FirstOrDefault(s=>s!=null && s.name==name);
         public bool IsClosing => closing;
         public static readonly Color[] ProfileColors={new Color(1,.76f,.22f),new Color(.7f,.42f,1),new Color(.2f,.8f,1)};
         public static CommonPopupView Show(RectTransform canvas,GamePresentation art,GameObject prefab,Action afterClose=null)
@@ -54,87 +54,75 @@ namespace BK.Kit
         private void Restore(){if(restored)return;restored=true;Time.timeScale=previousTimeScale;}
         private void OnDestroy()=>Restore();
 
+        private Transform Find(string name)=>GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name==name);
+        private void UseNativeRoot()
+        {
+            content=transform.Find("Root")??transform.Find("UI_Continue")??transform;
+            if(content!=transform)transition.SetContent(content);
+        }
+        private static void Center(RectTransform rect,Vector2 position,Vector2 size)
+        {rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(.5f,.5f);rect.anchoredPosition=position;rect.sizeDelta=size;rect.localScale=Vector3.one;}
         public void ConfigureConfirmation(bool retry,Action confirmed)
         {
+            UseNativeRoot();
             var b=Binding(retry?"UIRetryPopup":"UIQuitPopup");
             foreach(string variant in new[]{"hard","superHard"}){var obj=b?.Get<GameObject>(variant+".root");if(obj!=null)obj.SetActive(false);}
             var basic=b?.Get<GameObject>("basic.root");if(basic!=null)basic.SetActive(true);
-            Text("TXT_Title",retry?"Restart level?":"Leave level?");
-            string message=retry?(KitApp.Instance.Session.Level>BounceEntry.FreeUntilStage && !KitApp.Instance.HeartsInfinite?"Restarting uses 1 heart.":"Start this level again?"):"Your current round will end.\nYour win streak will reset.";
-            Text("TXT_Contents",message);Text("TXT_ItemExplain",message);
+            if(!retry){content.localScale=Vector3.one*.70f;transition.SetContent(content);}
+            Text("TXT_Title",retry?"Try again?":"Leave level?");
+            string message=retry?(KitApp.Instance.Session.Level>BounceEntry.FreeUntilStage && !KitApp.Instance.HeartsInfinite?"Restarting uses 1 heart.":"Ready for another shot?"):"Your round will end.\nYour win streak will reset.";
+            Text("TXT_Contents",message);Text("TXT_ItemExplain",message);Text("txt_retry","Restart");
             Hide("IMG_Ad");Hide("CurrencyPos");
             var button=b?.Get<Button>(retry?"retryButton":"basic.quitButton");
             if(button==null)button=b?.Get<Button>("basic.retryButton");
             Bind(button,()=>CloseThen(confirmed));
-            if(!retry)
-            {
-                BuildCard("Leave level?");AddIcon(CommonPopupView.HeartIcon(presentation),new Vector2(0,170),200);
-                AddLabel("Exit explanation",message,new Vector2(0,-30),36);
-                AddAction("Confirm quit","Leave",new Vector2(0,-240),()=>CloseThen(confirmed));
-                AddAction("Cancel quit","Keep playing",new Vector2(0,-360),Close);
-            }
-            else foreach(var text in GetComponentsInChildren<TMP_Text>(true))if(text.name=="TXT_ItemExplain"){text.color=Ink;text.fontSharedMaterial=text.font.material;}
         }
         public void ConfigureHeart()
         {
+            UseNativeRoot();
             var b=Binding("UIRefillPopup");
             var buy=b?.Get<Button>("purchaseButton");if(buy!=null)buy.gameObject.SetActive(false);
             var ad=Binding("HeartRechargeExtension")?.Get<Button>("_adButton");if(ad!=null)ad.gameObject.SetActive(false);
-            Text("TXT_Title","Hearts");Text("TXT_Info","Hearts recharge automatically.\nEarly levels are free to play.");
-            Hide("txt_refill");Hide("txt_num");StartCoroutine(HeartTicker());
+            Text("TXT_Title","Your lives");Text("TXT_Info","Time to next life");
+            StartCoroutine(HeartTicker());
         }
         private IEnumerator HeartTicker()
         {
             while(!closing)
             {
                 var app=KitApp.Instance;
-                Text("TXT_HeartCount",app.HeartsInfinite?"∞":app.Hearts+" / "+BounceCurrencies.HeartMax);
-                Text("TXT_RemainTime",app.HeartsInfinite?"Unlimited hearts":app.HeartsFull?"Full":"Next heart in "+KitApp.FormatTimer(app.TimeToNextHeart));
+                Text("TXT_HeartCount",app.HeartsInfinite?"\u221e":app.Hearts.ToString());
+                Text("TXT_RemainTime",app.HeartsInfinite?"Unlimited":app.HeartsFull?"Full":KitApp.FormatTimer(app.TimeToNextHeart));
+                Text("TXT_Info",app.HeartsInfinite?"Keep the good times rolling!":app.HeartsFull?"Ready for your next adventure!":"Time to next life");
                 yield return new WaitForSecondsRealtime(.25f);
             }
         }
         public void ConfigureGuide(string title,string description,Sprite icon=null)
         {
-            BuildCard(title);
-            if(icon!=null)AddIcon(icon,new Vector2(0,160),230);
-            else AddGimmickDiagram(title);
-            AddLabel("Guide description",description,new Vector2(0,-70),34);
-            AddAction("Guide continue","Got it!",new Vector2(0,-300),Close);
-        }
-        private void AddGimmickDiagram(string title)
-        {
-            if(title=="Moving panel")
-            {AddLabel("Panel arrows","<     >",new Vector2(0,180),70);AddShape("Moving panel",new Vector2(0,150),new Vector2(240,35),new Color(.2f,.7f,.9f));return;}
-            int count=title=="Cupboard"?6:4;
-            for(int i=0;i<count;i++)AddShape("Gimmick block "+i,new Vector2(title=="Cupboard"?(i%3-1)*90:(i-1.5f)*90,title=="Cupboard"?240-(i/3)*90:190),new Vector2(75,75),title=="Cupboard"?new Color(.95f,.65f,.3f):new Color(.4f,.72f,.96f));
-            if(title!="Cupboard")AddLabel("Furnace label","Tube  >  Furnace",new Vector2(0,90),32).rectTransform.sizeDelta=new Vector2(650,65);
-        }
-        private Image AddShape(string name,Vector2 position,Vector2 size,Color color)
-        {
-            var image=new GameObject(name,typeof(RectTransform),typeof(Image)).GetComponent<Image>();image.transform.SetParent(content??transform,false);
-            image.rectTransform.sizeDelta=size;image.rectTransform.anchoredPosition=position;image.color=color;image.raycastTarget=false;return image;
+            UseNativeRoot();
+            if(Binding("UIBoosterUnlockPopup")!=null)
+            {
+                // Retain the original title, light burst and full-screen reveal. Replace the
+                // source game's drawing tutorial with this game's booster illustration.
+                Hide("UI_Info_02");Hide("UI_Info_03");Hide("UI_Info_Arrow_R");Hide("UI_Info_Arrow_L");
+                var info=(RectTransform)Find("UI_Info_01");Center(info,new Vector2(0,125),new Vector2(660,650));
+                var b=Binding("UIBoosterUnlockPopup");var hero=b.Get<Image>("infoImage01");hero.sprite=icon;hero.preserveAspect=true;
+                Center(hero.rectTransform,new Vector2(0,80),new Vector2(320,320));
+                var name=b.Get<TMP_Text>("infoLabel01");name.text=title;Center(name.rectTransform,new Vector2(0,-170),new Vector2(660,110));
+                var glow=Find("IMG_Light") as RectTransform;if(glow!=null)Center(glow,new Vector2(0,80),new Vector2(470,470));
+                Text("TXT_Title","Booster unlocked!");
+                AddLabel("Guide description",description,new Vector2(0,-230),36,new Vector2(660,180));
+            }
+            else
+            {
+                Text("TXT_Title","New discovery!");Text("TXT_Desc_01",title);Text("TXT_Desc_02",description);Text("TXT_Info","Try it in this level");
+                var heading=Find("TXT_Title").GetComponent<TMP_Text>();heading.enableAutoSizing=true;heading.fontSizeMax=88;heading.fontSizeMin=44;heading.rectTransform.sizeDelta=new Vector2(810,160);
+                var hero=Find("IMG_Gimmick")?.GetComponent<Image>();
+                if(hero!=null){hero.sprite=Skin("Guide_"+(title=="Cupboard"?"cupboard":title=="Moving panel"?"panel":"tube"));hero.preserveAspect=true;hero.rectTransform.sizeDelta=new Vector2(510,330);}
+            }
         }
         public static Sprite HeartIcon(GamePresentation art)=>art.heart.GetComponentsInChildren<Image>(true).FirstOrDefault(i=>i.name=="IMG_Heart")?.sprite;
-        private Sprite CoinIcon()=>presentation.hud.GetComponentsInChildren<Image>(true).FirstOrDefault(i=>i.sprite!=null && i.sprite.name=="IMG_Coin")?.sprite;
-        private void AddIcon(Sprite icon,Vector2 position,float size)
-        {var image=AddShape("Popup icon",position,Vector2.one*size,Color.white);image.sprite=icon;image.preserveAspect=true;}
-        private void BuildCard(string title)
-        {
-            foreach(Transform child in transform)child.gameObject.SetActive(false);
-            var dim=new GameObject("Popup dim",typeof(RectTransform),typeof(Image),typeof(Button)).GetComponent<Image>();dim.transform.SetParent(transform,false);
-            dim.rectTransform.anchorMin=Vector2.zero;dim.rectTransform.anchorMax=Vector2.one;dim.rectTransform.offsetMin=dim.rectTransform.offsetMax=Vector2.zero;dim.color=new Color(.025f,.01f,.09f,.68f);
-            var backdrop=dim.GetComponent<Button>();backdrop.targetGraphic=dim;Bind(backdrop,Close);
-            var panel=new GameObject("Adapted content",typeof(RectTransform),typeof(Image)).GetComponent<Image>();panel.transform.SetParent(transform,false);content=panel.transform;
-            panel.rectTransform.sizeDelta=new Vector2(780,940);
-            panel.sprite=presentation.heart.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_Popup").sprite;panel.type=Image.Type.Sliced;panel.raycastTarget=true;
-            var header=AddShape("Popup header",new Vector2(0,410),new Vector2(660,150),Color.white);
-            header.sprite=presentation.heart.GetComponentsInChildren<Image>(true).First(i=>i.name=="IMG_PopRibbon").sprite;header.type=Image.Type.Sliced;
-            var label=AddLabel("Popup title",title,new Vector2(0,410),54);label.rectTransform.sizeDelta=new Vector2(590,110);label.color=new Color(1,1,.82f);
-            var close=AddAction("Popup close","×",new Vector2(345,430),Close);close.GetComponent<RectTransform>().sizeDelta=new Vector2(80,80);content.Find("Popup close label").GetComponent<RectTransform>().sizeDelta=new Vector2(70,70);
-            var closeArt=presentation.settings.GetComponentsInChildren<Image>(true).FirstOrDefault(i=>i.sprite!=null && i.sprite.name=="Close");
-            if(closeArt!=null){var img=(Image)close.targetGraphic;img.sprite=closeArt.sprite;img.type=Image.Type.Simple;img.preserveAspect=true;content.Find("Popup close label").gameObject.SetActive(false);}
-            transition.SetContent(content);
-        }
+        private Sprite CoinIcon()=>presentation.shopSprites.FirstOrDefault(s=>s!=null && s.name=="IMG_Coin");
         public static Sprite BoosterIcon(GamePresentation art,BoosterKind kind)
         {
             var root=art.ingame.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="BTN_"+kind);
@@ -142,84 +130,144 @@ namespace BK.Kit
         }
         public void ConfigureUseBooster(BoosterOffer offer,Action use)
         {
-            BuildCard(offer.Title);
-            AddIcon(BoosterIcon(presentation,offer.Kind),new Vector2(0,180),220);
-            AddLabel("Booster description",offer.Description+"\nOwned: "+KitApp.Instance.BoosterCount(offer.Kind),new Vector2(0,-50),36);
-            AddAction("Use booster","Use 1",new Vector2(0,-240),()=>CloseThen(use));
-            AddAction("Cancel booster","Cancel",new Vector2(0,-360),Close);
-        }
-        private Button AddAction(string name,string title,Vector2 position,Action action)
-        {
-            var source=presentation.win.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="StageClearPopup").Get<Button>("basic.claimButton");
-            var image=new GameObject(name,typeof(RectTransform),typeof(Image)).GetComponent<Image>();image.transform.SetParent(transform,false);
-            image.transform.SetParent(content??transform,false);image.rectTransform.sizeDelta=new Vector2(350,120);image.rectTransform.anchoredPosition=position;image.sprite=presentation.shopSprites.FirstOrDefault(s=>s.name=="BTN_CoinBuy")??(source.targetGraphic as Image)?.sprite;image.type=Image.Type.Sliced;
-            var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;Bind(button,action);
-            var label=AddLabel(name+" label",title,position,34);label.rectTransform.sizeDelta=new Vector2(320,90);label.color=new Color(1,1,.82f);
-            return button;
+            UseNativeRoot();
+            var goods=(RectTransform)Find("store_goods_item");Center(goods,new Vector2(0,225),new Vector2(320,320));
+            var icon=Find("IMG_Icon").GetComponent<Image>();icon.sprite=BoosterIcon(presentation,offer.Kind);icon.preserveAspect=true;
+            Center(icon.rectTransform,Vector2.zero,new Vector2(260,260));Find("IMG_BackEff").gameObject.SetActive(true);
+            var b=Binding("UIBoosterUsePopup");
+            var name=b.Get<TMP_Text>("nameTexts.0");name.text=offer.Title;Center(name.rectTransform,new Vector2(0,15),new Vector2(650,110));
+            // The source uses offset copies for a three-line item name. One line fits our labels.
+            b.Get<TMP_Text>("nameTexts.1").gameObject.SetActive(false);b.Get<TMP_Text>("nameTexts.2").gameObject.SetActive(false);
+            var explanation=b.Get<TMP_Text>("instructionText");explanation.text=offer.Description+"\nOwned: "+KitApp.Instance.BoosterCount(offer.Kind);
+            Center(explanation.rectTransform,new Vector2(0,-130),new Vector2(650,160));
+            AddAction("Use booster","Use 1",new Vector2(0,-310),()=>CloseThen(use));
+            AddAction("Cancel booster","Not now",new Vector2(0,-490),Close);
         }
         public void ConfigureCelebration()
         {
-            BuildCard("Level complete!");
-            AddIcon(CoinIcon(),new Vector2(0,160),250);
-            AddLabel("Celebration title","Great shot!",new Vector2(0,-70),52);
-            AddLabel("Celebration hint","Tap to continue",new Vector2(0,-270),30);
-            var button=gameObject.GetComponent<Button>();if(button==null)button=gameObject.AddComponent<Button>();button.targetGraphic=GetComponent<Image>();Bind(button,Close);
-            StartCoroutine(Confetti());
+            UseNativeRoot();
+            // Keep the authored effects, but remove the source game's wordmark.
+            Hide("IMG_Title");
+            AddIcon(CoinIcon(),new Vector2(0,140),260);
+            AddLabel("Celebration title","Great shot!",new Vector2(0,-100),86,new Vector2(800,150));
+            AddLabel("Celebration hint","LEVEL COMPLETE",new Vector2(0,-240),34,new Vector2(650,70));
+            foreach(var particles in GetComponentsInChildren<ParticleSystem>(true))
+            {var main=particles.main;main.useUnscaledTime=true;if(particles.gameObject.activeInHierarchy)particles.Play();}
             StartCoroutine(AutoClose());
-        }
-        private IEnumerator Confetti()
-        {
-            var pieces=new RectTransform[24];
-            for(int i=0;i<pieces.Length;i++){var image=AddShape("Confetti "+i,new Vector2((i%8-3.5f)*85,360+(i/8)*65),new Vector2(12,24),ProfileColors[i%3]);pieces[i]=image.rectTransform;}
-            while(!closing){foreach(var piece in pieces){piece.anchoredPosition+=new Vector2(Mathf.Sin(Time.unscaledTime*3+piece.GetSiblingIndex())*45,-170)*Time.unscaledDeltaTime;piece.Rotate(0,0,130*Time.unscaledDeltaTime);}yield return null;}
         }
         private IEnumerator AutoClose(){yield return new WaitForSecondsRealtime(1.25f);Close();}
         public void ConfigureReward(string message)
         {
-            BuildCard("Rewards collected");
-            AddIcon(CoinIcon(),new Vector2(0,180),220);
-            AddLabel("Reward summary",message,new Vector2(0,-30),36);AddAction("Collect done","Continue",new Vector2(0,-300),Close);
+            UseNativeRoot();
+            var b=Binding("POPRewardView");b?.Get<GameObject>("hudTop")?.SetActive(false);
+            Text("TXT_Title","Nice rewards!");
+            var title=Find("TXT_Title").GetComponent<TMP_Text>();title.enableAutoSizing=true;title.fontSizeMax=88;title.fontSizeMin=44;
+            var items=b?.Get<Transform>("itemRoot");if(items!=null){foreach(Transform child in items)child.gameObject.SetActive(false);}
+            AddIcon(CoinIcon(),new Vector2(0,120),260);
+            AddLabel("Reward summary",message,new Vector2(0,-160),48,new Vector2(680,220));
         }
         public void ConfigureProfile()
         {
-            BuildCard("Profile");
-            var box=AddShape("Player name",new Vector2(0,240),new Vector2(620,90),new Color(.91f,.86f,1));box.raycastTarget=true;
-            var field=box.gameObject.AddComponent<TMP_InputField>();field.targetGraphic=box;
-            var name=AddLabel("Name text",KitApp.Instance.PlayerName,Vector2.zero,34);name.transform.SetParent(box.transform,false);name.rectTransform.sizeDelta=new Vector2(570,80);
-            field.textViewport=name.rectTransform;field.textComponent=(TextMeshProUGUI)name;field.characterLimit=24;field.text=KitApp.Instance.PlayerName;
-            var info=AddLabel("Profile details","Level "+KitApp.Instance.UnlockedLevel,new Vector2(0,330),28);info.rectTransform.sizeDelta=new Vector2(640,55);
-            AddAction("Save profile","Save name",new Vector2(0,110),()=>info.text=KitApp.Instance.TrySetPlayerName(field.text)?"Name saved":"Enter 1–24 characters.");
-            AddProfileChoices();
+            UseNativeRoot();
+            var b=Binding("UIProfilePopup");
+            var close=b.Get<Button>("closeButton");close.name="Popup close";
+            var field=b.Get<TMP_InputField>("nickNameText");
+            field.characterLimit=24;field.interactable=true;field.readOnly=false;field.text=KitApp.Instance.PlayerName;
+            if(field.targetGraphic!=null)field.targetGraphic.raycastTarget=true;
+            field.textComponent.raycastTarget=true;
+            var edit=b.Get<Button>("changeNickNameButton");
+            // The pencil focuses the native input. The explicit save action gives feedback.
+            Bind(edit,()=>{field.Select();field.ActivateInputField();});
+            var previous=content;content=Find("IMG_ContentsBox");
+            var status=AddLabel("Profile details","Make it yours",new Vector2(0,-235),30,new Vector2(620,65));
+            AddAction("Save profile","Save name",new Vector2(0,-340),()=>status.text=KitApp.Instance.TrySetPlayerName(field.text)?"Name saved!":"Enter 1-24 characters.");
+            content=previous;
+            SetupProfileChoices(b);
         }
-        private void AddProfileChoices()
+        private void SetupProfileChoices(VisualBindings b)
         {
-            AddLabel("Avatar heading","Choose your icon",new Vector2(0,-40),30).rectTransform.sizeDelta=new Vector2(650,65);
-            var choices=new Image[4];
+            var avatarRoot=b.Get<GameObject>("avatarRoot");var frameRoot=b.Get<GameObject>("frameRoot");
+            var avatarToggle=b.Get<Toggle>("avatarToggle");var frameToggle=b.Get<Toggle>("frameToggle");
+            var avatarPreview=Find("IMG_Avatar").GetComponent<Image>();var framePreview=Find("IMG_Frame").GetComponent<Image>();
+            var choices=new Image[4];var checks=new GameObject[4];
+            var avatarContent=b.Get<RectTransform>("avatarContent");var frameContent=b.Get<RectTransform>("frameContent");
+            foreach(var root in new[]{avatarContent,frameContent})
+            {
+                foreach(var layout in root.GetComponents<LayoutGroup>())layout.enabled=false;
+                var fitter=root.GetComponent<ContentSizeFitter>();if(fitter!=null)fitter.enabled=false;
+                foreach(Transform child in root)child.gameObject.SetActive(false);
+                root.anchorMin=root.anchorMax=new Vector2(.5f,1);root.pivot=new Vector2(.5f,1);root.sizeDelta=new Vector2(640,350);root.anchoredPosition=Vector2.zero;
+            }
+            void Refresh()
+            {
+                avatarPreview.sprite=BoosterIcon(presentation,(BoosterKind)KitApp.Instance.AvatarIndex);avatarPreview.preserveAspect=true;
+                framePreview.color=ProfileColors[KitApp.Instance.FrameIndex];
+                for(int i=0;i<checks.Length;i++)if(checks[i]!=null)checks[i].SetActive(i==KitApp.Instance.AvatarIndex);
+            }
+            var previous=content;
             for(int i=0;i<4;i++)
             {
-                int index=i;
-                var image=new GameObject("Avatar "+i,typeof(RectTransform),typeof(Image)).GetComponent<Image>();image.transform.SetParent(content??transform,false);
-                image.rectTransform.sizeDelta=new Vector2(110,110);image.rectTransform.anchoredPosition=new Vector2((i-1.5f)*145,-150);
-                image.sprite=BoosterIcon(presentation,(BoosterKind)i);image.preserveAspect=true;
-                var button=image.gameObject.AddComponent<Button>();button.targetGraphic=image;choices[i]=image;
-                Bind(button,()=>{KitApp.Instance.SetProfileAppearance(index,KitApp.Instance.FrameIndex);RefreshProfileChoices(choices);});
+                int index=i;content=avatarContent;
+                var plate=AddShape("Avatar "+i,new Vector2((i-1.5f)*152,-110),new Vector2(140,150),Skin("AvatarBack"));choices[i]=plate;
+                var icon=AddShape("Avatar icon",Vector2.zero,new Vector2(108,108),BoosterIcon(presentation,(BoosterKind)i));icon.transform.SetParent(plate.transform,false);icon.preserveAspect=true;
+                var check=AddShape("Avatar selected",Vector2.zero,new Vector2(144,158),Skin("AvatarCheck"));check.transform.SetParent(plate.transform,false);check.transform.SetAsFirstSibling();checks[i]=check.gameObject;
+                var button=plate.gameObject.AddComponent<Button>();plate.raycastTarget=true;button.targetGraphic=plate;
+                Bind(button,()=>{KitApp.Instance.SetProfileAppearance(index,KitApp.Instance.FrameIndex);Refresh();});
             }
             for(int i=0;i<3;i++)
             {
-                int index=i;var button=AddAction("Frame "+i,new[]{"Gold","Purple","Blue"}[i],new Vector2((i-1)*210,-310),()=>{KitApp.Instance.SetProfileAppearance(KitApp.Instance.AvatarIndex,index);RefreshProfileChoices(choices);});
-                button.GetComponent<RectTransform>().sizeDelta=new Vector2(195,80);button.targetGraphic.color=ProfileColors[i];
-                ((Image)button.targetGraphic).sprite=presentation.shopSprites.FirstOrDefault(s=>s.name=="Tile");
-                var label=(content??transform).Find("Frame "+i+" label").GetComponent<RectTransform>();label.sizeDelta=new Vector2(180,70);
+                int index=i;content=frameContent;
+                var plate=AddShape("Frame "+i,new Vector2((i-1)*185,-110),new Vector2(160,170),framePreview.sprite);plate.color=ProfileColors[i];plate.raycastTarget=true;
+                var button=plate.gameObject.AddComponent<Button>();button.targetGraphic=plate;
+                Bind(button,()=>{KitApp.Instance.SetProfileAppearance(KitApp.Instance.AvatarIndex,index);Refresh();});
+                AddLabel("Frame name",new[]{"Sunshine","Lavender","Sky"}[i],new Vector2((i-1)*185,-230),27,new Vector2(180,60));
             }
-            RefreshProfileChoices(choices);
+            content=previous;
+            void Tab(bool avatars)
+            {
+                avatarRoot.SetActive(avatars);frameRoot.SetActive(!avatars);
+                avatarToggle.SetIsOnWithoutNotify(avatars);frameToggle.SetIsOnWithoutNotify(!avatars);
+                Find("IMG_Active_Avater").gameObject.SetActive(avatars);Find("IMG_Active_Frame").gameObject.SetActive(!avatars);
+            }
+            avatarToggle.group=frameToggle.group=null;avatarToggle.onValueChanged=new Toggle.ToggleEvent();frameToggle.onValueChanged=new Toggle.ToggleEvent();
+            foreach(var toggle in new[]{avatarToggle,frameToggle})
+            {if(toggle.targetGraphic!=null)toggle.targetGraphic.raycastTarget=true;toggle.transition=Selectable.Transition.None;toggle.graphic=null;}
+            avatarToggle.onValueChanged.AddListener(v=>{if(v)Tab(true);});frameToggle.onValueChanged.AddListener(v=>{if(v)Tab(false);});
+            Tab(true);Refresh();
         }
-        private static void RefreshProfileChoices(Image[] choices)
-        {for(int i=0;i<choices.Length;i++){var outline=choices[i].GetComponent<Outline>();if(outline==null)outline=choices[i].gameObject.AddComponent<Outline>();outline.effectColor=ProfileColors[KitApp.Instance.FrameIndex];outline.effectDistance=new Vector2(4,-4);outline.enabled=i==KitApp.Instance.AvatarIndex;}}
-        private TMP_Text AddLabel(string name,string value,Vector2 position,float size)
+        private Image AddShape(string name,Vector2 position,Vector2 size,Sprite sprite)
+        {
+            var image=new GameObject(name,typeof(RectTransform),typeof(Image)).GetComponent<Image>();image.transform.SetParent(content??transform,false);
+            image.rectTransform.sizeDelta=size;image.rectTransform.anchoredPosition=position;image.sprite=sprite;image.raycastTarget=false;
+            image.type=sprite!=null && sprite.border!=Vector4.zero?Image.Type.Sliced:Image.Type.Simple;
+            return image;
+        }
+        private void AddIcon(Sprite icon,Vector2 position,float size)
+        {
+            var light=AddShape("Reward glow",position,Vector2.one*(size*1.6f),Skin("Hero"));light.preserveAspect=true;
+            var image=AddShape("Popup icon",position,Vector2.one*size,icon);image.preserveAspect=true;
+        }
+        private Button AddAction(string name,string title,Vector2 position,Action action)
+        {
+            var template=presentation.retry.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIRetryPopup").Get<Button>("retryButton");
+            var button=Instantiate(template,content??transform,false);button.gameObject.SetActive(true);button.name=name;
+            Center((RectTransform)button.transform,position,new Vector2(442,156));
+            foreach(var image in button.GetComponentsInChildren<Image>(true))image.pixelsPerUnitMultiplier*=176f/156f;
+            foreach(var sequence in button.GetComponentsInChildren<VisualSequence>(true))sequence.enabled=false;
+            foreach(var graphic in button.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
+            foreach(var text in button.GetComponentsInChildren<TMP_Text>(true)){text.text=title;text.fontSize=50;text.enableAutoSizing=true;text.fontSizeMax=50;text.fontSizeMin=30;}
+            if(name.StartsWith("Cancel"))
+                foreach(var image in button.GetComponentsInChildren<Image>(true))if(image.sprite!=null && image.sprite.name=="BTN_CommonGreen")image.sprite=Skin("Secondary");
+            if(button.targetGraphic!=null)button.targetGraphic.raycastTarget=true;
+            button.onClick=new Button.ButtonClickedEvent();Bind(button,action);
+            return button;
+        }
+        private TMP_Text AddLabel(string name,string value,Vector2 position,float size,Vector2 dimensions)
         {
             var text=new GameObject(name,typeof(RectTransform),typeof(TextMeshProUGUI)).GetComponent<TMP_Text>();
-            text.transform.SetParent(content??transform,false);text.rectTransform.sizeDelta=new Vector2(650,240);text.rectTransform.anchoredPosition=position;
-            var source=presentation.settings.GetComponentInChildren<TMP_Text>(true);text.font=source.font;text.fontSharedMaterial=source.font.material;if(content!=null)text.color=Ink;
+            text.transform.SetParent(content??transform,false);text.rectTransform.sizeDelta=dimensions;text.rectTransform.anchoredPosition=position;
+            var source=presentation.settings.GetComponentsInChildren<TMP_Text>(true).First(t=>t.font!=null);
+            text.font=source.font;text.fontSharedMaterial=source.fontSharedMaterial;text.color=Color.white;
             text.fontSize=size;text.enableAutoSizing=true;text.fontSizeMin=24;text.fontSizeMax=size;text.text=value;text.alignment=TextAlignmentOptions.Center;text.raycastTarget=false;
             return text;
         }

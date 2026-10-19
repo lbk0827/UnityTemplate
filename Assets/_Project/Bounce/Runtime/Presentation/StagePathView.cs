@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,9 +17,11 @@ namespace BK.Kit
         private readonly List<Slot> slots=new List<Slot>();
         public bool IsAdvancing { get; private set; }
         private CanvasGroup input;
+        private GamePresentation art;
 
-        public void Initialize(VisualBindings stage)
+        public void Initialize(VisualBindings stage,GamePresentation presentation=null)
         {
+            art=presentation;
             var app=KitApp.Instance;
             var content=stage.Get<RectTransform>("levelContentRoot");
             var prefab=stage.Get<GameObject>("levelSlotPrefab");
@@ -38,7 +41,9 @@ namespace BK.Kit
                 foreach(var key in new[]{"hardText","veryHardText","feverText"})SetActive(b,key,false);
                 SetActive(b,"normalText",true);b.Get<TMP_Text>("normalText").text=level.ToString();
                 SetActive(b,"dim",i>0);
-                var image=b.Get<Image>("levelBackground");image.sprite=b.Get<Sprite>("normalSprite");
+                var image=b.Get<Image>("levelBackground");
+                image.sprite=b.Get<Sprite>("normalSprite");
+                b.Get<TMP_Text>("normalText").color=Color.white;
                 var rect=(RectTransform)go.transform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,0);
                 var slot=new Slot {rect=rect,binding=b,alpha=go.AddComponent<CanvasGroup>(),from=Position(i,rect),to=Position(IsAdvancing?i-1:i,rect),fromScale=Scale(i),toScale=Scale(IsAdvancing?i-1:i)};
                 rect.anchoredPosition=slot.from;rect.localScale=Vector3.one*slot.fromScale;slots.Add(slot);
@@ -78,6 +83,8 @@ namespace BK.Kit
             }
             Destroy(slots[0].rect.gameObject);slots.RemoveAt(0);
             SetActive(slots[0].binding,"dim",false);
+            slots[0].binding.Get<Image>("levelBackground").sprite=slots[0].binding.Get<Sprite>("normalSprite");
+            slots[0].binding.Get<TMP_Text>("normalText").color=Color.white;
             IsAdvancing=false;input.interactable=input.blocksRaycasts=true;
         }
     }

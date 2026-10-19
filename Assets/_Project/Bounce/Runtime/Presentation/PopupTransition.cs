@@ -26,7 +26,15 @@ namespace BK.Kit
                 view.scale=view.content.localScale;
             }
             var blocker=root.GetComponent<Image>();if(blocker==null)blocker=root.AddComponent<Image>();
-            blocker.color=new Color(0,0,0,.48f);blocker.raycastTarget=true;
+            blocker.enabled=true;blocker.color=Color.clear;blocker.raycastTarget=true;
+            // Native prefabs use different dim hierarchies and alpha tracks. A dedicated
+            // first sibling keeps the modal backdrop consistent without tinting its art.
+            foreach(var image in root.GetComponentsInChildren<Image>(true))if(image.name=="img_black")image.color=Color.clear;
+            var dim=new GameObject("Modal backdrop",typeof(RectTransform),typeof(Image)).GetComponent<Image>();
+            dim.transform.SetParent(root.transform,false);dim.transform.SetAsFirstSibling();
+            dim.rectTransform.anchorMin=Vector2.zero;dim.rectTransform.anchorMax=Vector2.one;
+            dim.rectTransform.offsetMin=dim.rectTransform.offsetMax=Vector2.zero;
+            dim.color=new Color(.025f,.025f,.075f,.92f);dim.raycastTarget=false;
             view.StartCoroutine(view.Animate(true,null));
             return view;
         }

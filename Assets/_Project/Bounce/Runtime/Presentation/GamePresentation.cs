@@ -9,6 +9,8 @@ namespace BK.Kit
         public GameObject quit, retry, heart, unlockGimmick, unlockBooster, useBooster, celebration, reward, profile;
         public GameObject cannon, ball;
         public Sprite[] shopSprites;
+        public Sprite[] refinedSprites;
+        public TMPro.TMP_FontAsset bodyFont;
         [Tooltip("One-cell box prefabs by colour. Colour does not determine HP.")]
         public GameObject[] blocks;
         public TextAsset levels;

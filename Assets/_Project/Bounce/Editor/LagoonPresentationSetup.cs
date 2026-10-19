@@ -15,11 +15,10 @@ namespace BK.Kit.Editor
         private static TMP_FontAsset font;
         private static Material light, dark;
 
-        [MenuItem("BK/Integration/Apply Lagoon Lobby And Clear Art")]
-        public static void Run()
+        private static Sprite ImportBackground(string filename)
         {
             AssetDatabase.Refresh();
-            var importer = (TextureImporter)AssetImporter.GetAtPath(Art + "LobbyLagoon.png");
+            var importer = (TextureImporter)AssetImporter.GetAtPath(Art + filename);
             importer.textureType = TextureImporterType.Sprite;
             importer.spriteImportMode = SpriteImportMode.Single;
             importer.mipmapEnabled = false;
@@ -28,22 +27,36 @@ namespace BK.Kit.Editor
             importer.textureCompression = TextureImporterCompression.CompressedHQ;
             importer.wrapMode = TextureWrapMode.Clamp;
             importer.SaveAndReimport();
-            var lagoon = AssetDatabase.LoadAssetAtPath<Sprite>(Art + "LobbyLagoon.png");
+            return AssetDatabase.LoadAssetAtPath<Sprite>(Art + filename);
+        }
+
+        [MenuItem("BK/Integration/Apply Soft Studio Lobby")]
+        public static void ApplyStudioLobby()
+        {
+            var studio = ImportBackground("LobbyStudio.png");
             var p = AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
             var path = AssetDatabase.GetAssetPath(p.lobby);
             var lobby = PrefabUtility.LoadPrefabContents(path);
             try
             {
                 var background = lobby.GetComponentsInChildren<Image>(true).First(i => i.name == "IMG_LobbyBg");
-                background.sprite = lagoon; background.type = Image.Type.Simple; background.color = Color.white;
+                background.sprite = studio; background.type = Image.Type.Simple; background.color = Color.white;
                 foreach (Transform child in background.transform) child.gameObject.SetActive(false);
                 var fitter = background.GetComponent<AspectRatioFitter>() ?? background.gameObject.AddComponent<AspectRatioFitter>();
                 fitter.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
-                fitter.aspectRatio = lagoon.rect.width / lagoon.rect.height;
+                fitter.aspectRatio = studio.rect.width / studio.rect.height;
                 PrefabUtility.SaveAsPrefabAsset(lobby, path);
             }
             finally { PrefabUtility.UnloadPrefabContents(lobby); }
+            AssetDatabase.SaveAssets(); Debug.Log("BK_STUDIO_LOBBY_OK");
+        }
 
+        [MenuItem("BK/Integration/Apply Lobby And Clear Art")]
+        public static void Run()
+        {
+            ApplyStudioLobby();
+            var lagoon = ImportBackground("LobbyLagoon.png");
+            var p = AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
             sprites = AssetDatabase.LoadAllAssetsAtPath(Art + "Interface.png").OfType<Sprite>().ToDictionary(s => s.name);
             foreach (var s in AssetDatabase.LoadAllAssetsAtPath(Art + "HudIcons.png").OfType<Sprite>()) sprites[s.name] = s;
             font = p.settings.GetComponentInChildren<TMP_Text>(true).font;

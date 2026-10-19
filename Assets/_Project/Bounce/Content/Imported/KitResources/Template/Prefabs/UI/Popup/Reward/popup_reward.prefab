@@ -537,7 +537,7 @@ MonoBehaviour:
   m_text: Tap to Continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_text: Reward
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1427,6 +1427,14 @@ PrefabInstance:
       propertyPath: _uv1.z
       value: 0.31054688
       objectReference: {fileID: 0}
+    - target: {fileID: 2275291145565303635, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -7617623039875287162, guid: 21859f8d8ce51ab40b8451a2329fc2e1, type: 3}
+    - target: {fileID: 2275291145565303635, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2974422088824665421, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.5
@@ -1458,7 +1466,7 @@ PrefabInstance:
     - target: {fileID: 3650897557825682883, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 4140252698295799053, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: _uv1.w
       value: 0.48046875
@@ -1543,6 +1551,14 @@ PrefabInstance:
       propertyPath: _uv1.z
       value: 0.21875
       objectReference: {fileID: 0}
+    - target: {fileID: 4881659697840546326, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 266280397452032204, guid: 21859f8d8ce51ab40b8451a2329fc2e1, type: 3}
+    - target: {fileID: 4881659697840546326, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
+      propertyPath: m_PreserveAspect
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4943517647704166284, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -1
@@ -1570,7 +1586,7 @@ PrefabInstance:
     - target: {fileID: 5494899936795296738, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 6792322900041675660, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_Name
       value: Piece_hud_currency
@@ -1594,7 +1610,7 @@ PrefabInstance:
     - target: {fileID: 8232870445986715249, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 8717441888362474493, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: _uv1.w
       value: 0.3515625
@@ -1630,7 +1646,7 @@ PrefabInstance:
     - target: {fileID: 8891529795984761807, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 9115180752385280331, guid: 64bcea98617c6c24398e977d2ff02876, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

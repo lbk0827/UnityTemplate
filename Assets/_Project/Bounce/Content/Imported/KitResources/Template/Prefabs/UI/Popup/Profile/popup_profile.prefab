@@ -617,7 +617,7 @@ MonoBehaviour:
   m_text: Profile
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 6871721277855489869, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef274292eaca5d46b2475bd9bec50919, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1014,7 +1014,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 9164334557232711858, guid: dab6c1b6f3e1fee4c8e831849c518aad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d7ca4d5656165293993a656cc0a1bac6, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   m_text: "\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1582,7 +1582,7 @@ MonoBehaviour:
   m_text: Enter Nickname
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2973,7 +2973,7 @@ PrefabInstance:
     - target: {fileID: 1166142364898671246, guid: d1cfea0c56f9a484a913a87d53f686bb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 1166142364898671246, guid: d1cfea0c56f9a484a913a87d53f686bb, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -3005,7 +3005,7 @@ PrefabInstance:
     - target: {fileID: 2574508504240214955, guid: d1cfea0c56f9a484a913a87d53f686bb, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 2574508504240214955, guid: d1cfea0c56f9a484a913a87d53f686bb, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542

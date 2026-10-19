@@ -122,7 +122,7 @@ MonoBehaviour:
   m_text: Continue?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_text: You will lose 1 Life!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f2666bbf8daaf546adb4e95748e385b, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1493,7 +1493,7 @@ PrefabInstance:
     - target: {fileID: 7799278268692423263, guid: 402e400284018a94f9ae0095778b8924, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 7799278268692423263, guid: 402e400284018a94f9ae0095778b8924, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
@@ -1977,7 +1977,7 @@ PrefabInstance:
     - target: {fileID: 4914963775475651669, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 7623267423157132128, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: m_Name
       value: BTN_Quit_Hard
@@ -2359,7 +2359,7 @@ PrefabInstance:
     - target: {fileID: 4914963775475651669, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 7623267423157132128, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: m_Name
       value: BTN_Quit_SuperHard
@@ -2575,7 +2575,7 @@ PrefabInstance:
     - target: {fileID: 4914963775475651669, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: m_sharedMaterial
       value: 
-      objectReference: {fileID: 2100000, guid: f2cc4990483950547ae84598f8f6532c, type: 2}
+      objectReference: {fileID: 2100000, guid: c79b2d83520b64c4baef79dfb91c98d6, type: 2}
     - target: {fileID: 4914963775475651669, guid: c392e5a19a4c2cd488a2c69361755bd0, type: 3}
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542

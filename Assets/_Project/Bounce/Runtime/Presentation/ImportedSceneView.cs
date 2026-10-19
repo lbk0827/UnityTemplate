@@ -122,12 +122,13 @@ namespace BK.Kit
                 if(scroll.name=="svl_lobby")scroll.horizontalNormalizedPosition=.5f;
             }
             var stage=Role(screen,"StageInfo");
-            stagePath=gameObject.AddComponent<StagePathView>();stagePath.Initialize(stage);
+            stagePath=gameObject.AddComponent<StagePathView>();stagePath.Initialize(stage,presentation);
             for(int i=0;i<4;i++)
             {
                 int slot=i;
                 Bind(stage,"buttons."+i+".button",()=>OpenPrePlay(app.UnlockedLevel));
-                var button=stage?.Get<Button>("buttons."+i+".button");if(button!=null)button.gameObject.SetActive(slot==0);
+                var button=stage?.Get<Button>("buttons."+i+".button");
+                if(button!=null){button.gameObject.SetActive(slot==0);((RectTransform)button.transform).anchoredPosition+=new Vector2(0,70);}
                 Text(stage,"buttons."+i+".buttonText","Play");
             }
             Active(screen,"UI_LevelComplete",false);Active(screen,"UI_NextLevel",false);Active(screen,"IMG_ComingSoonBox",false);

@@ -21,6 +21,14 @@ public sealed class CommonPopupFlowTests
         KitTestSaves.Seed(folder,level:16,infiniteHearts:true);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready(true);
+        var lobbyView=UnityEngine.Object.FindFirstObjectByType<ImportedSceneView>();
+        var hearts=CommonPopupView.Show((RectTransform)lobbyView.transform,lobbyView.presentation,lobbyView.presentation.heart);
+        hearts.ConfigureHeart();yield return new WaitForSecondsRealtime(.3f);
+        var count=hearts.GetComponentsInChildren<TMPro.TMP_Text>(true).First(t=>t.name=="TXT_HeartCount");
+        Assert.That(count.text,Is.EqualTo("\u221e"));
+        Assert.That(count.font.HasCharacter('\u221e',searchFallbacks:true),Is.True,"Unlimited lives must have a renderable infinity glyph.");
+        typeof(VisualFlowTests).GetMethod("Dump",BindingFlags.NonPublic|BindingFlags.Static).Invoke(null,new object[]{"common-heart-infinite",1600});
+        hearts.Close();yield return new WaitForSecondsRealtime(.25f);
         KitApp.Instance.Play(16);yield return Ready(false);
         foreach(string type in new[]{"cupboard","tube","panel"})
         {
