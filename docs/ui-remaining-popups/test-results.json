@@ -1,0 +1,49 @@
+﻿{
+    "unity":  "6000.3.21f1",
+    "result":  "Passed",
+    "total":  8,
+    "passed":  8,
+    "failed":  0,
+    "tests":  [
+                  {
+                      "name":  "OfferFlowTests.ChainOfferShowsRewardsAndFreeStepsGrantLocalRewards",
+                      "result":  "Passed",
+                      "durationSeconds":  3.977644
+                  },
+                  {
+                      "name":  "OfferFlowTests.FinalGiftRemainsReachableAndCompletesTheOffer",
+                      "result":  "Passed",
+                      "durationSeconds":  1.847006
+                  },
+                  {
+                      "name":  "OfferFlowTests.StepOffersStayHiddenBelowTheUnlockStage",
+                      "result":  "Passed",
+                      "durationSeconds":  0.950766
+                  },
+                  {
+                      "name":  "OfferFlowTests.WeeklyStepOfferShowsOneIconAndFreeStepsGrantLocalRewards",
+                      "result":  "Passed",
+                      "durationSeconds":  3.107273
+                  },
+                  {
+                      "name":  "VisualFlowTests.ContinueBuysExtraBallsOnTheLadderAndHeartsGateLaterStages",
+                      "result":  "Passed",
+                      "durationSeconds":  6.001642
+                  },
+                  {
+                      "name":  "VisualFlowTests.FailurePopupContinueNeedsGoldAndLobbyButtonsDoNotCharge",
+                      "result":  "Passed",
+                      "durationSeconds":  1.746372
+                  },
+                  {
+                      "name":  "WinStreakFlowTests.CappedStreakShowsAllMilestonesAndAwardsTwoExtraBallBoosters",
+                      "result":  "Passed",
+                      "durationSeconds":  1.870081
+                  },
+                  {
+                      "name":  "WinStreakFlowTests.PlayOpensThePrePlayPopupAndStreakRewardsReachTheNextRound",
+                      "result":  "Passed",
+                      "durationSeconds":  4.982054
+                  }
+              ]
+}

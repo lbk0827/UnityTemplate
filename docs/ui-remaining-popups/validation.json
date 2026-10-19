@@ -1,0 +1,45 @@
+{
+  "title": "남은 팝업의 GRP1 기반 UI 개선",
+  "date": "2026-10-19",
+  "project": "D:/UnityTemplate",
+  "approach": "GRP1의 프레임·리본·버튼·이벤트 배치를 기반으로 우리 게임의 코인과 부스터 리소스를 적용했습니다.",
+  "changes": [
+    {
+      "title": "연승 팝업",
+      "description": "레벨 리본, 진행 게이지, 3·5·10연승 보상 카드, 다음 게임 보상 안내, 네이티브 Play·닫기 버튼으로 정리했습니다. 화면 비율 변화에 맞춰 크기가 조정됩니다.",
+      "screenshots": ["streak-start.png", "streak-bonus.png", "streak-cap.png", "streak-cap-tall.png"]
+    },
+    {
+      "title": "실패·이어하기 팝업",
+      "description": "공 아이콘과 보상 영역을 적용하고 이어하기 비용·보유 코인·종료 버튼을 구분했습니다. 축소 버튼의 Slice 비율과 중복 제목 레이어를 수정했습니다.",
+      "screenshots": ["failure.png"]
+    },
+    {
+      "title": "웰컴 상품 팝업",
+      "description": "원본 캐릭터와 장식 코인을 우리 게임의 선물 상자로 교체했습니다. 겹치던 보상 5종을 코인과 부스터 영역으로 재배치하고 가격 버튼·글꼴을 정리했습니다.",
+      "screenshots": ["offer-welcome.png"]
+    },
+    {
+      "title": "주간 상품·선물 팝업",
+      "description": "우리 게임의 상자·선물 아이콘과 리본 제목을 적용했습니다. 현재 단계는 금색 프레임과 초록 버튼, 이후 단계는 파란 프레임과 잠금으로 구분했습니다. 진행 방향 화살표, 화면 밖 예비 슬롯, 마지막 보상 중앙 정렬을 수정했습니다. BombIngame 등 상점 아이템 ID의 아이콘 연결도 수정했습니다.",
+      "screenshots": ["offer-endless.png", "offer-endless-paid.png", "offer-gifts.png", "offer-gifts-paid.png", "offer-gifts-final.png"]
+    }
+  ],
+  "verification": {
+    "unity": "6000.3.21f1",
+    "playMode": "8개 통과, 실패 0개. 세부 결과: test-results.json",
+    "checks": [
+      "연승 닫기·Play의 실제 UI Raycast와 화면 전환",
+      "3연승 보상 및 10연승 최대 보상의 다음 게임 지급·저장",
+      "코인 부족 시 이어하기 차감 방지, 종료 시 코인 보존",
+      "이어하기 가격 상승, 추가 공 지급, 후반 레벨 하트 입장 조건",
+      "고정 시계로 두 주간 이벤트를 각각 실행하여 검증",
+      "무료 보상 지급·저장, 유료 단계의 결제 미연결 안내 및 무차감",
+      "해금 이전 이벤트 숨김, 마지막 선물 지급 후 이벤트 종료",
+      "보상 아이콘 겹침 방지, 폭탄 아이콘 연결, 완료된 애니메이션 화면 확인"
+    ],
+    "renderSizes": ["900x1600", "900x1950: 연승 팝업"]
+  },
+  "serviceScope": "이번 작업은 UI 개선입니다. 실제 결제·광고 SDK 연결은 포함하지 않으며, 유료 상품은 기존 미연결 안내를 표시합니다.",
+  "editorSetup": "BK > Integration > Refine Remaining Popups"
+}
