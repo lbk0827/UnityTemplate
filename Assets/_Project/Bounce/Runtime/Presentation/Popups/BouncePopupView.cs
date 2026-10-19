@@ -23,7 +23,7 @@ namespace BK.Kit
         private bool closing;
         private TMP_FontAsset font;
         private Material fontMaterial;
-        private Sprite panelSprite, buttonSprite;
+        protected Sprite Skin(string name) => presentation.refinedSprites.FirstOrDefault(s => s != null && s.name == name);
 
         protected KitApp App { get; private set; }
         protected RectTransform Panel { get; private set; }
@@ -41,20 +41,36 @@ namespace BK.Kit
             App = KitApp.Instance;
             var source = presentation.settings.GetComponentInChildren<TMP_Text>(true);
             font = source.font; fontMaterial = source.fontSharedMaterial;
-            panelSprite = presentation.settings.GetComponentsInChildren<Image>(true).First(i => i.name == "UI_Setting_01").sprite;
-            var win = presentation.win.GetComponentsInChildren<VisualBindings>(true).First(b => b.role == "StageClearPopup");
-            buttonSprite = (win.Get<Button>("basic.claimButton").targetGraphic as Image)?.sprite;
 
             var dim = MakeImage(transform, "Dim", Vector2.zero, Vector2.zero, null, new Color(0, 0, 0, .001f));
             dim.rectTransform.anchorMin = Vector2.zero; dim.rectTransform.anchorMax = Vector2.one; dim.rectTransform.offsetMin = dim.rectTransform.offsetMax = Vector2.zero;
             dim.raycastTarget = true;
             var dimButton = dim.gameObject.AddComponent<Button>(); dimButton.transition = Selectable.Transition.None; dimButton.onClick.AddListener(RequestClose);
-            Panel = MakeImage(transform, "Panel", PanelSize, Vector2.zero, panelSprite, new Color(.45f, .4f, 1)).rectTransform;
+            var nativePanel = presentation.heart.GetComponentsInChildren<Image>(true).First(i => i.name == "IMG_Popup");
+            Panel = MakeImage(transform, "Panel", PanelSize, Vector2.zero, nativePanel.sprite, Color.white).rectTransform;
             Panel.GetComponent<Image>().raycastTarget = true;
+            FitPanel();
             Build();
-            Feedback = Label(Panel, "Feedback", "", new Vector2(760, 50), new Vector2(0, -PanelSize.y / 2 + 130), 24);
-            CloseButton = MakeButton(Panel, "Close", "Close", new Vector2(0, -PanelSize.y / 2 + 65), new Vector2(360, 96), RequestClose);
+            Feedback = Label(Panel, "Feedback", "", new Vector2(700, 40), new Vector2(0, -PanelSize.y / 2 + 40), 24);
+            var template = presentation.heart.GetComponentsInChildren<Button>(true).First(b => b.name == "BTN_Close");
+            CloseButton = Instantiate(template, Panel, false);
+            CloseButton.name = "Close";
+            Center((RectTransform)CloseButton.transform, new Vector2(PanelSize.x / 2 - 50, PanelSize.y / 2 - 45), new Vector2(120, 120));
+            CloseButton.onClick = new Button.ButtonClickedEvent();
+            CloseButton.onClick.AddListener(RequestClose);
+            CloseButton.interactable = true;
+            if (CloseButton.targetGraphic != null) CloseButton.targetGraphic.raycastTarget = true;
             return base.OnInitializeAsync(cancellationToken);
+        }
+
+        private void OnRectTransformDimensionsChange() => FitPanel();
+        private void FitPanel()
+        {
+            if (Panel == null) return;
+            var canvas = GetComponentInParent<Canvas>();
+            if (canvas == null) return;
+            var bounds = ((RectTransform)canvas.rootCanvas.transform).rect;
+            Panel.localScale = Vector3.one * Mathf.Min(bounds.width / (PanelSize.x + 80), bounds.height / (PanelSize.y + 180));
         }
 
         /// <summary>Idempotent close through the UI service; ignored before the open transition completes.</summary>
@@ -80,7 +96,7 @@ namespace BK.Kit
         {
             var image = new GameObject(name, typeof(RectTransform), typeof(Image)).GetComponent<Image>();
             image.transform.SetParent(parent, false); image.rectTransform.sizeDelta = size; image.rectTransform.anchoredPosition = position;
-            image.sprite = sprite; image.type = Image.Type.Sliced; image.color = color; image.raycastTarget = false;
+            image.sprite = sprite; image.type = sprite != null && sprite.border != Vector4.zero ? Image.Type.Sliced : Image.Type.Simple; image.color = color; image.raycastTarget = false;
             return image;
         }
 
@@ -97,12 +113,22 @@ namespace BK.Kit
 
         protected Button MakeButton(Transform parent, string name, string text, Vector2 position, Vector2 size, Action callback)
         {
-            var image = MakeImage(parent, name, size, position, buttonSprite, Color.white);
-            image.raycastTarget = true;
-            var button = image.gameObject.AddComponent<Button>(); button.targetGraphic = image; button.onClick.AddListener(() => callback());
-            Label(image.transform, "Label", text, size - new Vector2(30, 16), Vector2.zero, Mathf.Min(32, size.y * .4f));
+            var template = presentation.retry.GetComponentsInChildren<VisualBindings>(true).First(b => b.role == "UIRetryPopup").Get<Button>("retryButton");
+            var button = Instantiate(template, parent, false); button.name = name; button.gameObject.SetActive(true);
+            Center((RectTransform)button.transform, position, size);
+            foreach (var image in button.GetComponentsInChildren<Image>(true)) image.pixelsPerUnitMultiplier *= 176f / size.y;
+            foreach (var sequence in button.GetComponentsInChildren<VisualSequence>(true)) sequence.enabled = false;
+            foreach (var graphic in button.GetComponentsInChildren<Graphic>(true)) graphic.raycastTarget = false;
+            foreach (var label in button.GetComponentsInChildren<TMP_Text>(true))
+            { label.text = text; label.enableAutoSizing = true; label.fontSizeMin = 32; label.fontSizeMax = 60; }
+            button.targetGraphic.raycastTarget = true;
+            button.interactable = true;
+            button.onClick = new Button.ButtonClickedEvent(); button.onClick.AddListener(() => callback());
             return button;
         }
+
+        protected static void Center(RectTransform rect, Vector2 position, Vector2 size)
+        { rect.anchorMin = rect.anchorMax = rect.pivot = new Vector2(.5f, .5f); rect.anchoredPosition = position; rect.sizeDelta = size; rect.localScale = Vector3.one; }
 
         protected static TMP_Text LabelOf(Button button) => button.GetComponentInChildren<TMP_Text>(true);
     }

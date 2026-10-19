@@ -6,6 +6,10 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using BK.Kit;
 using BK.Meta;
+using BK.Core.Time;
+using BK.Save;
+using VContainer;
+using VContainer.Unity;
 using NUnit.Framework;
 using TMPro;
 using UnityEngine;
@@ -22,14 +26,30 @@ public sealed class OfferFlowTests
 
     [UnityTest]
     public IEnumerator WeeklyStepOfferShowsOneIconAndFreeStepsGrantLocalRewards()
+        => CheckWeeklyOffer(new DateTime(2026,1,13,12,0,0,DateTimeKind.Utc),StepOfferType.Vertical);
+
+    [UnityTest]
+    public IEnumerator ChainOfferShowsRewardsAndFreeStepsGrantLocalRewards()
+        => CheckWeeklyOffer(new DateTime(2026,1,6,12,0,0,DateTimeKind.Utc),StepOfferType.Chain);
+
+    private sealed class OfferClock : IClock
+    {
+        public DateTime UtcNow { get; }
+        public OfferClock(DateTime now)=>UtcNow=now;
+    }
+
+    private IEnumerator CheckWeeklyOffer(DateTime now,StepOfferType expectedType)
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
         KitTestSaves.Seed(folder,level:new BounceStepOffers().UnlockStage);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
-        yield return SceneManager.LoadSceneAsync("VisualBootstrap");
-        yield return Ready("VisualLobby");
+        using(LifetimeScope.Enqueue(builder=>builder.RegisterInstance<IClock>(new OfferClock(now))))
+        {
+            yield return SceneManager.LoadSceneAsync("VisualBootstrap");
+            yield return Ready("VisualLobby");
+        }
         var app=KitApp.Instance;
         var offers=UnityEngine.Object.FindFirstObjectByType<LobbyOffersView>();
         Assert.That(offers,Is.Not.Null,"Lobby must own a LobbyOffersView");
@@ -37,6 +57,8 @@ public sealed class OfferFlowTests
         Assert.That(campaign.HasValue,Is.True,"The epoch is in the past, so some week is always live");
         bool vertical=campaign.Value.Definition.Type==StepOfferType.Vertical;
         var type=campaign.Value.Definition.Type;
+        Assert.That(type,Is.EqualTo(expectedType));
+        string capture=vertical?"offer-endless":"offer-gifts";
         string activeName=vertical?"Lobby_EndlessOffer":"Lobby_EndlessGift",otherName=vertical?"Lobby_EndlessGift":"Lobby_EndlessOffer";
         int firstReward=vertical?100:50;int paidProduct=vertical?1001:1011;
         var right=UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(t=>t.name=="UI_Right");
@@ -69,8 +91,20 @@ public sealed class OfferFlowTests
         var canvasRect=(RectTransform)offers.Popup.transform.parent;
         Assert.That(OnScreen(canvasRect,binding.Get<Button>("closeButton")),Is.True,"Close button must sit inside the canvas");
         Assert.That(OnScreen(canvasRect,slot0.Get<Button>("buyButton")),Is.True,"Current slot's button must be on screen");
-        yield return null;
-        Dump("offer-active");
+        yield return new WaitForSecondsRealtime(.35f);
+        foreach(var slot in new[]{slot0,slot1})
+        {
+            var rewards=slot.Get<Transform>("rewardContainer").Cast<Transform>().Where(t=>t.name=="Reward clone" && t.gameObject.activeSelf).ToArray();
+            for(int i=0;i<rewards.Length;i++)
+            {
+                var image=rewards[i].GetComponentsInChildren<Image>().First(t=>t.name=="IMG_Icon");
+                Assert.That(image.sprite,Is.Not.Null);
+                for(int j=i+1;j<rewards.Length;j++)Assert.That(Vector3.Distance(rewards[i].position,rewards[j].position),Is.GreaterThan(20),"Reward slots must not overlap");
+            }
+        }
+        var bombIcon=slot1.Get<Transform>("rewardContainer").GetComponentsInChildren<Image>().First(i=>i.sprite!=null && i.sprite.name=="Shop_Bomb");
+        Assert.That(bombIcon,Is.Not.Null,"The shop currency ID BombIngame must map to this game's bomb, not gold");
+        Dump(capture);
         long goldBefore=app.Gold;
         var buy=slot0.Get<Button>("buyButton");
         Assert.That(buy.interactable,Is.True);
@@ -96,7 +130,8 @@ public sealed class OfferFlowTests
         var notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
         Assert.That(notice,Is.Not.Null,"Paid step explains that payments are not connected");
         notice.Close();yield return null;
-        Dump("offer-paid-step");
+        yield return new WaitForSecondsRealtime(.35f);
+        Dump(capture+"-paid");
         var close=binding.Get<Button>("closeButton");
         Assert.That(close,Is.Not.Null);
         close.onClick.Invoke();
@@ -114,7 +149,10 @@ public sealed class OfferFlowTests
         var deal=offers.Popup.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIWelcomeDealPopup");
         Assert.That(deal.Get<TMP_Text>("priceText").text,Is.EqualTo(LobbyOffersView.WelcomePrice));
         Assert.That(deal.Get<Transform>("rewardContainer").GetComponentsInChildren<VisualBindings>(false).Count(b=>b.role=="UIWelcomeDealRewardItem"),Is.EqualTo(LobbyOffersView.WelcomeRewards.Length));
-        yield return null;
+        yield return new WaitForSecondsRealtime(.35f);
+        var welcomeRewards=deal.Get<Transform>("rewardContainer").Cast<Transform>().Where(t=>t.name=="Reward clone" && t.gameObject.activeSelf).ToArray();
+        for(int i=0;i<welcomeRewards.Length;i++)for(int j=i+1;j<welcomeRewards.Length;j++)
+            Assert.That(Vector3.Distance(welcomeRewards[i].position,welcomeRewards[j].position),Is.GreaterThan(40),"Welcome rewards must have separate slots");
         Dump("offer-welcome");
         deal.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
@@ -126,6 +164,34 @@ public sealed class OfferFlowTests
         Assert.That(offers.IsOpen,Is.False);
         var stage=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageInfo");
         Assert.That(stage.Get<Button>("buttons.0.button").interactable,Is.True);
+    }
+
+    [UnityTest]
+    public IEnumerator FinalGiftRemainsReachableAndCompletesTheOffer()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        KitTestSaves.Seed(folder,level:4);
+        var saves=new SaveService(folder,0f);var data=saves.Get<StepOfferData>();
+        data.slots.Add(new StepOfferData.Slot {type=(int)StepOfferType.Chain,offerId=BounceStepOffers.ChainOfferId,weekIndex=0,nextStep=7,startedTicks=new BounceStepOffers().EpochUtc.Ticks});
+        data.MarkDirty();Assert.That(saves.Flush(),Is.True);
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        using(LifetimeScope.Enqueue(builder=>builder.RegisterInstance<IClock>(new OfferClock(new DateTime(2026,1,6,12,0,0,DateTimeKind.Utc)))))
+        {yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");}
+        var offers=UnityEngine.Object.FindFirstObjectByType<LobbyOffersView>();offers.Open(LobbyOfferIcon.EndlessGift);
+        yield return new WaitForSecondsRealtime(.35f);
+        var binding=offers.Popup.GetComponentsInChildren<VisualBindings>().First(b=>b.role=="UIEndlessGiftsPopup");
+        var first=binding.Get<VisualBindings>("slots.0");
+        Assert.That(first.Get<Button>("buyButton").interactable,Is.True);
+        Assert.That(binding.Get<VisualBindings>("slots.1").Get<GameObject>("root").activeSelf,Is.False);
+        Assert.That(first.Get<Transform>("rewardContainer").GetComponentsInChildren<Image>().Any(i=>i.sprite!=null && i.sprite.name=="Shop_Laser"),Is.True);
+        Dump("offer-gifts-final");
+        Click(first.Get<Button>("buyButton"));yield return new WaitForSecondsRealtime(.35f);
+        Assert.That(KitApp.Instance.BoosterCount(BoosterKind.Laser),Is.EqualTo(1));
+        Assert.That(KitTestSaves.StepOfferNextStep(folder,StepOfferType.Chain),Is.EqualTo(8));
+        Assert.That(offers.IsOpen,Is.False);
+        Assert.That(KitApp.Instance.Offers.GetActive().HasValue,Is.False);
     }
 
     [UnityTest]

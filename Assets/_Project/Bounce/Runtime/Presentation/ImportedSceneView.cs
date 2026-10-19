@@ -290,9 +290,7 @@ namespace BK.Kit
                 Text(binding,"continuePriceText",offer.HasValue?offer.Value.Price.ToString():"-");SetActive(binding,"playOnLabels.0",offer.HasValue);
                 Text(binding,"currencyText",app.Gold.ToString());
                 var retry=binding.Get<Button>("replayButton");
-                Active(retry.gameObject,"img_icon",false);Active(popup,"IMG_Ad",false);
-                var label=binding.Get<TMP_Text>("continuePriceText");
-                if(label!=null){var position=label.rectTransform.anchoredPosition;position.x=0;label.rectTransform.anchoredPosition=position;}
+                Active(retry.gameObject,"img_icon",offer.HasValue);Active(popup,"IMG_Ad",false);
                 foreach(var button in popup.GetComponentsInChildren<Button>(true))
                     if(button!=retry && button!=binding.Get<Button>("currencyButton"))button.onClick.AddListener(app.GoToLobby);
                 Bind(binding,"replayButton",()=>
@@ -301,6 +299,7 @@ namespace BK.Kit
                     else app.Messages.Toast(why,collapseDuplicate:true);
                 });
                 Bind(binding,"lobbyButton",app.GoToLobby);Bind(binding,"closeButton",app.GoToLobby);
+                retry.interactable=offer.HasValue;
             }
             foreach(var text in popup.GetComponentsInChildren<TMP_Text>(true))
                 if(text.text.Contains("{0}"))text.text=text.text.Replace("{0}",app.LastGoldReward.ToString());

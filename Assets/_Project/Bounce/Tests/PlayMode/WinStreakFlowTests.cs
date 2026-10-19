@@ -3,6 +3,8 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using BK.Kit;
+using BK.Meta;
+using BK.Save;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -30,14 +32,15 @@ public sealed class WinStreakFlowTests
         Assert.That(popup,Is.Not.Null,"Play opens the sf pre-play popup instead of loading at once");
         Assert.That(popup.Level,Is.EqualTo(1));
         Assert.That(popup.GaugeFill,Is.Zero);
+        yield return new WaitForSecondsRealtime(.3f);Capture("streak-start");
         Assert.That(SceneManager.GetActiveScene().name,Is.EqualTo("VisualLobby"));
-        popup.CloseButton.onClick.Invoke();
+        Click(popup.CloseButton);
         yield return new WaitForSecondsRealtime(.4f);
         Assert.That(UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>(),Is.Null,"Close keeps the player in the lobby");
         Stage().Get<Button>("buttons.0.button").onClick.Invoke();
         yield return WaitOpen<WinStreakPopup>();
         popup=UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>();
-        popup.PlayButton.onClick.Invoke();
+        Click(popup.PlayButton);
         yield return null;
         Assert.That(popup.IsOpen,Is.False,"Play starts closing the popup at once");
         yield return Ready("VisualIngame");
@@ -61,7 +64,8 @@ public sealed class WinStreakFlowTests
         Assert.That(popup.Level,Is.EqualTo(4));
         Assert.That(popup.GaugeFill,Is.EqualTo(1f/3f).Within(.01f),"Three milestones share the gauge equally");
         Assert.That(popup.GetComponentsInChildren<TMPro.TMP_Text>(true).Any(t=>t.text.Contains("Next round bonus") && t.text.Contains("Missile")),Is.True);
-        popup.PlayButton.onClick.Invoke();
+        yield return new WaitForSecondsRealtime(.3f);Capture("streak-bonus");
+        Click(popup.PlayButton);
         yield return Ready("VisualIngame");
         Assert.That(app.BoosterCount(BoosterKind.Missile),Is.EqualTo(1),"The streak reward is credited when the round starts");
         Assert.That(app.Streak.Pending,Is.Empty);
@@ -70,6 +74,34 @@ public sealed class WinStreakFlowTests
         app.GoToLobby();yield return Ready("VisualLobby");
         Assert.That(app.Streak.Current.CurrentValue,Is.Zero,"Leaving a lost round forfeits the streak");
         Assert.That(KitTestSaves.WinStreak(folder),Is.Zero);
+    }
+
+    private static void Capture(string name)
+        => typeof(VisualFlowTests).GetMethod("Dump",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic).Invoke(null,new object[]{name,1600});
+    private static void Click(Selectable button)
+        => typeof(VisualFlowTests).GetMethod("Click",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic).Invoke(null,new object[]{button});
+
+    [UnityTest]
+    public IEnumerator CappedStreakShowsAllMilestonesAndAwardsTwoExtraBallBoosters()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        KitTestSaves.Seed(folder,level:11);
+        var saves=new SaveService(folder,0f);var streak=saves.Get<WinStreakData>();
+        streak.streak=10;streak.pending.Add(BounceItems.Booster(BoosterKind.ExtraBall,2));streak.MarkDirty();Assert.That(saves.Flush(),Is.True);
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        Stage().Get<Button>("buttons.0.button").onClick.Invoke();yield return WaitOpen<WinStreakPopup>();
+        yield return new WaitForSecondsRealtime(.3f);
+        var popup=UnityEngine.Object.FindFirstObjectByType<WinStreakPopup>();
+        Assert.That(popup.GaugeFill,Is.EqualTo(1));
+        Assert.That(popup.GetComponentsInChildren<TMPro.TMP_Text>().Count(t=>t.text=="REACHED"),Is.EqualTo(3));
+        Capture("streak-cap");
+        typeof(VisualFlowTests).GetMethod("Dump",System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic).Invoke(null,new object[]{"streak-cap-tall",1950});
+        Click(popup.PlayButton);yield return Ready("VisualIngame");
+        Assert.That(KitApp.Instance.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(2));
+        Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.EqualTo(2));
     }
 
     private static VisualBindings Stage()

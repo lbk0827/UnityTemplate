@@ -63,5 +63,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: BK.Kit.Runtime::BK.Kit.WinStreakPopup
   _layer: 300
   _fadeDuration: 0.15
-  _dim: 1
+  _dim: 3
   presentation: {fileID: 11400000, guid: a63eff7e8dea18848b786bb9a283347c, type: 2}

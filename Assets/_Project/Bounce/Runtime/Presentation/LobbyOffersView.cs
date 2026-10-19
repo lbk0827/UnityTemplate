@@ -38,6 +38,7 @@ namespace BK.Kit
         private VisualBindings popupBinding;
         private LobbyOfferIcon openKind;
         private TMP_Text feedback;
+        private TMP_Text textStyle;
         private IDisposable progressSubscription;
         private StepOfferCampaign? current; // resolved at event points only; the timer never calls GetActive (it may start a new round)
         public GameObject Popup=>popup;
@@ -47,6 +48,7 @@ namespace BK.Kit
         public void Initialize(GameObject screen,RectTransform canvas,GamePresentation presentation,Func<bool> blocked,Action<string,string> showInfo)
         {
             app=KitApp.Instance;this.canvas=canvas;this.presentation=presentation;this.blocked=blocked;this.showInfo=showInfo;
+            textStyle=presentation.settings.GetComponentsInChildren<TMP_Text>(true).First(t=>t.font!=null);
             var offers=screen.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="UI_Right");
             if(offers==null)return;
             foreach(var button in offers.GetComponentsInChildren<Button>(true))
@@ -170,6 +172,7 @@ namespace BK.Kit
             popup=Instantiate(prefab,canvas,false);popup.name="Offer "+kind;popup.SetActive(true);openKind=kind;
             var rect=popup.GetComponent<RectTransform>();
             if(rect!=null){rect.anchorMin=Vector2.zero;rect.anchorMax=Vector2.one;rect.offsetMin=rect.offsetMax=Vector2.zero;rect.localScale=Vector3.one;}
+            foreach(var group in popup.GetComponentsInChildren<CanvasGroup>(true)){group.alpha=1;group.interactable=true;group.blocksRaycasts=true;}
             foreach(var graphic in popup.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
             foreach(var button in popup.GetComponentsInChildren<Button>(true)){button.onClick=new Button.ButtonClickedEvent();if(button.targetGraphic!=null)button.targetGraphic.raycastTarget=true;}
             var blocker=popup.GetComponent<Image>();if(blocker==null)blocker=popup.AddComponent<Image>();
@@ -182,7 +185,12 @@ namespace BK.Kit
             var anchor=popupBinding?.Get<VisualBindings>("slots.0")?.transform??popupBinding?.Get<Button>("closeButton")?.transform;
             for(var current=anchor;current!=null && current!=popup.transform;current=current.parent)
                 if(current.localScale==Vector3.zero)current.localScale=Vector3.one*fit;
-            feedback=Label(popup.transform,"Offer feedback","",new Vector2(820,50),new Vector2(0,-640),26);
+            if(kind==LobbyOfferIcon.WelcomeDeal)
+            {
+                var content=popup.transform.Find("Root");
+                content.localScale=Vector3.one*Mathf.Min(canvas.rect.height/1720f,canvas.rect.width/960f);
+            }
+            feedback=Label(popup.transform,"Offer feedback","",new Vector2(820,50),new Vector2(0,-canvas.rect.height*.46f),26);
             Bind(popupBinding?.Get<Button>("closeButton"),Close);
             Bind(popupBinding?.Get<Button>("dimButton"),Close);
             foreach(var button in popup.GetComponentsInChildren<Button>(true))
@@ -212,7 +220,9 @@ namespace BK.Kit
 
         private int SlotCount()
         {
-            int count=0;while(popupBinding.Get<VisualBindings>("slots."+count)!=null)count++;return count;
+            // The source keeps one extra slot outside the viewport for its slide animation.
+            // This view rebinds a moving window instead; only the three/six visible cards participate.
+            return openKind==LobbyOfferIcon.EndlessGift?6:3;
         }
         // sf: past steps are not rendered; the window starts at the current step and the rest of the rail stays locked.
         private void BindSteps()
@@ -222,8 +232,18 @@ namespace BK.Kit
             if(!active.HasValue || IconOf(active.Value.Definition.Type)!=openKind){Close();return;}
             var campaign=active.Value;
             int slotCount=SlotCount();
+            for(int i=slotCount;popupBinding.Get<VisualBindings>("slots."+i)!=null;i++)
+                popupBinding.Get<VisualBindings>("slots."+i).gameObject.SetActive(false);
             var window=app.Offers.Window(campaign,slotCount);
             Text(popupBinding,"titleText",openKind==LobbyOfferIcon.EndlessGift?"Endless Gifts":"Endless Offer");
+            if(window.Count==1)
+            {
+                Text(popupBinding,"titleText",openKind==LobbyOfferIcon.EndlessGift?"Final Gift!":"Final Offer!");
+                var last=(RectTransform)popupBinding.Get<VisualBindings>("slots.0").transform;
+                var position=last.anchoredPosition;position.x=0;last.anchoredPosition=position;
+                var instructions=popup.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(t=>t.name=="Offer instructions");
+                if(instructions!=null)instructions.text="One last step to complete the collection";
+            }
             Text(popupBinding,"remainTimeText",Remaining(campaign));
             for(int i=0;i<slotCount;i++)
             {
@@ -231,9 +251,18 @@ namespace BK.Kit
                 if(i>=window.Count){SetActive(slot,"root",false);continue;}
                 var view=window[i];var step=view.Step;
                 SetActive(slot,"root",true);SetActive(slot,"lockRoot",view.IsLocked);SetActive(slot,"currentRoot",view.IsCurrent);SetActive(slot,"checkRoot",false);
+                var currentFrame=slot.Get<GameObject>("currentRoot").GetComponent<Image>();
+                if(currentFrame!=null){currentFrame.enabled=true;currentFrame.color=Color.white;currentFrame.canvasRenderer.SetAlpha(1);}
+                var productFrame=slot.transform.GetComponentsInChildren<Image>(true).FirstOrDefault(image=>image.name=="IMG_ProductBg");
+                if(productFrame!=null)productFrame.gameObject.SetActive(!view.IsCurrent);
                 Text(slot,"priceText",step.IsPaid?PriceOf(step.ProductId):"FREE");
                 var buy=slot.Get<Button>("buyButton");
-                if(buy!=null){int index=i;Bind(buy,()=>OnStep(index));buy.interactable=view.IsCurrent;}
+                if(buy!=null)
+                {
+                    int index=i;Bind(buy,()=>OnStep(index));buy.interactable=view.IsCurrent;
+                    var image=buy.targetGraphic as Image;
+                    if(image!=null)image.sprite=presentation.refinedSprites.First(s=>s.name==(view.IsCurrent?"Primary":"Secondary"));
+                }
                 BindRewards(slot,RewardsOf(step));
             }
             for(int i=0;;i++){var connector=popupBinding.Get<GameObject>("stepConnectors."+i);if(connector==null)break;connector.SetActive(i<window.Count-1);}
@@ -255,7 +284,7 @@ namespace BK.Kit
             if(index>=window.Count || !window[index].IsCurrent)return;
             if(window[index].Step.IsPaid){showInfo("Purchase",KitApp.PaymentsNotConnected);return;}
             bool claimed=app.TryClaimStepOffer(campaign,out var message); // a successful claim rebinds through ProgressChanged
-            if(feedback!=null)feedback.text=message;
+            if(feedback!=null)feedback.text=claimed?"":message;
             if(claimed)showInfo("Rewards",message);
         }
         private void BindRewards(VisualBindings slot,IReadOnlyList<ItemGrant> rewards)
@@ -263,24 +292,38 @@ namespace BK.Kit
             var container=slot.Get<Transform>("rewardContainer");var template=slot.Get<GameObject>("rewardTemplate");
             if(container==null || template==null)return;
             template.SetActive(false);
-            foreach(Transform child in container.Cast<Transform>().ToArray())if(child.name=="Reward clone")Destroy(child.gameObject);
-            foreach(var reward in rewards)
+            foreach(Transform child in container.Cast<Transform>().ToArray())if(child.name=="Reward clone"){child.gameObject.SetActive(false);Destroy(child.gameObject);}
+            DisableLayout(container);
+            float available=openKind==LobbyOfferIcon.EndlessGift?350:720;
+            float itemWidth=Mathf.Min(openKind==LobbyOfferIcon.EndlessGift?130:180,available/Mathf.Max(1,rewards.Count));
+            Center((RectTransform)container,new Vector2(0,63),new Vector2(available,175));
+            for(int i=0;i<rewards.Count;i++)
             {
+                var reward=rewards[i];
                 var clone=Instantiate(template,container,false);clone.name="Reward clone";clone.SetActive(true);
+                Center((RectTransform)clone.transform,new Vector2((i-(rewards.Count-1)*.5f)*itemWidth,0),new Vector2(itemWidth,175));
                 foreach(var graphic in clone.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
                 var icon=clone.GetComponentsInChildren<Image>(true).FirstOrDefault(image=>image.name=="IMG_Icon");
-                if(icon!=null){var sprite=SpriteFor(reward,slot.Get<Sprite>("currencyIcons.0.sprite"));if(sprite!=null)icon.sprite=sprite;icon.preserveAspect=true;}
+                if(icon!=null){icon.sprite=SpriteFor(reward);icon.preserveAspect=true;Center(icon.rectTransform,new Vector2(0,20),Vector2.one*Mathf.Min(132,itemWidth-8));}
                 var count=clone.GetComponentsInChildren<TMP_Text>(true).FirstOrDefault(text=>text.name=="TXT_Count");
-                if(count!=null)count.text=BounceItems.IsGold(reward)?reward.amount.ToString():"x"+reward.amount;
+                if(count!=null){count.text=AmountFor(reward);Center(count.rectTransform,new Vector2(0,-57),new Vector2(itemWidth,50));count.enableAutoSizing=true;count.fontSizeMin=24;count.fontSizeMax=40;}
             }
         }
-        private Sprite SpriteFor(in ItemGrant reward,Sprite gold)
+        private Sprite SpriteFor(in ItemGrant reward)
         {
-            if(BounceItems.IsGold(reward) || !BounceItems.TryGetBooster(reward,out var kind))return gold;
+            string id=reward.itemId;
+            if(BounceItems.IsGold(reward))return presentation.shopSprites.First(s=>s.name=="Goods_Coin_02");
+            var row=app.Shop.Currencies.Contains(id)?app.Shop.Currencies.Get(id):null;
+            if(!BounceItems.TryGetBooster(reward,out var kind) && (row==null || !Enum.TryParse(row.boosterKind,out kind)))
+                return presentation.shopSprites.FirstOrDefault(s=>s.name==(id==BounceCurrencies.InfiniteHeart?"IMG_HeartInfinite":row?.icon));
             if(boosterSprites.TryGetValue(kind,out var cached))return cached;
-            var root=presentation.ingame.GetComponentsInChildren<Transform>(true).FirstOrDefault(t=>t.name=="BTN_"+kind);
-            var image=root==null?null:root.GetComponentsInChildren<Image>(true).FirstOrDefault(i=>i.name=="IMG_Item");
-            return boosterSprites[kind]=image==null?gold:image.sprite;
+            return boosterSprites[kind]=CommonPopupView.BoosterIcon(presentation,kind);
+        }
+        private string AmountFor(in ItemGrant reward)
+        {
+            if(app.Shop.Currencies.Contains(reward.itemId) && app.Shop.Currencies.Get(reward.itemId).duration)
+                return reward.amount%3600==0?reward.amount/3600+"h":reward.amount/60+"m";
+            return BounceItems.IsGold(reward)?reward.amount.ToString("N0",System.Globalization.CultureInfo.InvariantCulture):"x"+reward.amount;
         }
         private void BindWelcomeDeal()
         {
@@ -291,19 +334,29 @@ namespace BK.Kit
             if(container!=null && itemPrefab!=null)
             {
                 foreach(Transform child in container)child.gameObject.SetActive(false);
-                Sprite gold=null;
-                foreach(var icon in container.GetComponentsInChildren<Image>(true))if(icon.sprite!=null){gold=icon.sprite;break;}
-                foreach(var reward in WelcomeRewards)
+                DisableLayout(container);
+                for(int i=0;i<WelcomeRewards.Length;i++)
                 {
+                    var reward=WelcomeRewards[i];
                     var item=Instantiate(itemPrefab,container,false);item.name="Reward clone";item.SetActive(true);
+                    // Gold leads on its own row; the four boosters share the second row.
+                    Center((RectTransform)item.transform,i==0?new Vector2(0,75):new Vector2((i-2.5f)*148,-95),new Vector2(140,145));
                     foreach(var graphic in item.GetComponentsInChildren<Graphic>(true))graphic.raycastTarget=false;
                     var binding=item.GetComponentsInChildren<VisualBindings>(true).FirstOrDefault(b=>b.role=="UIWelcomeDealRewardItem");
-                    var icon=binding?.Get<Image>("icon");var sprite=SpriteFor(reward,gold);
-                    if(icon!=null && sprite!=null){icon.sprite=sprite;icon.preserveAspect=true;}
-                    Text(binding,"countText",BounceItems.IsGold(reward)?reward.amount.ToString():"x"+reward.amount);
+                    var icon=binding?.Get<Image>("icon");var sprite=SpriteFor(reward);
+                    if(icon!=null && sprite!=null){icon.sprite=sprite;icon.preserveAspect=true;Center(icon.rectTransform,new Vector2(0,18),new Vector2(122,122));}
+                    var count=binding?.Get<TMP_Text>("countText");
+                    if(count!=null){count.text=AmountFor(reward);count.font=textStyle.font;count.fontSharedMaterial=textStyle.fontSharedMaterial;count.color=new Color(1,1,.8f);count.enableVertexGradient=false;Center(count.rectTransform,new Vector2(0,-60),new Vector2(140,55));count.enableAutoSizing=true;count.fontSizeMin=28;count.fontSizeMax=40;}
                 }
             }
             Bind(popupBinding.Get<Button>("buyButton"),()=>showInfo("Purchase",KitApp.PaymentsNotConnected));
+        }
+        private static void Center(RectTransform rect,Vector2 position,Vector2 size)
+        {rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(.5f,.5f);rect.anchoredPosition=position;rect.sizeDelta=size;rect.localScale=Vector3.one;}
+        private static void DisableLayout(Transform target)
+        {
+            foreach(var layout in target.GetComponents<LayoutGroup>())layout.enabled=false;
+            foreach(var fitter in target.GetComponents<ContentSizeFitter>())fitter.enabled=false;
         }
         private TMP_Text Label(Transform parent,string name,string text,Vector2 size,Vector2 position,float fontSize)
         {
