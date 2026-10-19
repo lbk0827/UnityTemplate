@@ -1,0 +1,78 @@
+{
+  "date": "2026-10-19",
+  "result": "Passed",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "tests": [
+    {
+      "name": "CommonPopupFlowTests.ConfirmationAndBoosterFlowNeverSpendOnCancelOrDoubleTap",
+      "result": "Passed"
+    },
+    {
+      "name": "CommonPopupFlowTests.FirstGimmickGuidesQueueAndPersistAcrossSceneReloads",
+      "result": "Passed"
+    },
+    {
+      "name": "CommonPopupFlowTests.ImportedPopupsHaveValidBindingsAndCloseExactlyOnce",
+      "result": "Passed"
+    },
+    {
+      "name": "OfferFlowTests.StepOffersStayHiddenBelowTheUnlockStage",
+      "result": "Passed"
+    },
+    {
+      "name": "OfferFlowTests.WeeklyStepOfferShowsOneIconAndFreeStepsGrantLocalRewards",
+      "result": "Passed"
+    },
+    {
+      "name": "VisualFlowTests.CategorizedShopScrollsAndPreviewNeverCharges",
+      "result": "Passed"
+    },
+    {
+      "name": "VisualFlowTests.ImportedLobbyStartsBounceAndSupportsRetryAndReturn",
+      "result": "Passed"
+    },
+    {
+      "name": "VisualFlowTests.LobbyTabsFollowReferenceMotionAndFloatPlatesStayRound",
+      "result": "Passed"
+    },
+    {
+      "name": "VisualFlowTests.OfflineProfileDialogsAndSaveRecoveryWork",
+      "result": "Passed"
+    },
+    {
+      "name": "VisualFlowTests.SettingsControlSeparateChannelsAndSurviveSceneChanges",
+      "result": "Passed"
+    }
+  ],
+  "screenshots": [
+    "lobby-reference-home.png",
+    "lobby-reference-home-tall.png",
+    "lobby-reference-store.png",
+    "shop-top.png",
+    "shop-top-tall.png",
+    "shop-bundles.png",
+    "shop-coins.png",
+    "common-popup_heart.png",
+    "common-popup_quit.png",
+    "common-popup_retry.png",
+    "common-popup_profile.png",
+    "common-popup_unlockgimmick.png",
+    "common-popup_unlockbooster.png",
+    "common-popup_usebooster.png",
+    "common-popup_reward.png",
+    "common-popup_stagecelebration.png",
+    "result.png",
+    "result-tall.png",
+    "lobby-settings.png",
+    "ingame-settings.png",
+    "common-heart-infinite.png"
+  ],
+  "additional_validation": {
+    "name": "Unlimited heart glyph and guide persistence",
+    "result": "Passed",
+    "tests": 1,
+    "missing_glyph_warnings": 0
+  }
+}

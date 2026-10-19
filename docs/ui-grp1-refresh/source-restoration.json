@@ -1,0 +1,50 @@
+[
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\EndlessOffer\\ui_endlessoffer_slot.prefab",
+    "images": 8
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\EndlessOffer\\ui_endlessoffer_slot_vertical.prefab",
+    "images": 8
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\Heart\\popup_heart.prefab",
+    "images": 7
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\Ingame\\popup_retry.prefab",
+    "images": 4
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\Option\\popup_setting.prefab",
+    "images": 7
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\Option\\popup_setting_ingame.prefab",
+    "images": 4
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\Profile\\popup_profile.prefab",
+    "images": 11
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\WelcomeDeal\\popup_welcomedeal.prefab",
+    "images": 42
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Popup\\WelcomeDeal\\ui_welcomedeal_reward.prefab",
+    "images": 1
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Panel\\HUD\\hud.prefab",
+    "images": 4
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Panel\\Ingame\\panel_Ingame.prefab",
+    "images": 6
+  },
+  {
+    "prefab": "Assets\\_Project\\Bounce\\Content\\Imported\\KitResources\\Template\\Prefabs\\UI\\Panel\\Lobby\\Sub\\panel_home.prefab",
+    "images": 14
+  }
+]

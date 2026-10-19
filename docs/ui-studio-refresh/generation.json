@@ -1,0 +1,7 @@
+{
+  "tool": "Built-in image_gen",
+  "asset": "Assets/_Project/Bounce/Content/UI/Toy/LobbyStudio.png",
+  "prompt": "Portrait 9:16 background only for a reusable casual mobile game lobby, soft studio style. Abstract smooth matte blue and lavender color field, gentle broad diffuse central illumination, center softly lighter periwinkle blue, outer edges slightly deeper muted blue-violet. Very subtle large rounded abstract pill and dome silhouettes partially cropped at far corners, softly defocused, shallow gentle shading only. Restrained medium-light saturation so vivid green buttons, gold borders and cream cards placed over it remain legible. Keep the central 70 percent clean empty with no objects, no defined horizon, no floor, no environment, no scenery. Seamless smooth premium casual game background, very minimal, calm and cheerful, no harsh shadows, no glossy 3D shapes, no busy texture, no rays, no sparkles, no text, no UI, no panels, no icons, no symbols, no water, no islands, no plants, no shells. Full bleed opaque portrait illustration.",
+  "scope": "로비 배경만 소프트 스튜디오로 교체. StageClear 배경은 유지.",
+  "menu": "BK/Integration/Apply Soft Studio Lobby"
+}
