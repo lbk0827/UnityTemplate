@@ -210,6 +210,13 @@ group('Shard')
 box('Glazed porcelain fragment',(0,0,0),(.13,.045,.10),'white',.012)
 box('Blue glaze',(0,.024,0),(.075,.008,.07),'blue',.008)
 
+# Separate editable sources prevent one art pass from overwriting another.
+if '--ripple-gimmicks' in sys.argv:
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from ripple_gimmicks import build_and_export
+    build_and_export(globals())
+    sys.exit(0)
+
 # Box study and pilot have separate editable sources and UV-baked exports.
 if '--box' in sys.argv:
     sys.path.insert(0,str(Path(__file__).resolve().parent))

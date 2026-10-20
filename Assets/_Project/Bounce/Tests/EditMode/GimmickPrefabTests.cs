@@ -9,12 +9,14 @@ using UnityEngine;
 public sealed class GimmickPrefabTests
 {
     [Test]
-    public void CabinetAndFurnaceUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings()
+    public void GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings()
     {
         var presentation=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
         var box=presentation.blocks[0].GetComponentInChildren<Renderer>().sharedMaterial;
         var catalog=presentation.ingameConfig.gimmickPrefabs;
-        foreach(var root in new[]{catalog.cupboard.gameObject,catalog.tube.gameObject,catalog.tubeSegment})
+        foreach(var root in new[]{catalog.cupboard.gameObject,catalog.tube.gameObject,catalog.tubeSegment,
+            catalog.panel.gameObject,catalog.mine.gameObject,catalog.switchButton.gameObject,
+            catalog.door.gameObject,catalog.combo.gameObject,catalog.armor.gameObject,catalog.shard})
         foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>(true))
         {
             var material=renderer.sharedMaterial;

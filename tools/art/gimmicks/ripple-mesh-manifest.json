@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Panel",
+    "vertices": 2060,
+    "triangles": 2944,
+    "atlas": 512
+  },
+  {
+    "name": "Rail",
+    "vertices": 214,
+    "triangles": 300,
+    "atlas": 512
+  },
+  {
+    "name": "RailStop",
+    "vertices": 820,
+    "triangles": 1272,
+    "atlas": 512
+  },
+  {
+    "name": "Mine",
+    "vertices": 4621,
+    "triangles": 6568,
+    "atlas": 512
+  },
+  {
+    "name": "SwitchBase",
+    "vertices": 1336,
+    "triangles": 1876,
+    "atlas": 512
+  },
+  {
+    "name": "SwitchOff",
+    "vertices": 1064,
+    "triangles": 1508,
+    "atlas": 512
+  },
+  {
+    "name": "SwitchOn",
+    "vertices": 1064,
+    "triangles": 1508,
+    "atlas": 512
+  },
+  {
+    "name": "GateFrame",
+    "vertices": 2308,
+    "triangles": 3180,
+    "atlas": 512
+  },
+  {
+    "name": "GateBars",
+    "vertices": 1716,
+    "triangles": 2404,
+    "atlas": 512
+  },
+  {
+    "name": "GateLamp",
+    "vertices": 350,
+    "triangles": 528,
+    "atlas": 512
+  },
+  {
+    "name": "ComboClosed",
+    "vertices": 2272,
+    "triangles": 3264,
+    "atlas": 512
+  },
+  {
+    "name": "ComboOpen",
+    "vertices": 2679,
+    "triangles": 3864,
+    "atlas": 512
+  },
+  {
+    "name": "Armor",
+    "vertices": 2458,
+    "triangles": 3384,
+    "atlas": 512
+  },
+  {
+    "name": "Shard",
+    "vertices": 473,
+    "triangles": 648,
+    "atlas": 512
+  }
+]

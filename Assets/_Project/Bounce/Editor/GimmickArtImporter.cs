@@ -42,10 +42,19 @@ namespace BK.Kit.Editor
 
         public static void CapturePilotBefore()=>CapturePilot("before");
 
-        static void BuildFrom(string input,string[] prefabs,bool pilot)
+        [MenuItem("BK/Integration/Build Ripple Gimmicks")]
+        public static void BuildRippleGimmicks()
+        {
+            pilotMaterials.Clear();
+            BuildFrom("TestResults/RippleGimmicks",new[]{"MovingPanel","SeaMine","Switch","Gate","DoubleHitBlock","DirectionalArmor","PorcelainShard"},true,"Ripple");
+            CaptureCatalog();
+            CaptureRippleFamily();
+        }
+
+        static void BuildFrom(string input,string[] prefabs,bool pilot,string materialFolder="Pilot")
         {
             input=Path.GetFullPath(input);
-            if(!File.Exists(Path.Combine(input,"Furnace.json")))throw new FileNotFoundException("Run tools/art/build_gimmick_models.py first, exporting to TestResults/GimmickArt.");
+            if(!File.Exists(Path.Combine(input,"manifest.json")))throw new FileNotFoundException("Run tools/art/build_gimmick_models.py first, exporting to "+input);
             Directory.CreateDirectory(Root+"/Models");AssetDatabase.Refresh();meshes.Clear();
             foreach(var path in Directory.GetFiles(input,"*.json"))
             {
@@ -70,16 +79,16 @@ namespace BK.Kit.Editor
                     mesh.uv=uv;
                 }
                 EditorUtility.SetDirty(mesh);meshes.Add(data.name,mesh);
-                if(pilot)pilotMaterials[data.name]=PilotMaterial(input,data.name);
+                if(pilot)pilotMaterials[data.name]=PilotMaterial(input,data.name,materialFolder);
             }
             enamel=Material("Enamel",Color.white,Color.black);
-            heat=pilot?pilotMaterials["FurnaceGlow"]:Material("FurnaceHeat",new Color(1,.24f,.02f),new Color(1,.24f,.02f));
+            heat=pilotMaterials.TryGetValue("FurnaceGlow",out var glow)?glow:Material("FurnaceHeat",new Color(1,.24f,.02f),new Color(1,.24f,.02f));
             foreach(string name in prefabs) Upgrade(name);
             AssetDatabase.SaveAssets();AssetDatabase.Refresh();
         }
-        static Material PilotMaterial(string input,string name)
+        static Material PilotMaterial(string input,string name,string materialFolder)
         {
-            string folder=Root+"/Pilot";Directory.CreateDirectory(folder);
+            string folder=Root+"/"+materialFolder;Directory.CreateDirectory(folder);
             string texturePath=folder+"/"+name+"_AlbedoAO.png";
             File.Copy(Path.Combine(input,name+"_AlbedoAO.png"),texturePath,true);
             AssetDatabase.ImportAsset(texturePath,ImportAssetOptions.ForceSynchronousImport);
@@ -224,6 +233,59 @@ namespace BK.Kit.Editor
                 image.ReadPixels(new Rect(0,0,768,768),0,0);image.Apply();
                 File.WriteAllBytes("TestResults/GimmickArtPreview/"+name+".png",image.EncodeToPNG());
                 RenderTexture.active=previous;camera.targetTexture=null;Object.DestroyImmediate(image);target.Release();Object.DestroyImmediate(target);Object.DestroyImmediate(go);
+            }
+        }
+
+        public static void CaptureRippleFamily()
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
+            var camera=new GameObject("Ripple family camera").AddComponent<Camera>();
+            camera.orthographic=true;camera.orthographicSize=2.5f;
+            camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.77f,.85f,.87f);
+            camera.transform.position=new Vector3(0,8,-4.62f);camera.transform.LookAt(new Vector3(0,0,-.30f));
+            camera.GetUniversalAdditionalCameraData().renderPostProcessing=false;
+            var light=new GameObject("Soft studio key").AddComponent<Light>();light.type=LightType.Directional;
+            light.intensity=1;light.transform.rotation=Quaternion.Euler(45,-35,0);
+            var names=new[]{"SeaMine","Switch","Gate","DoubleHitBlock","DirectionalArmor","MovingPanel"};
+            var views=new List<GimmickView>();
+            for(int i=0;i<names.Length;i++)
+            {
+                var go=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/"+names[i]+".prefab"));
+                go.transform.position=new Vector3((i%3-1)*1.8f,0,i<3?1.1f:-.8f);
+                var view=go.GetComponent<GimmickView>();views.Add(view);
+                // The contact sheet shows the bumper at the same scale as the other props.
+                // Its full travel track is reviewed in the individual and gameplay captures.
+                if(view.rail!=null)view.rail.gameObject.SetActive(false);
+                if(view.railStops!=null)foreach(var stop in view.railStops)stop.gameObject.SetActive(false);
+            }
+            var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            for(int i=0;i<p.blocks.Length;i++)
+            {
+                var box=Object.Instantiate(p.blocks[i]);
+                box.transform.position=new Vector3((i-1.5f)*.65f,0,-2.3f);
+                box.transform.localScale=Vector3.one*.52f;
+            }
+            Directory.CreateDirectory("TestResults/RippleGimmickReview");
+            foreach(bool active in new[]{false,true})
+            {
+                views[1].ShowActive(active);views[3].ShowActive(active);
+                views[2].pieces[0].SetActive(!active);views[2].activeVisual.SetActive(active);
+                var target=new RenderTexture(1600,1100,24){antiAliasing=4};target.Create();
+                var previous=RenderTexture.active;camera.targetTexture=target;
+                Texture2D image=null;
+                try
+                {
+                    RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest {destination=target});
+                    RenderTexture.active=target;image=new Texture2D(1600,1100,TextureFormat.RGB24,false);
+                    image.ReadPixels(new Rect(0,0,1600,1100),0,0);image.Apply();
+                    File.WriteAllBytes("TestResults/RippleGimmickReview/"+(active?"active":"idle")+".png",image.EncodeToPNG());
+                }
+                finally
+                {
+                    RenderTexture.active=previous;camera.targetTexture=null;
+                    if(image!=null)Object.DestroyImmediate(image);
+                    target.Release();Object.DestroyImmediate(target);
+                }
             }
         }
 
