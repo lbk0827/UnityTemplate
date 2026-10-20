@@ -2135,8 +2135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conformX: 0
-  conformY: 0
-  keepBottom: 1
+  conformY: 1
+  keepBottom: 0
   bleedTop: []
   bleedBottom: []
 --- !u!1 &9195907940998330619

@@ -3,9 +3,8 @@ using UnityEngine;
 namespace BK.Kit
 {
     /// <summary>
-    /// Insets this rect to the device safe area. By default no inset is applied at all, so the
-    /// lobby reaches every screen edge (requested: no top/bottom padding). Turn on conformY to
-    /// keep content below a notch; keepBottom then still keeps the bottom flush like the sf HUD.
+    /// Insets this rect to the device safe area. Content prefabs explicitly enable conformY
+    /// and disable keepBottom; full-screen backgrounds and page containers leave insets disabled.
     /// Backgrounds listed in bleedTop/bleedBottom are stretched back out over the inset so they
     /// still reach the screen edge while the content around them stays inside the safe area.
     /// </summary>
@@ -41,17 +40,22 @@ namespace BK.Kit
 
         private void Fit()
         {
-            if (!(transform is RectTransform rect) || Screen.width == 0 || Screen.height == 0) return;
-            previous = Screen.safeArea;
-            previousScreen = new Vector2Int(Screen.width, Screen.height);
+            Apply(Screen.safeArea, new Vector2Int(Screen.width, Screen.height));
+        }
+
+        private void Apply(Rect safeArea, Vector2Int screenSize)
+        {
+            if (!(transform is RectTransform rect) || screenSize.x == 0 || screenSize.y == 0) return;
+            previous = safeArea;
+            previousScreen = screenSize;
 
             var area = previous;
             if (keepBottom) { area.height += area.y; area.y = 0; }
-            if (!conformX) { area.x = 0; area.width = Screen.width; }
-            if (!conformY) { area.y = 0; area.height = Screen.height; }
+            if (!conformX) { area.x = 0; area.width = screenSize.x; }
+            if (!conformY) { area.y = 0; area.height = screenSize.y; }
 
-            rect.anchorMin = area.min / new Vector2(Screen.width, Screen.height);
-            rect.anchorMax = area.max / new Vector2(Screen.width, Screen.height);
+            rect.anchorMin = area.min / (Vector2)screenSize;
+            rect.anchorMax = area.max / (Vector2)screenSize;
 
             if (!(rect.parent is RectTransform parent)) return;
             previousParentHeight = parent.rect.height;

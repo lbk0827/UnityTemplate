@@ -21,6 +21,93 @@ public sealed class VisualFlowTests
 {
     private string folder;
     [UnityTest]
+    public IEnumerator LobbyAndIngameRespectSafeAreaAndKeepBackgroundsFullBleed()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
+        if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
+        yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        yield return new WaitForSecondsRealtime(.35f);
+        var view=UnityEngine.Object.FindFirstObjectByType<ImportedSceneView>();
+        var hud=view.GetComponentsInChildren<SafeAreaFit>(true).Single(f=>f.transform.parent.name=="hud(Clone)");
+        var home=view.GetComponentsInChildren<SafeAreaFit>(true).Single(f=>f.transform.parent.name=="Root" && f.name=="SafeArea");
+        var pages=view.GetComponentsInChildren<SafeAreaFit>(true).Single(f=>f.transform.parent.name=="panel_lobby(Clone)");
+        var bar=(RectTransform)hud.transform.Find("UI_Bottom/IMG_LobbyBg");
+        foreach(int height in new[]{1600,1950})
+        {
+            // A notch and home indicator in reference pixels. Exercise the same layout path
+            // as Screen.safeArea without relying on the batch runner's desktop resolution.
+            var size=new Vector2Int(900,height);
+            var area=new Rect(0,80,900,height-200);
+            Capture("safe-area-lobby-"+height,height,()=>
+            {
+                ApplySafeArea(view,area,size);
+                AssertSafeBounds(hud,area,size);AssertSafeBounds(home,area,size);
+                AssertSafeBounds(pages,new Rect(0,0,900,height),size);
+                var canvas=(RectTransform)view.transform;
+                Assert.That(BoundsIn(bar,canvas).yMin,Is.EqualTo(canvas.rect.yMin).Within(1),"Navigation background reaches screen bottom");
+                var before=bar.offsetMin;
+                ApplySafeArea(view,area,size);
+                Assert.That(bar.offsetMin.y,Is.EqualTo(before.y).Within(.01f),"Repeated fits must not accumulate background padding");
+            });
+            view.GetComponent<LobbyNavigation>().Select(0,false);
+            Capture("safe-area-shop-"+height,height,()=>
+            {
+                ApplySafeArea(view,area,size);
+                AssertSafeBounds(view.GetComponentsInChildren<SafeAreaFit>().Single(f=>f.name=="Shop safe area"),area,size);
+                var art=view.GetComponentsInChildren<RectTransform>(true).Single(r=>r.name=="IMG_ShopBox" && r.IsChildOf(view.transform.Find("Shop safe area")));
+                var canvas=(RectTransform)view.transform;
+                Assert.That(BoundsIn(art,canvas).yMax,Is.GreaterThanOrEqualTo(canvas.rect.yMax-1),"Canopy covers the notch area");
+            });
+            view.GetComponent<LobbyNavigation>().Select(1,false);
+            ApplySafeArea(view,new Rect(0,0,900,height),size);
+            AssertSafeBounds(hud,new Rect(0,0,900,height),size);
+            Assert.That(BoundsIn(bar,(RectTransform)view.transform).yMin,Is.EqualTo(((RectTransform)view.transform).rect.yMin).Within(1));
+        }
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        view=UnityEngine.Object.FindFirstObjectByType<ImportedSceneView>();
+        var ingame=view.GetComponentsInChildren<SafeAreaFit>().Single();
+        foreach(int height in new[]{1600,1950})
+        {
+            var size=new Vector2Int(900,height);var area=new Rect(0,80,900,height-200);
+            Capture("safe-area-ingame-"+height,height,()=>
+            {
+                ApplySafeArea(view,area,size);AssertSafeBounds(ingame,area,size);
+                var canvas=(RectTransform)view.transform;
+                foreach(var button in ingame.GetComponentsInChildren<Button>().Where(b=>b.gameObject.activeInHierarchy))
+                {
+                    var bounds=BoundsIn((RectTransform)button.transform,canvas);
+                    Assert.That(bounds.yMin,Is.GreaterThanOrEqualTo(canvas.rect.yMin+canvas.rect.height*80/height-1),button.name+" above home indicator");
+                    Assert.That(bounds.yMax,Is.LessThanOrEqualTo(canvas.rect.yMax-canvas.rect.height*120/height+1),button.name+" below notch");
+                }
+            });
+        }
+    }
+
+    private static void ApplySafeArea(ImportedSceneView view,Rect area,Vector2Int size)
+    {
+        var apply=typeof(SafeAreaFit).GetMethod("Apply",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
+        foreach(var fit in view.GetComponentsInChildren<SafeAreaFit>(true))apply.Invoke(fit,new object[]{area,size});
+        Canvas.ForceUpdateCanvases();
+    }
+
+    private static void AssertSafeBounds(SafeAreaFit fit,Rect area,Vector2Int size)
+    {
+        var rect=(RectTransform)fit.transform;var parent=(RectTransform)rect.parent;
+        var bounds=BoundsIn(rect,parent);
+        Assert.That(bounds.yMin,Is.EqualTo(parent.rect.yMin+parent.rect.height*area.yMin/size.y).Within(1),fit.transform.parent.name+" bottom");
+        Assert.That(bounds.yMax,Is.EqualTo(parent.rect.yMin+parent.rect.height*area.yMax/size.y).Within(1),fit.transform.parent.name+" top");
+    }
+
+    private static Rect BoundsIn(RectTransform rect,RectTransform parent)
+    {
+        var corners=new Vector3[4];rect.GetWorldCorners(corners);
+        var min=parent.InverseTransformPoint(corners[0]);var max=parent.InverseTransformPoint(corners[2]);
+        return Rect.MinMaxRect(min.x,min.y,max.x,max.y);
+    }
+
+    [UnityTest]
     public IEnumerator EveryBoxColourBreaksInOneHitWithSmallMatchingFragments()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
@@ -763,7 +850,8 @@ public sealed class VisualFlowTests
         Assert.That(UnityEngine.Object.FindObjectsByType<AudioListener>(FindObjectsSortMode.None).Length,Is.EqualTo(1));
         Assert.That(UnityEngine.Object.FindObjectsByType<EventSystem>(FindObjectsSortMode.None).Length,Is.EqualTo(1));
     }
-    private static void Dump(string name,int height=1600)
+    private static void Dump(string name,int height=1600)=>Capture(name,height,null);
+    private static void Capture(string name,int height,Action beforeRender)
     {
         Directory.CreateDirectory("TestResults");
         var all=UnityEngine.Object.FindObjectsByType<Transform>(FindObjectsInactive.Include,FindObjectsSortMode.None);
@@ -777,14 +865,24 @@ public sealed class VisualFlowTests
         var canvases=UnityEngine.Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None).Where(c=>c.isRootCanvas && c.renderMode==RenderMode.ScreenSpaceOverlay).ToArray();
         foreach(var canvas in canvases){canvas.renderMode=RenderMode.ScreenSpaceCamera;canvas.worldCamera=camera;canvas.planeDistance=1;}
         var target=new RenderTexture(900,height,24);
-        camera.targetTexture=target;Canvas.ForceUpdateCanvases();
-        RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest {destination=target});
-        var previous=RenderTexture.active;RenderTexture.active=target;
-        var image=new Texture2D(900,height,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,900,height),0,0);image.Apply();
-        File.WriteAllBytes("TestResults/"+name+".png",image.EncodeToPNG());
-        RenderTexture.active=previous;camera.targetTexture=null;
-        foreach(var canvas in canvases)canvas.renderMode=RenderMode.ScreenSpaceOverlay;
-        UnityEngine.Object.Destroy(image);target.Release();UnityEngine.Object.Destroy(target);
+        var previous=RenderTexture.active;
+        Texture2D image=null;
+        try
+        {
+            camera.targetTexture=target;Canvas.ForceUpdateCanvases();
+            beforeRender?.Invoke();
+            RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest {destination=target});
+            RenderTexture.active=target;
+            image=new Texture2D(900,height,TextureFormat.RGB24,false);image.ReadPixels(new Rect(0,0,900,height),0,0);image.Apply();
+            File.WriteAllBytes("TestResults/"+name+".png",image.EncodeToPNG());
+        }
+        finally
+        {
+            RenderTexture.active=previous;camera.targetTexture=null;
+            foreach(var canvas in canvases)canvas.renderMode=RenderMode.ScreenSpaceOverlay;
+            if(image!=null)UnityEngine.Object.Destroy(image);
+            target.Release();UnityEngine.Object.Destroy(target);
+        }
     }
     [UnityTearDown]
     public IEnumerator Clean()
