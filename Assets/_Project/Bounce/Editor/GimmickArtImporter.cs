@@ -17,17 +17,34 @@ namespace BK.Kit.Editor
         [Serializable] sealed class ModelData
         {
             public string name;
-            public float[] vertices, normals, colors;
+            public float[] vertices, normals, colors, uv;
             public int[] triangles;
         }
         static readonly Dictionary<string,Mesh> meshes = new Dictionary<string,Mesh>();
         static Material enamel, heat;
+        static readonly Dictionary<string,Material> pilotMaterials = new Dictionary<string,Material>();
 
         public static void BuildAndCapture(){Build();CaptureCatalog();}
 
         public static void Build()
         {
-            string input=Path.GetFullPath("TestResults/GimmickArt");
+            pilotMaterials.Clear();
+            BuildFrom("TestResults/GimmickArt",new[]{"MetalTube","TubeSegment","Cupboard","MovingPanel","SeaMine","Switch","Gate","DoubleHitBlock","DirectionalArmor","PorcelainShard"},false);
+        }
+
+        [MenuItem("BK/Integration/Build Cabinet And Furnace Pilot")]
+        public static void BuildPilot()
+        {
+            pilotMaterials.Clear();
+            BuildFrom("TestResults/GimmickPilot",new[]{"MetalTube","TubeSegment","Cupboard"},true);
+            CapturePilot("after");
+        }
+
+        public static void CapturePilotBefore()=>CapturePilot("before");
+
+        static void BuildFrom(string input,string[] prefabs,bool pilot)
+        {
+            input=Path.GetFullPath(input);
             if(!File.Exists(Path.Combine(input,"Furnace.json")))throw new FileNotFoundException("Run tools/art/build_gimmick_models.py first, exporting to TestResults/GimmickArt.");
             Directory.CreateDirectory(Root+"/Models");AssetDatabase.Refresh();meshes.Clear();
             foreach(var path in Directory.GetFiles(input,"*.json"))
@@ -46,12 +63,53 @@ namespace BK.Kit.Editor
                     colors[i]=new Color(data.colors[i*4],data.colors[i*4+1],data.colors[i*4+2],data.colors[i*4+3]);
                 }
                 mesh.vertices=vertices;mesh.normals=normals;mesh.colors=colors;mesh.triangles=data.triangles;mesh.RecalculateBounds();
+                if(data.uv!=null && data.uv.Length==vertices.Length*2)
+                {
+                    var uv=new Vector2[vertices.Length];
+                    for(int i=0;i<uv.Length;i++)uv[i]=new Vector2(data.uv[i*2],data.uv[i*2+1]);
+                    mesh.uv=uv;
+                }
                 EditorUtility.SetDirty(mesh);meshes.Add(data.name,mesh);
+                if(pilot)pilotMaterials[data.name]=PilotMaterial(input,data.name);
             }
             enamel=Material("Enamel",Color.white,Color.black);
-            heat=Material("FurnaceHeat",new Color(1,.24f,.02f),new Color(1,.24f,.02f));
-            foreach(string name in new[]{"MetalTube","TubeSegment","Cupboard","MovingPanel","SeaMine","Switch","Gate","DoubleHitBlock","DirectionalArmor","PorcelainShard"}) Upgrade(name);
+            heat=pilot?pilotMaterials["FurnaceGlow"]:Material("FurnaceHeat",new Color(1,.24f,.02f),new Color(1,.24f,.02f));
+            foreach(string name in prefabs) Upgrade(name);
             AssetDatabase.SaveAssets();AssetDatabase.Refresh();
+        }
+        static Material PilotMaterial(string input,string name)
+        {
+            string folder=Root+"/Pilot";Directory.CreateDirectory(folder);
+            string texturePath=folder+"/"+name+"_AlbedoAO.png";
+            File.Copy(Path.Combine(input,name+"_AlbedoAO.png"),texturePath,true);
+            AssetDatabase.ImportAsset(texturePath,ImportAssetOptions.ForceSynchronousImport);
+            var importer=(TextureImporter)AssetImporter.GetAtPath(texturePath);
+            importer.textureType=TextureImporterType.Default;importer.sRGBTexture=true;
+            importer.mipmapEnabled=true;importer.wrapMode=TextureWrapMode.Clamp;
+            importer.filterMode=FilterMode.Trilinear;importer.maxTextureSize=1024;
+            importer.textureCompression=TextureImporterCompression.CompressedHQ;
+            importer.SaveAndReimport();
+            string path=folder+"/"+name+".mat";
+            var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+            if(material==null){material=new Material(Shader.Find("BK/Toon"));AssetDatabase.CreateAsset(material,path);}
+            // Use the Box shader and its studio reflection texture. The baked atlas supplies
+            // the object-specific cavity detail, while material values express porcelain/metal.
+            material.shader=Shader.Find("BK/Toon");
+            var presentation=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            var boxMaterial=presentation.blocks[0].GetComponentInChildren<Renderer>().sharedMaterial;
+            material.SetTexture("_MatCapTex",boxMaterial.GetTexture("_MatCapTex"));
+            material.SetFloat("_UseMatCap",name=="FurnaceGlow"?0:1);
+            float reflection=name=="Plate"?.32f:name=="Pipe"?.55f:.38f;
+            material.SetColor("_MatCapColor",new Color(reflection,reflection,reflection,1));
+            material.SetFloat("_RampThreshold",boxMaterial.GetFloat("_RampThreshold"));
+            material.SetFloat("_RampSmoothing",boxMaterial.GetFloat("_RampSmoothing"));
+            material.SetColor("_HColor",Color.white);
+            material.SetColor("_SColor",new Color(.45f,.48f,.58f,1));
+            material.SetTexture("_BaseMap",AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath));
+            material.SetColor("_BaseColor",name=="FurnaceGlow"?new Color(1,.24f,.02f):Color.white);
+            material.SetColor("_EmissionColor",name=="FurnaceGlow"?new Color(1,.24f,.02f):Color.black);
+            material.SetFloat("_EmissionStrength",name=="FurnaceGlow"?.22f:0);
+            EditorUtility.SetDirty(material);return material;
         }
         static Material Material(string name,Color color,Color emission)
         {
@@ -64,7 +122,7 @@ namespace BK.Kit.Editor
         {
             var go=new GameObject("Art_"+name);go.layer=2;go.transform.SetParent(parent,false);
             go.AddComponent<MeshFilter>().sharedMesh=meshes[name];
-            go.AddComponent<MeshRenderer>().sharedMaterial=material??enamel;return go;
+            go.AddComponent<MeshRenderer>().sharedMaterial=material??(pilotMaterials.TryGetValue(name,out var pilot)?pilot:enamel);return go;
         }
         static void Upgrade(string name)
         {
@@ -92,7 +150,15 @@ namespace BK.Kit.Editor
                         Model(root.transform,"Cabinet");
                         foreach(var piece in view.pieces)
                         {
-                            var p=piece.transform.localPosition;p.y=.32f;piece.transform.localPosition=p;Model(piece.transform,"Plate");
+                            var p=piece.transform.localPosition;p.y=.32f;piece.transform.localPosition=p;
+                            var plate=Model(piece.transform,"Plate");
+                            if(pilotMaterials.ContainsKey("Plate"))
+                            {
+                                // Keep gameplay / break-effect anchors; inset only the visible dishes
+                                // so the thicker frame never clips either end of the row.
+                                plate.transform.localPosition=Vector3.right*(1-p.x)*.11f;
+                                plate.transform.localScale=Vector3.one*.94f;
+                            }
                         }
                         break;
                     case "MovingPanel":
@@ -158,6 +224,46 @@ namespace BK.Kit.Editor
                 image.ReadPixels(new Rect(0,0,768,768),0,0);image.Apply();
                 File.WriteAllBytes("TestResults/GimmickArtPreview/"+name+".png",image.EncodeToPNG());
                 RenderTexture.active=previous;camera.targetTexture=null;Object.DestroyImmediate(image);target.Release();Object.DestroyImmediate(target);Object.DestroyImmediate(go);
+            }
+        }
+
+        static void CapturePilot(string suffix)
+        {
+            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene,NewSceneMode.Single);
+            var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            var camera=new GameObject("Box comparison camera").AddComponent<Camera>();
+            camera.orthographic=true;camera.orthographicSize=2.6f;
+            camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new Color(.77f,.85f,.87f);
+            camera.transform.position=new Vector3(0,8,-4.62f);camera.transform.LookAt(Vector3.zero);
+            camera.GetUniversalAdditionalCameraData().renderPostProcessing=false;
+            var light=new GameObject("Soft studio key").AddComponent<Light>();light.type=LightType.Directional;
+            light.intensity=1;light.transform.rotation=Quaternion.Euler(45,-35,0);
+            Directory.CreateDirectory("TestResults/GimmickPilotReview");
+            foreach(string name in new[]{"Cupboard","MetalTube"})
+            {
+                var stage=new GameObject("Comparison");
+                var go=Object.Instantiate(AssetDatabase.LoadAssetAtPath<GameObject>(Root+"/"+name+".prefab"),stage.transform);
+                go.transform.position=name=="Cupboard"?new Vector3(-1.65f,0,.65f):new Vector3(-1.7f,0,.2f);
+                for(int i=0;i<3;i++)
+                {
+                    var box=Object.Instantiate(p.blocks[i%p.blocks.Length],stage.transform);
+                    box.transform.position=new Vector3(i*1.05f-1.05f,0,-1.65f);
+                }
+                var target=new RenderTexture(1200,900,24){antiAliasing=4};target.Create();
+                var previous=RenderTexture.active;camera.targetTexture=target;
+                try
+                {
+                    RenderPipeline.SubmitRenderRequest(camera,new UniversalRenderPipeline.SingleCameraRequest {destination=target});
+                    RenderTexture.active=target;var image=new Texture2D(1200,900,TextureFormat.RGB24,false);
+                    image.ReadPixels(new Rect(0,0,1200,900),0,0);image.Apply();
+                    File.WriteAllBytes("TestResults/GimmickPilotReview/"+name+"-"+suffix+".png",image.EncodeToPNG());
+                    Object.DestroyImmediate(image);
+                }
+                finally
+                {
+                    RenderTexture.active=previous;camera.targetTexture=null;target.Release();Object.DestroyImmediate(target);
+                    Object.DestroyImmediate(stage);
+                }
             }
         }
     }

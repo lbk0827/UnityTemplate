@@ -210,6 +210,13 @@ group('Shard')
 box('Glazed porcelain fragment',(0,0,0),(.13,.045,.10),'white',.012)
 box('Blue glaze',(0,.024,0),(.075,.008,.07),'blue',.008)
 
+# The pilot has its own editable source and UV-baked exports. Other gimmicks stay untouched.
+if '--pilot' in sys.argv:
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from gimmick_pilot import build_and_export
+    build_and_export(globals())
+    sys.exit(0)
+
 # Store an editable collection for every functional part in the source blend.
 for name,objects in groups.items():
     coll=bpy.data.collections.new(name);bpy.context.scene.collection.children.link(coll)

@@ -11,6 +11,8 @@ Shader "BK/Toon"
   _MatCapTex("Matcap",2D)="black"{}
   _MatCapColor("Matcap Color",Color)=(0,0,0,1)
   _UseMatCap("Use Matcap",Float)=0
+  _EmissionColor("Heat",Color)=(0,0,0,1)
+  _EmissionStrength("Heat strength",Range(0,1))=0
  }
  SubShader
  {
@@ -25,7 +27,7 @@ Shader "BK/Toon"
    #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
    TEXTURE2D(_BaseMap); SAMPLER(sampler_BaseMap);TEXTURE2D(_MatCapTex);SAMPLER(sampler_MatCapTex);
    CBUFFER_START(UnityPerMaterial)
-   float4 _BaseMap_ST,_BaseColor,_HColor,_SColor,_MatCapColor;float _RampThreshold,_RampSmoothing,_UseMatCap;
+   float4 _BaseMap_ST,_BaseColor,_HColor,_SColor,_MatCapColor,_EmissionColor;float _RampThreshold,_RampSmoothing,_UseMatCap,_EmissionStrength;
    CBUFFER_END
    struct Attributes {float4 positionOS:POSITION;float3 normalOS:NORMAL;float2 uv:TEXCOORD0;};
    struct Varyings {float4 positionCS:SV_POSITION;float3 normalWS:TEXCOORD0;float2 uv:TEXCOORD1;};
@@ -38,6 +40,7 @@ Shader "BK/Toon"
     float3 color=SAMPLE_TEXTURE2D(_BaseMap,sampler_BaseMap,i.uv).rgb*_BaseColor.rgb*lerp(_SColor.rgb,_HColor.rgb,ramp);
     float2 capUV=mul((float3x3)UNITY_MATRIX_V,normal).xy*.5+.5;
     color+=SAMPLE_TEXTURE2D(_MatCapTex,sampler_MatCapTex,capUV).rgb*_MatCapColor.rgb*_UseMatCap*.35;
+    color+=_EmissionColor.rgb*_EmissionStrength;
     return half4(color,1);
    }
    ENDHLSL

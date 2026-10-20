@@ -9,6 +9,32 @@ using UnityEngine;
 public sealed class GimmickPrefabTests
 {
     [Test]
+    public void CabinetAndFurnaceUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings()
+    {
+        var presentation=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+        var box=presentation.blocks[0].GetComponentInChildren<Renderer>().sharedMaterial;
+        var catalog=presentation.ingameConfig.gimmickPrefabs;
+        foreach(var root in new[]{catalog.cupboard.gameObject,catalog.tube.gameObject,catalog.tubeSegment})
+        foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>(true))
+        {
+            var material=renderer.sharedMaterial;
+            Assert.That(material.shader,Is.EqualTo(box.shader),root.name+" matches the Box shading model");
+            Assert.That(material.GetTexture("_BaseMap"),Is.Not.Null);
+            Assert.That(material.GetTexture("_MatCapTex"),Is.EqualTo(box.GetTexture("_MatCapTex")));
+            var mesh=renderer.GetComponent<MeshFilter>().sharedMesh;
+            Assert.That(mesh.uv.Length,Is.EqualTo(mesh.vertexCount),"Baked atlas needs a complete UV channel");
+            Assert.That(mesh.uv.All(uv=>uv.x>=0 && uv.x<=1 && uv.y>=0 && uv.y<=1),Is.True);
+        }
+        Assert.That(box.GetFloat("_EmissionStrength"),Is.Zero,"Existing Box appearance stays unchanged");
+        Assert.That(catalog.cupboard.pieces.Length,Is.EqualTo(10));
+        Assert.That(catalog.cupboard.solid.size,Is.EqualTo(new Vector3(2.96f,1,1.96f)));
+        Assert.That(catalog.tube.pieces.Length,Is.EqualTo(3));
+        Assert.That(catalog.tube.solid.size,Is.EqualTo(new Vector3(.96f,1,.96f)));
+        Assert.That(catalog.tube.furnaceGlow,Has.Length.EqualTo(1));
+        Assert.That(catalog.tube.furnaceGlow[0].sharedMaterial.GetFloat("_EmissionStrength"),Is.GreaterThan(0));
+    }
+
+    [Test]
     public void EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings()
     {
         var config=AssetDatabase.LoadAssetAtPath<IngameConfig>("Assets/_Project/Bounce/Content/IngameConfig.asset");

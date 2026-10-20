@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Cabinet",
+    "vertices": 6480,
+    "triangles": 9000,
+    "atlas": 1024
+  },
+  {
+    "name": "Plate",
+    "vertices": 2284,
+    "triangles": 3164,
+    "atlas": 512
+  },
+  {
+    "name": "Furnace",
+    "vertices": 3843,
+    "triangles": 5348,
+    "atlas": 1024
+  },
+  {
+    "name": "FurnaceGlow",
+    "vertices": 1056,
+    "triangles": 1412,
+    "atlas": 512
+  },
+  {
+    "name": "Pipe",
+    "vertices": 3320,
+    "triangles": 4156,
+    "atlas": 512
+  }
+]
