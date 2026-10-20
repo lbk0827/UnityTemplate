@@ -1,0 +1,47 @@
+{
+  "제목": "Box 기준 찬장·파이프·화로 1차 개선",
+  "날짜": "2026-10-20",
+  "범위": ["Cupboard", "MetalTube", "TubeSegment"],
+  "변경": [
+    "찬장 프레임과 선반의 두께 및 둥근 모서리를 재구성하고 청록색 내부로 접시와 대비 확보",
+    "접시 무늬를 네 꽃잎으로 단순화하고 양끝 접시가 프레임에 가리지 않도록 시각 모델만 안쪽으로 배치",
+    "파이프에 실제 속이 빈 관과 깊이 있는 내벽을 구성하고 연결 링 재작업",
+    "화로에 깊이 있는 상단 패널과 전면 점검구를 구성하고 발열부 크기 정리",
+    "UV 아틀라스에 기본 색상과 접합부 음영을 베이크",
+    "Box와 동일한 BK/Toon 셰이더·명암 설정·MatCap 텍스처를 사용하고 재질별 반사 강도 조절",
+    "BK/Toon에 기본값 0인 발광 강도를 추가하여 화로 상태 표현만 선택적으로 적용"
+  ],
+  "제작": {
+    "도구": ["Blender 5.2", "Unity 6000.3.21f1"],
+    "원본": "tools/art/gimmicks/GimmickPilot.blend",
+    "스크립트": "tools/art/gimmick_pilot.py",
+    "메시_정보": "tools/art/gimmicks/pilot-mesh-manifest.json",
+    "베이크": "Cycles 32 samples, 재질색 + 근거리 ambient occlusion, EMIT bake",
+    "텍스처": "Cabinet/Furnace 1024, Plate/Pipe/FurnaceGlow 512; sRGB, mipmap, CompressedHQ",
+    "재생성": [
+      "blender --background --threads 8 --python tools/art/build_gimmick_models.py -- D:/UnityTemplate/TestResults/GimmickPilot --pilot",
+      "Unity -batchmode -projectPath D:/UnityTemplate -executeMethod BK.Kit.Editor.GimmickArtImporter.BuildPilot -quit",
+      "Unity 메뉴: BK > Integration > Build Cabinet And Furnace Pilot"
+    ],
+    "주의": "재생성은 명시적인 아트 빌드 작업이다. 수동으로 수정한 원본/프리팹은 보존 후 실행해야 한다. 기존 전체 BuildAndCapture 경로는 이전 전체 카탈로그를 재생성하므로 이번 두 종류는 전용 BuildPilot 경로를 사용한다."
+  },
+  "검증": {
+    "EditMode": {"통과": 4, "실패": 0, "클래스": "GimmickPrefabTests"},
+    "PlayMode": {"통과": 13, "실패": 0, "클래스": "GimmickFlowTests"},
+    "콜라이더": "기존 HEAD와 비교해 세 프리팹의 BoxCollider 6개 직렬화 데이터가 모두 동일함",
+    "Box_화면": "동일 카메라·광원 비교 이미지 두 쌍의 Box 영역 (340,620)-(850,800) 픽셀 동일",
+    "시각_검토": "Box와 나란히 비교, 실제 플레이 크기, 접시 절반 소모, 화로 냉각 상태 확인",
+    "기능": "접시 10회 소모, 관 끝부분부터 축소, 화로 발열/냉각, 부스터·실제 공 충돌 등 기존 테스트 통과",
+    "한계": "모바일 실기기 성능 측정은 수행하지 않음"
+  },
+  "비교_화면": [
+    "Cupboard-before.png",
+    "Cupboard-after.png",
+    "MetalTube-before.png",
+    "MetalTube-after.png",
+    "gimmick-all-prefabs-before.png",
+    "gimmick-all-prefabs-after.png",
+    "gimmick-cupboard-half.png",
+    "gimmick-furnace-cooled.png"
+  ]
+}
