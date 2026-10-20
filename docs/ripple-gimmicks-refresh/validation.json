@@ -1,0 +1,67 @@
+{
+    "date":  "2026-10-20",
+    "title":  "리플 박스를 기준으로 나머지 인게임 기믹 6종 개선",
+    "baseline":  "2dd70065cfefee821423dedaf0c1036b9a86f089",
+    "scope":  [
+                  "이동 패널 및 레일",
+                  "기뢰",
+                  "스위치의 눌리기 전/후 상태",
+                  "문의 닫힘/열림 상태",
+                  "2회 타격 블록의 닫힌 덮개/노출 코어",
+                  "방향 장갑",
+                  "찬장 접시의 곡면 파편"
+              ],
+    "design":  [
+                   "승인된 박스처럼 둥근 외곽, 얕게 파인 패널, 절제된 반사광을 사용",
+                   "작은 나사와 반복 장식을 줄이고 넓은 색면과 기믹 표식으로 구분",
+                   "박스와 동일한 BK/Toon 셰이더, MatCap, 명암 램프 적용",
+                   "14개 메시 파트에 각각 512px 알베도·접촉 음영 텍스처 사용"
+               ],
+    "sources":  {
+                    "manifest":  "tools/art/gimmicks/ripple-mesh-manifest.json",
+                    "resources":  "Assets/_Project/Bounce/Content/Gimmicks/Ripple",
+                    "generator":  "tools/art/ripple_gimmicks.py",
+                    "blend":  "tools/art/gimmicks/RippleGimmicks.blend"
+                },
+    "rebuild":  [
+                    "Blender: --background --threads 8 --python tools/art/build_gimmick_models.py -- D:/UnityTemplate/TestResults/RippleGimmicks --ripple-gimmicks",
+                    "Unity: -executeMethod BK.Kit.Editor.GimmickArtImporter.BuildRippleGimmicks",
+                    "이번 제작 메뉴는 7개 대상 프리팹만 갱신하며 승인된 박스와 앞서 개선한 찬장·화로·파이프를 덮어쓰지 않음"
+                ],
+    "validation":  {
+                       "limitation":  "데스크톱 Unity 에디터 검증이며 모바일 기기 성능 측정은 포함하지 않음",
+                       "preservedColliders":  6,
+                       "checks":  [
+                                      "기존 충돌체의 전체 직렬화 값 비교: 줄 끝 공백을 제외하고 동일",
+                                      "기존 게임용 Transform의 위치·회전·스케일 동일",
+                                      "모든 기믹 메시의 UV 범위, 박스 공통 셰이더·MatCap 연결 확인",
+                                      "기뢰 연쇄, 스위치 연결 그룹, 문 개방, 동일 공의 2회 타격, 방향 장갑 판정 검증",
+                                      "패널 이동·반사, 파이프 축소·열 식힘, 찬장 10회 소모, 박스 4색 파편 동작 검증"
+                                  ],
+                       "preservedTransforms":  16,
+                       "playMode":  {
+                                        "filter":  "GimmickFlowTests;VisualFlowTests.EveryBoxColourBreaksInOneHitWithSmallMatchingFragments",
+                                        "result":  "TestResults/ripple-gimmicks-play.xml",
+                                        "failed":  0,
+                                        "passed":  14
+                                    },
+                       "visualReview":  [
+                                            "family-before.png / family-after.png: 동일 조명과 카메라의 비교 화면",
+                                            "states-before.png / states-after.png: 활성 상태 비교",
+                                            "gimmick-all-prefabs.png: 실제 Level 22 보드",
+                                            "문 개방, 코어 노출, 장갑 방향, 패널 양끝 이동, 기뢰 폭발 화면 검토"
+                                        ],
+                       "editMode":  {
+                                        "filter":  "GimmickPrefabTests;RippleBoxTests",
+                                        "result":  "TestResults/ripple-gimmicks-edit.xml",
+                                        "failed":  0,
+                                        "passed":  5
+                                    }
+                   },
+    "unchangedScope":  [
+                           "승인된 리플 박스 디자인",
+                           "찬장·화로·파이프의 기존 개선",
+                           "대포·보드 배경·이펙트 전용 재질",
+                           "게임 규칙·내구도·충돌 판정·UI"
+                       ]
+}
