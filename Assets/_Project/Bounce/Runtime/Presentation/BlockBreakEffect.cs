@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BK.Kit
 {
-    // SF's authored three-piece box meshes, thrown by a cosmetic ballistic simulation (no physics bodies).
+    // Authored box fragments, thrown by a cosmetic ballistic simulation (no physics bodies).
     public sealed class BlockBreakEffect : MonoBehaviour
     {
         private const float Gravity=22f, Restitution=.35f, GroundY=0f, Life=.75f, ShrinkTime=.35f;

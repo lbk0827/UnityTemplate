@@ -210,6 +210,13 @@ group('Shard')
 box('Glazed porcelain fragment',(0,0,0),(.13,.045,.10),'white',.012)
 box('Blue glaze',(0,.024,0),(.075,.008,.07),'blue',.008)
 
+# Box study and pilot have separate editable sources and UV-baked exports.
+if '--box' in sys.argv:
+    sys.path.insert(0,str(Path(__file__).resolve().parent))
+    from ripple_box import build_and_export
+    build_and_export(globals())
+    sys.exit(0)
+
 # The pilot has its own editable source and UV-baked exports. Other gimmicks stay untouched.
 if '--pilot' in sys.argv:
     sys.path.insert(0,str(Path(__file__).resolve().parent))

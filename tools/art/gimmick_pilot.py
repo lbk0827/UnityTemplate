@@ -136,7 +136,7 @@ def linear(c):
     return c/12.92 if c<=.04045 else ((c+.055)/1.055)**2.4
 
 
-def export(name,objects):
+def export(name,objects,ao_strength=.65):
     # Duplicate authored parts: saved .blend retains their names and material assignments.
     bpy.ops.object.select_all(action='DESELECT')
     copies=[]
@@ -161,7 +161,7 @@ def export(name,objects):
         base=tuple(linear(c) for c in source.diffuse_color[:3])
         ao=nodes.new('ShaderNodeAmbientOcclusion');ao.inputs['Color'].default_value=(*base,1)
         ao.inputs['Distance'].default_value=.24;ao.samples=32;ao.only_local=True
-        mix=nodes.new('ShaderNodeMixRGB');mix.blend_type='MIX';mix.inputs[0].default_value=.65
+        mix=nodes.new('ShaderNodeMixRGB');mix.blend_type='MIX';mix.inputs[0].default_value=ao_strength
         mix.inputs[1].default_value=(*base,1);links.new(ao.outputs['Color'],mix.inputs[2])
         links.new(mix.outputs[0],emit.inputs['Color'])
         tex=nodes.new('ShaderNodeTexImage');tex.image=image;nodes.active=tex

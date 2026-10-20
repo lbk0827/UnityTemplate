@@ -1,0 +1,54 @@
+{
+  "제목": "물방울·파동 문양의 자체 박스 첫 시안",
+  "날짜": "2026-10-20",
+  "상태": "사용자 검토용 시안, 실제 게임에 적용",
+  "변경": [
+    "둥근 몸체와 모서리 반경을 별도로 조절한 윗면 패널 제작",
+    "물방울과 두 줄의 파동 문양, 측면 파동 문양 제작",
+    "자체 모델의 색상·접합부 음영을 하나의 512px 아틀라스에 베이크",
+    "기존 녹색·파랑·분홍·노랑 순서 및 BK/Toon 셰이더 유지",
+    "동일 모델을 절단하고 UV를 유지한 세 종류의 파편 제작",
+    "Presentation.asset의 blocks와 brokenBlocks 참조를 새 프리팹으로 교체"
+  ],
+  "유지": [
+    "기존 박스 프리팹·시각 모델·텍스처 원본은 수정하지 않음",
+    "게임 충돌 표면은 기존 convex MeshCollider의 메시를 재사용",
+    "체력, 보상, 발사 및 파괴 판정 로직 유지",
+    "앞서 개선한 찬장·파이프·화로와 SafeArea 유지",
+    "기존 MatCap 조명 텍스처를 공유하고 새로운 박스 시각 모델·문양·베이크 이미지는 자체 제작"
+  ],
+  "제작": {
+    "도구": ["Blender 5.2", "Unity 6000.3.21f1"],
+    "원본": "tools/art/boxes/RippleBox.blend",
+    "스크립트": "tools/art/ripple_box.py",
+    "리소스": "Assets/_Project/Bounce/Content/RippleBox",
+    "재생성": [
+      "blender --background --threads 8 --python tools/art/build_gimmick_models.py -- D:/UnityTemplate/TestResults/RippleBox --box",
+      "Unity -batchmode -projectPath D:/UnityTemplate -executeMethod BK.Kit.Editor.RippleBoxSetup.Build -quit"
+    ]
+  },
+  "검증": {
+    "EditMode": {"통과": 5, "실패": 0, "범위": ["RippleBoxTests", "GimmickPrefabTests"]},
+    "PlayMode": {
+      "통과": 3,
+      "실패": 0,
+      "범위": [
+        "EveryBoxColourBreaksInOneHitWithSmallMatchingFragments",
+        "SfEffectsPlayPauseAndCleanUpWithTheBoard",
+        "CombinedBoardUsesPrefabBindingsAndPowerHitsBreakSpecialArmor"
+      ]
+    },
+    "확인": [
+      "기존 충돌 메시·색상 순서 유지",
+      "색상별 한 번의 피격으로 파괴",
+      "동일 재질을 사용하는 세 조각의 파편과 일시정지·축소·소멸 동작",
+      "Box 공통 셰이더를 사용하는 앞선 기믹과 호환",
+      "동일 카메라·조명의 전후 시안 및 실제 게임 화면 육안 검토"
+    ],
+    "한계": "모바일 실기기 성능은 측정하지 않음"
+  },
+  "롤백": {
+    "기준_커밋": "8f99b826b3dddc99a812085a9e60cf45c771d131",
+    "방법": "이번 시안의 아트·연결·검증 기록을 묶은 단일 커밋을 revert하면 앞선 기믹 작업을 유지하면서 기존 박스로 복귀한다."
+  }
+}

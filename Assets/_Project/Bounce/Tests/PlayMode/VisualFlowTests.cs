@@ -121,9 +121,11 @@ public sealed class VisualFlowTests
         var colourLevel=new TextAsset("{\"levels\":[{\"balls\":10,\"rows\":[\"123456789\"]}]}");
         try
         {
+            Dump("ripple-box-play");
             game.presentation.levels=colourLevel;
             game.Begin(1,_=>{});
             yield return null;
+            Dump("ripple-box-colours");
             var hit=typeof(BounceModule).GetMethod("HitBlock",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic);
             for(int colour=1;colour<=9;colour++)
             {
@@ -145,6 +147,7 @@ public sealed class VisualFlowTests
                     Assert.That(actual[i].sharedMaterial,Is.EqualTo(authored[i].sharedMaterial),"Debris keeps the destroyed box colour");
                     Assert.That(actual[i].transform.localScale.x,Is.EqualTo(authored[i].transform.localScale.x*.4f).Within(.001f));
                 }
+                if(colour==1){yield return new WaitForSeconds(.08f);Dump("ripple-box-break");}
             }
         }
         finally

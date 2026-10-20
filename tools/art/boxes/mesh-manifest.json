@@ -1,0 +1,23 @@
+[
+  {
+    "name": "RippleBox",
+    "vertices": 3670,
+    "triangles": 5172,
+    "atlas": 512
+  },
+  {
+    "name": "RippleShard0",
+    "vertices": 8544,
+    "triangles": 2848
+  },
+  {
+    "name": "RippleShard1",
+    "vertices": 7686,
+    "triangles": 2562
+  },
+  {
+    "name": "RippleShard2",
+    "vertices": 5190,
+    "triangles": 1730
+  }
+]
