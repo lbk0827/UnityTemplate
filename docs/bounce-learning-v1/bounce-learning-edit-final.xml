@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="18" result="Passed" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:44Z" duration="1.6418472">
+  <test-suite type="TestSuite" id="1000" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="127" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:44Z" duration="1.641847" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="EditMode" />
+    </properties>
+    <test-suite type="Assembly" id="1167" name="BK.Kit.EditModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.EditModeTests.dll" runstate="Runnable" testcasecount="30" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:44Z" duration="1.613049" total="18" passed="18" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="91680" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="EditMode" />
+        <property name="EditorOnly" value="True" />
+      </properties>
+      <test-suite type="TestFixture" id="1135" name="BounceLearningTests" fullname="BounceLearningTests" classname="BounceLearningTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.302784" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1137" name="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" fullname="BounceLearningTests.FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" methodname="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" classname="BounceLearningTests" runstate="Runnable" seed="754161400" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.011745" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1136" name="SeedReproducesTheAppliedTenDistinctLearningBoards" fullname="BounceLearningTests.SeedReproducesTheAppliedTenDistinctLearningBoards" methodname="SeedReproducesTheAppliedTenDistinctLearningBoards" classname="BounceLearningTests" runstate="Runnable" seed="1501626796" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.282803" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1138" name="BounceLevelEditorTests" fullname="BounceLevelEditorTests" classname="BounceLevelEditorTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:44Z" duration="1.047759" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1142" name="ExternallyChangedFileIsNotOverwritten" fullname="BounceLevelEditorTests.ExternallyChangedFileIsNotOverwritten" methodname="ExternallyChangedFileIsNotOverwritten" classname="BounceLevelEditorTests" runstate="Runnable" seed="54423815" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.008205" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1141" name="InvalidDraftDoesNotOverwriteLevelFile" fullname="BounceLevelEditorTests.InvalidDraftDoesNotOverwriteLevelFile" methodname="InvalidDraftDoesNotOverwriteLevelFile" classname="BounceLevelEditorTests" runstate="Runnable" seed="809668207" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.002915" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1139" name="PlaceAndEraseUseTheSameFootprintAsRuntime" fullname="BounceLevelEditorTests.PlaceAndEraseUseTheSameFootprintAsRuntime" methodname="PlaceAndEraseUseTheSameFootprintAsRuntime" classname="BounceLevelEditorTests" runstate="Runnable" seed="327942141" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.002449" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1140" name="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" fullname="BounceLevelEditorTests.UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" methodname="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" classname="BounceLevelEditorTests" runstate="Runnable" seed="251147950" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:43Z" duration="0.002335" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1143" name="WindowRendersEachGimmickInspectorWithoutGuiErrors" fullname="BounceLevelEditorTests.WindowRendersEachGimmickInspectorWithoutGuiErrors" methodname="WindowRendersEachGimmickInspectorWithoutGuiErrors" classname="BounceLevelEditorTests" runstate="Runnable" seed="1262014222" result="Passed" start-time="2026-10-21 02:11:43Z" end-time="2026-10-21 02:11:44Z" duration="1.029321" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1144" name="BounceLevelLayoutTests" fullname="BounceLevelLayoutTests" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.004970" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1148" name="CupboardRequiresTenDistinctAdjacentBlocks" fullname="BounceLevelLayoutTests.CupboardRequiresTenDistinctAdjacentBlocks" methodname="CupboardRequiresTenDistinctAdjacentBlocks" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1448745165" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000550" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="1151" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.002181" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <properties />
+          <test-case id="1149" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1693174285" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.001204" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+          <test-case id="1150" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1830828959" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000627" asserts="0">
+            <properties>
+              <property name="retryIteration" value="0" />
+              <property name="repeatIteration" value="0" />
+            </properties>
+          </test-case>
+        </test-suite>
+        <test-case id="1146" name="FurnaceCannotExtendOutsideBoardOrOverlapABlock" fullname="BounceLevelLayoutTests.FurnaceCannotExtendOutsideBoardOrOverlapABlock" methodname="FurnaceCannotExtendOutsideBoardOrOverlapABlock" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1949566071" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000381" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1145" name="FurnaceIsIncludedInBothOrientations" fullname="BounceLevelLayoutTests.FurnaceIsIncludedInBothOrientations" methodname="FurnaceIsIncludedInBothOrientations" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1199118702" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000708" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1147" name="PanelSweepMustBeClearAndStayWithinWalls" fullname="BounceLevelLayoutTests.PanelSweepMustBeClearAndStayWithinWalls" methodname="PanelSweepMustBeClearAndStayWithinWalls" classname="BounceLevelLayoutTests" runstate="Runnable" seed="279278317" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000317" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1152" name="GimmickPrefabTests" fullname="GimmickPrefabTests" classname="GimmickPrefabTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.207469" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1155" name="CreateMissingPrefabsPreservesAuthoredPrefabFiles" fullname="GimmickPrefabTests.CreateMissingPrefabsPreservesAuthoredPrefabFiles" methodname="CreateMissingPrefabsPreservesAuthoredPrefabFiles" classname="GimmickPrefabTests" runstate="Runnable" seed="1051742724" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.179147" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1154" name="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" fullname="GimmickPrefabTests.EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" methodname="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1183224274" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.004812" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1153" name="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" fullname="GimmickPrefabTests.GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" methodname="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1415797695" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.022212" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1156" name="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" fullname="GimmickPrefabTests.SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" methodname="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" classname="GimmickPrefabTests" runstate="Runnable" seed="2142414740" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.000323" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="1161" name="RippleBoxTests" fullname="RippleBoxTests" classname="RippleBoxTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.035546" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1162" name="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" fullname="RippleBoxTests.OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" methodname="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" classname="RippleBoxTests" runstate="Runnable" seed="634241422" result="Passed" start-time="2026-10-21 02:11:44Z" end-time="2026-10-21 02:11:44Z" duration="0.009777" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/DG-2507-PC-061/AppData/LocalLow/DefaultCompany/BKFrameWork\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>
