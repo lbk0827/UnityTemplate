@@ -36,7 +36,7 @@ namespace BK.Kit.Editor
             };
             var refFolder="Assets/_Project/Bounce/Content/UI/Grp1/";Directory.CreateDirectory(refFolder);
             var palette=aliases.Where(kv=>kv.Value!=null).Select(kv=>Alias(kv.Value,kv.Key,refFolder)).ToList();
-            foreach(var type in new[]{"tube","cupboard","panel"})palette.Add(RenderGuide(p.ingameConfig.gimmickPrefabs.Find(type),type,refFolder));
+            foreach(var type in new[]{"tube","cupboard","panel","mine"})palette.Add(RenderGuide(p.ingameConfig.gimmickPrefabs.Find(type),type,refFolder));
             p.refinedSprites=palette.ToArray();
             var shopAliases=new Dictionary<string,Sprite> {
                 {"Shop_Footer",Find("IMG_ShopBar_Package")},{"Shop_Sign",Find("IMG_ShopBox")},
@@ -126,7 +126,7 @@ namespace BK.Kit.Editor
             material.SetColor("_UnderlayColor",new Color(.10f,.05f,.23f,.4f));
             EditorUtility.SetDirty(material);return material;
         }
-        private static Sprite RenderGuide(GimmickView prefab,string type,string folder)
+        internal static Sprite RenderGuide(GimmickView prefab,string type,string folder)
         {
             var path=folder+"Guide_"+type+".png";
             if(File.Exists(path))return AssetDatabase.LoadAssetAtPath<Sprite>(path);

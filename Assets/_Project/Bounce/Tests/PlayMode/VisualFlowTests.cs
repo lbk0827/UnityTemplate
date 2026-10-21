@@ -20,6 +20,9 @@ using UnityEngine.Rendering.Universal;
 public sealed class VisualFlowTests
 {
     private string folder;
+    private LegacyLevelFixture legacyLevels;
+    [SetUp] public void UseStableRegressionBoards() => legacyLevels = new LegacyLevelFixture();
+    [TearDown] public void RestoreProductionBoards() => legacyLevels?.Dispose();
     [UnityTest]
     public IEnumerator LobbyAndIngameRespectSafeAreaAndKeepBackgroundsFullBleed()
     {
@@ -523,6 +526,17 @@ public sealed class VisualFlowTests
         Time.timeScale=0;Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);Time.timeScale=1;
         Assert.That(app.BoosterCount(BoosterKind.ExtraBall),Is.EqualTo(1));
         Click(Binding("UIIngamePanel").Get<Button>("ExtraBallIngameButton"));
+        yield return new WaitForSecondsRealtime(.3f);
+        // The current UI shows the first-use guide, then a separate confirmation.
+        var guide=UnityEngine.Object.FindFirstObjectByType<CommonPopupView>();
+        Assert.That(guide,Is.Not.Null);guide.Close();yield return new WaitForSecondsRealtime(.3f);
+        Assert.That(app.HasSeenGuide("booster.ExtraBall"),Is.True);
+        Assert.That(game.BallsRemaining,Is.EqualTo(25),"Acknowledging a guide must not spend inventory");
+        Click(Binding("UIIngamePanel").Get<Button>("ExtraBallIngameButton"));
+        yield return new WaitForSecondsRealtime(.3f);
+        var confirmation=UnityEngine.Object.FindFirstObjectByType<CommonPopupView>();
+        confirmation.GetComponentsInChildren<Button>().Single(b=>b.name=="Use booster").onClick.Invoke();
+        yield return new WaitForSecondsRealtime(.3f);
         yield return BoosterFinished(game);
         Assert.That(game.BallsRemaining,Is.EqualTo(30));Assert.That(KitTestSaves.Booster(folder,BoosterKind.ExtraBall),Is.Zero);
         Assert.That(game.TryUseBooster(BoosterKind.ExtraBall),Is.False);Assert.That(game.BallsRemaining,Is.EqualTo(30));
@@ -684,22 +698,23 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator AllAuthoredBoardsAndLoopedStageLoadAndFire()
+    public IEnumerator LegacyBoardsAndLoopedStageLoadAndFire()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
-        KitTestSaves.Seed(folder,level:11,infiniteHearts:true);
+        KitTestSaves.Seed(folder,level:23,infiniteHearts:true);
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
         if(KitApp.Instance!=null)UnityEngine.Object.Destroy(KitApp.Instance.gameObject);
         yield return null;
         yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
-        for(int level=1;level<=11;level++)
+        for(int level=1;level<=23;level++)
         {
             KitApp.Instance.Play(level);yield return Ready("VisualIngame");
             var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
             var boards=JsonUtility.FromJson<BounceModule.Levels>(game.presentation.levels.text).levels;
             var expected=boards[(level-1)%boards.Length];
             Assert.That(game.BallsRemaining,Is.EqualTo(expected.balls));
-            Assert.That(game.BlocksRemaining,Is.EqualTo(expected.rows.Sum(r=>r.Count(c=>c>'0' && c<='9'))));
+            int gimmickObjectives=(expected.gimmicks??Array.Empty<GimmickSpec>()).Count(g=>g.type!="panel" && g.type!="switch" && g.type!="door");
+            Assert.That(game.BlocksRemaining,Is.EqualTo(expected.rows.Sum(r=>r.Count(c=>c>'0' && c<='9'))+gimmickObjectives));
             Assert.That(game.ActiveBalls,Is.Zero);
             Assert.That(game.Fire(Vector3.forward),Is.True);
             yield return new WaitForSeconds(.12f);

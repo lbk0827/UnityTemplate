@@ -422,13 +422,24 @@ namespace BK.Kit
             {
                 string key="gimmick."+type;if(app.HasSeenGuide(key))continue;
                 while(popup!=null || commonPopup!=null || app.IsLoading)yield return null;
-                string title=type=="tube"?"Furnace":type=="cupboard"?"Cupboard":"Moving panel";
-                string body=type=="tube"?"Hit the tube to send one block into the furnace.":type=="cupboard"?"Clear the blocks around the cupboard to remove its plates.":"The moving panel reflects balls. Time your shot!";
+                var (title,body)=GimmickGuide(type);
                 commonPopup=CommonPopupView.Show(canvas,presentation,presentation.unlockGimmick,()=>app.MarkGuideSeen(key));
                 commonPopup.ConfigureGuide(title,body);
                 while(commonPopup!=null)yield return null;
             }
         }
+        public static (string title,string body) GimmickGuide(string type) => type switch
+        {
+            "tube" => ("Furnace","Hit the tube to send one block into the furnace."),
+            "cupboard" => ("Cupboard","Clear the blocks around the cupboard to remove its plates."),
+            "panel" => ("Moving panel","The moving panel reflects balls. Time your shot!"),
+            "mine" => ("Sea mine","Hit a mine to clear the eight surrounding cells. Nearby mines explode together!"),
+            "switch" => ("Switch","Hit the switch to open the gate connected to it."),
+            "door" => ("Gate","Hit the connected switch to open this gate."),
+            "combo" => ("Double hit","Hit this block twice with the same ball before it drains."),
+            "armor" => ("Directional armor","Hit the coral side indicated by the arrow to break the armor."),
+            _ => ("New obstacle","Try a new route around this obstacle.")
+        };
         // sf: the Play button opens the win-streak pre-play popup; the popup itself calls KitApp.Play.
         private bool opening; // the view is stacked only after its Addressables load; block a second tap meanwhile
         private bool PopupBlocked=>opening || popup!=null || dialog!=null || commonPopup!=null || (offersView!=null && offersView.IsOpen) || app.UI.Peek(UILayer.Popup)!=null;

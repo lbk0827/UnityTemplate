@@ -57,10 +57,11 @@ public sealed class BounceLevelLayoutTests
         Assert.That(BounceLevelLayout.Validate(level), Is.Empty);
     }
 
-    [Test]
-    public void EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip()
+    [TestCase("Assets/_Project/Bounce/Content/bounce-levels.json")]
+    [TestCase("Assets/_Project/Bounce/Content/bounce-learning-levels.json")]
+    public void EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(string path)
     {
-        var library = JsonUtility.FromJson<BounceModule.Levels>(File.ReadAllText("Assets/_Project/Bounce/Content/bounce-levels.json"));
+        var library = JsonUtility.FromJson<BounceModule.Levels>(File.ReadAllText(path));
         var copy = JsonUtility.FromJson<BounceModule.Levels>(JsonUtility.ToJson(library, true));
         Assert.That(copy.levels.Length, Is.EqualTo(library.levels.Length));
         for (int i = 0; i < copy.levels.Length; i++)

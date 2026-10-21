@@ -16,6 +16,9 @@ using Object = UnityEngine.Object;
 public sealed class GimmickFlowTests
 {
     private string folder;
+    private LegacyLevelFixture legacyLevels;
+    [SetUp] public void UseStableRegressionBoards() => legacyLevels = new LegacyLevelFixture();
+    [TearDown] public void RestoreProductionBoards() => legacyLevels?.Dispose();
     private BounceModule game;
     private static readonly MethodInfo HitBlock = typeof(BounceModule).GetMethod("HitBlock", BindingFlags.Instance | BindingFlags.NonPublic);
 

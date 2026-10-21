@@ -14,6 +14,9 @@ using UnityEngine.UI;
 public sealed class CommonPopupFlowTests
 {
     private string folder;
+    private LegacyLevelFixture legacyLevels;
+    [SetUp] public void UseStableRegressionBoards() => legacyLevels = new LegacyLevelFixture();
+    [TearDown] public void RestoreProductionBoards() => legacyLevels?.Dispose();
     [UnityTest]
     public IEnumerator FirstGimmickGuidesQueueAndPersistAcrossSceneReloads()
     {

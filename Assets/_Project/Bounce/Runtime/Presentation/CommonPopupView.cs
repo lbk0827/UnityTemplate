@@ -118,7 +118,8 @@ namespace BK.Kit
                 Text("TXT_Title","New discovery!");Text("TXT_Desc_01",title);Text("TXT_Desc_02",description);Text("TXT_Info","Try it in this level");
                 var heading=Find("TXT_Title").GetComponent<TMP_Text>();heading.enableAutoSizing=true;heading.fontSizeMax=88;heading.fontSizeMin=44;heading.rectTransform.sizeDelta=new Vector2(810,160);
                 var hero=Find("IMG_Gimmick")?.GetComponent<Image>();
-                if(hero!=null){hero.sprite=Skin("Guide_"+(title=="Cupboard"?"cupboard":title=="Moving panel"?"panel":"tube"));hero.preserveAspect=true;hero.rectTransform.sizeDelta=new Vector2(510,330);}
+                string guideType=title switch {"Furnace"=>"tube","Cupboard"=>"cupboard","Moving panel"=>"panel","Sea mine"=>"mine",_=>null};
+                if(hero!=null){hero.sprite=icon??(guideType==null?null:Skin("Guide_"+guideType));hero.enabled=hero.sprite!=null;hero.preserveAspect=true;hero.rectTransform.sizeDelta=new Vector2(510,330);}
             }
         }
         public static Sprite HeartIcon(GamePresentation art)=>art.heart.GetComponentsInChildren<Image>(true).FirstOrDefault(i=>i.name=="IMG_Heart")?.sprite;

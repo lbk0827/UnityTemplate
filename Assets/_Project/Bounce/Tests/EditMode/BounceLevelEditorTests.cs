@@ -70,6 +70,8 @@ public sealed class BounceLevelEditorTests
     [UnityTest]
     public IEnumerator WindowRendersEachGimmickInspectorWithoutGuiErrors()
     {
+        // Inspector coverage uses the retained gimmick catalogue, not the ten learning boards.
+        Draft.library = JsonUtility.FromJson<BK.Kit.BounceModule.Levels>(File.ReadAllText(BounceLearningGenerator.LegacyPath));
         window.Show();
         foreach (int index in new[] {10, 13, 14, 15, 16, 18, 19, 20, 21})
         {

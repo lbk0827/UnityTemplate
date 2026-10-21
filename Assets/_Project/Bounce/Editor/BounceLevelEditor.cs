@@ -9,7 +9,7 @@ namespace BK.Kit.Editor
 {
     public sealed class BounceLevelEditor : EditorWindow
     {
-        public const string DataPath = "Assets/_Project/Bounce/Content/bounce-levels.json";
+        public const string DataPath = BounceLearningGenerator.DataPath;
         private enum Brush { Select, Block, Erase, Tube, Cupboard, Panel, Mine, Switch, Door, Combo, Armor }
         [SerializeField] private BounceLevelDraft draft;
         [SerializeField] private int stage, selected = -1, colour = 1;
