@@ -1,0 +1,436 @@
+{
+  "kind": "live-runtime-direct-aim-sensitivity-not-human-win-rate",
+  "date": "2026-10-21",
+  "policy": "Visible target centre; mines first, then nearest target; no planned wall bounce; one ball until drain; uniform independent per-shot angular error",
+  "timing": "Zero-error runs at normal speed; noisy runs at timeScale 12 with unchanged fixedDeltaTime; thinking time excluded",
+  "totalTrials": 250,
+  "liveClearAndReplayBoards": 10,
+  "testCasesPassed": 3,
+  "seed": 20261021,
+  "pairedNoiseAcrossErrorMagnitudes": true,
+  "limitations": [
+    "자동 발사 테스트이며 사람이 마우스로 플레이한 기록이 아님.",
+    "±2도·±5도는 진단용 가정이며 초보·일반·고수의 실제 조준 오차로 보정하지 않음.",
+    "조건당 12회는 소규모 민감도 관찰. 정식 예비·최종 측정이나 유저 승률로 해석하지 않음.",
+    "보이는 기뢰를 우선 공격하므로 기뢰 규칙을 이해한 상황을 가정함.",
+    "공이 끝날 때까지 기다리며 동시 발사·조작 실수·이해도·판단 시간·모바일 입력은 미검증.",
+    "비행 시간은 판단·조작 시간을 제외하며 사람의 전체 플레이 시간이 아님.",
+    "직선 조준 정책이 실패해도 레벨이 불가능하다는 뜻은 아님. 별도 반사 경로의 실제 클리어·재현을 확인함.",
+    "이번 분석에서 스테이지 배치와 공 예산은 수정하지 않음."
+  ],
+  "hashNormalization": "Text bytes with CRLF normalized to LF",
+  "hashes": {
+    "Assets/_Project/Bounce/Tests/PlayMode/BounceLearningDifficultyTests.cs": "5199bbf7b8b23ed5f5054cd104be81d7dd851b41816518ff2f3e275e069bd8c3",
+    "Assets/_Project/Bounce/Tests/PlayMode/BounceLearningFlowTests.cs": "8eb503a49dd7e1fff2d3167bb295eb70879936bd615ae799669012f83b56164a",
+    "Assets/_Project/Bounce/Content/bounce-learning-levels.json": "62cc4727e1aea8c63eda96e74b4b7d3c532778ea598a118de4d348898e5b43cf",
+    "Assets/_Project/Bounce/Content/IngameConfig.asset": "d86d50092144a5e7d62f75c8a32deee891a4e9ace9df5424ef9d5d1a7848797d",
+    "Assets/_Project/Bounce/Runtime/Presentation/BounceModule.cs": "bab41d734404ebbe51c40850a3ba7a7ea777da7795d8033bb942989f467e0785",
+    "Assets/_Project/Bounce/Runtime/Presentation/BounceGimmicks.cs": "b74aac9b8a898b583190d7fcf9dcd760794eda8ba2642094c5ad80cb02905c1e",
+    "ProjectSettings/TimeManager.asset": "1a83e54adbbda7c9f4851103a0c6ab7f6448a3343d4ea5b7620452fa08416ecd",
+    "ProjectSettings/ProjectVersion.txt": "c996a482fd926d9f094cfb99105c9319b992208c119a36427312ab8a04d25a42"
+  },
+  "review": [
+    "1레벨은 넓은 중앙 목표로 발사와 공 소모를 익히는 판입니다. 첫 입력의 이해가 목적입니다.",
+    "2레벨은 반사를 알아보는 판이지만, 정확한 직선 조준에서 0발만 남았습니다. 반사를 활용하지 못하는 플레이를 고려해 공 12발 시안을 재검증할 가치가 있습니다.",
+    "3·4레벨은 좌우 묶음과 중앙 통로로 자연스러운 연속 충돌을 만들었습니다. 직선 조준에서도 반사 이득이 발생하므로 배치가 복잡해 보여도 공 압박은 크지 않았습니다.",
+    "5레벨은 짧은 복습이 목적이지만 정확한 조준에서 9/10발을 사용했습니다. 복습판의 실수 허용을 위해 공 12발 시안을 우선 검토합니다.",
+    "6레벨은 기뢰의 효과를 한 번에 이해시키고, 7레벨은 서로 다른 위치의 기뢰를 다시 겨냥하게 만듭니다. 기뢰 우선 정책은 이미 규칙을 이해한 상황입니다.",
+    "8레벨은 한 번의 타격이 연쇄 폭발로 확대되는 보상 체험입니다. 클리어 압박보다 규칙의 확실한 전달을 택한 쉬운 판입니다.",
+    "9레벨은 기뢰로 큰 묶음을 지운 뒤 남은 일반 블록으로 전환하고, 10레벨은 중앙 기뢰와 양쪽 목표를 조합해 학습을 마무리합니다.",
+    "중앙을 정확히 맞히면 공이 되돌아오고, 조금 빗맞으면 반사로 더 많이 맞히기도 합니다. 오차가 커질수록 반드시 어려워진다고 해석할 수 없습니다.",
+    "현재 곡선에서는 2·5레벨의 여유가 상대적으로 적고 기뢰 도입 뒤 난도가 낮아집니다. 초반 학습이라는 목적에는 맞지만, 매 레벨 점점 어려워지는 구성은 아닙니다.",
+    "실패 사례: 5레벨, ±5도, 시드 20266028. 10발 중 3발은 목표를 줄이지 못했고, 마지막에 1개가 남았습니다."
+  ],
+  "rows": [
+    {
+      "stage": 1,
+      "title": "첫 조준",
+      "intent": "넓은 중앙 목표 6개로 조준과 소모되는 공을 이해합니다.",
+      "budget": 8,
+      "witnessShots": 5,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 6,
+          "clearedMedianShots": 6,
+          "medianGameSeconds": 6.2,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 6.0,
+          "clearedMedianShots": 6.0,
+          "medianGameSeconds": 6.2,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 5.0,
+          "clearedMedianShots": 5.0,
+          "medianGameSeconds": 8.09,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 2,
+      "title": "넓은 면과 반사",
+      "intent": "마름모 배열의 넓은 면에서 튕기는 방향을 살펴봅니다.",
+      "budget": 10,
+      "witnessShots": 7,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 10,
+          "clearedMedianShots": 10,
+          "medianGameSeconds": 15.17,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 7.0,
+          "clearedMedianShots": 7.0,
+          "medianGameSeconds": 15.23,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 8.5,
+          "clearedMedianShots": 8.5,
+          "medianGameSeconds": 18.23,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 3,
+      "title": "좌우 목표 나누기",
+      "intent": "떨어진 두 묶음을 보며 조준 방향을 바꿉니다.",
+      "budget": 12,
+      "witnessShots": 8,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 6,
+          "clearedMedianShots": 6,
+          "medianGameSeconds": 29.79,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 5.0,
+          "clearedMedianShots": 5.0,
+          "medianGameSeconds": 23.75,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 5.0,
+          "clearedMedianShots": 5.0,
+          "medianGameSeconds": 16.95,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 4,
+      "title": "벽과 중앙 통로",
+      "intent": "중앙 통로와 벽 반사를 실험합니다. 하드 역할은 아닙니다.",
+      "budget": 18,
+      "witnessShots": 12,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 8,
+          "clearedMedianShots": 8,
+          "medianGameSeconds": 48.98,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 6.5,
+          "clearedMedianShots": 6.5,
+          "medianGameSeconds": 21.23,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 7.0,
+          "clearedMedianShots": 7.0,
+          "medianGameSeconds": 24.47,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 5,
+      "title": "짧은 복습",
+      "intent": "작은 중앙 묶음으로 부담을 낮추고 복습합니다.",
+      "budget": 10,
+      "witnessShots": 6,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 9,
+          "clearedMedianShots": 9,
+          "medianGameSeconds": 9.1,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 9.0,
+          "clearedMedianShots": 9.0,
+          "medianGameSeconds": 9.1,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 11,
+          "noDirectTarget": 0,
+          "medianShots": 8.5,
+          "clearedMedianShots": 8,
+          "medianGameSeconds": 11.44,
+          "meanRemainingObjectives": 0.08
+        }
+      ]
+    },
+    {
+      "stage": 6,
+      "title": "기뢰 첫 만남",
+      "intent": "기뢰 앞을 비워 바로 맞힐 수 있게 합니다. 다른 새 기믹은 없습니다.",
+      "budget": 6,
+      "witnessShots": 1,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 1,
+          "clearedMedianShots": 1,
+          "medianGameSeconds": 0.55,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 1.0,
+          "clearedMedianShots": 1.0,
+          "medianGameSeconds": 0.56,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 2.0,
+          "clearedMedianShots": 2.0,
+          "medianGameSeconds": 2.62,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 7,
+      "title": "두 묶음의 기뢰",
+      "intent": "높이가 다른 두 묶음에 기뢰를 다시 노출합니다.",
+      "budget": 8,
+      "witnessShots": 2,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 2,
+          "clearedMedianShots": 2,
+          "medianGameSeconds": 5.59,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 3.0,
+          "clearedMedianShots": 3.0,
+          "medianGameSeconds": 8.99,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 4.0,
+          "clearedMedianShots": 4.0,
+          "medianGameSeconds": 8.43,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 8,
+      "title": "기뢰 연쇄",
+      "intent": "나란히 둔 기뢰가 함께 터지는 보상을 경험합니다.",
+      "budget": 8,
+      "witnessShots": 1,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 1,
+          "clearedMedianShots": 1,
+          "medianGameSeconds": 0.55,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 1.0,
+          "clearedMedianShots": 1.0,
+          "medianGameSeconds": 0.56,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 1.5,
+          "clearedMedianShots": 1.5,
+          "medianGameSeconds": 1.03,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 9,
+      "title": "기뢰와 남은 블록",
+      "intent": "기뢰를 먼저 활용하고 떨어진 일반 블록을 정리합니다.",
+      "budget": 12,
+      "witnessShots": 2,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 4,
+          "clearedMedianShots": 4,
+          "medianGameSeconds": 10.63,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 4.0,
+          "clearedMedianShots": 4.0,
+          "medianGameSeconds": 15.9,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 4.5,
+          "clearedMedianShots": 4.5,
+          "medianGameSeconds": 19.0,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    },
+    {
+      "stage": 10,
+      "title": "배운 규칙 마무리",
+      "intent": "익숙한 기뢰와 양쪽의 작은 목표로 학습을 마무리합니다.",
+      "budget": 10,
+      "witnessShots": 5,
+      "groups": [
+        {
+          "errorDegrees": 0,
+          "trials": 1,
+          "clears": 1,
+          "noDirectTarget": 0,
+          "medianShots": 3,
+          "clearedMedianShots": 3,
+          "medianGameSeconds": 19.49,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 2,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 4.0,
+          "clearedMedianShots": 4.0,
+          "medianGameSeconds": 13.44,
+          "meanRemainingObjectives": 0
+        },
+        {
+          "errorDegrees": 5,
+          "trials": 12,
+          "clears": 12,
+          "noDirectTarget": 0,
+          "medianShots": 4.5,
+          "clearedMedianShots": 4.5,
+          "medianGameSeconds": 12.22,
+          "meanRemainingObjectives": 0
+        }
+      ]
+    }
+  ]
+}
