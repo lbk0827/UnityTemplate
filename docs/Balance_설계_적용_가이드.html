@@ -1,0 +1,2798 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>GRP1 Balance 설계·적용 가이드</title>
+<style>
+:root{color-scheme:light;--paper:#fff;--white:#fff;--ink:#23233e;--muted:#5c6077;--axis:#898781;--line:#e1e2ee;--grid:#ecebf2;--accent:#6550ad;--soft:#ede9f9;--soft-ink:#51408b;--warn:#fff7e6;--warn-line:#f0d9a6;--code:#f6f5fb;--radius:16px;
+ --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--slate:#5c6077;--mute-bar:#c9c8d6;--band:#e6e4f0;--bandref:#f1f0f6;--bg-h:#fbf1ec;--bg-r:#ebf6f1;
+ --d1:#86b6ef;--d2:#5598e7;--d3:#2a78d6;--d4:#1c5cab;--d5:#104281;--d1t:#0b0b0b;--d2t:#0b0b0b;--d3t:#fff;--d4t:#fff;--d5t:#fff;--surface:#fff}
+*{box-sizing:border-box}html{scroll-padding-top:72px}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 "Malgun Gothic","Apple SD Gothic Neo","Segoe UI",sans-serif;word-break:keep-all;overflow-wrap:anywhere}
+a{color:var(--accent);text-underline-offset:4px}
+.layout{max-width:1260px;margin:auto;padding:0 32px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px}
+nav.toc{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;padding:40px 0 24px;font-size:13px}
+nav.toc b{display:block;font-size:12px;letter-spacing:.4px;color:var(--soft-ink);margin-bottom:8px}
+nav.toc ul{list-style:none;margin:0;padding:0}nav.toc>ul>li{margin:2px 0}
+nav.toc>ul>li>a{display:block;padding:4px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-weight:700}
+nav.toc>ul>li>a:hover,nav.toc a.on{background:var(--soft);color:var(--soft-ink)}
+nav.toc ul ul{margin:0 0 6px 10px;border-left:2px solid var(--line)}
+nav.toc ul ul a{display:block;padding:2px 10px;color:var(--muted);text-decoration:none;font-size:12.5px;line-height:1.5}
+main{padding:40px 0 60px;min-width:0}
+header.top{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:32px 34px;margin-bottom:22px}
+header.top h1{margin:0 0 6px;font-size:clamp(26px,3.6vw,36px);letter-spacing:-1.2px;line-height:1.3}
+header.top blockquote{margin:0 0 14px;padding:0;border:0;background:none;color:var(--muted);font-size:16px}
+header.top p{margin:6px 0;color:var(--muted);font-size:13.5px}header.top h3{font-size:15px;margin:20px 0 8px}
+section.panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px 32px;margin-bottom:22px}
+h2{font-size:23px;letter-spacing:-.6px;line-height:1.45;margin:0 0 14px}h3{font-size:17px;margin:32px 0 12px;padding-top:6px}h4{font-size:15px;margin:22px 0 8px}
+p{margin:10px 0}ul,ol{padding-left:22px;margin:10px 0}li{margin:3px 0}strong{font-weight:800}
+code{font-family:Consolas,"D2Coding","Malgun Gothic",monospace;font-size:.88em;background:var(--code);border:1px solid var(--line);border-radius:5px;padding:0 4px}
+pre{background:var(--code);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;line-height:1.5;margin:12px 0}
+pre code{font-family:"D2Coding","NanumGothicCoding",Consolas,"Malgun Gothic",monospace;font-size:12.5px;background:none;border:0;padding:0;white-space:pre}
+blockquote{margin:14px 0;padding:12px 16px;background:var(--warn);border:1px solid var(--warn-line);border-radius:10px}blockquote p{margin:4px 0}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin:12px 0}
+table{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+th{background:var(--soft);text-align:left;padding:9px 12px;color:var(--soft-ink);font-weight:700;white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line);vertical-align:top}td:first-child{font-weight:600}
+details.tv{margin:10px 0;border:1px dashed transparent}
+details.tv>summary{cursor:pointer;font-size:12.5px;color:var(--accent);font-weight:700;padding:4px 0;list-style:none}
+details.tv>summary::before{content:"▸ ";}details.tv[open]>summary::before{content:"▾ ";}
+footer{color:var(--muted);font-size:12px;padding:6px 4px 0}.toc-mobile{display:none}
+/* 페이지 나누기: JS 가 켜지면 한 번에 한 장만 보인다. 전체 보기·인쇄·JS 없음이면 모두 보인다. */
+body.paged section.page{display:none}body.paged section.page.on{display:block}body.paged header.top.off{display:none}
+.pagehead{display:none;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);margin:-6px 0 12px;border-bottom:1px solid var(--line);padding-bottom:8px}
+body.paged .pagehead{display:flex}.ph-t{font-weight:700;color:var(--soft-ink)}
+.pager{display:none;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+body.paged .pager{display:grid}
+.pager a{display:block;border:1.5px solid var(--accent);border-radius:12px;padding:12px 16px;text-decoration:none;color:var(--soft-ink);font-weight:700;font-size:14.5px;background:var(--white)}
+.pager a:hover{background:var(--soft)}.pager small{display:block;font-size:12px;color:var(--accent);font-weight:800}
+.pager .next{text-align:right;background:var(--accent);color:#fff}.pager .next small{color:#e9e5ff}.pager .next:hover{background:var(--soft-ink)}
+.ph-nav{display:inline-flex;align-items:center;gap:10px}.ph-nav b{color:var(--ink)}
+.ph-nav a{font-weight:800;text-decoration:none;border:1px solid var(--accent);border-radius:14px;padding:1px 10px}.ph-nav a:hover{background:var(--soft)}
+.ph-nav .dis{opacity:.35;border:1px solid var(--line);border-radius:14px;padding:1px 10px}
+/* 상단 장 바로가기(0~13장 칩) — 페이지 보기일 때만, 화면 위에 붙는다 */
+.chapbar{display:none}
+body.paged .chapbar{display:flex;position:sticky;top:0;z-index:11;gap:6px;overflow-x:auto;padding:10px 2px 10px;margin:-14px 0 16px;background:var(--paper);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.chapbar a{flex:none;font-size:12.5px;font-weight:700;padding:5px 11px;border:1px solid var(--line);border-radius:16px;text-decoration:none;color:var(--ink);background:var(--white);white-space:nowrap}
+.chapbar a:hover{border-color:var(--accent);color:var(--accent)}.chapbar a.on{background:var(--accent);border-color:var(--accent);color:#fff}
+/* 화면 하단에 항상 보이는 이동 막대(본문 칸 폭에 맞춰 붙는다) */
+.pagebar{display:none}
+.pagebar.hide{opacity:0;visibility:hidden;transform:translateY(10px)}
+body.paged .pagebar{transition:opacity .15s,transform .15s,visibility .15s}
+body.paged .pagebar{display:grid;position:sticky;bottom:12px;z-index:10;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;margin:18px 0 6px;padding:8px 10px;background:var(--white);border:1.5px solid var(--accent);border-radius:14px;box-shadow:0 6px 24px rgba(35,35,62,.16)}
+.pagebar a,.pagebar .dis{display:flex;flex-direction:column;min-width:0;text-decoration:none;border-radius:10px;padding:6px 12px;font-size:13px;font-weight:700;color:var(--soft-ink)}
+.pagebar a span,.pagebar .dis span{display:block;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pagebar small{font-size:11.5px;font-weight:800;color:var(--accent)}
+.pagebar a:hover{background:var(--soft)}.pagebar .pb-next{text-align:right;background:var(--accent);color:#fff}.pagebar .pb-next small{color:#e9e5ff}.pagebar .pb-next:hover{background:var(--soft-ink)}
+.pagebar .dis{opacity:.35}.pagebar .pb-mid{text-align:center;font-size:12.5px;color:var(--muted);line-height:1.3}.pagebar .pb-mid b{display:block;font-size:15px;color:var(--ink)}
+@media (max-width:760px){body.paged .pagebar{bottom:8px;padding:6px}.pagebar a,.pagebar .dis{padding:5px 8px;font-size:12px}.pb-key{display:none}}
+.viewall{display:block;width:100%;margin:12px 0 0;padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--white);color:var(--ink);font:inherit;font-size:12.5px;cursor:pointer}
+.viewall:hover{border-color:var(--accent)}
+/* 시각 자료 */
+.vis{margin:14px 0 6px}
+.viz{margin:14px 0;padding:16px 18px;border:1px solid var(--line);border-radius:14px;background:var(--white)}
+.vt{font-weight:800;font-size:14px;margin-bottom:8px}.cap{font-size:12.5px;color:var(--muted);margin:8px 0 0}
+.viz svg{display:block;width:100%;height:auto;overflow:visible}
+.grid{stroke:var(--grid);stroke-width:1}.zero{stroke:var(--axis);stroke-width:1.2}.sep{stroke:var(--axis);stroke-width:1}
+.ta{font-size:11px;fill:var(--axis)}.tl{font-size:12px;fill:var(--ink)}.tv{font-size:11.5px;fill:var(--ink);font-weight:700}
+.r{text-anchor:end}.c{text-anchor:middle}.b{font-weight:800}
+.s1{fill:var(--s1)}.s2{fill:var(--s2)}.s3{fill:var(--s3)}.slate{fill:var(--slate)}.hi{fill:var(--accent)}.mute{fill:var(--mute-bar)}
+.band{fill:var(--band)}.bandref{fill:var(--bandref);stroke:var(--line)}.bg-h{fill:var(--bg-h)}.bg-r{fill:var(--bg-r)}
+.ring{stroke:var(--surface);stroke-width:2}.nov{fill:var(--surface);stroke:var(--ink);stroke-width:1.6}
+.db{stroke:var(--mute-bar);stroke-width:3}.dh{fill:var(--surface);stroke:var(--ink);stroke-width:2}.dr{fill:var(--accent)}
+.ghost{fill:var(--surface);stroke:var(--s2);stroke-width:2}.nl{stroke:var(--line);stroke-width:2}
+.non{fill:var(--accent)}.noff{fill:var(--surface);stroke:var(--mute-bar);stroke-width:2}
+[data-tip]{cursor:default;outline:none}[data-tip]:focus{stroke:var(--ink);stroke-width:2}
+#tip{position:fixed;z-index:20;pointer-events:none;background:var(--ink);color:var(--white);font-size:12px;padding:5px 9px;border-radius:7px;max-width:320px;opacity:0;transition:opacity .08s}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin:2px 0 8px}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.k{display:inline-block;width:12px;height:12px;background:var(--mute-bar)}.k.sq{border-radius:3px}.k.cir{border-radius:50%}.k.dia{transform:rotate(45deg) scale(.82);border-radius:2px}
+.k.tri{width:0;height:0;background:none;border-left:7px solid transparent;border-right:7px solid transparent;border-bottom:12px solid var(--s3)}
+.k.s1{background:var(--s1)}.k.s2{background:var(--s2)}.k.s3:not(.tri){background:var(--s3)}.k.band{background:var(--band);border-radius:3px}.k.bg-h{background:var(--bg-h);border:1px solid var(--line)}.k.bg-r{background:var(--bg-r);border:1px solid var(--line)}
+.k.nov{background:var(--surface);border:1.6px solid var(--ink);border-radius:50%}.k.dh{background:var(--surface);border:2px solid var(--ink);border-radius:50%}.k.dr{background:var(--accent);border-radius:50%}.k.ghost{background:var(--surface);border:2px solid var(--s2);border-radius:50%}
+.k.d1{background:var(--d1)}.k.d2{background:var(--d2)}.k.d3{background:var(--d3)}.k.d4{background:var(--d4)}.k.d5{background:var(--d5)}.k.rd{background:var(--bandref);border:1px solid var(--line)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:6px 0 4px}
+.kpis.two{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}.kpis.three{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+.kpi{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.kpi b{display:block;font-size:22px;font-weight:800;letter-spacing:-.5px}.kpi span{display:block;font-size:12.5px;color:var(--muted);line-height:1.5;margin-top:2px}
+.cards{display:grid;gap:12px;margin:8px 0}.c3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.c4{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:13.5px;line-height:1.6;position:relative}
+.card b{display:block;font-size:15px;margin-bottom:3px}.card>span{display:block;color:var(--muted)}
+.card.num{padding-left:52px}.card.num em{position:absolute;left:14px;top:14px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-style:normal;font-weight:800;font-size:13px;display:grid;place-items:center}
+.card dl{margin:8px 0 0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:12.5px}.card dt{color:var(--muted);font-weight:700}.card dd{margin:0}
+.bn{font-size:17px!important}
+.tree{width:100%;max-width:240px;height:auto;margin:6px 0 2px}
+.mrow{display:flex;align-items:center;gap:8px}.mrow b{font-size:12.5px;white-space:nowrap}
+.meter{position:relative;flex:1;height:14px;background:var(--grid);border-radius:4px;overflow:hidden;min-width:80px}.meter i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);border-radius:4px}
+.meter.txt{background:none;height:auto;color:var(--muted);flex:none}
+.hint{display:none;font-size:11.5px;color:var(--muted);margin:2px 0 0;text-align:right}
+.use{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin:8px 0}
+.usecol{display:grid;gap:12px;align-content:start}
+.box{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--white);font-size:13.5px}
+.box h5{margin:0 0 8px;font-size:14px}.box ul{margin:0;padding-left:18px}.box p{margin:4px 0}
+.box.gate{border-color:var(--accent)}.box.gate li::marker{content:"◆ ";color:var(--accent)}
+.small{font-size:12px;color:var(--muted);font-weight:400}
+.tag{font-size:11px;background:var(--soft);color:var(--soft-ink);padding:1px 8px;border-radius:12px;font-weight:700;white-space:nowrap}
+.callrow{display:grid;grid-template-columns:120px 1fr;gap:8px;padding:5px 0;border-top:1px solid var(--line)}.callrow:first-of-type{border-top:0}.where{font-weight:700;font-size:12.5px}
+.bubble{margin-top:10px;background:var(--soft);border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:13px}.bubble .who{display:block;font-size:11px;font-weight:800;color:var(--soft-ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.chips span{font-size:12px;border:1px solid var(--line);border-radius:14px;padding:2px 10px;background:var(--white)}
+.scroll{overflow-x:auto}
+.lanes{display:grid;grid-template-columns:62px repeat(7,minmax(90px,1fr));gap:6px;min-width:740px;font-size:12px;line-height:1.45}
+.lanes-m{display:none;list-style:none;margin:0;padding:0}.lanes-m li{border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:6px 0;font-size:12.5px}
+.lanes-m li>b{display:block;color:var(--accent);margin-bottom:4px}.lm{display:grid;grid-template-columns:52px 1fr;gap:6px;padding:2px 0}.lm span{font-weight:800;color:var(--muted)}.lm.sk{background:var(--soft);border-radius:6px;padding:2px 4px}.lm.gate{font-weight:700}
+.sh{background:var(--accent);color:#fff;font-weight:800;border-radius:8px;padding:6px 8px;text-align:center}
+.ll{font-weight:800;align-self:center}.ll.sk{color:var(--accent)}.ll.tm{color:var(--soft-ink)}
+.lc{border:1px solid var(--line);border-radius:8px;padding:7px 8px;background:var(--white)}.lc.sk{background:var(--soft)}.lc.empty{border-style:dashed;opacity:.35}
+.lc.gate{border-color:var(--accent);font-weight:700}
+.gi{display:inline-block;margin-left:6px;font-style:normal;font-size:10.5px;background:var(--accent);color:#fff;border-radius:10px;padding:0 7px;vertical-align:1px}
+.layers{display:grid;gap:8px;margin:8px 0}
+.layer{display:grid;grid-template-columns:minmax(150px,1.1fr) 2fr 1.3fr;gap:12px;align-items:center;border-radius:12px;padding:12px 16px;border:1px solid var(--line);border-left:8px solid var(--d3);background:var(--white);font-size:13px}
+.layer b{display:block;font-size:14.5px}.layer span{color:var(--muted);font-size:12px}.layer .how{font-weight:700;font-size:12.5px}
+.layer.l3{border-left-color:var(--d1);margin-left:0}.layer.l2{border-left-color:var(--d3)}.layer.l1{border-left-color:var(--d5)}
+.tl-legend{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0}
+.tline{list-style:none;margin:8px 0 8px 8px;padding:0 0 0 18px;border-left:2px solid var(--line)}
+.tline li{position:relative;display:grid;grid-template-columns:52px 92px 1fr;gap:10px;align-items:baseline;padding:5px 0;font-size:13px}
+.tline li::before{content:"";position:absolute;left:-25px;top:13px;width:10px;height:10px;border-radius:50%;background:var(--white);border:2px solid var(--accent)}
+.tline time{font-weight:800;font-variant-numeric:tabular-nums}.tline p{margin:0}
+.tg2{font-size:11px;font-weight:800;border-radius:10px;padding:1px 8px;text-align:center;white-space:nowrap}
+.tg2.ta{background:var(--grid);color:var(--muted)}.tg2.ts{background:var(--soft);color:var(--soft-ink)}.tg2.tg{border:1.5px solid var(--accent);color:var(--accent)}.tg2.td{background:var(--accent);color:#fff}
+.split{display:grid;grid-template-columns:minmax(200px,260px) 1fr;gap:14px;align-items:stretch}
+.formula{border:1px solid var(--line);border-radius:14px;padding:16px;background:var(--soft);display:flex;flex-direction:column;justify-content:center;gap:4px;margin:14px 0}
+.formula b{font-size:24px;letter-spacing:-.5px;color:var(--soft-ink)}.formula span{font-size:12.5px;color:var(--muted)}
+.mist{margin:8px 0}.eq{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.who2{width:44px;font-size:15px}.term{display:inline-flex;flex-direction:column;align-items:center;border:1px solid var(--line);border-radius:12px;padding:8px 14px;background:var(--white);font-size:20px;font-weight:800;min-width:110px}
+.term small{font-size:11px;color:var(--muted);font-weight:700}.term.res{background:var(--accent);color:#fff;border-color:var(--accent)}.term.res small{color:#e9e5ff}
+.op{font-size:20px;color:var(--muted);font-weight:800}
+.chips.wide span{font-size:12.5px}
+.mini{margin-top:10px;font-size:13px;background:var(--warn);border:1px solid var(--warn-line);border-radius:10px;padding:10px 12px}
+.strip{display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:center;margin:8px 0;min-width:700px}
+.sn b{display:block;font-size:15px}.sn span{font-size:11.5px;color:var(--muted)}
+.cells{display:flex;gap:3px;align-items:stretch}
+.cell{position:relative;width:34px;height:42px;border-radius:6px;display:grid;place-items:center;font-size:11.5px;font-weight:800}
+.cell small{position:absolute;top:2px;left:4px;font-size:9.5px;font-weight:700;opacity:.75}
+.cell.d1{background:var(--d1);color:var(--d1t)}.cell.d2{background:var(--d2);color:var(--d2t)}.cell.d3{background:var(--d3);color:var(--d3t)}.cell.d4{background:var(--d4);color:var(--d4t)}.cell.d5{background:var(--d5);color:var(--d5t)}
+.cell.rd{background:var(--bandref);border:1px solid var(--line);color:var(--muted);font-size:16px}
+.capm{display:flex;align-items:stretch;margin:0 3px}.capm span{writing-mode:vertical-rl;font-size:10.5px;font-weight:800;color:var(--accent);border-left:3px solid var(--accent);padding-left:3px}
+table.heat{border-collapse:separate;border-spacing:4px;min-width:520px}
+table.heat th{background:none;color:var(--muted);font-size:12px;text-align:center;padding:4px}table.heat tbody th{text-align:right}
+table.heat td{border:0;border-radius:8px;text-align:center;padding:10px 6px;font-weight:400}
+table.heat td b{display:block;font-size:17px}table.heat td small{font-size:11px;opacity:.85}
+table.heat td.d1{background:var(--d1);color:var(--d1t)}table.heat td.d2{background:var(--d2);color:var(--d2t)}table.heat td.d3{background:var(--d3);color:var(--d3t)}table.heat td.d4{background:var(--d4);color:var(--d4t)}table.heat td.d5{background:var(--d5);color:var(--d5t)}
+table.heat td.na{background:var(--grid);color:var(--muted)}
+.stepper{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0}
+.step{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:20px;padding:4px 12px 4px 4px;font-size:12.5px;background:var(--white)}
+.step em{font-style:normal;font-weight:800;background:var(--soft);color:var(--soft-ink);border-radius:14px;padding:1px 8px}
+.step.sg{border-color:var(--accent)}.step.sl{border-style:dashed;border-color:var(--accent)}.arr{color:var(--muted)}
+.scaletop{font-weight:800;font-size:13px;background:var(--soft);color:var(--soft-ink);border-radius:10px;padding:8px 12px;margin:10px 0 0;text-align:center}
+.cards.scale .card{border-top:4px solid var(--accent)}.cards.scale .card.ok{border-top-color:var(--mute-bar)}
+.games .role{font-size:12px;font-weight:700;color:var(--soft-ink)!important}
+.st{display:inline-block!important;margin:4px 0 6px;font-size:11.5px;font-weight:800;border-radius:10px;padding:1px 9px;color:var(--ink)!important;background:var(--grid)}
+.st.done{background:var(--soft);color:var(--soft-ink)!important}.st.hold{background:var(--warn)}.st.todo{background:none;border:1px solid var(--line)}
+@media (max-width:980px){
+ .layout{grid-template-columns:minmax(0,1fr);padding:0 16px;gap:0}nav.toc{display:none}
+ .toc-mobile{display:block;background:var(--white);border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin-bottom:16px;font-size:13.5px}
+ .toc-mobile summary{cursor:pointer;font-weight:700;color:var(--soft-ink)}.toc-mobile ul{list-style:none;padding:0;margin:8px 0 0}.toc-mobile ul ul{display:none}.toc-mobile a{display:block;padding:3px 0;text-decoration:none}
+ main{padding:20px 0 40px}header.top,section.panel{padding:20px 16px}h2{font-size:20px}
+ .viz{padding:12px 10px}.split{grid-template-columns:1fr}.layer{grid-template-columns:1fr}.tline li{grid-template-columns:46px 1fr}.tline li p{grid-column:1/-1}
+ .callrow{grid-template-columns:1fr}
+}
+@media (max-width:760px){.lanes-d{display:none}.lanes-m{display:block}.hint{display:block}}
+@media print{nav.toc,.toc-mobile,.pager,.pagehead,.viewall,.pagebar,.chapbar{display:none!important}.layout{display:block}section.panel,header.top{border:0;padding:0}body{background:#fff}details.tv{display:block}body.paged section.page,body.paged header.top{display:block!important}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="목차"><b>목차</b><ul><li><a href="#s1">0. 한눈에 보기 — 원칙과 스킬 사용 흐름</a><ul><li><a href="#s1-1">0.1 여덟 가지 원칙</a></li><li><a href="#s1-2">0.2 스킬 사용법</a></li><li><a href="#s1-3">0.3 작업 흐름</a></li></ul></li><li><a href="#s2">1. GRP1 Balance 란</a><ul><li><a href="#s2-1">1.1 정의</a></li><li><a href="#s2-2">1.2 가져오는 것과 가져오지 않는 것</a></li><li><a href="#s2-3">1.3 세 층을 섞지 않는다</a></li><li><a href="#s2-4">1.4 여기까지 온 경과</a></li></ul></li><li><a href="#s3">2. 공통 기준 — 모든 게임이 같은 것을 쓴다</a><ul><li><a href="#s3-1">2.1 측정 지표</a></li><li><a href="#s3-2">2.2 D1~D5 등급별 평균 가설</a></li><li><a href="#s3-3">2.3 봇 설계 원칙</a></li><li><a href="#s3-4">2.4 측정 규모와 재현</a></li><li><a href="#s3-5">2.5 하지 않는 것</a></li><li><a href="#s3-6">2.6 D6·D7 예외 등급</a></li></ul></li><li><a href="#s4">3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가</a><ul><li><a href="#s4-1">3.1 10판 리듬과 역할</a></li><li><a href="#s4-2">3.2 허들과 회복</a></li><li><a href="#s4-3">3.3 새 기믹 도입</a></li><li><a href="#s4-4">3.4 재도전 변형과 구제</a></li><li><a href="#s4-5">3.5 보상·경제 연결</a></li><li><a href="#s4-6">3.6 판 구조와 난도 레버</a></li><li><a href="#s4-7">3.7 숨김 정보가 있는 게임</a></li><li><a href="#s4-8">3.8 GRP1 기본 배치안 — 구간 × 역할 목표 D</a></li><li><a href="#s4-9">3.9 진행 설계표 템플릿</a></li></ul></li><li><a href="#s5">4. 게임별로 정할 것 — 착수 전 결정 목록</a></li><li><a href="#s6">5. 적용 절차 — 단계별 작업</a><ul><li><a href="#s6-1">① 착수 준비와 진행 설계</a></li><li><a href="#s6-2">② 봇 프로필 정의</a></li><li><a href="#s6-3">③ 시뮬레이터 구현과 사전 검증 — 대표 레벨 10~20개</a></li><li><a href="#s6-4">③-2 난이도 눈금 점검 — 이 봇들로 레벨이 갈리는가</a></li><li><a href="#s6-5">④ 프로필 버전 고정</a></li><li><a href="#s6-6">⑤ 후보 생성과 예비 측정</a></li><li><a href="#s6-7">⑥ 선별·배치</a></li><li><a href="#s6-8">⑦ 독립 재검증</a></li><li><a href="#s6-9">⑧ 진행 리듬 검증</a></li><li><a href="#s6-10">⑨ 보고·보관</a></li><li><a href="#s6-11">⑩ 출시 후 보정</a></li><li><a href="#s6-12">변경이 생겼을 때</a></li></ul></li><li><a href="#s7">6. 수치가 어긋날 때 — 판단표</a></li><li><a href="#s8">7. 게임별 적용 현황과 사례</a><ul><li><a href="#s8-1">7.1 현황</a></li><li><a href="#s8-2">7.2 매직소트 — 무엇을 어떻게 쟀나</a></li><li><a href="#s8-3">7.3 카매치 — 봇을 어떻게 고쳤나</a></li><li><a href="#s8-4">7.4 CubeLand 파일럿(v1)에서 배운 것</a></li><li><a href="#s8-5">7.5 BusTrafficFever — 서열은 섰고 절대값은 구간 위</a></li><li><a href="#s8-6">7.6 Coster — 기본 봇이 포화해서 눈금을 바꿨다</a></li><li><a href="#s8-7">7.7 두 적용에서 얻은 것</a></li><li><a href="#s8-8">7.8 다음 신규 게임 — 첫 적용 체크리스트</a></li></ul></li><li><a href="#s9">8. 도구와 산출물</a><ul><li><a href="#s9-1">8.1 재사용할 것과 새로 만들 것</a></li><li><a href="#s9-2">8.2 도구 목록 (D:\Vibe_Test\MagicSort 기준)</a></li><li><a href="#s9-3">8.3 compare_results.py 입력·출력</a></li><li><a href="#s9-4">8.4 기준 데이터 파일</a></li><li><a href="#s9-5">8.5 가이드·스킬 갱신 순서</a></li></ul></li><li><a href="#s10">9. 결정 기록</a></li><li><a href="#s11">10. 교훈과 함정</a></li><li><a href="#s12">11. 미결·한계·다음 단계</a></li><li><a href="#s13">12. 용어</a></li></ul><button type="button" class="viewall" aria-pressed="false">전체 보기 (찾기·인쇄용)</button></nav>
+<main>
+<nav class="chapbar" aria-label="장 바로가기"><a href="#s1" data-i="0" title="0. 한눈에 보기 — 원칙과 스킬 사용 흐름">0. 한눈에 보기</a><a href="#s2" data-i="1" title="1. GRP1 Balance 란">1. GRP1 Balance 란</a><a href="#s3" data-i="2" title="2. 공통 기준 — 모든 게임이 같은 것을 쓴다">2. 공통 기준</a><a href="#s4" data-i="3" title="3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가">3. 진행 구조 설계</a><a href="#s5" data-i="4" title="4. 게임별로 정할 것 — 착수 전 결정 목록">4. 게임별로 정할 것</a><a href="#s6" data-i="5" title="5. 적용 절차 — 단계별 작업">5. 적용 절차</a><a href="#s7" data-i="6" title="6. 수치가 어긋날 때 — 판단표">6. 수치가 어긋날 때</a><a href="#s8" data-i="7" title="7. 게임별 적용 현황과 사례">7. 게임별 적용 현황과 사례</a><a href="#s9" data-i="8" title="8. 도구와 산출물">8. 도구와 산출물</a><a href="#s10" data-i="9" title="9. 결정 기록">9. 결정 기록</a><a href="#s11" data-i="10" title="10. 교훈과 함정">10. 교훈과 함정</a><a href="#s12" data-i="11" title="11. 미결·한계·다음 단계">11. 미결·한계·다음 단계</a><a href="#s13" data-i="12" title="12. 용어">12. 용어</a></nav>
+<header class="top"><h1>GRP1 Balance 설계·적용 가이드</h1>
+<blockquote>
+<p>그룹 퍼즐 게임의 레벨 난이도를 <strong>어떻게 설계하고, 각 게임에 어떻게 적용·작업하는가</strong></p>
+</blockquote>
+<p>2026-10-20 작성 · 대상: 각 게임의 레벨·밸런스 담당자, 팀장님 · 상태: <strong>출시 전 제작 기준(가설)</strong> — 출시 데이터로 보정하기 전
+사내 열람용. 원작 IPA 정적 분석(매직소트는 크랙 빌드를 기기에 설치하지 않고 파일만 분석)과 내부 자료를 근거로 한다. 외부에 올리지 않는다.</p>
+<h3>이 문서의 자리</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>문서</th>
+<th>성격</th>
+<th>언제 보나</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>이 문서</strong></td>
+<td>설계 방법과 작업 절차. GRP1 Balance 의 기준 문서</td>
+<td>새 게임에 적용할 때, 레벨 배치를 짤 때, 측정 결과를 해석할 때</td>
+</tr>
+<tr>
+<td>GRP1 밸런스 기준 한눈에 보기</td>
+<td>윗선 공유용. 그랜드 게임즈 원작을 바탕으로 우리 게임을 어떻게 밸런스할지(난이도 흐름 그래프·목표 구간·한계). 게임별 적용 사례는 이 문서 7장에 있다</td>
+<td>배경을 설명할 때</td>
+</tr>
+<tr>
+<td>스킬 <code>grp1-balance</code></td>
+<td>AI 도구 작업 진입점(Claude Code <code>/grp1-balance</code>, Codex <code>$grp1-balance</code>)</td>
+<td>실제 측정·배치 작업을 시킬 때</td>
+</tr>
+</tbody></table></div>
+<p><strong>GRP1 Balance 는 이 문서와 &#39;한눈에 보기&#39; 두 문서만 본다</strong>(10-20 팀장님 결정). 작업에 필요한 근거와 수치는 모두 이 안에 옮겨 두었다. 괄호 속 출처(예: 통합 가이드, 원작 분석 문서, 각 게임 문서)는 팀장님 MagicSort 작업 폴더와 각 게임 저장소의 원본 이름이며, 따로 열어 볼 필요는 없다. 이 문서는 시뮬레이션을 새로 돌리지 않고 기존 측정과 BusTrafficFever·Coster 적용 기록을 다시 묶은 것이다(10-20 기준). HTML 판은 같은 내용을 그림·차트 위주로, 목차의 큰 분류(0~12장)마다 한 페이지씩 나눠 보여 준다(흰 바탕, <code>node tools/build_grp1_work_guide.mjs</code>). AI 는 이 MD 를 읽는다.</p>
+
+</header>
+<details class="toc-mobile"><summary>목차</summary><ul><li><a href="#s1">0. 한눈에 보기 — 원칙과 스킬 사용 흐름</a><ul><li><a href="#s1-1">0.1 여덟 가지 원칙</a></li><li><a href="#s1-2">0.2 스킬 사용법</a></li><li><a href="#s1-3">0.3 작업 흐름</a></li></ul></li><li><a href="#s2">1. GRP1 Balance 란</a><ul><li><a href="#s2-1">1.1 정의</a></li><li><a href="#s2-2">1.2 가져오는 것과 가져오지 않는 것</a></li><li><a href="#s2-3">1.3 세 층을 섞지 않는다</a></li><li><a href="#s2-4">1.4 여기까지 온 경과</a></li></ul></li><li><a href="#s3">2. 공통 기준 — 모든 게임이 같은 것을 쓴다</a><ul><li><a href="#s3-1">2.1 측정 지표</a></li><li><a href="#s3-2">2.2 D1~D5 등급별 평균 가설</a></li><li><a href="#s3-3">2.3 봇 설계 원칙</a></li><li><a href="#s3-4">2.4 측정 규모와 재현</a></li><li><a href="#s3-5">2.5 하지 않는 것</a></li><li><a href="#s3-6">2.6 D6·D7 예외 등급</a></li></ul></li><li><a href="#s4">3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가</a><ul><li><a href="#s4-1">3.1 10판 리듬과 역할</a></li><li><a href="#s4-2">3.2 허들과 회복</a></li><li><a href="#s4-3">3.3 새 기믹 도입</a></li><li><a href="#s4-4">3.4 재도전 변형과 구제</a></li><li><a href="#s4-5">3.5 보상·경제 연결</a></li><li><a href="#s4-6">3.6 판 구조와 난도 레버</a></li><li><a href="#s4-7">3.7 숨김 정보가 있는 게임</a></li><li><a href="#s4-8">3.8 GRP1 기본 배치안 — 구간 × 역할 목표 D</a></li><li><a href="#s4-9">3.9 진행 설계표 템플릿</a></li></ul></li><li><a href="#s5">4. 게임별로 정할 것 — 착수 전 결정 목록</a></li><li><a href="#s6">5. 적용 절차 — 단계별 작업</a><ul><li><a href="#s6-1">① 착수 준비와 진행 설계</a></li><li><a href="#s6-2">② 봇 프로필 정의</a></li><li><a href="#s6-3">③ 시뮬레이터 구현과 사전 검증 — 대표 레벨 10~20개</a></li><li><a href="#s6-4">③-2 난이도 눈금 점검 — 이 봇들로 레벨이 갈리는가</a></li><li><a href="#s6-5">④ 프로필 버전 고정</a></li><li><a href="#s6-6">⑤ 후보 생성과 예비 측정</a></li><li><a href="#s6-7">⑥ 선별·배치</a></li><li><a href="#s6-8">⑦ 독립 재검증</a></li><li><a href="#s6-9">⑧ 진행 리듬 검증</a></li><li><a href="#s6-10">⑨ 보고·보관</a></li><li><a href="#s6-11">⑩ 출시 후 보정</a></li><li><a href="#s6-12">변경이 생겼을 때</a></li></ul></li><li><a href="#s7">6. 수치가 어긋날 때 — 판단표</a></li><li><a href="#s8">7. 게임별 적용 현황과 사례</a><ul><li><a href="#s8-1">7.1 현황</a></li><li><a href="#s8-2">7.2 매직소트 — 무엇을 어떻게 쟀나</a></li><li><a href="#s8-3">7.3 카매치 — 봇을 어떻게 고쳤나</a></li><li><a href="#s8-4">7.4 CubeLand 파일럿(v1)에서 배운 것</a></li><li><a href="#s8-5">7.5 BusTrafficFever — 서열은 섰고 절대값은 구간 위</a></li><li><a href="#s8-6">7.6 Coster — 기본 봇이 포화해서 눈금을 바꿨다</a></li><li><a href="#s8-7">7.7 두 적용에서 얻은 것</a></li><li><a href="#s8-8">7.8 다음 신규 게임 — 첫 적용 체크리스트</a></li></ul></li><li><a href="#s9">8. 도구와 산출물</a><ul><li><a href="#s9-1">8.1 재사용할 것과 새로 만들 것</a></li><li><a href="#s9-2">8.2 도구 목록 (D:\Vibe_Test\MagicSort 기준)</a></li><li><a href="#s9-3">8.3 compare_results.py 입력·출력</a></li><li><a href="#s9-4">8.4 기준 데이터 파일</a></li><li><a href="#s9-5">8.5 가이드·스킬 갱신 순서</a></li></ul></li><li><a href="#s10">9. 결정 기록</a></li><li><a href="#s11">10. 교훈과 함정</a></li><li><a href="#s12">11. 미결·한계·다음 단계</a></li><li><a href="#s13">12. 용어</a></li></ul><button type="button" class="viewall" aria-pressed="false">전체 보기 (찾기·인쇄용)</button></details>
+<section class="panel page" data-page="0"><div class="pagehead"><span class="ph-nav"><span class="dis">← 이전</span><b>1 / 13</b><a href="#s2">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s1">0. 한눈에 보기 — 원칙과 스킬 사용 흐름</h2>
+<div class="vis" data-vis="kpis"><div class="kpis"><div class="kpi"><b>봇 3종</b><span>초보 · 일반(1수) · 고수(2수)</span></div><div class="kpi"><b>50 : 50</b><span>레벨 기준 = 일반 50% + 고수 50%</span></div><div class="kpi"><b>D1~D5</b><span>등급별 평균 가설 · D6·D7 은 예외</span></div><div class="kpi"><b>17.39% · 9.00%</b><span>실수 기본값 (일반 · 고수)</span></div><div class="kpi"><b>2게임</b><span>실제 적용 · BusTrafficFever · Coster</span></div></div></div><h3 id="s1-1">0.1 여덟 가지 원칙</h3>
+<div class="vis" data-vis="principles"><div class="cards c4"><div class="card num"><em>1</em><b>원칙을 가져온다</b><span>성공률을 복제하지 않고 도전 → 회복, 쉬운 기믹 학습, 재도전 변형, 허들 보상을 가져온다</span></div><div class="card num"><em>2</em><b>봇 3종으로 잰다</b><span>게임마다 초보·일반·고수를 정의하고 버전을 고정한다</span></div><div class="card num"><em>3</em><b>일반 50 + 고수 50</b><span>레벨 기준 성공률. 초보는 진입 난도 확인용으로 따로 본다</span></div><div class="card num"><em>4</em><b>D 는 평균 가설</b><span>D1~D5 = 80~100 / 60~80 / 40~60 / 20~40 / 10~20%. 판 하나의 합격선이 아니다. D6·D7 은 꼭 필요할 때만</span></div><div class="card num"><em>5</em><b>4·9 허들, 5·0 회복</b><span>L1~13 학습. 새 기믹은 쉬운 판에서 단독 소개하고 곧바로 반복</span></div><div class="card num"><em>6</em><b>레벨을 고친다</b><span>숫자가 안 맞으면 봇이 아니라 레벨·자원·기믹·재도전 편성을 고친다</span></div><div class="card num"><em>7</em><b>봇 ≠ 유저</b><span>출시 후 첫 도전 성공률·재도전 횟수·이탈로 보정한다</span></div><div class="card num"><em>8</em><b>눈금부터 확인</b><span>이 봇들로 레벨이 갈리는지 먼저 본다. Coster 는 포화, BTF 는 구간 위였다</span></div></div></div><details class="tv"><summary>텍스트로 보기</summary><ol>
+<li>원작의 레벨별 성공률을 복제하지 않는다. <strong>설계 원칙</strong>(도전→회복 리듬, 쉬운 기믹 학습, 재도전 변형, 허들 보상)을 가져온다.</li>
+<li>난이도는 게임마다 정의하고 <strong>고정한 봇 3종</strong>(초보·일반·고수)으로 잰다.</li>
+<li>레벨 제작 기준 성공률 = <strong>일반 50% + 고수 50%</strong>. 초보는 따로 본다.</li>
+<li>D1~D5 목표는 <strong>등급별 평균 가설</strong>(80~100 / 60~80 / 40~60 / 20~40 / 10~20%)이다. 개별 판의 합격선이 아니다. D6·D7 은 꼭 필요할 때만 팀장님 확정 후 예외로 만든다(2.6).</li>
+<li>진행은 <strong>학습 → 주기적 허들(끝자리 4·9) → 직후 회복(끝자리 5·0)</strong>. 새 기믹은 쉬운 판에서 단독으로 소개하고 곧바로 반복한다.</li>
+<li>숫자가 안 맞으면 <strong>레벨을 고친다. 봇을 고치지 않는다.</strong></li>
+<li>봇 성공률은 유저 승률이 아니다. 출시 후 <strong>첫 도전 성공률·재도전 횟수·이탈</strong>로 보정한다.</li>
+<li>새 게임에서는 먼저 <strong>이 봇들로 레벨이 갈리는지(난이도 눈금)</strong> 확인한다. 실제로 적용한 두 게임 모두 기본 50:50 값을 그대로 쓰지 못했다. Coster 는 포화했고, BusTrafficFever 는 D2~D5 가 구간 위로 나왔다(7.5~7.7).</li>
+</ol></details>
+<h3 id="s1-2">0.2 스킬 사용법</h3>
+<p>실제 측정·배치 작업은 <strong>스킬 <code>grp1-balance</code></strong> 가 한다. 이 가이드는 그 흐름과 판단 근거를 사람이 이해하기 위한 것이다.</p>
+<div class="vis" data-vis="skilluse"><div class="use">
+ <div class="usecol">
+  <div class="box"><h5>어디에 있나</h5><p><code>grp1_common/.claude/skills/grp1-balance/</code> <span class="tag">팀장님 적용 예정</span></p>
+   <p class="small">원본은 MagicSort <code>tools/grp1_balance_skill/package/</code> 에서 만든다 · 약 2.8MB</p></div>
+  <div class="box"><h5>부르는 법</h5>
+   <div class="callrow"><span class="where">grp1_common 세션</span><span><code>/grp1-balance</code> (Claude Code) · <code>$grp1-balance</code> (Codex)</span></div>
+   <div class="callrow"><span class="where">게임 저장소 세션</span><span>자동으로 뜨지 않는다 → 첫 요청에 <code>SKILL.md</code> 경로를 함께</span></div>
+   <div class="bubble"><span class="who">담당자</span>grp1_common 의 <code>.claude/skills/grp1-balance/SKILL.md</code> 를 읽고 우리 게임에 GRP1 Balance 적용하자. 초보는 즉시 매치, 없으면 같은 색, 없으면 무작위다.</div></div>
+  <div class="box"><h5>처음에 알려 주면 빨라지는 것</h5><div class="chips"><span>레벨 데이터 위치</span><span>시뮬레이터 유무</span><span>초보의 직관 규칙</span><span>숨김 정보 여부</span><span>측정에 쓸 수 있는 시간</span></div></div>
+ </div>
+ <div class="usecol">
+  <div class="box ask"><h5>스킬이 묻는 것 <span class="small">— 이미 정한 것은 다시 묻지 않는다</span></h5><ul><li>한 수의 단위</li><li>초보 직관 우선순위</li><li>일반·고수 평가 항목</li><li>정보 조건 (숨김 값)</li><li>측정 횟수</li><li>재도전·구제</li><li>D6·D7 필요 여부</li></ul></div>
+  <div class="box def"><h5>스킬이 먼저 내놓는 기본값</h5><ul><li>초보(직관) · 일반(1수) · 고수(2수)</li><li>실수 일반 17.39% · 고수 9.00%</li><li>지표 = 일반 50 + 고수 50</li><li>D1~D5 평균 가설</li><li>3.8 기본 배치안</li><li>예비 200~1,000회 → 최종 10,000회</li></ul></div>
+  <div class="box gate"><h5>팀장님 확정이 필요한 것</h5><ul><li>봇 프로필</li><li>50:50 이 아닌 눈금</li><li>측정 횟수 축소</li><li>실수 안전 보정</li><li>D6·D7 제작</li><li>기준 변경</li></ul></div>
+ </div></div></div><details class="tv"><summary>텍스트로 보기</summary><ul>
+<li><strong>위치</strong>: grp1_common 저장소의 <code>.claude/skills/grp1-balance/</code>(develop 에 반영되면 <code>git pull</code> 로 받는다). 스킬의 <code>assets/</code> 에는 이 가이드와 &#39;한눈에 보기&#39;(각각 MD·HTML)만 들어 있다. 원본은 MagicSort <code>tools/grp1_balance_skill/package/</code> 에서 만든다.</li>
+<li><strong>호출</strong><ul>
+<li>grp1_common 을 연 세션: Claude Code <code>/grp1-balance</code>, Codex <code>$grp1-balance</code>.</li>
+<li>게임 저장소 세션: 스킬이 자동으로 뜨지 않으므로 첫 요청에 경로를 함께 준다.</li>
+<li>예: &quot;grp1_common 의 <code>.claude/skills/grp1-balance/SKILL.md</code> 를 읽고 우리 게임에 GRP1 Balance 적용하자. 초보는 즉시 매치, 없으면 같은 색, 없으면 무작위다.&quot;</li>
+</ul>
+</li>
+<li><strong>처음에 알려 주면 빨라지는 것</strong>: 레벨 데이터 위치, 시뮬레이터 유무, 초보의 직관 규칙, 숨김 정보 여부, 측정에 쓸 수 있는 시간.</li>
+<li><strong>스킬이 묻는 것</strong>(이미 정한 것은 다시 묻지 않는다): 한 수의 단위, 초보 직관 우선순위, 일반·고수 평가 항목, 정보 조건, 측정 횟수, 재도전·구제, D6·D7 필요 여부.</li>
+<li><strong>스킬이 먼저 제안하는 기본값</strong>: 초보(직관)·일반(1수)·고수(2수), 실수 17.39%·9.00%, 일반 50 + 고수 50, D1~D5 평균 가설, 3.8 기본 배치안, 예비 200~1,000회 → 최종 10,000회.</li>
+<li><strong>팀장님 확정이 필요한 것</strong>: 봇 프로필, 50:50 이 아닌 눈금, 측정 횟수 축소, 실수 안전 보정, D6·D7 제작, 기준 변경.</li>
+</ul></details>
+<h3 id="s1-3">0.3 작업 흐름</h3>
+<div class="vis" data-vis="flow"><figure class="viz"><figcaption class="vt">스킬로 진행하는 7단계 — 누가 무엇을 하나</figcaption><div class="scroll lanes-d"><div class="lanes">
+  <div class="lh"></div><div class="sh">① 코어 룰</div><div class="sh">② 설계표</div><div class="sh">③ 봇 확정</div><div class="sh">④ 검증·눈금</div><div class="sh">⑤ 측정</div><div class="sh">⑥ 조정</div><div class="sh">⑦ 보고</div>
+  <div class="ll ">담당자</div><div class="lc   ">레벨·시뮬레이터 위치 알려 주기</div><div class="lc   ">게임 길이·기믹 순서 조정</div><div class="lc   ">초보 직관 규칙 답하기</div><div class="lc empty  "></div><div class="lc empty  "></div><div class="lc   ">교체·재생성 확인</div><div class="lc   ">출시 후 유저 지표 수집</div><div class="ll sk">스킬</div><div class="lc   sk">규칙·생성기·시뮬레이터·기존 레벨 확인</div><div class="lc   sk">기본 배치안으로 역할·목표 D 초안</div><div class="lc   sk">봇 3종·실수 기본값 제안</div><div class="lc   sk">대표 10~20판 검증 → 예비 측정 → 포화·맹점·강도 판정</div><div class="lc   sk">후보 생성 → 예비 → 최종 측정</div><div class="lc   sk">목표 D 비교 → 레벨 수정·교체 제안 → 리듬 검증</div><div class="lc   sk">HTML + MD + JSON 보고</div><div class="ll tm">팀장님</div><div class="lc empty  "></div><div class="lc empty  "></div><div class="lc  gate ">봇 프로필 확정<i class="gi">확정</i></div><div class="lc  gate ">눈금을 바꿀 때<i class="gi">확정</i></div><div class="lc  gate ">횟수를 줄일 때<i class="gi">확정</i></div><div class="lc  gate ">D6·D7 · 기준 변경<i class="gi">확정</i></div><div class="lc empty  "></div>
+ </div></div><ol class="lanes-m"><li><b>① 코어 룰</b><div class="lm  "><span>담당자</span>레벨·시뮬레이터 위치 알려 주기</div><div class="lm sk "><span>스킬</span>규칙·생성기·시뮬레이터·기존 레벨 확인</div></li><li><b>② 설계표</b><div class="lm  "><span>담당자</span>게임 길이·기믹 순서 조정</div><div class="lm sk "><span>스킬</span>기본 배치안으로 역할·목표 D 초안</div></li><li><b>③ 봇 확정</b><div class="lm  "><span>담당자</span>초보 직관 규칙 답하기</div><div class="lm sk "><span>스킬</span>봇 3종·실수 기본값 제안</div><div class="lm  gate"><span>팀장님</span>봇 프로필 확정<i class="gi">확정</i></div></li><li><b>④ 검증·눈금</b><div class="lm sk "><span>스킬</span>대표 10~20판 검증 → 예비 측정 → 포화·맹점·강도 판정</div><div class="lm  gate"><span>팀장님</span>눈금을 바꿀 때<i class="gi">확정</i></div></li><li><b>⑤ 측정</b><div class="lm sk "><span>스킬</span>후보 생성 → 예비 → 최종 측정</div><div class="lm  gate"><span>팀장님</span>횟수를 줄일 때<i class="gi">확정</i></div></li><li><b>⑥ 조정</b><div class="lm  "><span>담당자</span>교체·재생성 확인</div><div class="lm sk "><span>스킬</span>목표 D 비교 → 레벨 수정·교체 제안 → 리듬 검증</div><div class="lm  gate"><span>팀장님</span>D6·D7 · 기준 변경<i class="gi">확정</i></div></li><li><b>⑦ 보고</b><div class="lm  "><span>담당자</span>출시 후 유저 지표 수집</div><div class="lm sk "><span>스킬</span>HTML + MD + JSON 보고</div></li></ol><p class="cap">⑥ 에서 리듬이 어긋나면 레벨을 고쳐 ⑤ 로 돌아간다. 봇은 그대로 둔다. ◆ 는 팀장님 확정이 필요한 지점이다.</p></figure></div><details class="tv"><summary>텍스트로 보기</summary><pre><code>담당자: &quot;grp1-balance 로 우리 게임에 적용하자&quot;
+   │
+① 코어 룰 파악 (한 수 단위 · 승패 · 기믹 · 숨김 정보)
+   │
+② 그랜드 게임 진행 구조로 설계표 작성 → 자리마다 역할 · 목표 D
+   │   x4 하드 · x9 슈퍼하드 · x5/x0 회복 · 기믹은 쉬운 판에서 단독 소개 후 반복
+   │   첫 판 / 재도전 변형 분리 · 허들 보상 · (꼭 필요하면 D6·D7)
+   │
+③ 봇 3종 제안 → 팀장님 확정
+   │   초보: 직관 우선순위, 같은 순위면 무작위
+   │   일반: 모든 합법 행동을 1수 뒤 결과로 평가 + 무작위 17.39%
+   │   고수: 모든 합법 행동을 2수 뒤 결과로 평가 + 무작위 9.00%
+   │
+④ 대표 10~20판으로 봇 검증 → 난이도 눈금 점검 → 봇 버전 고정
+   │
+⑤ 측정: 지표 = 일반 50% + 고수 50% (초보는 따로 보고)
+   │   예비 200~1,000회 → 최종 10,000회 (오래 걸리면 팀장님 확정으로 축소)
+   │
+⑥ 자리의 목표 D 와 비교 → 안 맞는 레벨을 고치거나 교체 (봇은 그대로)
+   │   확인: 등급별 평균 · 서열 · 허들 → 회복 폭
+   │
+⑦ 보고 → 출시 후 실제 첫 도전 성공률로 보정
+</code></pre></details>
+<details class="tv"><summary>단계별 표로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>단계</th>
+<th>스킬이 하는 일</th>
+<th>담당자·팀장님이 할 일</th>
+<th>산출물</th>
+<th>자세히</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>① 코어 룰</td>
+<td>규칙·생성기·시뮬레이터·기존 레벨 확인</td>
+<td>레벨 데이터·시뮬레이터 위치 알려 주기</td>
+<td>기존 자산 목록</td>
+<td>5장 ①</td>
+</tr>
+<tr>
+<td>② 설계표</td>
+<td>기본 배치안으로 역할·목표 D 초안</td>
+<td>게임 길이·기믹 순서 조정</td>
+<td>진행 설계표</td>
+<td>3장</td>
+</tr>
+<tr>
+<td>③ 봇 확정</td>
+<td>봇 3종·실수 기본값 제안</td>
+<td>초보 직관 규칙 답하기, 팀장님 확정</td>
+<td>봇 프로필</td>
+<td>2.3 · 4장</td>
+</tr>
+<tr>
+<td>④ 검증·눈금</td>
+<td>대표 판 검증 7항목, 예비 측정, 포화·맹점·강도 판정</td>
+<td>눈금 변경이 필요하면 팀장님 확정</td>
+<td>사전 검증 기록 · 눈금 점검</td>
+<td>5장 ③ · ③-2</td>
+</tr>
+<tr>
+<td>⑤ 측정</td>
+<td>후보 생성, 예비 → 최종 측정</td>
+<td>시간이 길면 횟수 축소 확정</td>
+<td>원시 JSON/CSV</td>
+<td>2.4 · 5장 ⑤⑦</td>
+</tr>
+<tr>
+<td>⑥ 조정</td>
+<td>목표 D 와 비교, 레벨 교체·수정 제안, 리듬 검증</td>
+<td>교체·재생성 승인</td>
+<td>비교 JSON · 리듬 검증</td>
+<td>5장 ⑥⑧</td>
+</tr>
+<tr>
+<td>⑦ 보고</td>
+<td>HTML + MD + JSON/CSV 보고</td>
+<td>출시 후 유저 지표로 보정</td>
+<td>보고서</td>
+<td>5장 ⑨⑩</td>
+</tr>
+</tbody></table></div>
+</details>
+<nav class="pager" aria-label="페이지 이동"><span></span><a class="next" href="#s2"><small>다음 →</small>1. GRP1 Balance 란</a></nav></section>
+<section class="panel page" data-page="1"><div class="pagehead"><span class="ph-nav"><a href="#s1">← 이전</a><b>2 / 13</b><a href="#s3">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s2">1. GRP1 Balance 란</h2>
+<h3 id="s2-1">1.1 정의</h3>
+<p>그룹1 퍼즐 게임의 공통 레벨 밸런스 기준이다. Grand Games 퍼즐 3종(매직소트·카매치·블록아웃)에서 확인한 진행 구조를 설계 원칙으로 삼는다. 그리고 게임마다 정의·고정한 봇으로 레벨 난이도를 재고 배치한다.</p>
+<h3 id="s2-2">1.2 가져오는 것과 가져오지 않는 것</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>가져온다 (설계 원칙)</th>
+<th>가져오지 않는다</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>끝자리 4 하드·9 슈퍼하드, 5·0 회복의 10판 리듬</td>
+<td>같은 번호 레벨의 성공률. 매직소트 첫 판 평균 38.47%를 맞추는 것도 포함</td>
+</tr>
+<tr>
+<td>쉬운 판에서 새 기믹 소개, 곧바로 반복 노출</td>
+<td>&quot;원작 D1 = 우리 D1&quot; 이라는 전제</td>
+</tr>
+<tr>
+<td>첫 판과 재도전 변형을 따로 편성</td>
+<td>원작 상수: 구제 cap 6·11회, 보상 20/60/100, 카매치 평가 계수, 병 수, 기믹 도입 레벨 번호</td>
+</tr>
+<tr>
+<td>허들 통과 보상과 다음 회복 판을 한 묶음으로 설계</td>
+<td>별도 구제(DLB)를 공통 필수 기능으로 보는 것</td>
+</tr>
+<tr>
+<td>판 크기보다 정보·공간·장애물·배치로 난도 조절</td>
+<td>&quot;기믹 소개 후 N레벨 휴식&quot; 같은 고정 규칙(원작에서 확인 안 됨)</td>
+</tr>
+</tbody></table></div>
+<h3 id="s2-3">1.3 세 층을 섞지 않는다</h3>
+<div class="vis" data-vis="layers"><div class="layers"><div class="layer l3"><div><b>게임별 결정</b><span>대상 게임에 맞춰 정하는 값</span></div><div class="ex">초보 행동 · 한 수 단위 · 실수 안전 보정 · DLB · 보상량 · D6·D7</div><div class="how">팀장님·게임팀 확정</div></div><div class="layer l2"><div><b>우리 기준 (가설)</b><span>관측을 근거로 정한 제작 기준</span></div><div class="ex">50:50 · D1~D5 구간 · 봇 설계 원칙 · 실수 기본값</div><div class="how">팀장님 결정으로 버전을 올려 변경</div></div><div class="layer l1"><div><b>원본 관측</b><span>원작 번들에서 읽은 사실</span></div><div class="ex">x4·x9 위치 · 보상 20/60/100 · 매직소트 L49 cap 6</div><div class="how">바꾸지 않는다 — 재분석으로 정정만</div></div>
+ <p class="cap">위로 갈수록 바꾸기 쉽다. 문서·보고서에는 어느 층의 주장인지 밝힌다.</p></div></div><details class="tv"><summary>텍스트로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>층</th>
+<th>뜻</th>
+<th>예</th>
+<th>바꾸는 방법</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>원본 관측</strong></td>
+<td>원작 번들에서 읽은 사실</td>
+<td>x4·x9 위치, 보상 20/60/100, 매직소트 L49 cap 6</td>
+<td>바꾸지 않는다. 재분석으로 정정만 한다</td>
+</tr>
+<tr>
+<td><strong>우리 기준(가설)</strong></td>
+<td>관측을 근거로 우리가 정한 제작 기준</td>
+<td>일반·고수 50:50, D1~D5 구간, 봇 설계 원칙</td>
+<td>팀장님 결정으로 버전을 올려 바꾼다</td>
+</tr>
+<tr>
+<td><strong>게임별 결정</strong></td>
+<td>대상 게임에 맞춰 정하는 값</td>
+<td>초보 행동, 한 수 단위, 실수율, DLB 여부, 보상량</td>
+<td>팀장님·게임팀이 확정한다</td>
+</tr>
+</tbody></table></div></details>
+<p>문서·보고서에 쓸 때 <strong>어느 층의 주장인지 밝힌다.</strong> 원작 제작사가 이 봇이나 비율을 썼다고 확인한 것은 없다(통합 가이드 &#39;공통 구조와 우리의 측정 기준은 구분한다&#39;).</p>
+<h3 id="s2-4">1.4 여기까지 온 경과</h3>
+<div class="vis" data-vis="timeline"><div class="tl-legend"><span class="tg2 ta">원작 분석</span><span class="tg2 ts">공통 기준</span><span class="tg2 tg">게임 적용</span><span class="tg2 td">팀장님 결정</span></div><ol class="tline"><li><time>10-07</time><span class="tg2 ta">원작 분석</span><p>매직소트 구조 분석 → v1 정책 (무작위 봇 1종 · G1~G7 · 200회)</p></li><li><time>10-07</time><span class="tg2 tg">게임 적용</span><p>CubeLand 파일럿 — 재현 통과, ‘적합(경계선)’, 결정 2건 보류</p></li><li><time>10-08</time><span class="tg2 ta">원작 분석</span><p>매직소트 3집단 측정 3,354만 회 · 카매치 분석과 봇 v1 → v2 7,500만 회</p></li><li><time>10-08</time><span class="tg2 ts">공통 기준</span><p>v1 참고용 전환 · 일반 50 + 고수 50 · D1~D5 평균 가설</p></li><li><time>10-09</time><span class="tg2 ts">공통 기준</span><p>가이드·측정 자료를 스킬 grp1-balance 로 묶음</p></li><li><time>10-09</time><span class="tg2 tg">게임 적용</span><p>Coster 첫 적용 → 기본 봇 50:50 포화 (0.988)</p></li><li><time>10-11</time><span class="tg2 td">팀장님 결정</span><p>Coster 눈금 = 성급 무작위 초보, 1수 봇 게이트 0.75</p></li><li><time>10-12</time><span class="tg2 ts">공통 기준</span><p>물음표 보완 측정 → 색 아는 봇 기준 유지, 운 위험 표시</p></li><li><time>10-12</time><span class="tg2 tg">게임 적용</span><p>BusTrafficFever 첫 적용 · Coster 일반 판 기준선 재설계</p></li><li><time>10-13</time><span class="tg2 td">팀장님 결정</span><p>BTF 측정 자 = v2.1, 목표 D 확정</p></li><li><time>10-16</time><span class="tg2 ta">원작 분석</span><p>블록아웃 정적 대조 — 같은 리듬 · 같은 경제 기본값</p></li><li><time>10-19</time><span class="tg2 tg">게임 적용</span><p>BTF 최종 측정 — 서열·리듬 OK, D2~D5 구간 위</p></li><li><time>10-20</time><span class="tg2 ts">공통 기준</span><p>무작위 봇 3지표 · Honey 실수 3종 비교 → GRP1 50:50 유지</p></li><li><time>10-20</time><span class="tg2 td">팀장님 결정</span><p>실수 17.39% · 9.00% (레벨 보정 없음) · D6·D7 예외 허용 · 스킬 2.8MB</p></li></ol></div><details class="tv"><summary>텍스트로 보기</summary><pre><code>10-07  매직소트 구조 분석 → v1 정책 (무작위 봇 1종 · G1~G7 고정 경계 · 판당 200회)
+         └ CubeLand 파일럿: 측정 재현은 통과, 판정 &#39;적합(경계선)&#39;, 결정 2건 보류
+10-08  매직소트 3집단 봇 측정 (블로커 포함, 3,354만 회)
+       카매치 구조 분석 · 봇 v1 → v2 (7,500만 회)
+         └ v1 은 참고용으로 전환. 런칭 지표 = 일반50+고수50, D1~D5 평균 가설 채택
+10-09  가이드·측정 자료를 스킬(grp1-balance)로 묶음
+       Coster 첫 적용 → 기본 봇 50:50 포화 (대표 25판 평균 0.988)
+10-11  Coster: 난이도 축 = 성급 무작위 초보, 1수 봇 = 함정 게이트 (팀장님 결정)
+10-12  물음표(숨김 색) 보완 측정 → 기준은 색 아는 봇 유지, 가린 봇은 &#39;운 위험&#39; 표시
+         └ 공용 저장소엔 공용 정책·도구만, 게임별 측정은 각 게임 저장소에서
+       BusTrafficFever 첫 적용 (봇 v1) · Coster 일반 판 기준선 재설계
+10-13  BTF: 측정 자 = 봇 v2.1, 목표 D 확정 (팀장님 결정)
+10-16  블록아웃 정적 대조 → 같은 리듬 · 같은 경제 기본값 확인
+10-19  BTF 최종 측정 (v2.1) → 서열·리듬은 섰고 D2~D5 는 구간 위
+10-20  통합 가이드 갱신 · 한눈에보기 · BTF 가이드형 봇 비교 · 이 작업 가이드
+       무작위 봇 3지표 · Honey 실수 3종 비교 → GRP1 50:50 유지
+         └ 팀장님 결정: 실수 기본값 17.39%·9.00%(레벨 보정 없음), D6·D7 은 꼭 필요할 때만
+         └ 스킬 용량 정리 16.4MB → 2.8MB
+</code></pre></details>
+<p>출처: 한눈에보기, <code>superpowers/specs/2026-10-07-level-balance-policy-design.md</code>, grp1_common 커밋 <code>fcd8db0c6</code>·<code>6cf0336c</code>·<code>28b43354</code>, BTF <code>docs/btf-grp1-balance.md</code>, Coster <code>docs/grp1-balance-*.md</code>.</p>
+<p><strong>v1 → 현행에서 바뀐 것</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>축</th>
+<th>v1 (10-07, 참고용)</th>
+<th>현행 GRP1 Balance</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>봇</td>
+<td>무의미한 수를 뺀 균등 무작위 1종</td>
+<td>초보·일반·고수를 게임별로 정의. 기본안은 일반 1수·고수 2수</td>
+</tr>
+<tr>
+<td>지표</td>
+<td>단일 봇 성공률</td>
+<td>(일반+고수)/2. 초보는 별도 보고</td>
+</tr>
+<tr>
+<td>등급</td>
+<td>G1~G7 고정 경계(55/38/28/13/3/1%)</td>
+<td>D1~D5 <strong>평균 가설</strong>. D6·D7 은 공용 목표 밖, 꼭 필요하면 예외로 제작</td>
+</tr>
+<tr>
+<td>판정</td>
+<td>P1~P7 규칙 위반·경고 자동 판정</td>
+<td>합격선 없이 거리·서열·분포·리듬을 보고</td>
+</tr>
+<tr>
+<td>시행 수</td>
+<td>200회, 경계에 걸치면 1,000회</td>
+<td>예비 200~1,000회, 최종 10,000회</td>
+</tr>
+<tr>
+<td>자리(x4·x9·x5·x0)</td>
+<td>필수 규칙(P1)</td>
+<td>초기안. 게임에 맞춰 조정하고 예외를 기록</td>
+</tr>
+<tr>
+<td>구간별 목표 곡선</td>
+<td>있음(P2 위반 판정)</td>
+<td>판정용 곡선은 없다. v1 곡선에서 만든 &#39;기본 배치안&#39;(3.8)을 목표 D 의 출발점으로만 쓴다</td>
+</tr>
+<tr>
+<td>구제</td>
+<td>벽 레벨 약 40%에 권장</td>
+<td>게임별 선택</td>
+</tr>
+<tr>
+<td>보상</td>
+<td>1:3:5 필수</td>
+<td>20/60/100은 사례일 뿐</td>
+</tr>
+<tr>
+<td>근거 게임</td>
+<td>매직소트</td>
+<td>매직소트 + 카매치 (+ 블록아웃 정적 대조)</td>
+</tr>
+</tbody></table></div>
+<p>중간 단계였던 3집단 가중(초보 56.6 · 일반 42.0 · 고수 1.4%)은 <strong>과거 지표로만 보존</strong>한다. 이 비율과 실수율은 CubeLand <code>UserCohortModel</code> 의 <code>cohort-one-step-v3</code> 에서 왔고, 매직소트·카매치 이용자 구성을 관측한 값이 아니다(<code>MagicSort_코호트봇_실측_비교.md</code> 98행).</p>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s1"><small>← 이전</small>0. 한눈에 보기 — 원칙과 스킬 사용 흐름</a><a class="next" href="#s3"><small>다음 →</small>2. 공통 기준 — 모든 게임이 같은 것을 쓴다</a></nav></section>
+<section class="panel page" data-page="2"><div class="pagehead"><span class="ph-nav"><a href="#s2">← 이전</a><b>3 / 13</b><a href="#s4">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s3">2. 공통 기준 — 모든 게임이 같은 것을 쓴다</h2>
+<h3 id="s3-1">2.1 측정 지표</h3>
+<div class="vis" data-vis="metric"><div class="split"><div class="formula"><span class="small">런칭 설계용 성공률</span><b>½ 일반 + ½ 고수</b><span>첫 판 기준 · 초보는 따로 보고</span></div><figure class="viz"><figcaption class="vt">같은 D 에서 매직소트·카매치 값의 평균 차이 (%p) — 작을수록 공용 눈금으로 일정</figcaption><svg viewBox="0 0 560 150" role="img" aria-label="지표별 두 게임 평균 차이"><line x1="210" x2="210" y1="8" y2="132" class="grid"/><text x="210" y="146" class="ta c">0</text><line x1="282.5" x2="282.5" y1="8" y2="132" class="grid"/><text x="282.5" y="146" class="ta c">10</text><line x1="355" x2="355" y1="8" y2="132" class="grid"/><text x="355" y="146" class="ta c">20</text><line x1="427.5" x2="427.5" y1="8" y2="132" class="grid"/><text x="427.5" y="146" class="ta c">30</text><line x1="500" x2="500" y1="8" y2="132" class="grid"/><text x="500" y="146" class="ta c">40</text><text x="200" y="28" class="tl r">GRP1 (일반 50 + 고수 50)</text><rect x="210" y="16" width="54.375" height="18" rx="4" class="hi" tabindex="0" data-tip="GRP1 (일반 50 + 고수 50) · 7.5%p"/><text x="270.375" y="29" class="tv">7.5%p</text><text x="200" y="68" class="tl r">3단계 가중 (56.6 / 42 / 1.4)</text><rect x="210" y="56" width="184.14999999999998" height="18" rx="4" class="mute" tabindex="0" data-tip="3단계 가중 (56.6 / 42 / 1.4) · 25.4%p"/><text x="400.15" y="69" class="tv">25.4%p</text><text x="200" y="108" class="tl r">완전 무작위 봇</text><rect x="210" y="96" width="266.79999999999995" height="18" rx="4" class="mute" tabindex="0" data-tip="완전 무작위 봇 · 36.8%p"/><text x="482.79999999999995" y="109" class="tv">36.8%p</text></svg><p class="cap">출처: 매직소트_카매치_무작위봇_3지표_비교 (10-20)</p></figure></div></div><ul>
+<li><strong>런칭 설계용 성공률 p = 0.5 × 일반 + 0.5 × 고수.</strong> 첫 판(첫 seed) 기준이다.</li>
+<li><strong>다른 지표보다 게임 간 눈금이 가장 일정하다(10-20 비교).</strong> 같은 D 에서 매직소트·카매치 값의 평균 차이가 GRP1 7.5%p, 3단계 가중(56.6/42/1.4) 25.4%p, 완전 무작위 봇 36.8%p 다. 그래서 GRP1 을 유지한다(<code>매직소트_카매치_무작위봇_3지표_비교.md</code>).</li>
+<li><strong>완전 무작위 봇은 보조 지표다.</strong> &#39;아무렇게나 눌러도 깨지는가&#39;(진입 난도·튜토리얼)를 볼 때만 쓴다. 카매치형에서는 D2 부터 거의 0% 라 정보가 없다. Honey Trap 목표 범위(85/80/65/40%)는 가져오지 않는다.</li>
+<li>초보 성공률은 초반 진입 난도를 확인하는 용도로 따로 보고한다.</li>
+<li>일반·고수가 <strong>각각</strong> 구간에 들어와야 하는 조건은 아니다.</li>
+<li>다른 비율을 쓰려면 <strong>레벨 선별 전에</strong> 확정하고 모든 비교에 똑같이 적용한다. 비율을 바꾸면 새 profileId 로 관리한다. 바꾼 비율에서 가설 구간이 검증됐다는 뜻은 아니다.</li>
+<li>출처: 스킬 <code>references/launch-reference.json</code> (<code>id: grp1-launch-v2</code>), <code>references/model-and-calibration.md</code>.</li>
+<li><strong>이 값이 그대로 난이도 눈금이 된다는 보장은 없다.</strong> BTF 는 D2~D5 가 모두 구간 위였고 Coster 는 포화했다. 대표 판 예비 측정 직후 ③-2 눈금 점검을 한다.</li>
+</ul>
+<h3 id="s3-2">2.2 D1~D5 등급별 평균 가설</h3>
+<div class="vis" data-vis="bands"><figure class="viz"><figcaption class="vt">등급별 첫 판 평균 (일반·고수 50:50) 과 가설 구간</figcaption><div class="legend"><span class="lg"><i class="k s1 cir"></i>매직소트 (기존 봇)</span><span class="lg"><i class="k s2 dia"></i>카매치 v2</span><span class="lg"><i class="k s3 tri"></i>BusTrafficFever v2.1</span><span class="lg"><i class="k band"></i>가설 구간</span></div><svg viewBox="0 0 780 360" role="img" aria-label="D1부터 D7까지 가설 구간과 세 게임 실측"><line x1="46" x2="766" y1="302" y2="302" class="grid"/><text x="38" y="306" class="ta r">0%</text><line x1="46" x2="766" y1="248.4" y2="248.4" class="grid"/><text x="38" y="252.4" class="ta r">20%</text><line x1="46" x2="766" y1="194.79999999999998" y2="194.79999999999998" class="grid"/><text x="38" y="198.79999999999998" class="ta r">40%</text><line x1="46" x2="766" y1="141.2" y2="141.2" class="grid"/><text x="38" y="145.2" class="ta r">60%</text><line x1="46" x2="766" y1="87.6" y2="87.6" class="grid"/><text x="38" y="91.6" class="ta r">80%</text><line x1="46" x2="766" y1="34" y2="34" class="grid"/><text x="38" y="38" class="ta r">100%</text><rect x="54" y="34" width="82" height="53.599999999999994" rx="4" class="band" tabindex="0" data-tip="D1 가설 구간 80~100%"/><rect x="152" y="87.6" width="82" height="53.599999999999994" rx="4" class="band" tabindex="0" data-tip="D2 가설 구간 60~80%"/><rect x="250" y="141.2" width="82" height="53.599999999999994" rx="4" class="band" tabindex="0" data-tip="D3 가설 구간 40~60%"/><rect x="348" y="194.79999999999998" width="82" height="53.60000000000002" rx="4" class="band" tabindex="0" data-tip="D4 가설 구간 20~40%"/><rect x="446" y="248.4" width="82" height="26.80000000000004" rx="4" class="band" tabindex="0" data-tip="D5 가설 구간 10~20%"/><rect x="578" y="275.20000000000005" width="82" height="26.799999999999955" rx="4" class="bandref" tabindex="0" data-tip="D6 참고 0~10% — 카매치 원본 avgSolRatio, 목표 아님"/><line x1="553" x2="553" y1="16" y2="342" class="sep"/><text x="563" y="20" class="ta">예외 등급 · 공용 목표 밖</text><text x="95" y="322" class="tl c b">D1</text><text x="95" y="339" class="ta c">80~100</text><text x="193" y="322" class="tl c b">D2</text><text x="193" y="339" class="ta c">60~80</text><text x="291" y="322" class="tl c b">D3</text><text x="291" y="339" class="ta c">40~60</text><text x="389" y="322" class="tl c b">D4</text><text x="389" y="339" class="ta c">20~40</text><text x="487" y="322" class="tl c b">D5</text><text x="487" y="339" class="ta c">10~20</text><text x="619" y="322" class="tl c b">D6</text><text x="619" y="339" class="ta c">참고 0~10</text><text x="717" y="322" class="tl c b">D7</text><text x="717" y="339" class="ta c">참고 없음</text><circle cx="73.44" cy="78.62290847457626" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D1 · 83.35% (59판)"/><circle cx="171.44" cy="139.28518144329894" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D2 · 60.71% (97판)"/><circle cx="269.44" cy="165.15128181818181" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D3 · 51.06% (44판)"/><circle cx="367.44" cy="192.936328" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D4 · 40.70% (50판)"/><circle cx="465.44" cy="252.64231818181818" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D5 · 18.42% (44판)"/><rect x="89.5" y="63.62394599999999" width="11" height="11" transform="rotate(45 95 69.12394599999999)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D1 · 86.89% (100판)"/><rect x="187.5" y="153.5002524590164" width="11" height="11" transform="rotate(45 193 159.0002524590164)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D2 · 53.36% (61판)"/><rect x="285.5" y="193.36861794871794" width="11" height="11" transform="rotate(45 291 198.86861794871794)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D3 · 38.48% (156판)"/><rect x="383.5" y="221.0829727272727" width="11" height="11" transform="rotate(45 389 226.5829727272727)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D4 · 28.14% (88판)"/><rect x="481.5" y="243.76362999999998" width="11" height="11" transform="rotate(45 487 249.26362999999998)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D5 · 19.68% (60판)"/><path d="M116.56 26.5L123.56 39.5L109.56 39.5Z" class="s3 ring" tabindex="0" data-tip="BTF v2.1 D1 · 100.0% (25판)"/><path d="M214.56 29.18L221.56 42.18L207.56 42.18Z" class="s3 ring" tabindex="0" data-tip="BTF v2.1 D2 · 99.0% (86판)"/><path d="M312.56 30.252000000000017L319.56 43.25200000000002L305.56 43.25200000000002Z" class="s3 ring" tabindex="0" data-tip="BTF v2.1 D3 · 98.6% (134판)"/><path d="M410.56 121.63999999999999L417.56 134.64L403.56 134.64Z" class="s3 ring" tabindex="0" data-tip="BTF v2.1 D4 · 64.5% (5판)"/><path d="M508.56 165.86L515.56 178.86L501.56 178.86Z" class="s3 ring" tabindex="0" data-tip="BTF v2.1 D5 · 48.0% (49판)"/><circle cx="597.44" cy="298.0827333333333" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D6 · 1.46% (3설정, 참고)"/><rect x="613.5" y="273.3941885714286" width="11" height="11" transform="rotate(45 619 278.8941885714286)" class="s2 ring" tabindex="0" data-tip="카매치 v2 D6 · 8.62% (35판, 참고)"/><circle cx="695.44" cy="288.98859999999996" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 D7 · 4.85% (2설정, 참고 · D6 보다 높음)"/></svg><p class="cap">점에 올리면 값이 보인다. 세 게임은 봇 정책이 달라 서로 비교하지 않는다. 원작도 모든 등급이 구간에 들지 않는다(매직소트 4/5, 카매치 3/5). D6·D7 은 표본이 적은 참고값이다.</p></figure></div><details class="tv"><summary>표로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>등급</th>
+<th align="right">평균 목표 가설</th>
+<th align="right">매직소트 (기존 봇, 50:50)</th>
+<th align="right">카매치 v2 (50:50)</th>
+<th align="right">카매치 v2 초보</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D1</td>
+<td align="right">80~100%</td>
+<td align="right">83.35% (59판)</td>
+<td align="right">86.89% (100판)</td>
+<td align="right">55.37%</td>
+</tr>
+<tr>
+<td>D2</td>
+<td align="right">60~80%</td>
+<td align="right">60.71% (97판)</td>
+<td align="right"><strong>53.36%</strong> (61판)</td>
+<td align="right">15.12%</td>
+</tr>
+<tr>
+<td>D3</td>
+<td align="right">40~60%</td>
+<td align="right">51.06% (44판)</td>
+<td align="right"><strong>38.48%</strong> (156판)</td>
+<td align="right">2.54%</td>
+</tr>
+<tr>
+<td>D4</td>
+<td align="right">20~40%</td>
+<td align="right"><strong>40.70%</strong> (50판)</td>
+<td align="right">28.14% (88판)</td>
+<td align="right">0.96%</td>
+</tr>
+<tr>
+<td>D5</td>
+<td align="right">10~20%</td>
+<td align="right">18.42% (44판)</td>
+<td align="right">19.68% (60판)</td>
+<td align="right">0.66%</td>
+</tr>
+</tbody></table></div>
+</details><p>굵은 값은 가설 구간 밖이다. <strong>원작도 모든 등급이 구간에 들지 않는다</strong>(매직소트 5개 중 4개, 카매치 5개 중 3개). 출처: <code>launch-reference.json</code>.</p>
+<p>적용 게임 BTF(봇 v2.1)의 50:50 은 D1 100.0 / D2 99.0 / D3 98.6 / D4 64.5 / D5 48.0% 다. 서열은 섰지만 D2~D5 가 구간 위다(평균 거리 22.0%p, 7.5절). 봇 정책이 달라 원작 수치와 비교하지 않는다.</p>
+<p><strong>이 구간은 어디서 왔나.</strong> 카매치 번들 453개 레벨의 원본 기록값 <code>avgSolRatio</code> 에서 추정했다. 5개 seed 의 등급이 모두 같은 &#39;순수 등급&#39; 레벨만 모아 보면 범위가 다음과 같다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>등급</th>
+<th>D1</th>
+<th>D2</th>
+<th>D3</th>
+<th>D4</th>
+<th>D5</th>
+<th>D6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>순수 등급 레벨 수</td>
+<td>72</td>
+<td>31</td>
+<td>44</td>
+<td>37</td>
+<td>7</td>
+<td>4</td>
+</tr>
+<tr>
+<td>avgSolRatio 범위</td>
+<td>88.4~100</td>
+<td>65.6~77.2</td>
+<td>43.2~57.6</td>
+<td>24.0~38.4</td>
+<td>14.8~17.6</td>
+<td>5.6~7.2</td>
+</tr>
+</tbody></table></div>
+<p>이 범위가 20%p 폭의 후보 구간을 벗어나는 레벨은 0개다(출처: <code>out/car-match-inspection/avg-sol-ratio-probe.json</code>).</p>
+<p>다음 한계가 있다.</p>
+<ul>
+<li><code>avgSolRatio</code> 를 어떤 봇·횟수·조건으로 냈는지는 모른다.</li>
+<li>구간 끝점의 포함 여부를 확정하지 않았다.</li>
+<li>D5 근거는 7개 레벨뿐이다.</li>
+</ul>
+<p>진행표의 설정 등급으로 묶으면 범위가 서로 겹친다. 그래서 카매치 분석은 원 개발사의 판정 공식을 단순 구간으로 복원할 수 없다고 본다(카매치 분석 1절·4절). 이 구간은 순수 등급 레벨만으로 세운 추정이다.</p>
+<p>따라서 <strong>제작사의 공식 기준도, 사람 승률로 검증된 기준도 아니다.</strong></p>
+<p><strong>읽는 법</strong></p>
+<ul>
+<li>등급 묶음의 <strong>평균과 서열</strong>을 맞춘다. 개별 판을 구간 안으로 밀어 넣지 않는다. 분포는 겹쳐도 된다.</li>
+<li>실측이 낮다고 원본 등급이나 목표 등급을 덮어쓰지 않는다. 원본 등급·제작 목표 등급·실측 성공률은 <strong>별도 필드</strong>로 둔다.</li>
+<li>범위 밖이면 거리(%p)·등급 평균 서열·분포·허들 다음 회복을 보고한다. 자동 불합격이 아니다.</li>
+<li>원본 D6·D7은 보존하되 D5 평균에 합치지 않는다. 우리 게임에서 꼭 필요하면 예외로 만든다(2.6).</li>
+<li>두 원작은 봇 정책이 달라서, 이 표로 어느 게임이 더 어렵다고 비교하지 않는다.<ul>
+<li>매직소트: 기존 후보 제한 봇으로 쟀다.</li>
+<li>카매치: 모든 합법 행동을 보는 v2 봇으로 쟀다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="s3-3">2.3 봇 설계 원칙</h3>
+<div class="vis" data-vis="bots"><div class="cards c3"><div class="card bot"><b class="bn">초보</b><span>눈에 보이는 직관대로 바로 둔다</span><svg viewBox="0 0 220 56" class="tree" aria-hidden="true"><line x1="30" x2="30" y1="22" y2="22" class="nl"/><circle cx="30" cy="22" r="9" class="non"/><text x="30" y="48" class="ta c">지금</text><circle cx="110" cy="22" r="9" class="noff"/><text x="110" y="48" class="ta c">1수 뒤</text><circle cx="190" cy="22" r="9" class="noff"/><text x="190" y="48" class="ta c">2수 뒤</text></svg><dl><dt>후보</dt><dd>직관 우선순위 안</dd><dt>지표 가중</dt><dd>0% (따로 보고)</dd><dt>무작위 선택</dt><dd><div class="meter txt">평가 없음 · 같은 순위 안에서 무작위</div></dd></dl></div><div class="card bot"><b class="bn">일반</b><span>모든 합법 행동을 한 수 뒤 결과로 평가</span><svg viewBox="0 0 220 56" class="tree" aria-hidden="true"><line x1="30" x2="110" y1="22" y2="22" class="nl"/><circle cx="30" cy="22" r="9" class="non"/><text x="30" y="48" class="ta c">지금</text><circle cx="110" cy="22" r="9" class="non"/><text x="110" y="48" class="ta c">1수 뒤</text><circle cx="190" cy="22" r="9" class="noff"/><text x="190" y="48" class="ta c">2수 뒤</text></svg><dl><dt>후보</dt><dd>모든 합법 행동</dd><dt>지표 가중</dt><dd>50%</dd><dt>무작위 선택</dt><dd><div class="mrow"><div class="meter" tabindex="0" data-tip="무작위 선택 17.39% (막대 끝 = 20%)"><i style="width:86.95%"></i></div><b>17.39%</b></div></dd></dl></div><div class="card bot"><b class="bn">고수</b><span>모든 합법 행동을 두 수 뒤 결과로 평가</span><svg viewBox="0 0 220 56" class="tree" aria-hidden="true"><line x1="30" x2="190" y1="22" y2="22" class="nl"/><circle cx="30" cy="22" r="9" class="non"/><text x="30" y="48" class="ta c">지금</text><circle cx="110" cy="22" r="9" class="non"/><text x="110" y="48" class="ta c">1수 뒤</text><circle cx="190" cy="22" r="9" class="non"/><text x="190" y="48" class="ta c">2수 뒤</text></svg><dl><dt>후보</dt><dd>모든 합법 행동</dd><dt>지표 가중</dt><dd>50%</dd><dt>무작위 선택</dt><dd><div class="mrow"><div class="meter" tabindex="0" data-tip="무작위 선택 9.00% (막대 끝 = 20%)"><i style="width:45%"></i></div><b>9.00%</b></div></dd></dl></div></div>
+  <p class="cap">선호(같은 색·즉시 매치)는 후보를 좁히지 않고 점수로 우대한다. 예측 뒤 상태는 반드시 복원하고, 한 시행 안에서 이미 방문한 상태는 피한다.</p></div><details class="tv"><summary>텍스트로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>집단</th>
+<th>행동</th>
+<th>실제 선택·예측 후보</th>
+<th>예측</th>
+<th>무작위 선택(실수)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>초보</td>
+<td>그 게임에서 직관적인 우선순위</td>
+<td>게임별 우선순위로 제한 가능</td>
+<td>없음</td>
+<td>같은 순위 안에서 무작위</td>
+</tr>
+<tr>
+<td>일반</td>
+<td>한 수 뒤 결과를 평가</td>
+<td><strong>모든 합법 행동</strong></td>
+<td>1수</td>
+<td>기본 17.39%</td>
+</tr>
+<tr>
+<td>고수</td>
+<td>두 수 뒤 결과를 평가</td>
+<td><strong>모든 합법 행동</strong></td>
+<td>2수</td>
+<td>기본 9.00%</td>
+</tr>
+</tbody></table></div></details>
+<ol>
+<li><strong>한 수</strong>는 선택한 뒤 자동 반응(이동·매치·낙하·발사 등)이 모두 끝나 정착한 상태까지로 정의한다.</li>
+<li><strong>선호는 평가로, 제한은 하지 않는다.</strong> 일반·고수는 실제 선택과 예측 모두에서 전체 합법 행동을 본다. 같은 색·즉시 매치 같은 선호는 평가 점수로 우대한다. 초보의 후보 제한을 예측 봇에 강제하지 않는다. 근거는 두 가지다.<ul>
+<li>카매치 v1 은 세 집단 모두 색 우선 후보만 봤다. 이때 고수가 일반보다 5%p 넘게 낮은 첫 판이 31개였고, v2 로 후보를 넓히자 0개가 됐다(<code>CarMatch_GR1_Balance_봇개선_비교.md</code>).</li>
+<li>매직소트에 &#39;물음표 우선&#39; 후보 제한을 넣자 모든 지표가 나빠졌다(<code>MagicSort_숨김정보_봇_비교.md</code>).</li>
+</ul>
+</li>
+<li>합법성·반복 회피처럼 <strong>정당한 제외 조건은 실제와 예측에 똑같이</strong> 적용한다. 그 밖의 제외 조건에는 근거를 남긴다.</li>
+<li><strong>예측은 실제 상태를 오염시키지 않는다.</strong> 예측이 끝나면 보드·자원·방문 기록·실행 난수를 복원하고, 복원을 검증한다.</li>
+<li><strong>한 시행 안에서 방문한 상태는 피한다.</strong> 매직소트에서 직전 역이동 금지만으로는 4수 순환을 막지 못했다. 수 상한을 400에서 4,000으로 늘려도 추가 성공은 207,110회 중 0회였다(<code>MagicSort_동색우선_비교.md</code>).</li>
+<li><strong>실수는 숫자 하나로 끝내지 않는다.</strong> 다음을 함께 고정한다.<ul>
+<li>확률</li>
+<li>무작위로 고르는 후보 집합</li>
+<li>적용 시점</li>
+<li>즉시 패배 행동을 포함하는지</li>
+<li>동점 처리
+실수율이 0이어도 동점을 무작위로 고르면 결정론이 아니다. 기본값은 일반 17.39%·고수 9.00%, 레벨 보정 없음이다(4장 &#39;실수 기본값&#39;).</li>
+</ul>
+</li>
+<li><strong>정보 조건을 명시한다.</strong> 숨김 값을 아는 봇인지, 보이는 것만 보는 봇인지 정한다. 숨김 정보가 있는 게임은 기준 조건을 먼저 정한다(→ 3.7).</li>
+<li>부스터·이어하기·시행 간 학습은 기본적으로 넣지 않는다. 넣으면 프로필에 명시한다.</li>
+</ol>
+<blockquote>
+<p>⚠️ <strong>매직소트 기준 수치는 이 원칙 이전의 봇이다.</strong> 동색 우선 후보 제한을 일반·고수에도 적용했다. v2 방식으로 재측정하지 않았다(<code>MagicSort_최종_성공률.md</code>, 통합 가이드 3절). 매직소트 수치를 인용할 때 이 차이를 밝힌다.</p>
+</blockquote>
+<h3 id="s3-4">2.4 측정 규모와 재현</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>기준</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>대표 판 예비 측정</td>
+<td>집단별 200~1,000회</td>
+</tr>
+<tr>
+<td>최종 측정</td>
+<td>배치별·집단별 <strong>10,000회</strong></td>
+</tr>
+<tr>
+<td>축소</td>
+<td>너무 오래 걸리면 팀장님 확정으로 줄인다(예: 전수 수백 회 + 허들만 10,000회). 판별 오차를 함께 적는다: 300회 ±4~5%p, 10,000회 ±0.5~1%p</td>
+</tr>
+<tr>
+<td>난수</td>
+<td>선별용과 최종 검증용 난수를 분리한다. 같은 시행을 중복 집계하지 않는다</td>
+</tr>
+<tr>
+<td>시드 규칙</td>
+<td>시뮬레이터마다 정의하고 기록한다. 매직소트 <code>FNV1a(seedName) + trial × 104729</code>, 카매치 <code>salt + Stage×100003 + Variant×7919 + depth×15485863</code>. <strong>두 규칙은 다르다</strong></td>
+</tr>
+<tr>
+<td>실패 사유</td>
+<td>성공 / 이동 불가 / 반복 소진 / 행동 상한 도달 + 게임 고유 패배(예: 카매치 대기칸 7칸 포화)</td>
+</tr>
+<tr>
+<td>신뢰구간</td>
+<td>개별 배치·집단 성공률에 Wilson 95%. 집단 간 같은 난수를 쓰면 집단을 독립 표본으로 보고 합친 신뢰구간을 내지 않는다</td>
+</tr>
+<tr>
+<td>기록</td>
+<td>profileId, 입력·코드 SHA-256, 시뮬레이터 소스 스냅숏, 시행 수, 시드 규칙</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li>0/10,000 은 확률 0이 아니다.</li>
+<li>&#39;반복 소진&#39;은 풀이가 없다는 증명이 아니다.</li>
+<li><strong>풀이 가능성 검증과 사람을 근사한 봇 측정은 별개다.</strong> 시행을 늘린다고 정책·모델 오류가 고쳐지지는 않는다.</li>
+</ul>
+<h3 id="s3-5">2.5 하지 않는 것</h3>
+<ul>
+<li>목표 숫자를 맞추려고 봇 정책·가중치·실수율을 바꾸기</li>
+<li>측정 도중 성공률을 올리려고 안전 보정(예: 즉시 패배 행동 제외)을 조용히 추가하기</li>
+<li>실측이 낮다고 원본 등급을 덮어쓰기</li>
+<li>합의된 허용치가 없는데 임의의 합격선 만들기</li>
+<li>첫 판·재도전 변형·구제 결과를 한 평균으로 섞기</li>
+<li>독립성 근거 없이 <code>1 − ∏(1 − p)</code> 를 실제 누적 성공률로 제시하기</li>
+<li>원작의 같은 번호 레벨 성공률과 일치 점수 매기기</li>
+<li>지원하지 않는 맵·기믹 판을 조용히 측정에서 빼기. 커버리지를 명시한다</li>
+<li>진단 실험에서 높게 나온 조건을 본 프로필로 자동 채택하기</li>
+</ul>
+<h3 id="s3-6">2.6 D6·D7 예외 등급</h3>
+<p><strong>10-20 팀장님 결정: 꼭 필요한 경우에만 D6·D7 을 만든다.</strong> 공용 목표(D1~D5 평균 가설)에는 넣지 않는다.</p>
+<ul>
+<li><strong>언제</strong>: 후반 슈퍼하드에서 D5 로는 도전 폭이 부족할 때, 별도 도전·이벤트 레벨 등.</li>
+<li><strong>절차</strong>: 이유·위치·개수를 먼저 제안하고 팀장님 확정을 받는다. 확정한 판만 집계 도구에 <code>extendedGradesConfirmed: true</code> 와 함께 등급 6·7 로 넣는다.</li>
+<li><strong>집계</strong>: D1~D5 의 구간 판정·평균 거리에는 섞지 않는다. <code>extendedGrades</code> 로 따로 보고하고, D5 → D6 → D7 서열이 뒤집히는지만 함께 본다.</li>
+<li><strong>원작 위치</strong>: D6 첫 판은 슈퍼하드 자리였다(매직소트 L159, 카매치 L99). 매직소트는 D6 3설정·D7 2설정, 카매치는 첫 seed D6 35판이고 D7 은 없다.</li>
+<li><strong>참고값(목표 아님)</strong><ul>
+<li>카매치 원본 avgSolRatio: 5개 seed 가 모두 D6 인 4레벨이 5.6~7.2%, 후보 구간 0~10%.</li>
+<li>50:50 실측: 카매치 v2 D6 8.62%(35판), 매직소트 D6 1.46%(3설정)·D7 4.85%(2설정).</li>
+<li>매직소트는 D7 이 D6 보다 높을 만큼 표본이 적다. D7 참고 구간은 두지 않는다.</li>
+</ul>
+</li>
+<li><strong>설계</strong>: 직후 회복 판, 구제·재도전 변형, 통과 보상을 함께 둔다. D6·D7 을 연달아 두는 근거는 원작에서 확인하지 않았다.</li>
+</ul>
+<p>출처: 스킬 <code>references/model-and-calibration.md</code> &#39;D6·D7 예외 등급&#39;, <code>launch-reference.json</code> 의 <code>extendedGrades</code>.</p>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s2"><small>← 이전</small>1. GRP1 Balance 란</a><a class="next" href="#s4"><small>다음 →</small>3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가</a></nav></section>
+<section class="panel page" data-page="3"><div class="pagehead"><span class="ph-nav"><a href="#s3">← 이전</a><b>4 / 13</b><a href="#s5">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s4">3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가</h2>
+<h3 id="s4-1">3.1 10판 리듬과 역할</h3>
+<div class="vis" data-vis="rhythm"><div class="chips"><span>L1~13 학습 (허들 없음)</span><span>L14~ 끝자리 4 = 하드</span><span>L19~ 끝자리 9 = 슈퍼하드</span><span>끝자리 5·0 = 회복</span></div><figure class="viz"><figcaption class="vt">끝자리별 평균 — 10판마다 반복되는 도전 → 회복</figcaption><div class="legend"><span class="lg"><i class="k s1 sq"></i>매직소트 · 우리 봇 50:50 (L31~299)</span><span class="lg"><i class="k s2 sq"></i>카매치 · 원본 기록 avgSolRatio (L110~500)</span><span class="lg"><i class="k bg-h sq"></i>허들 자리</span><span class="lg"><i class="k bg-r sq"></i>회복 자리</span></div><svg viewBox="0 0 780 330" role="img" aria-label="끝자리별 평균 성공률"><rect x="261" y="14" width="69" height="252" class="bg-h"/><rect x="334" y="14" width="69" height="252" class="bg-r"/><rect x="626" y="14" width="69" height="252" class="bg-h"/><rect x="699" y="14" width="69" height="252" class="bg-r"/><line x1="40" x2="770" y1="266" y2="266" class="grid"/><text x="34" y="270" class="ta r">0</text><line x1="40" x2="770" y1="204.5" y2="204.5" class="grid"/><text x="34" y="208.5" class="ta r">25</text><line x1="40" x2="770" y1="143" y2="143" class="grid"/><text x="34" y="147" class="ta r">50</text><line x1="40" x2="770" y1="81.5" y2="81.5" class="grid"/><text x="34" y="85.5" class="ta r">75</text><line x1="40" x2="770" y1="20" y2="20" class="grid"/><text x="34" y="24" class="ta r">100</text><rect x="53.6" y="139.80200000000002" width="21.9" height="126.19799999999998" rx="3" class="s1" tabindex="0" data-tip="매직소트 x1 (일반) · 51.3%"/><rect x="77.5" y="118.646" width="21.9" height="147.35399999999998" rx="3" class="s2" tabindex="0" data-tip="카매치 x1 (일반) · 59.9%"/><text x="76.5" y="284" class="tl c b">x1</text><text x="76.5" y="301" class="ta c">일반</text><rect x="126.6" y="149.642" width="21.9" height="116.358" rx="3" class="s1" tabindex="0" data-tip="매직소트 x2 (작은 허들*) · 47.3%"/><rect x="150.5" y="177.93200000000002" width="21.9" height="88.06799999999998" rx="3" class="s2" tabindex="0" data-tip="카매치 x2 (작은 허들*) · 35.8%"/><text x="149.5" y="284" class="tl c b">x2</text><text x="149.5" y="301" class="ta c">작은 허들*</text><rect x="199.6" y="128.732" width="21.9" height="137.268" rx="3" class="s1" tabindex="0" data-tip="매직소트 x3 (일반) · 55.8%"/><rect x="223.5" y="120.61399999999999" width="21.9" height="145.38600000000002" rx="3" class="s2" tabindex="0" data-tip="카매치 x3 (일반) · 59.1%"/><text x="222.5" y="284" class="tl c b">x3</text><text x="222.5" y="301" class="ta c">일반</text><rect x="272.6" y="198.596" width="21.9" height="67.404" rx="3" class="s1" tabindex="0" data-tip="매직소트 x4 (하드) · 27.4%"/><rect x="296.5" y="210.404" width="21.9" height="55.596000000000004" rx="3" class="s2" tabindex="0" data-tip="카매치 x4 (하드) · 22.6%"/><text x="283.55" y="193.596" class="tv c">27</text><text x="307.45" y="205.404" class="tv c">23</text><text x="295.5" y="284" class="tl c b">x4</text><text x="295.5" y="301" class="ta c">하드</text><rect x="345.6" y="89.618" width="21.9" height="176.382" rx="3" class="s1" tabindex="0" data-tip="매직소트 x5 (회복) · 71.7%"/><rect x="369.5" y="106.34599999999998" width="21.9" height="159.65400000000002" rx="3" class="s2" tabindex="0" data-tip="카매치 x5 (회복) · 64.9%"/><text x="356.55" y="84.618" class="tv c">72</text><text x="380.45" y="101.34599999999998" class="tv c">65</text><text x="368.5" y="284" class="tl c b">x5</text><text x="368.5" y="301" class="ta c">회복</text><rect x="418.6" y="129.47" width="21.9" height="136.53" rx="3" class="s1" tabindex="0" data-tip="매직소트 x6 (일반) · 55.5%"/><rect x="442.5" y="123.56600000000002" width="21.9" height="142.43399999999997" rx="3" class="s2" tabindex="0" data-tip="카매치 x6 (일반) · 57.9%"/><text x="441.5" y="284" class="tl c b">x6</text><text x="441.5" y="301" class="ta c">일반</text><rect x="491.6" y="135.374" width="21.9" height="130.626" rx="3" class="s1" tabindex="0" data-tip="매직소트 x7 (작은 허들*) · 53.1%"/><rect x="515.5" y="179.9" width="21.9" height="86.1" rx="3" class="s2" tabindex="0" data-tip="카매치 x7 (작은 허들*) · 35.0%"/><text x="514.5" y="284" class="tl c b">x7</text><text x="514.5" y="301" class="ta c">작은 허들*</text><rect x="564.6" y="124.55" width="21.9" height="141.45" rx="3" class="s1" tabindex="0" data-tip="매직소트 x8 (일반) · 57.5%"/><rect x="588.5" y="118.154" width="21.9" height="147.846" rx="3" class="s2" tabindex="0" data-tip="카매치 x8 (일반) · 60.1%"/><text x="587.5" y="284" class="tl c b">x8</text><text x="587.5" y="301" class="ta c">일반</text><rect x="637.6" y="235.25" width="21.9" height="30.75" rx="3" class="s1" tabindex="0" data-tip="매직소트 x9 (슈퍼하드) · 12.5%"/><rect x="661.5" y="233.036" width="21.9" height="32.964" rx="3" class="s2" tabindex="0" data-tip="카매치 x9 (슈퍼하드) · 13.4%"/><text x="648.55" y="230.25" class="tv c">13</text><text x="672.45" y="228.036" class="tv c">13</text><text x="660.5" y="284" class="tl c b">x9</text><text x="660.5" y="301" class="ta c">슈퍼하드</text><rect x="710.6" y="110.036" width="21.9" height="155.964" rx="3" class="s1" tabindex="0" data-tip="매직소트 x0 (회복) · 63.4%"/><rect x="734.5" y="82.97599999999998" width="21.9" height="183.024" rx="3" class="s2" tabindex="0" data-tip="카매치 x0 (회복) · 74.4%"/><text x="721.55" y="105.036" class="tv c">63</text><text x="745.45" y="77.97599999999998" class="tv c">74</text><text x="733.5" y="284" class="tl c b">x0</text><text x="733.5" y="301" class="ta c">회복</text></svg><p class="cap">두 게임은 지표가 달라(우리 봇 대 원본 기록) 높이가 아니라 모양을 본다. * 작은 허들(x2·x7)은 카매치에서만 관측. 출처: 한눈에보기 1절.</p></figure></div><details class="tv"><summary>텍스트로 보기</summary><pre><code>레벨  …1    …2      …3    …4    …5    …6    …7      …8    …9        …0
+역할  일반  (작은   일반  하드  회복  일반  (작은   일반  슈퍼하드  회복
+            허들)                          허들)
+                          ▲     ▼                            ▲▲        ▼
+                         도전  회복                        큰 도전   회복
+
+ L1~13  학습 구간 (하드·슈퍼하드 표시 없음)
+ L14~   끝자리 4 = 하드
+ L19~   끝자리 9 = 슈퍼하드
+ x2·x7  작은 허들은 카매치 관측. 공통 필수 아님
+</code></pre></details>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>역할</th>
+<th>초기 자리</th>
+<th>목적</th>
+<th>원작 관측</th>
+<th>주의</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>학습</td>
+<td>L1~13</td>
+<td>조작·규칙 익히기</td>
+<td>매직소트·카매치·블록아웃 모두 L14 전 허들 없음</td>
+<td>L4·L9를 억지로 허들로 만들지 않는다</td>
+</tr>
+<tr>
+<td>일반</td>
+<td>허들·회복 외</td>
+<td>진행 기준선</td>
+<td>매직소트 일반 판 평균 D: 11~30 구간 1.17 → 31~80 1.60 → 81~180 2.73 → 181~299 2.97</td>
+<td>모든 일반 판을 같은 부담으로 두지 않는다</td>
+</tr>
+<tr>
+<td>작은 허들 (선택)</td>
+<td>x2·x7</td>
+<td>일반 판 안의 작은 파형</td>
+<td>카매치 L110~500 avgSolRatio 평균: 2 → 35.8, 7 → 35.0 (주변 판 58~60)</td>
+<td>카매치에서만 관측</td>
+</tr>
+<tr>
+<td>하드</td>
+<td>x4</td>
+<td>도전</td>
+<td>매직소트 하드 평균 D: 2.0 → 3.4 → 4.6 → 5.0</td>
+<td><strong>하드 = 항상 D5 가 아니다</strong>. 카매치 L14 하드는 seed 가 전부 D1</td>
+</tr>
+<tr>
+<td>슈퍼하드</td>
+<td>x9</td>
+<td>큰 도전</td>
+<td>매직소트 슈퍼하드 평균 D: 3.0 → 5.0 → 5.0 → 5.5</td>
+<td>같은 D5 라도 경험이 다르다(→ 3.4 L49·L59)</td>
+</tr>
+<tr>
+<td>회복</td>
+<td>x5·x0</td>
+<td>허들 뒤 부담 해소</td>
+<td>매직소트 회복 평균 D: 1.25 → 1.50 → 1.90 → 2.39</td>
+<td><strong>회복 = 항상 D1 이 아니다</strong>. 후반에도 회복 판은 남긴다</td>
+</tr>
+</tbody></table></div>
+<p>출처: 통합 가이드 1절 &#39;구간별 곡선&#39;, <code>CarMatch_레벨구조_밸런싱_분석.md</code> 3.1~3.2절. 평균 D 는 순서형 등급의 배치 경향이다. 난이도의 배수가 아니다.</p>
+<ul>
+<li><strong>전체 평균 하나를 맞추고 끝내지 않는다.</strong> 일반 판 기준선이 오르는 정도와 허들 뒤 회복의 대비를 함께 맞춰야 한다.</li>
+<li>블록아웃처럼 <strong>제한 시간이 있는 게임은 시간도 난도 레버</strong>다. 블록아웃은 73%(182판)가 180초, 나머지는 90~150초다.</li>
+</ul>
+<h3 id="s4-2">3.2 허들과 회복</h3>
+<div class="vis" data-vis="recovery"><figure class="viz"><figcaption class="vt">허들 → 바로 다음 판</figcaption><div class="legend"><span class="lg"><i class="k dh cir"></i>허들 판</span><span class="lg"><i class="k dr cir"></i>다음 판(회복)</span></div><svg viewBox="0 0 780 238" role="img" aria-label="허들과 다음 판 성공률"><line x1="250" x2="250" y1="6" y2="218" class="grid"/><text x="250" y="233" class="ta c">0%</text><line x1="365" x2="365" y1="6" y2="218" class="grid"/><text x="365" y="233" class="ta c">25%</text><line x1="480" x2="480" y1="6" y2="218" class="grid"/><text x="480" y="233" class="ta c">50%</text><line x1="595" x2="595" y1="6" y2="218" class="grid"/><text x="595" y="233" class="ta c">75%</text><line x1="710" x2="710" y1="6" y2="218" class="grid"/><text x="710" y="233" class="ta c">100%</text><text x="236" y="22" class="tl r">매직소트 하드 → 다음 판</text><text x="236" y="37" class="ta r">우리 봇 50:50 · 29쌍 평균</text><line x1="393.98" x2="581.66" y1="22" y2="22" class="db"/><circle cx="393.98" cy="22" r="6" class="dh" tabindex="0" data-tip="매직소트 하드 → 다음 판 · 허들 31.3%"/><circle cx="581.66" cy="22" r="6.5" class="dr ring" tabindex="0" data-tip="매직소트 하드 → 다음 판 · 다음 판 72.1%"/><text x="393.98" y="43" class="tv c">31.3</text><text x="581.66" y="43" class="tv c">72.1</text><text x="776" y="26" class="tv r b">+40.8</text><text x="236" y="74" class="tl r">매직소트 슈퍼하드 → 다음 판</text><text x="236" y="89" class="ta r">우리 봇 50:50 · 28쌍 평균</text><line x1="327.28" x2="550.84" y1="74" y2="74" class="db"/><circle cx="327.28" cy="74" r="6" class="dh" tabindex="0" data-tip="매직소트 슈퍼하드 → 다음 판 · 허들 16.8%"/><circle cx="550.84" cy="74" r="6.5" class="dr ring" tabindex="0" data-tip="매직소트 슈퍼하드 → 다음 판 · 다음 판 65.4%"/><text x="327.28" y="95" class="tv c">16.8</text><text x="550.84" y="95" class="tv c">65.4</text><text x="776" y="78" class="tv r b">+48.6</text><text x="236" y="126" class="tl r">카매치 L59 → L60</text><text x="236" y="141" class="ta r">원본 기록 avgSolRatio</text><line x1="334.64" x2="702.6400000000001" y1="126" y2="126" class="db"/><circle cx="334.64" cy="126" r="6" class="dh" tabindex="0" data-tip="카매치 L59 → L60 · 허들 18.4%"/><circle cx="702.6400000000001" cy="126" r="6.5" class="dr ring" tabindex="0" data-tip="카매치 L59 → L60 · 다음 판 98.4%"/><text x="334.64" y="147" class="tv c">18.4</text><text x="702.6400000000001" y="147" class="tv c">98.4</text><text x="776" y="130" class="tv r b">+80.0</text><text x="236" y="178" class="tl r">카매치 L119 → L120 (약한 회복)</text><text x="236" y="193" class="ta r">v1 봇 3집단 가중</text><line x1="271.068" x2="360.078" y1="178" y2="178" class="db"/><circle cx="271.068" cy="178" r="6" class="dh" tabindex="0" data-tip="카매치 L119 → L120 (약한 회복) · 허들 4.58%"/><circle cx="360.078" cy="178" r="6.5" class="dr ring" tabindex="0" data-tip="카매치 L119 → L120 (약한 회복) · 다음 판 23.93%"/><text x="271.068" y="199" class="tv c">4.58</text><text x="360.078" y="199" class="tv c">23.93</text><text x="776" y="182" class="tv r b">+19.4</text></svg></figure><div class="kpis two"><div class="kpi"><b>+49.0%p</b><span>BusTrafficFever · 허들 → 다음 판 58쌍 평균 · 회복 역전 0</span></div><div class="kpi"><b>+61.1%p</b><span>Coster · 57쌍 모두 회복 판이 높음 (축 봇 기준)</span></div></div></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>관측</th>
+<th>내용</th>
+<th>출처</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>매직소트 등급</td>
+<td>다음 판이 있는 슈퍼하드 28개 모두 다음 판 D 가 낮다. 하드는 29개 중 27개(예외: L24→25 D2→D2, L64→65 D1→D2)</td>
+<td>통합 가이드 1절</td>
+</tr>
+<tr>
+<td>매직소트 봇</td>
+<td>일반·고수 50:50 으로 잰 다음 판 성공률: 하드 31.3% → 72.1%(+40.8%p, 29쌍), 슈퍼하드 16.8% → 65.4%(+48.6%p, 28쌍)</td>
+<td>한눈에보기 1절</td>
+</tr>
+<tr>
+<td>카매치 원본</td>
+<td>비교 가능한 허들→다음 판 82쌍 모두 다음 판 avgSolRatio 가 높다</td>
+<td>카매치 분석 3.4절</td>
+</tr>
+<tr>
+<td>카매치 L59→60</td>
+<td>avgSolRatio 18.4% → 98.4%. 차량 57→30대, 종류 7→5, 터널·엘리베이터·커튼이 빠지고 물음표 10개는 남는다. <strong>기믹을 모두 빼지 않고 조합 부담을 줄인다</strong></td>
+<td>카매치 분석 3.4절</td>
+</tr>
+<tr>
+<td>회복이 약한 예</td>
+<td>카매치 v1 봇(3집단 가중) L99→100: 0.09% → 29.61%, L119→120: 4.58% → 23.93%. L120 원본 avgSolRatio 는 100%</td>
+<td><code>CarMatch_GR1_Balance_성공률.md</code> 5절</td>
+</tr>
+<tr>
+<td>적용: BTF</td>
+<td>허들 → 다음 판 58쌍 평균 +49.0%p(최소 +16.8, 최대 +78.4), 회복 역전 0</td>
+<td>BTF 10-19 최종 보고</td>
+</tr>
+<tr>
+<td>적용: Coster</td>
+<td>난이도 축 봇 기준 57쌍(L1~299) 모두 회복 판이 높고 평균 +61.1%p</td>
+<td>Coster <code>grp1-vs-magicsort-2026-10-11.md</code> §3</td>
+</tr>
+</tbody></table></div>
+<p><strong>설계 방법</strong></p>
+<ul>
+<li>회복은 <strong>역할로 지정하고 실측으로 확인한다.</strong> &quot;회복 자리니까 쉽다&quot;로 끝내지 않는다.</li>
+<li>허들 H → 회복 R 마다 <code>100 × (pR − pH)</code> %p 를 판별로 보고한다. 구간별 평균도 함께 낸다.</li>
+<li>차이가 0 이하인 <strong>회복 역전</strong> 쌍은 목록으로 만들고, 표본 오차·기믹 학습·정책 예외를 검토한다. 자동 불합격은 아니다.</li>
+<li>회복 폭과 연속 허들 길이에는 <strong>공통 합격선이 없다.</strong> 팀이 허용치를 합의했으면 그 기준을 쓰고, 없으면 값·이상치·보완안을 보고한다.</li>
+</ul>
+<h3 id="s4-3">3.3 새 기믹 도입</h3>
+<div class="vis" data-vis="gimmick"><figure class="viz"><figcaption class="vt">새 기믹이 처음 나오는 레벨 — 모두 가장 쉬운 등급(D1) 판</figcaption><div class="legend"><span class="lg"><i class="k s1 cir"></i>매직소트</span><span class="lg"><i class="k s2 dia"></i>카매치</span><span class="lg"><i class="k ghost cir"></i>안내보다 먼저 나온 자리</span></div><svg viewBox="0 0 780 200" role="img" aria-label="기믹 도입 레벨"><line x1="96" x2="96" y1="18" y2="176" class="grid"/><text x="96" y="192" class="ta c">L0</text><line x1="228.8" x2="228.8" y1="18" y2="176" class="grid"/><text x="228.8" y="192" class="ta c">L25</text><line x1="361.6" x2="361.6" y1="18" y2="176" class="grid"/><text x="361.6" y="192" class="ta c">L50</text><line x1="494.4" x2="494.4" y1="18" y2="176" class="grid"/><text x="494.4" y="192" class="ta c">L75</text><line x1="627.2" x2="627.2" y1="18" y2="176" class="grid"/><text x="627.2" y="192" class="ta c">L100</text><line x1="760" x2="760" y1="18" y2="176" class="grid"/><text x="760" y="192" class="ta c">L125</text><text x="82" y="60" class="tl r b">매직소트</text><line x1="96" x2="760" y1="56" y2="56" class="nl"/><circle cx="202.24" cy="56" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 L20 커튼 · 도입 판 D1"/><text x="202.24" y="43" class="ta c">L20 커튼</text><circle cx="414.71999999999997" cy="56" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 L60 점토 · 도입 판 D1"/><text x="414.71999999999997" y="80" class="ta c">L60 점토</text><circle cx="680.32" cy="56" r="6.5" class="s1 ring" tabindex="0" data-tip="매직소트 L110 석고 · 도입 판 D1"/><text x="680.32" y="43" class="ta c">L110 석고</text><text x="82" y="140" class="tl r b">카매치</text><line x1="96" x2="760" y1="136" y2="136" class="nl"/><rect x="122.372" y="130.5" width="11" height="11" transform="rotate(45 127.872 136)" class="s2 ring" tabindex="0" data-tip="카매치 L6 터널 · 도입 판 D1"/><text x="127.872" y="123" class="ta c">L6 터널</text><rect x="143.62" y="130.5" width="11" height="11" transform="rotate(45 149.12 136)" class="s2 ring" tabindex="0" data-tip="카매치 L10 물음표 · 도입 판 D1"/><text x="149.12" y="160" class="ta c">L10 물음표</text><rect x="249.85999999999999" y="130.5" width="11" height="11" transform="rotate(45 255.35999999999999 136)" class="s2 ring" tabindex="0" data-tip="카매치 L30 커튼·열쇠 · 도입 판 D1"/><text x="255.35999999999999" y="123" class="ta c">L30 커튼·열쇠</text><rect x="515.46" y="130.5" width="11" height="11" transform="rotate(45 520.96 136)" class="s2 ring" tabindex="0" data-tip="카매치 L80 엘리베이터(안내) · 도입 판 D1"/><text x="520.96" y="160" class="ta c">L80 엘리베이터(안내)</text><rect x="727.9399999999999" y="130.5" width="11" height="11" transform="rotate(45 733.4399999999999 136)" class="s2 ring" tabindex="0" data-tip="카매치 L120 교차로 · 도입 판 D1"/><text x="733.4399999999999" y="123" class="ta c">L120 교차로</text><circle cx="409.40799999999996" cy="136" r="5" class="ghost" tabindex="0" data-tip="카매치 엘리베이터 — 안내(L80)보다 먼저 L59 슈퍼하드에 등장"/><text x="409.40799999999996" y="160" class="ta c">L59 실제 첫 등장</text></svg><p class="cap">카매치는 소개 직후 곧바로 반복한다(터널 7·8·9, 물음표 11~14). 블록아웃은 12종 중 11종을 일반·180초 판에서 소개하고, 10종은 단독이며, 다음 5판 중 3~5판에 다시 낸다.</p></figure></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>게임</th>
+<th>도입 레벨</th>
+<th>도입 판</th>
+<th>그 뒤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>매직소트</td>
+<td>커튼 L20, 점토 L60, 석고 L110</td>
+<td>첫 판 모두 D1. 블로커 도입 직후 숨김 비율을 40~50%에서 12.7 / 32.8 / 29.4%로 낮춘다</td>
+<td>L64 D1, L114·119 D3·D4</td>
+</tr>
+<tr>
+<td>카매치</td>
+<td>터널 6, 물음표 10, 커튼·열쇠 30, 엘리베이터 80(실제로는 L59 슈퍼하드에 먼저 나옴), 교차로 120</td>
+<td>도입 seed 모두 D1</td>
+<td>쉬지 않고 곧바로 반복한다(터널 7·8·9, 물음표 11~14, 커튼 31~34)</td>
+</tr>
+<tr>
+<td>블록아웃</td>
+<td>12종</td>
+<td>11종이 일반·180초 판에서 처음 나오고, 그중 10종은 그 판에 다른 기믹이 없다</td>
+<td>다음 5판 중 3~5판에 다시 나온다. 도입 간격은 4~5레벨에서 30~50레벨로 벌어진다</td>
+</tr>
+</tbody></table></div>
+<p>출처: 통합 가이드 1절, 카매치 분석 6절, <code>퍼즐3종_개발참고.md</code> 2.3절.</p>
+<p><strong>설계 원칙</strong></p>
+<ol>
+<li>새 기믹은 <strong>쉬운 판에서, 가능하면 단독으로</strong> 소개한다. 색 수·배치·다른 기믹 등 다른 부담을 낮춘다.</li>
+<li>소개 직후 <strong>곧바로 반복</strong>해 익히게 한다. 재노출 간격은 게임별로 정한다. 블록아웃 사례: 다음 5판 중 3판 이상, 도입 간격은 점점 벌림.</li>
+<li>같은 규칙의 확장(블록아웃의 여러 보드·내부 벽)이 하드 판에서 처음 나온 사례가 있다. 다만 2건뿐이라 규칙으로 일반화하지 않는다.</li>
+<li>슈퍼하드에 기믹이 안내보다 먼저 나온 사례(카매치 엘리베이터 L59, 블록아웃 자물쇠 L59)도 의도를 확인할 수 없다. 따라 하지 않는다.</li>
+</ol>
+<p><strong>검증:</strong> &#39;D1&#39; 표기만으로 쉬운 학습이라고 확정하지 않는다. 다음을 보고한다.</p>
+<ul>
+<li>도입 판의 실측</li>
+<li>직전·직후 판의 맥락</li>
+<li>그 판에 겹친 부담</li>
+<li>실제 조작·가시성·플레이 시간: 봇으로는 알 수 없으므로 직접 플레이로 확인한다.</li>
+</ul>
+<h3 id="s4-4">3.4 재도전 변형과 구제</h3>
+<p><strong>한 레벨 = 첫 판 + 기본 변형 + (선택) 별도 구제.</strong> 셋을 따로 설계하고 따로 측정한다.</p>
+<div class="vis" data-vis="retry"><figure class="viz"><figcaption class="vt">같은 D5 허들, 다른 재도전 — 매직소트 L49 대 L59 (레벨 시작 횟수별 배정)</figcaption><div class="scroll"><div class="strip"><div class="sn"><b>L49</b><span>첫 판 11.32% · 보상 무한 생명 30분</span></div><div class="cells"><div class="cell d5" tabindex="0" data-tip="1번째 시작 · D5"><small>1</small>D5</div><div class="cell d4" tabindex="0" data-tip="2번째 시작 · D4"><small>2</small>D4</div><div class="cell d4" tabindex="0" data-tip="3번째 시작 · D4"><small>3</small>D4</div><div class="cell d4" tabindex="0" data-tip="4번째 시작 · D4"><small>4</small>D4</div><div class="cell d4" tabindex="0" data-tip="5번째 시작 · D4"><small>5</small>D4</div><div class="cell rd" tabindex="0" data-tip="6번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5/D4)"><small>6</small>↻</div><div class="capm"><span>cap 6</span></div><div class="cell d1" tabindex="0" data-tip="7번째 시작 · D1"><small>7</small>D1</div><div class="cell d1" tabindex="0" data-tip="8번째 시작 · D1"><small>8</small>D1</div><div class="cell d1" tabindex="0" data-tip="9번째 시작 · D1"><small>9</small>D1</div><div class="cell rd" tabindex="0" data-tip="10번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>10</small>↻</div><div class="cell rd" tabindex="0" data-tip="11번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>11</small>↻</div><div class="cell rd" tabindex="0" data-tip="12번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>12</small>↻</div><div class="cell rd" tabindex="0" data-tip="13번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>13</small>↻</div><div class="cell rd" tabindex="0" data-tip="14번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>14</small>↻</div><div class="cell rd" tabindex="0" data-tip="15번째 시작 · 목록 소진 → 직전 제외 재추첨 (D1)"><small>15</small>↻</div></div></div><div class="strip"><div class="sn"><b>L59</b><span>첫 판 3.01% · 보상 추가 병 1개</span></div><div class="cells"><div class="cell d5" tabindex="0" data-tip="1번째 시작 · D5"><small>1</small>D5</div><div class="cell d5" tabindex="0" data-tip="2번째 시작 · D5"><small>2</small>D5</div><div class="cell d5" tabindex="0" data-tip="3번째 시작 · D5"><small>3</small>D5</div><div class="cell d5" tabindex="0" data-tip="4번째 시작 · D5"><small>4</small>D5</div><div class="cell d5" tabindex="0" data-tip="5번째 시작 · D5"><small>5</small>D5</div><div class="cell rd" tabindex="0" data-tip="6번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>6</small>↻</div><div class="cell rd" tabindex="0" data-tip="7번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>7</small>↻</div><div class="cell rd" tabindex="0" data-tip="8번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>8</small>↻</div><div class="cell rd" tabindex="0" data-tip="9번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>9</small>↻</div><div class="cell rd" tabindex="0" data-tip="10번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>10</small>↻</div><div class="cell rd" tabindex="0" data-tip="11번째 시작 · 목록 소진 → 직전 제외 재추첨 (D5)"><small>11</small>↻</div><div class="capm"><span>cap 11</span></div><div class="cell d4" tabindex="0" data-tip="12번째 시작 · D4"><small>12</small>D4</div><div class="cell d1" tabindex="0" data-tip="13번째 시작 · D1"><small>13</small>D1</div><div class="cell d1" tabindex="0" data-tip="14번째 시작 · D1"><small>14</small>D1</div><div class="cell rd" tabindex="0" data-tip="15번째 시작 · 목록 소진 → 직전 제외 재추첨 (D4/D1)"><small>15</small>↻</div></div></div></div><p class="hint">옆으로 밀어서 보기 →</p><div class="legend"><span class="lg"><i class="k d1 sq"></i>D1</span><span class="lg"><i class="k d2 sq"></i>D2</span><span class="lg"><i class="k d3 sq"></i>D3</span><span class="lg"><i class="k d4 sq"></i>D4</span><span class="lg"><i class="k d5 sq"></i>D5</span><span class="lg"><i class="k rd sq"></i>↻ 목록 소진 후 재추첨</span><span class="lg">┃ cap = 구제로 넘어가는 시작 횟수</span></div><p class="cap">횟수는 실패나 이어하기가 아니라 레벨을 시작한 횟수다. 재추첨이 있어 영구 구제가 아니다(L59 는 15회 이후 D4 가 다시 나올 수 있다).</p></figure><div class="kpis three"><div class="kpi"><b>224</b><span>카매치 · 5개 변형이 모두 같은 D</span></div><div class="kpi"><b>259</b><span>카매치 · 갈수록 쉬워짐</span></div><div class="kpi"><b>17</b><span>카매치 · 중간에 더 어려워짐</span></div></div><p class="cap">카매치 500레벨은 변형 5개만 있고 별도 구제는 없다. 그래서 '재도전은 쉬워진다'고 가정하지 않는다.</p></div><details class="tv"><summary>텍스트로 보기</summary><pre><code>레벨 시작 횟수 →  1회   2회   3회   4회   5회  …  cap 도달   …  목록 소진
+                 ┌─────────────── 기본 변형 목록 ───────────┐  ┌ 구제 목록 ┐
+배정 seed         첫 판  변형2  변형3  변형4  변형5           구제1 구제2…   직전 seed 제외 재추첨
+                                                         (매직소트만, 8개 레벨)
+</code></pre></details>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>매직소트</th>
+<th>카매치</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기본 변형</td>
+<td>295레벨이 5개</td>
+<td>500레벨 모두 5개</td>
+</tr>
+<tr>
+<td>변형 순서</td>
+<td>자동 점진 완화 아님. 132개는 모든 변형의 D 가 같다</td>
+<td>같은 D 224 · 단조 완화 259 · 중간 악화 17</td>
+</tr>
+<tr>
+<td>별도 구제(DLB)</td>
+<td>L24·29·34·39·49·54·59·99 에만 있음</td>
+<td>코드에는 있으나 <strong>기본표에 배치 없음</strong></td>
+</tr>
+<tr>
+<td>카운터</td>
+<td>cap = <strong>레벨 시작 횟수</strong>(실패·유료 이어하기 횟수 아님, 스니치 시도 제외)</td>
+<td>RetryCount 를 목록 인덱스로 사용. 증가 시점은 실행 검증 안 함</td>
+</tr>
+<tr>
+<td>목록 소진 후</td>
+<td>직전 seed 제외 재추첨 → 영구 구제 아님</td>
+<td>직전 seed 제외 재추첨. <code>Random.Range(0,100) % n</code> 이라 균등하지 않을 수 있음</td>
+</tr>
+</tbody></table></div>
+<p><strong>같은 D5 여도 다르다 — 매직소트 L49 대 L59</strong> (통합 가이드 1절)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>L49</th>
+<th>L59</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>첫 판 봇 성공률(3집단 가중)</td>
+<td>11.32%</td>
+<td>3.01%</td>
+</tr>
+<tr>
+<td>기본 변형</td>
+<td>D5·D4·D4·D4·D4</td>
+<td>D5×5</td>
+</tr>
+<tr>
+<td>cap / 최초 구제</td>
+<td>6회 / 7회째 D1</td>
+<td>11회 / 12회째 D4</td>
+</tr>
+<tr>
+<td>허들 보상 / 다음 판</td>
+<td>무한 생명 30분 / L50 D1</td>
+<td>추가 병 1개 / L60 D1·점토 도입</td>
+</tr>
+</tbody></table></div>
+<p><strong>설계할 것</strong></p>
+<ul>
+<li>기본 변형의 순서</li>
+<li>어려운 판을 유지하는 횟수</li>
+<li>구제를 둘지(게임별 선택), 둔다면 cap 과 구제 목록</li>
+<li>목록이 소진된 뒤의 선택 방식</li>
+<li>카운터가 재시작·저장 복원·실패·이어하기에 어떻게 반응하는지</li>
+</ul>
+<p>&quot;매번 쉬워진다&quot;고 가정하지 않는다. 카매치 L69 의 D4 변형 5개도 v2 일반 봇으로 5.2~43.6% 로 갈렸다(봇개선 비교 3절). 등급이 내려가도 성공률이 오르는지는 따로 측정한다.</p>
+<h3 id="s4-5">3.5 보상·경제 연결</h3>
+<ul>
+<li>세 게임의 클리어 보상은 일반·하드·슈퍼하드 <strong>20 / 60 / 100 코인(1:3:5)</strong> 이다.</li>
+<li>하트 5개·30분 회복·즉시 충전 900도 거의 같다. 이어하기는 매직소트·블록아웃이 900 → 1,900 → 2,300, 카매치는 900(+30초)뿐이다.</li>
+<li>회사 기본값으로 보이지만 <strong>성과 지표는 확인하지 않았다</strong>(개발참고 1.1절).</li>
+<li>매직소트는 허들 보상과 다음 회복을 묶는다. L49 는 무한 생명 30분, L59 는 추가 병 1개를 주고, 다음 판 L50·60 은 D1 이다.</li>
+<li><strong>막힌 순간의 회복 자원</strong>도 사례가 있다.<ul>
+<li>카매치는 하드 레벨이거나 하트가 없을 때 일일 보상 표를 따로 쓴다(무제한 하트 90%).</li>
+<li>매직소트에도 전용 표가 있다. 블록아웃은 구분하지 않는다(개발참고 1.3절).</li>
+</ul>
+</li>
+<li>원칙: <strong>어려운 판일수록 큰 보상, 통과 직후 회복 판.</strong> 재화량과 아이템 가치는 우리 게임 경제에 맞춘다. 원작 숫자를 그대로 복사하지 않는다.</li>
+</ul>
+<h3 id="s4-6">3.6 판 구조와 난도 레버</h3>
+<ul>
+<li><strong>매직소트</strong>: 병·색 수는 L30 무렵 약 11병·9색에 도달한 뒤 L180 까지 대체로 유지되고, 이후 13~14병·11색으로 커진다. 그 안에서 숨김 정보·빈 병·여유 칸·블로커·색 배열로 조절한다. 구제 8곳은 기본판과 구조가 같고 색 배열만 다르다. 외형을 유지하면서 풀리는 정도만 바꾼 사례다.</li>
+<li><strong>카매치</strong>: 500판 모두 7×8 격자다. 차량 수·종류 분산·당장 고를 수 있는 차량·숨김·터널 순서·커튼 열쇠·연결 구조로 부담을 만든다.</li>
+<li><strong>원칙</strong>: 판을 키우는 것 하나로 난도를 올리지 않는다. 각 요인의 성공률 기여도는 정적 분석으로 수치화하지 않았다. 우리 게임에서 측정해 확인한다.</li>
+</ul>
+<h3 id="s4-7">3.7 숨김 정보가 있는 게임</h3>
+<p>매직소트 물음표 보완 측정(10-12)의 결정을 다른 게임에도 적용한다.</p>
+<ol>
+<li><strong>기준 정보 조건을 먼저 정한다.</strong> 매직소트 기준은 물음표 색을 아는 봇이다. 원작 D 순서 일치가 색 아는 봇에서 더 높았다(같은 템플릿 쌍 67.53% 대 64.62%).</li>
+<li>가린 조건(보이는 것만 보는 봇)도 <strong>같은 난수로</strong> 함께 잰다. 가린 쪽이 20%p 이상 낮은 판을 <strong>&#39;운 위험&#39;</strong> 으로 표시한다.<ul>
+<li>매직소트 첫 판 299개 중 30개가 표시됐고, 모두 블로커 판이며 24개가 일반 자리다.</li>
+<li>20%p 는 검토 대상을 고르는 임시 기준이다. 합격선이 아니다.</li>
+</ul>
+</li>
+<li>운 위험 판이 <strong>일반 자리</strong>에 오면 직접 플레이로 확인한다.</li>
+<li>평균 변화는 작아도 배치별로는 양방향으로 크게 움직인다(가림분 하위 10% −13.70%p, 상위 10% +9.57%p). 개별 판을 판단할 때는 두 값을 함께 본다.</li>
+</ol>
+<p>출처: <code>MagicSort_숨김정보_봇_비교.md</code>, 통합 가이드 2절.</p>
+<h3 id="s4-8">3.8 GRP1 기본 배치안 — 구간 × 역할 목표 D</h3>
+<p>레벨을 만들 때 출발점으로 쓰는 목표 D 표다.</p>
+<ul>
+<li><strong>만든 방법</strong>: 공용 v1 기준 곡선에서 가져왔다. 이 곡선은 매직소트 흐름을 구간 × 역할로 정리한 것이고, 범위로 주어진 칸은 어려운 쪽을 택했다.</li>
+<li><strong>바꾼 칸</strong>: 181~300 회복만 D3 → D2 로 낮췄다. 회복 판이 같은 구간 일반 판보다 어려우면 안 되기 때문이다.</li>
+<li><strong>사용처</strong>: BusTrafficFever 가 10-13 에 확정해 쓰는 목표 표와 같다(BTF <code>docs/btf-grp1-balance.md</code> §4, <code>btf-targets.json</code>, 커밋 <code>b22bf20a</code>).</li>
+<li><strong>이름</strong>: &#39;기본 배치안&#39;은 한눈에보기에서 붙인 이름이다. BTF 문서에서는 &#39;목표 D&#39; 라고 부른다.</li>
+</ul>
+<div class="vis" data-vis="heatmap"><figure class="viz"><figcaption class="vt">GRP1 기본 배치안 — 구간 × 역할별 목표 D</figcaption><div class="scroll"><table class="heat"><thead><tr><th>구간</th><th>일반</th><th>하드 (x4)</th><th>회복 (x5·x0)</th><th>슈퍼하드 (x9)</th></tr></thead><tbody><tr><th>1~13</th><td class="d1" tabindex="0" data-tip="1~13 일반 · 목표 D1 · 매직소트 원작 평균 D 1.00"><b>D1</b><small>원작 1.00</small></td><td class="na">—</td><td class="d1" tabindex="0" data-tip="1~13 회복 (x5·x0) · 목표 D1 · 매직소트 원작 평균 D 1.00"><b>D1</b><small>원작 1.00</small></td><td class="na">—</td></tr><tr><th>14~30</th><td class="d1" tabindex="0" data-tip="14~30 일반 · 목표 D1 · 매직소트 원작 평균 D 1.22"><b>D1</b><small>원작 1.22</small></td><td class="d2" tabindex="0" data-tip="14~30 하드 (x4) · 목표 D2 · 매직소트 원작 평균 D 2.00"><b>D2</b><small>원작 2.00</small></td><td class="d1" tabindex="0" data-tip="14~30 회복 (x5·x0) · 목표 D1 · 매직소트 원작 평균 D 1.25"><b>D1</b><small>원작 1.25</small></td><td class="d3" tabindex="0" data-tip="14~30 슈퍼하드 (x9) · 목표 D3 · 매직소트 원작 평균 D 3.00"><b>D3</b><small>원작 3.00</small></td></tr><tr><th>31~80</th><td class="d2" tabindex="0" data-tip="31~80 일반 · 목표 D2 · 매직소트 원작 평균 D 1.60"><b>D2</b><small>원작 1.60</small></td><td class="d4" tabindex="0" data-tip="31~80 하드 (x4) · 목표 D4 · 매직소트 원작 평균 D 3.40"><b>D4</b><small>원작 3.40</small></td><td class="d2" tabindex="0" data-tip="31~80 회복 (x5·x0) · 목표 D2 · 매직소트 원작 평균 D 1.50"><b>D2</b><small>원작 1.50</small></td><td class="d5" tabindex="0" data-tip="31~80 슈퍼하드 (x9) · 목표 D5 · 매직소트 원작 평균 D 5.00"><b>D5</b><small>원작 5.00</small></td></tr><tr><th>81~180</th><td class="d3" tabindex="0" data-tip="81~180 일반 · 목표 D3 · 매직소트 원작 평균 D 2.73"><b>D3</b><small>원작 2.73</small></td><td class="d5" tabindex="0" data-tip="81~180 하드 (x4) · 목표 D5 · 매직소트 원작 평균 D 4.60"><b>D5</b><small>원작 4.60</small></td><td class="d2" tabindex="0" data-tip="81~180 회복 (x5·x0) · 목표 D2 · 매직소트 원작 평균 D 1.90"><b>D2</b><small>원작 1.90</small></td><td class="d5" tabindex="0" data-tip="81~180 슈퍼하드 (x9) · 목표 D5 · 매직소트 원작 평균 D 5.00"><b>D5</b><small>원작 5.00</small></td></tr><tr><th>181~300</th><td class="d3" tabindex="0" data-tip="181~300 일반 · 목표 D3 · 매직소트 원작 평균 D 2.97"><b>D3</b><small>원작 2.97</small></td><td class="d5" tabindex="0" data-tip="181~300 하드 (x4) · 목표 D5 · 매직소트 원작 평균 D 5.00"><b>D5</b><small>원작 5.00</small></td><td class="d2" tabindex="0" data-tip="181~300 회복 (x5·x0) · 목표 D2 · 매직소트 원작 평균 D 2.39"><b>D2</b><small>원작 2.39</small></td><td class="d5" tabindex="0" data-tip="181~300 슈퍼하드 (x9) · 목표 D5 · 매직소트 원작 평균 D 5.50"><b>D5</b><small>원작 5.50</small></td></tr></tbody></table></div><p class="hint">옆으로 밀어서 보기 →</p><div class="legend"><span class="lg"><i class="k d1 sq"></i>D1</span><span class="lg"><i class="k d2 sq"></i>D2</span><span class="lg"><i class="k d3 sq"></i>D3</span><span class="lg"><i class="k d4 sq"></i>D4</span><span class="lg"><i class="k d5 sq"></i>D5</span></div><p class="cap">공용 v1 기준 곡선(매직소트 흐름, 범위면 어려운 쪽)에서 가져오고 181~300 회복만 D3 → D2 로 낮췄다. BusTrafficFever 가 10-13 에 확정해 쓰는 표와 같다. 고정 규칙이 아니라 출발점이다.</p></figure></div><details class="tv"><summary>표로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>구간</th>
+<th>회복 (x5·x0)</th>
+<th>일반</th>
+<th>하드 (x4)</th>
+<th>슈퍼하드 (x9)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1~13</td>
+<td>D1</td>
+<td>D1</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>14~30</td>
+<td>D1</td>
+<td>D1</td>
+<td>D2</td>
+<td>D3</td>
+</tr>
+<tr>
+<td>31~80</td>
+<td>D2</td>
+<td>D2</td>
+<td>D4</td>
+<td>D5</td>
+</tr>
+<tr>
+<td>81~180</td>
+<td>D2</td>
+<td>D3</td>
+<td>D5</td>
+<td>D5</td>
+</tr>
+<tr>
+<td>181~300</td>
+<td>D2</td>
+<td>D3</td>
+<td>D5</td>
+<td>D5</td>
+</tr>
+</tbody></table></div>
+<p>참고로 매직소트 원작에서 같은 자리 첫 판의 평균 D 는 다음과 같다(한눈에보기 2절).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>구간</th>
+<th>회복</th>
+<th>일반</th>
+<th>하드</th>
+<th>슈퍼하드</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1~13</td>
+<td>1.00</td>
+<td>1.00</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>14~30</td>
+<td>1.25</td>
+<td>1.22</td>
+<td>2.00</td>
+<td>3.00</td>
+</tr>
+<tr>
+<td>31~80</td>
+<td>1.50</td>
+<td>1.60</td>
+<td>3.40</td>
+<td>5.00</td>
+</tr>
+<tr>
+<td>81~180</td>
+<td>1.90</td>
+<td>2.73</td>
+<td>4.60</td>
+<td>5.00</td>
+</tr>
+<tr>
+<td>181~300</td>
+<td>2.39</td>
+<td>2.97</td>
+<td>5.00</td>
+<td>5.50</td>
+</tr>
+</tbody></table></div>
+</details><ul>
+<li><strong>고정 규칙이 아니라 출발점이다.</strong> 게임 길이·학습 곡선에 맞춰 조정하고, 바꾼 칸과 이유를 기록한다.</li>
+<li><strong>기본 배치안은 원작보다 등급 분포가 단조롭다.</strong> 구간 안의 일반 판을 한 등급으로 고정했기 때문이다.<ul>
+<li>81~180 구간: 원작은 D1 8% · D2 35% · D3 25% · D4 16% · D5 이상 16% 로 퍼져 있다.</li>
+<li>같은 구간의 배치안은 D2 20% · D3 60% · D5 20% 다(한눈에보기 2절).</li>
+</ul>
+</li>
+<li><strong>일반 판에도 변화를 주려면 Coster 처럼 구간별로 등급을 교대·순환시킨다.</strong><ul>
+<li>일반 판 목표: 14~63 은 D1/D2 교대(평균 1.5), 64~113 은 D2 중심, 114~ 는 D2·D3·D4 순환(평균 2.94).</li>
+<li>후반 일반 판에 D4 가 들어오므로 114 이후 하드를 D5 로 올렸다(Coster <code>grp1-balance-C-normal-baseline-2026-10-12.md</code>).</li>
+</ul>
+</li>
+</ul>
+<h3 id="s4-9">3.9 진행 설계표 템플릿</h3>
+<p>레벨을 만들기 전에 이 표부터 채운다. 목표 D 는 3.8 기본 배치안에서 출발한다. 측정 후에는 실측 열을 덧붙여 그대로 보고서가 된다.</p>
+<pre><code>| 레벨 | 역할     | 목표 D | 원본 D | 기믹 (신규/반복) | 재도전 편성        | 구제        | 보상  | 메모            |
+|------|----------|--------|--------|------------------|--------------------|-------------|-------|-----------------|
+| 1~13 | 학습     | D1     | -      | L6 A 신규        | 변형 5, 같은 D     | 없음        | 일반  |                 |
+| 14   | 하드     | D3     | -      | A 반복           | 변형 5, 4·5번 완화 | 없음        | 하드  | 첫 하드         |
+| 15   | 회복     | D1     | -      | -                | 변형 5             | 없음        | 일반  |                 |
+| 19   | 슈퍼하드 | D4     | -      | A·B 반복         | 변형 5, 완화       | cap n → D1  | 슈하  | 보상: 부스터    |
+| 20   | 회복     | D1     | -      | C 신규 (단독)    | 변형 5             | 없음        | 일반  | 도입 판 다른 부담↓ |
+</code></pre>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s3"><small>← 이전</small>2. 공통 기준 — 모든 게임이 같은 것을 쓴다</a><a class="next" href="#s5"><small>다음 →</small>4. 게임별로 정할 것 — 착수 전 결정 목록</a></nav></section>
+<section class="panel page" data-page="4"><div class="pagehead"><span class="ph-nav"><a href="#s4">← 이전</a><b>5 / 13</b><a href="#s6">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s5">4. 게임별로 정할 것 — 착수 전 결정 목록</h2>
+<p><strong>봇 정의는 팀장님이 확정한다.</strong> 이미 확정한 항목은 다시 묻지 않는다. 미정인 의미만 확인하고, 그동안 독립적인 작업은 계속한다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>무엇을 정하나</th>
+<th>기본안</th>
+<th>매직소트 사례</th>
+<th>카매치 사례</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>한 수의 단위</td>
+<td>선택 1회 + 자동 반응 정착</td>
+<td>-</td>
+<td>붓기 1회</td>
+<td>차량 1대 선택 → 이동·매치 정착</td>
+</tr>
+<tr>
+<td>합법 행동</td>
+<td>규칙상 가능한 행동 전체</td>
+<td>-</td>
+<td>완성 병 출발 금지 등</td>
+<td>출구가 열린 차량</td>
+</tr>
+<tr>
+<td>반복 판정</td>
+<td>&#39;같은 상태&#39;의 키</td>
+<td>한 시행 안 방문 상태</td>
+<td>물 배치·활성 블로커·완료 병, 병 위치 구분</td>
+<td>-</td>
+</tr>
+<tr>
+<td>초보 행동</td>
+<td>직관적 우선순위와 대체 행동</td>
+<td>게임별</td>
+<td>방문 제외 → 같은 색 병 → 빈 병, 그 안에서 무작위</td>
+<td>즉시 3매치 → 대기칸 같은 색 → 합법 무작위</td>
+</tr>
+<tr>
+<td>일반·고수 평가</td>
+<td>무엇을 좋은 상태로 보나</td>
+<td>승리·실패 회피 우선 + 자원 여유·후속 접근성·매치 효과</td>
+<td>즉시 승리 &gt; (고수) 두 수 안 승리 &gt; 미방문 후속 이동 존재 &gt; 중단</td>
+<td>대기칸 여유×10,000 + 다음 즉시 매치(최대 9)×100 + 색쌍×10 + 합법 차량×20</td>
+</tr>
+<tr>
+<td>예측 깊이</td>
+<td>일반·고수</td>
+<td>1수·2수</td>
+<td>1·2</td>
+<td>1·2</td>
+</tr>
+<tr>
+<td>실수</td>
+<td>확률·후보 집합·시점·동점</td>
+<td><strong>일반 17.39%·고수 9.00%, 레벨 보정 없음</strong>(10-20 확정). 무작위는 모든 합법 행동에서 균등</td>
+<td>같은 값, 공통 후보 안에서</td>
+<td>같은 값, 전체 합법 차량에서</td>
+</tr>
+<tr>
+<td>정보 조건</td>
+<td>숨김 값을 아는가</td>
+<td>명시 필수</td>
+<td>기준 = 색 아는 봇, 가린 봇은 보조</td>
+<td>숨김 색·대기열을 알고 예측</td>
+</tr>
+<tr>
+<td>종료·상한</td>
+<td>승패·행동 상한</td>
+<td>-</td>
+<td>최대 400수</td>
+<td>상한 없음(선택마다 차량 1대 감소)</td>
+</tr>
+<tr>
+<td>제외 요소</td>
+<td>부스터·이어하기·학습·타이머</td>
+<td>미포함</td>
+<td>미포함</td>
+<td>미포함(타이머·trafficv2 포함 제외)</td>
+</tr>
+<tr>
+<td>혼합 비율</td>
+<td>런칭 지표</td>
+<td>일반 50 + 고수 50</td>
+<td>50:50</td>
+<td>50:50</td>
+</tr>
+<tr>
+<td>난이도 눈금</td>
+<td>어느 봇으로 난이도를 가르고, 어느 봇을 게이트로 쓰나</td>
+<td>일반·고수 50:50 이 눈금. ③-2 점검 후 확정</td>
+<td>50:50</td>
+<td>50:50</td>
+</tr>
+<tr>
+<td>별도 구제</td>
+<td>둘지, 둔다면 cap</td>
+<td>게임별 선택</td>
+<td>8개 레벨</td>
+<td>없음</td>
+</tr>
+<tr>
+<td>작은 허들</td>
+<td>x2·x7 사용 여부</td>
+<td>선택</td>
+<td>없음</td>
+<td>관측됨</td>
+</tr>
+<tr>
+<td>보상</td>
+<td>역할별 보상·허들 특별 보상</td>
+<td>우리 경제</td>
+<td>20/60/100 + 허들 보상</td>
+<td>20/60/100</td>
+</tr>
+<tr>
+<td>연속 난관 임계값</td>
+<td>&#39;어려운 판&#39;의 성공률 기준</td>
+<td><strong>미정이면 미설정으로 보고</strong></td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>예외 등급</td>
+<td>D6·D7 을 만들지</td>
+<td>만들지 않음. 꼭 필요하면 팀장님 확정(2.6)</td>
+<td>D6 3설정·D7 2설정</td>
+<td>첫 seed D6 35판</td>
+</tr>
+</tbody></table></div>
+<p><strong>실수 기본값 (10-20 팀장님 결정)</strong></p>
+<div class="vis" data-vis="mistake"><div class="mist"><div class="eq"><b class="who2">일반</b><span class="term" tabindex="0" data-tip="판단을 건너뛰고 무작위로 고를 확률">12.4%<small>판단 생략</small></span><span class="op">⊕</span><span class="term" tabindex="0" data-tip="오클릭 바닥값, 모든 레벨 같음">5.7%<small>오클릭 바닥</small></span><span class="op">=</span><span class="term res">17.39%<small>무작위 선택</small></span></div><div class="eq"><b class="who2">고수</b><span class="term" tabindex="0" data-tip="판단을 건너뛰고 무작위로 고를 확률">3.5%<small>판단 생략</small></span><span class="op">⊕</span><span class="term" tabindex="0" data-tip="오클릭 바닥값, 모든 레벨 같음">5.7%<small>오클릭 바닥</small></span><span class="op">=</span><span class="term res">9.00%<small>무작위 선택</small></span></div><p class="cap">⊕ 는 1 − (1 − a)(1 − b). 출처: CubeLand UserCohortModel (Honey Trap 로그 피팅). 우리 게임 유저 로그로 맞춘 값은 아직 없다.</p>
+ <div class="chips wide"><span>레벨 보정 없음 — 모든 레벨 같은 값</span><span>무작위 = 모든 합법 행동 균등 (즉시 패배 포함)</span><span>초보 = 직관 순위 안에서 무작위</span><span>안전 보정 같은 예외는 팀장님 확정</span><span>기존 게임(BTF·Coster)은 각자 프로필 유지</span></div>
+ <div class="mini"><b>실수 방식만 바꿔도 크게 움직인다</b> — BTF 에서 실수 방식만 이 기본값으로 바꾸면 하드 55.9% → 34.1%, 슈퍼하드 23.4% → 13.8%. 그래서 선별 전에 고정한다.</div></div></div><ul>
+<li><strong>값</strong>: 일반 17.39%, 고수 9.00%, 모든 레벨 같음. 매직소트·카매치 기준표를 잰 조건과 같다.</li>
+<li><strong>출처</strong>: CubeLand <code>UserCohortModel</code> 이다. 원래 Honey Trap 플레이 로그에 맞춘 모델이다(<code>UserCohortModel.cs</code> 108행). 이 모델은 실수를 두 가지로 나눈다.<ul>
+<li>판단 생략 ε: 일반 12.4%, 고수 3.5%, 초보 100%.</li>
+<li>오클릭 m: 레벨 1 에서 38% 로 시작해 바닥 5.7% 까지 내려간다.</li>
+<li>기본값은 오클릭을 바닥 5.7% 로 고정해 <code>1 − (1 − ε)(1 − 0.057)</code> 로 합친 값이다.</li>
+</ul>
+</li>
+<li><strong>무작위로 고르는 범위</strong>: 모든 합법 행동에서 균등하게 고른다. 즉시 패배하는 행동도 포함한다. 매 수 평가 전에 추첨하고, 예측 속 미래의 실수는 모델링하지 않는다.</li>
+<li><strong>초보</strong>: 평가하지 않는다. 직관 우선순위를 따르고 같은 순위 안에서 무작위로 고른다. 별도 오클릭은 두지 않는다.</li>
+<li><strong>예외</strong>: 한 번의 실수가 곧 패배인 구조라면 안전 보정을 쓸 수 있다(예: BTF 의 &#39;교착으로 가는 수로는 실수하지 않음&#39;). 근거와 함께 제안하고, 팀장님 확정 후 프로필에 예외로 기록한다. 결과를 보고 실수율을 바꾸지 않는다.</li>
+<li><strong>기존 게임은 각자 프로필을 유지한다.</strong> 바꾸려면 새 버전으로 재측정한다.<ul>
+<li>BTF v2.1: 차선 실수 10%·5%. 비교 봇 guide1 은 이 기본값과 같은 실수 설정이다.</li>
+<li>Coster: 12.4%·3.5% + 레벨별 오클릭.</li>
+</ul>
+</li>
+<li><strong>왜 미리 고정하나</strong>: 실수 방식만 바꿔도 결과가 크게 움직인다. BTF 는 실수 방식만 이 기본값으로 바꿨을 때 하드가 55.9% → 34.1%, 슈퍼하드가 23.4% → 13.8% 로 내려갔다(BTF 문서 823행).</li>
+</ul>
+<p><strong>기본에 넣지 않은 실수 변형</strong> (10-20, 매직소트·카매치 첫 판 10,000회, <code>GRP1_Honey실수3종_민감도.md</code>)</p>
+<div class="vis" data-vis="honey"><figure class="viz"><figcaption class="vt">Honey 실수를 하나씩 더했을 때 GRP1 첫 판 평균 변화 (%p)</figcaption><div class="legend"><span class="lg"><i class="k s1 sq"></i>매직소트</span><span class="lg"><i class="k s2 sq"></i>카매치</span></div><svg viewBox="0 0 780 230" role="img" aria-label="실수 변형별 평균 변화"><line x1="200" x2="200" y1="26" y2="210" class="grid"/><text x="200" y="225" class="ta c">-12</text><line x1="286.66666666666663" x2="286.66666666666663" y1="26" y2="210" class="grid"/><text x="286.66666666666663" y="225" class="ta c">-9</text><line x1="373.3333333333333" x2="373.3333333333333" y1="26" y2="210" class="grid"/><text x="373.3333333333333" y="225" class="ta c">-6</text><line x1="460" x2="460" y1="26" y2="210" class="grid"/><text x="460" y="225" class="ta c">-3</text><line x1="546.6666666666666" x2="546.6666666666666" y1="26" y2="210" class="zero"/><text x="546.6666666666666" y="225" class="ta c">0</text><line x1="633.3333333333334" x2="633.3333333333334" y1="26" y2="210" class="grid"/><text x="633.3333333333334" y="225" class="ta c">+3</text><line x1="720" x2="720" y1="26" y2="210" class="grid"/><text x="720" y="225" class="ta c">+6</text><text x="538.6666666666666" y="16" class="ta r">← 어려워짐</text><text x="554.6666666666666" y="16" class="ta">쉬워짐 →</text><text x="188" y="54" class="tl r">레벨별 오클릭 (Honey 식)</text><rect x="546.6666666666666" y="34" width="9.244444444444412" height="16" rx="3" class="s1" tabindex="0" data-tip="매직소트 · 레벨별 오클릭 (Honey 식) · +0.32%p"/><text x="561.911111111111" y="46" class="tv ">+0.32</text><rect x="546.6666666666666" y="56" width="114.1111111111112" height="16" rx="3" class="s2" tabindex="0" data-tip="카매치 · 레벨별 오클릭 (Honey 식) · +3.95%p"/><text x="666.7777777777778" y="68" class="tv ">+3.95</text><text x="188" y="116" class="tl r">판 잘못 읽기 8.7%</text><rect x="455.9555555555555" y="96" width="90.71111111111111" height="16" rx="3" class="s1" tabindex="0" data-tip="매직소트 · 판 잘못 읽기 8.7% · -3.14%p"/><text x="449.9555555555555" y="108" class="tv r">-3.14</text><rect x="241.88888888888886" y="118" width="304.77777777777777" height="16" rx="3" class="s2" tabindex="0" data-tip="카매치 · 판 잘못 읽기 8.7% · -10.55%p"/><text x="235.88888888888886" y="130" class="tv r">-10.55</text><text x="188" y="178" class="tl r">막는 것 먼저 치우기</text><rect x="546.6666666666666" y="158" width="25.133333333333326" height="16" rx="3" class="s1" tabindex="0" data-tip="매직소트 · 막는 것 먼저 치우기 · +0.87%p"/><text x="577.8" y="170" class="tv ">+0.87</text><rect x="535.9777777777779" y="180" width="10.688888888888755" height="16" rx="3" class="s2" tabindex="0" data-tip="카매치 · 막는 것 먼저 치우기 · -0.37%p"/><text x="529.9777777777779" y="192" class="tv r">-0.37</text></svg><p class="cap">셋 모두 기본에 넣지 않는다. 출처: GRP1_Honey실수3종_민감도 (첫 판, 10,000회, 공통 난수).</p></figure></div><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>변형</th>
+<th align="right">매직소트</th>
+<th align="right">카매치</th>
+<th>결정</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>레벨별 오클릭 (Honey 식, 판당 최대 2회)</td>
+<td align="right">+0.32%p</td>
+<td align="right">+3.95%p</td>
+<td>넣지 않음. 오히려 쉬워진다. 고정 5.7% 가 더 보수적이다</td>
+</tr>
+<tr>
+<td>판 잘못 읽기 8.7%</td>
+<td align="right">−3.14%p</td>
+<td align="right">−10.55%p</td>
+<td>필요한 게임에서 보조 열로만 본다. 기본에 넣으려면 D 구간부터 다시 정해야 한다</td>
+</tr>
+<tr>
+<td>막는 것 먼저 치우기</td>
+<td align="right">+0.87%p</td>
+<td align="right">−0.37%p</td>
+<td>넣지 않음. 평균 변화는 작지만 판마다 크게 흔들린다(매직소트 5%p 넘게 바뀐 판 46개)</td>
+</tr>
+</tbody></table></div>
+<p>셋을 모두 넣으면 같은 D 에서 두 게임 차이가 7.5%p → 11.2%p 로 벌어진다. 공용 기준으로는 나빠진다.</p>
+<p><strong>실제 적용한 두 게임의 결정</strong> (BTF <code>docs/btf-grp1-balance.md</code> §2~§6, Coster <code>grp1-balance-pilot-2026-10-09.md</code>·<code>grp1-balance-A-requeue-2026-10-11.md</code>)</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>BusTrafficFever</th>
+<th>Coster</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>한 수</td>
+<td>탭 가능한 보트 1척 탭 → 빈 슬롯 정박 → 탑승·만석 출발·링 전진·줄 합류가 정착할 때까지</td>
+<td>큐 선두 대포 1개(연결 그룹은 전원) 탭 → 빈 카트에 올라 자동 사격, 탄이 0 이면 반납</td>
+</tr>
+<tr>
+<td>실시간 요소</td>
+<td>사실상 없음. 추상 시뮬이 런타임과 한 수씩 일치하고, 게이트·컨베이어만 근사</td>
+<td>있음(회전·시야·탄 비행·교착 유예). &#39;기다림&#39;이 공짜가 되지 않게 카트당 10발 라운드로 정의</td>
+</tr>
+<tr>
+<td>일반·고수</td>
+<td>v2.1: 3탭 / 10탭 롤아웃, ε 0.05, 교착으로 가는 수는 실수 후보에서 뺌</td>
+<td>1수 / 2수, ε 0.124 / 0.035 + 레벨별 실수 보정</td>
+</tr>
+<tr>
+<td>초보</td>
+<td>링·줄 앞부분을 읽고 1수 교착을 피함, 30% 무작위</td>
+<td><strong>성급 무작위</strong>(합법 레인 균등 추첨) = 난이도 축. 팀장님 정의 직관 초보(노출 셀이 가장 많은 색)는 참고 열</td>
+</tr>
+<tr>
+<td>정보 조건</td>
+<td>? 보트 색은 결정마다 섞은 가상 세계로 계획. 대기열 순서는 앎 → 정보 경계 &#39;부분 통과&#39;</td>
+<td>v3 부터 공개된 순간부터 앎. 예측 중 처음 공개되는 선두는 기대값으로 계산</td>
+</tr>
+<tr>
+<td>패배</td>
+<td>빈 슬롯 0, 탭 가능 보트 0, 구급차 횟수 소진, 1,000탭</td>
+<td>합법 배치 없음 · 쏠 색 없음 · 라운드 동안 진행 없음</td>
+</tr>
+<tr>
+<td>난이도 눈금</td>
+<td>v2.1 50:50 유지. 절대값은 출시 후 첫 도전 성공률로 맞춤</td>
+<td>성급 무작위 초보 = 축, 1수 봇 ≥ 0.75 = &#39;함정 아님&#39; 게이트</td>
+</tr>
+</tbody></table></div>
+<p><strong>봇 프로필 템플릿</strong></p>
+<pre><code class="language-yaml">profileId: &lt;game&gt;-grp1-v1          # 정책·비율·규칙이 바뀌면 v2, v3 … 로 올린다
+game: &lt;게임명&gt;                       # 빌드 번호, 레벨 데이터 경로·SHA-256
+move: &quot;탭 1회 후 자동 반응이 모두 끝난 상태까지&quot;
+legal: &quot;규칙상 가능한 행동 전체&quot;
+exclusions:                          # 실제 선택과 예측에 똑같이 적용
+  - &quot;이번 시행에서 이미 방문한 상태로 가는 행동&quot;
+stateKey: &quot;보드 배치 + 활성 기믹 + 완료 상태 (+ 위치 구분 여부)&quot;
+information:
+  baseline: &quot;숨김 값을 안다 | 보이는 것만 본다&quot;
+  hiddenCheck: &quot;가린 조건 보조 측정 여부와 운 위험 기준(%p)&quot;
+cohorts:
+  novice:       { depth: 0, policy: &quot;&lt;직관 우선순위, 예: 즉시 매치 → 같은 색 → 무작위&gt;&quot; }
+  intermediate: { depth: 1, candidates: all-legal, randomPick: 0.173932 }   # 기본값, 레벨 보정 없음
+  expert:       { depth: 2, candidates: all-legal, randomPick: 0.090005 }   # 기본값, 레벨 보정 없음
+evaluation: &quot;승리 &gt; 실패 회피 &gt; &lt;자원 여유 / 후속 접근성 / 매치 효과 항목&gt;&quot;
+mistake:
+  candidateSet: &quot;전체 합법 행동 | 초보 후보&quot;
+  includesInstantLoss: true
+  tieBreak: &quot;균등 무작위&quot;
+terminal: { win: &quot;...&quot;, lose: [&quot;...&quot;], moveCap: &lt;n 또는 없음&gt; }
+excluded: [booster, continue, cross-trial-learning]
+weights: { novice: 0, intermediate: 0.5, expert: 0.5 }
+extendedGrades: []                   # D6·D7 이 꼭 필요하면 이유·위치와 함께 팀장 확정 후 기록
+rng: &quot;&lt;시드 규칙&gt;&quot;
+confirmedBy: &quot;팀장님, YYYY-MM-DD&quot;
+</code></pre>
+<p><strong>게임 유형별 힌트</strong></p>
+<ul>
+<li><strong>칸 단위형</strong>: 탭하면 자동으로 처리되는 게임. 매직소트·카매치·CubeLand 가 여기에 든다. 위 템플릿을 그대로 쓴다.<ul>
+<li>CubeLand 의 한 수 = 큐의 열 하나를 탭하는 것이다(v1 설계서 6.3절).</li>
+</ul>
+</li>
+<li><strong>조준형</strong>: 연속 입력 게임. 한 수의 정의와 실수 모델(조준 오차)을 따로 만들어야 한다.<ul>
+<li>v1 도구에 <code>IContinuousModuleFactory</code> + 보정(calibrate) 틀은 있다.</li>
+<li>다만 <strong>GRP1 기준으로 검증한 사례는 없다.</strong></li>
+</ul>
+</li>
+<li><strong>실시간 요소가 있는 게임</strong>: 고정점까지 정착하는 모델에서는 &#39;기다림&#39;이 공짜라서 봇이 포화한다.<ul>
+<li>사람의 템포(탭 간격)를 한 수 정의에 넣는다. Coster 는 카트당 10발 라운드로 정의했다.</li>
+<li>템포 같은 사람 행동의 정의는 팀장님이 확정한다.</li>
+</ul>
+</li>
+</ul>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s4"><small>← 이전</small>3. 진행 구조 설계 — 레벨 배열을 어떻게 짜는가</a><a class="next" href="#s6"><small>다음 →</small>5. 적용 절차 — 단계별 작업</a></nav></section>
+<section class="panel page" data-page="5"><div class="pagehead"><span class="ph-nav"><a href="#s5">← 이전</a><b>6 / 13</b><a href="#s7">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s6">5. 적용 절차 — 단계별 작업</h2>
+<p>각 단계는 <strong>입력 → 작업 → 산출물 → 넘어가는 조건</strong>으로 적었다. 넘어가는 조건을 못 채우면 다음 단계로 가지 않는다. 실제 실행은 스킬이 하고, 아래는 스킬이 따르는 절차를 사람이 확인할 수 있게 풀어 쓴 것이다.</p>
+<div class="vis" data-vis="steps"><div class="stepper"><span class="step  "><em>①</em>착수 · 설계표</span><span class="arr">→</span><span class="step sg "><em>②</em>봇 프로필<i class="gi">확정</i></span><span class="arr">→</span><span class="step  "><em>③</em>사전 검증</span><span class="arr">→</span><span class="step sg "><em>③-2</em>눈금 점검<i class="gi">확정</i></span><span class="arr">→</span><span class="step  "><em>④</em>버전 고정</span><span class="arr">→</span><span class="step  "><em>⑤</em>후보 · 예비 측정</span><span class="arr">→</span><span class="step  "><em>⑥</em>선별 · 배치</span><span class="arr">→</span><span class="step  "><em>⑦</em>독립 재검증</span><span class="arr">→</span><span class="step  sl"><em>⑧</em>리듬 검증</span><span class="arr">→</span><span class="step  "><em>⑨</em>보고 · 보관</span><span class="arr">→</span><span class="step  "><em>⑩</em>출시 후 보정</span></div><p class="cap">⑧ 에서 문제가 나오면 ⑤ 로 돌아간다(봇은 그대로). ③ 이 실패하면 대량 측정 전에 시뮬레이터·프로필부터 고친다.</p></div><h3 id="s6-1">① 착수 준비와 진행 설계</h3>
+<ul>
+<li><strong>입력</strong>: 게임 규칙, 기존 레벨·생성기·시뮬레이터, 기존 밸런스 프로필.</li>
+<li><strong>작업</strong><ul>
+<li>프로젝트 지침과 기존 레벨 ID·GUID 를 확인하고 보존한다.</li>
+<li>3.9 진행 설계표로 역할·목표 D·기믹 도입·재도전·보상을 먼저 정한다. 목표 D 는 3.8 기본 배치안에서 출발한다.</li>
+</ul>
+</li>
+<li><strong>산출물</strong>: 진행 설계표 초안, 기존 자산 목록.</li>
+<li><strong>넘어가는 조건</strong>: 역할·목표 D 가 레벨마다 있다.</li>
+<li><strong>주의</strong>: 레벨 데이터와 실제 설치본이 다를 수 있다. CubeLand 는 L1~7 JSON 이 설치본과 달랐고, L4·L14 의 도크 선배치가 JSON 에 없었다.</li>
+</ul>
+<h3 id="s6-2">② 봇 프로필 정의</h3>
+<ul>
+<li><strong>입력</strong>: 4장 결정 목록.</li>
+<li><strong>작업</strong>: 초보 행동·한 수 단위·평가 항목·정보 조건·실수 처리를 템플릿으로 정리한다.</li>
+<li><strong>산출물</strong>: 프로필 문서(YAML/JSON). 팀장님 확정 날짜를 함께 적는다.</li>
+<li><strong>넘어가는 조건</strong>: 미정 항목이 &#39;미정&#39;으로 명시되어 있다. 빈칸으로 두지 않는다.</li>
+</ul>
+<h3 id="s6-3">③ 시뮬레이터 구현과 사전 검증 — 대표 레벨 10~20개</h3>
+<ul>
+<li><strong>대표 판 구성</strong>: 쉬운 판, 일반 판, 허들, 직후 회복, 각 기믹, 정보 공개, 자원 포화, 종료 경계를 포함한다. 개수를 채우려고 같은 판을 복제하지 않는다. 판이 부족하면 가능한 범위와 누락을 기록한다.</li>
+<li><strong>기록 방식</strong>: 아래 항목마다 <strong>통과 / 실패 / 미검증 / 해당 없음</strong> 과 근거(파일·테스트·재현 경로)를 남긴다.</li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>검증</th>
+<th>확인할 실제 동작</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>게임 상태 전이</td>
+<td>선택 가능한 행동, 자동 처리 순서, 승패·종료, 기믹 반응이 실제 구현과 같은가</td>
+</tr>
+<tr>
+<td>초보 정책</td>
+<td>정의한 우선순위와 대체 행동이 적용되는가</td>
+</tr>
+<tr>
+<td>일반·고수 후보</td>
+<td>다른 색·행동으로 길을 여는 합법 선택이 실제·예측 후보에 들어 있는가</td>
+</tr>
+<tr>
+<td>예측 복원</td>
+<td>예측 뒤 보드·자원·방문 기록·실행 난수가 오염되지 않는가</td>
+</tr>
+<tr>
+<td>정보 경계</td>
+<td>프로필상 볼 수 없는 값이 평가로 새지 않는가</td>
+</tr>
+<tr>
+<td>실수 처리</td>
+<td>확률뿐 아니라 무작위 후보 집합과 적용 시점이 정의와 같은가</td>
+</tr>
+<tr>
+<td>재현·종료</td>
+<td>같은 입력·코드·난수로 재현되는가. 루프·상한·선택 불가가 구분되는가</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>실행 방법</strong><ul>
+<li>게임 규칙은 가능하면 실제 런타임과 같은 행동열로 대조한다.</li>
+<li>게임팀의 기존 측정이 있으면 <strong>같은 시드로 승수가 그대로 재현되는지</strong> 본다. CubeLand 는 L391~400 이 10/10 정확히 재현됐다.</li>
+<li>실행하지 못했다면 &quot;정적 추적·합성 테스트만 검증&quot;이라고 적는다.</li>
+</ul>
+</li>
+<li><strong>넘어가는 조건</strong>: 알려진 규칙 불일치, 예측 상태 오염, 정보 누출이 <strong>하나도 남지 않았다.</strong> 남아 있으면 대량 측정을 하지 않고 먼저 고친다.</li>
+<li><strong>고수 &lt; 일반만으로는 버그로 확정하지 않는다.</strong> 표본 오차·경로·평가 한계를 조사하고 판단 근거를 남긴다.</li>
+<li><strong>시뮬레이터가 기믹 레벨을 실제로 도는지부터 본다.</strong> Coster 는 기믹 시뮬레이터가 기믹 레벨에서 전부 예외로 실패하고 있었다. 그래서 그때까지 쓰던 수치는 다른 게임의 측정이었다.</li>
+</ul>
+<h3 id="s6-4">③-2 난이도 눈금 점검 — 이 봇들로 레벨이 갈리는가</h3>
+<p>실제로 적용한 두 게임 모두 기본 프로필의 50:50 을 그대로 눈금으로 쓰지 못했다.</p>
+<ul>
+<li>Coster 는 포화했다(대표 25판 평균 0.988).</li>
+<li>BTF 는 서열은 맞았지만 D2~D5 가 구간 위로 나왔다(평균 거리 22.0%p).</li>
+</ul>
+<p>그래서 대표 판 예비 측정(집단별 200~1,000회) 직후 아래를 확인하고, 그다음에 버전을 고정한다.</p>
+<div class="vis" data-vis="scale"><div class="scaletop">대표 판 예비 측정 (기본 프로필) 결과를 보고 넷 중 하나로 판정한다</div><div class="cards c4 scale"><div class="card sc "><b class="bn">포화</b><dl><dt>신호</dt><dd>대부분 ≥ 0.9, 허들 ≈ 일반</dd><dt>대응</dt><dd>원인표(시간·시야·오클릭·숨김) → 한 수·템포 재정의 → 그래도 0/1 로만 갈리면 눈금 재선정: 연속 분포 봇 = 축, 판단 봇 = 함정 게이트</dd><dt>사례</dt><dd>Coster</dd></dl></div><div class="card sc "><b class="bn">맹점</b><dl><dt>신호</dt><dd>특정 기믹에서 0%</dd><dt>대응</dt><dd>평가 가중치가 아니라 수읽기 길이로 고치고 새 profileId</dd><dt>사례</dt><dd>BTF v2 → v2.1</dd></dl></div><div class="card sc "><b class="bn">강도</b><dl><dt>신호</dt><dd>서열은 맞는데 전부 구간 위</dd><dt>대응</dt><dd>가이드형 비교 봇을 함께 재 ‘레벨이 쉬운가 / 봇이 센가’를 나눈다. 출시 전엔 순서·리듬·이상치로, 절대값은 출시 후</dd><dt>사례</dt><dd>BTF guide1</dd></dl></div><div class="card sc ok"><b class="bn">정상</b><dl><dt>신호</dt><dd>서열이 맞고 구간 근처</dd><dt>대응</dt><dd>④ 버전 고정으로 넘어간다</dd><dt>사례</dt><dd>—</dd></dl></div></div>
+ <p class="cap">포화·맹점·강도의 대응은 팀장님 확정 후 새 버전으로. 판정 수치(≥ 0.9, 게이트 0.75)는 한 게임의 값이며 공통 합격선이 아니다. 두 사례(n=2)에서 일반화한 절차다.</p></div><details class="tv"><summary>텍스트로 보기</summary><pre><code>대표 판 예비 측정 (기본 프로필)
+  │
+  ├─ 대부분 ≥ 0.9, 허들 ≈ 일반 ────────&gt; 포화
+  │     원인표 작성 (모델 밖 손실: 시간·시야·오클릭·숨김)
+  │     → 한 수·템포 재정의 (팀장님 확정) → 재측정
+  │     → 그래도 허들 변형에서 판단 봇이 0/1 로만 갈리면 눈금 재선정:
+  │          연속 분포 + 허들·회복 리듬 + 조정 도구에 반응하는 봇 = 난이도 축
+  │          판단 봇 = 함정 게이트                                   (Coster)
+  │
+  ├─ 특정 기믹에서 0% 로 무너짐 ──────&gt; 맹점
+  │     평가 가중치가 아니라 수읽기 길이로 고치고 새 profileId     (BTF v2 → v2.1)
+  │
+  ├─ 서열은 맞는데 절대값이 전부 구간 위 ─&gt; 강도
+  │     가이드형 비교 봇(1수·2수 + 표준 무작위율)을 함께 재서
+  │     &#39;레벨이 쉬운가 / 봇이 센가&#39;를 나눔. 출시 전엔 순서·리듬·이상치로 조정,
+  │     절대값은 출시 후 첫 도전 성공률로                          (BTF guide1)
+  │
+  └─ 서열이 맞고 구간 근처 ─────────────&gt; ④ 버전 고정
+</code></pre></details>
+<ul>
+<li><strong>산출물</strong>: 눈금 점검 기록 — 대표 판 분포, 포화·맹점·강도 판정, 선택한 눈금과 게이트, 팀장님 확정 날짜.</li>
+<li><strong>50:50 이 아닌 눈금을 쓰기로 했다면</strong> 그 사실과 이유를 보고서 첫머리에 적는다. 다른 게임 수치와는 비교하지 않는다.<ul>
+<li>Coster 는 이 결정이 &quot;GRP1 일반·고수 50:50 정의에서 벗어난다&quot;고 스스로 명시했다.</li>
+</ul>
+</li>
+<li><strong>두 사례(n=2)에서 일반화한 제안이다.</strong> 판정 수치(≥ 0.9, 게이트 0.75)는 Coster 한 게임의 값이다. 0.75 는 0.9 에서 낮춘 값인데, &#39;채택 수가 늘어난다&#39; 외의 근거는 문서에 없다.</li>
+</ul>
+<h3 id="s6-5">④ 프로필 버전 고정</h3>
+<ul>
+<li>profileId 를 부여하고 시뮬레이터 소스 스냅숏과 SHA-256 을 보관한다.</li>
+<li>이후 <strong>정책을 바꾸면 새 버전</strong>이다. 새 버전은 선별 후보와 기준을 다시 재고, 전후 결과를 모두 보존한다.</li>
+<li>회귀 확인: 바꾸지 않은 부분은 결과가 정확히 같아야 한다.<ul>
+<li>카매치 v1 → v2 에서 초보는 2,500개 seed 전부 성공·실패·선택 횟수가 일치했다.</li>
+<li>매직소트 각 단계도 같은 시드로 이전 결과를 재현했다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="s6-6">⑤ 후보 생성과 예비 측정</h3>
+<ul>
+<li>설계 조건(역할·목표 D·기믹)마다 <strong>여러 후보</strong>를 만든다. 생성 → 풀이 가능성 검증 → 봇 측정 순서다.</li>
+<li>대표 판과 후보를 집단별 200~1,000회로 예비 측정한다. 이상 경로(급락·역전·포화)는 개별 플레이 경로로 확인한다.</li>
+<li>승인된 범위 안이면 매번 다시 허락을 구하지 않고 진행한다.</li>
+</ul>
+<h3 id="s6-7">⑥ 선별·배치</h3>
+<ul>
+<li>목표 D 평균에 맞게 후보를 고르고 진행표에 배치한다.</li>
+<li><strong>조정 대상은 레벨 배열·자원·기믹·재도전 편성</strong>이다. 봇 정책·가중치가 아니다.</li>
+<li>모든 판을 구간 중앙값으로 평탄화하지 않는다. 학습·회복·변동을 고려해 고른다.</li>
+<li>첫 판·변형·구제를 각각 고른다.</li>
+<li><strong>역할 안 이상치를 재생성 대상으로 고른다.</strong><ul>
+<li>BTF 는 역할 평균 ±1.5σ 밖의 판을 골라, 약한 판 27개를 다시 만들었다.</li>
+<li>일반 판의 흔들림이 σ ±3.3 에서 ±1.6 으로 줄었다.</li>
+<li>이상치 목록은 쓰는 봇(자)에 따라 바뀐다. BTF 에서 두 자의 순위 상관은 0.5 안팎이었다.</li>
+</ul>
+</li>
+<li><strong>조정 도구가 듣지 않으면 한 단계 큰 다이얼로 간다.</strong> Coster 의 순서는 다음과 같았다.<ol>
+<li>큐 적재물 교환</li>
+<li>구조 수정(연결 배치·매장 색)</li>
+<li>일반 판 기준선 재설계</li>
+<li>그래도 절벽인 판(0.5 ↔ 0.0)은 탄수 분할 같은 새 다이얼이 필요하다고 남겼다.</li>
+</ol>
+</li>
+</ul>
+<h3 id="s6-8">⑦ 독립 재검증</h3>
+<ul>
+<li>선별에 쓰지 않은 난수로 배치별·집단별 <strong>10,000회</strong>를 측정한다.</li>
+<li>집계: <code>python &lt;스킬&gt;/scripts/compare_results.py &lt;측정.json&gt; --out &lt;비교.json&gt;</code> (→ 8.3).</li>
+<li>구간 포함은 <strong>등급 평균</strong>에 대한 정보일 뿐이다. 진행 리듬·게임 검증까지 끝났다는 뜻은 아니다.</li>
+<li>300회 수준의 측정은 판별 오차가 ±4~5%p 다. 적용본은 새 시드로 다시 잰다(Coster).</li>
+<li>비용이 크면 10,000회를 허들에 집중할 수 있다. 이 범위는 팀장님이 정한다.<ul>
+<li>BTF 는 허들 58판만 10,000회(이후 15,000회)로 쟀다(10-13 결정).</li>
+<li>이 측정에 CPU 약 134시간이 들었다. 원시 데이터는 임시 폴더 밖에 두고, 레벨 단위로 끊어 이어서 잴 수 있게 돌린다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="s6-9">⑧ 진행 리듬 검증</h3>
+<p><code>compare_results.py</code> 는 등급 평균과 일부 역전만 집계한다. 아래 항목은 진행표와 결합해 따로 계산한다.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>보고 항목</th>
+<th>계산·해석</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>허들 → 회복</td>
+<td>허들 H 와 회복 R 의 <code>100 × (pR − pH)</code> %p. 판별 값과 구간별 평균</td>
+</tr>
+<tr>
+<td>회복 역전</td>
+<td>위 차이가 0 이하인 쌍 목록. 원인 검토, 자동 불합격 아님</td>
+</tr>
+<tr>
+<td>역할상 연속 허들</td>
+<td>하드·슈퍼하드 역할이 연속된 최대 길이와 위치</td>
+</tr>
+<tr>
+<td>실측상 어려운 판 연속</td>
+<td>정한 임계값 이하의 최대 연속 길이. 임계값이 미정이면 미설정으로 보고하거나 가정별 민감도 표로 낸다</td>
+</tr>
+<tr>
+<td>기믹 소개</td>
+<td>첫 도입 판의 목표 D·실측·직전/직후 맥락·겹친 부담</td>
+</tr>
+<tr>
+<td>재도전</td>
+<td>첫 판·기본 변형·별도 구제의 독립 성공률을 나란히 표시. 근거 없이 누적 통과율로 합치지 않는다</td>
+</tr>
+<tr>
+<td>운 위험</td>
+<td>숨김 정보가 있으면 가린 조건에서 크게 떨어지는 판 목록</td>
+</tr>
+</tbody></table></div>
+<p><strong>등급 평균이 맞아도 리듬 검증은 별도다.</strong> 소수 극단 판, 긴 난관 연속, 도입 부담이 평균에 가려지지 않았는지 확인한다.</p>
+<h3 id="s6-10">⑨ 보고·보관</h3>
+<ul>
+<li><strong>형식</strong>: HTML + MD + 원시 JSON/CSV.</li>
+<li><strong>레벨마다 분리할 필드</strong>:<ul>
+<li><code>stage</code>, <code>role</code></li>
+<li><code>sourceGrade</code>(없으면 null), <code>targetGrade</code></li>
+<li><code>family</code>(first / base / rescue), <code>seed</code>, <code>gimmicks</code></li>
+<li><code>measuredRates</code>(초보·일반·고수), <code>trials</code>, <code>launchSuccessRate</code></li>
+<li>실패 사유 분포, 다음 회복 판, <code>profileId</code></li>
+</ul>
+</li>
+<li><strong>문서에 넣을 것</strong>:<ul>
+<li>사전 검증 기록과 확정 프로필</li>
+<li>대표 판 예비 결과</li>
+<li>전체 D 평균·분포</li>
+<li>허들·회복·연속·도입 검증</li>
+<li>실패 원인</li>
+<li>독립 재검증 결과와 남은 한계</li>
+</ul>
+</li>
+<li><strong>기록 원칙</strong>: 실제로 실행하지 않은 항목을 통과로 표시하지 않는다.</li>
+<li><strong>보관 위치</strong>: 게임별 측정 결과는 <strong>각 게임 저장소</strong>에 둔다. 공용 저장소에는 공용 정책·도구만 둔다(10-12 정리).</li>
+</ul>
+<h3 id="s6-11">⑩ 출시 후 보정</h3>
+<ul>
+<li>첫 도전 성공률, 재도전 횟수, 이탈로 목표 구간과 배치를 보정한다.</li>
+<li>사람 데이터는 <strong>레벨 시작 횟수</strong> 기준으로 세고, 실패와 유료 이어하기를 분리해 기록한다. 그래야 매직소트 L49 같은 &quot;구제 직전 막힘&quot;을 볼 수 있다(<code>MagicSort_공용밸런스_레퍼런스.md</code>).</li>
+<li>원본 관측 / 의도 추론 / 우리 측정·가설을 계속 구분한다.</li>
+</ul>
+<h3 id="s6-12">변경이 생겼을 때</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>변경</th>
+<th>다시 할 것</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>레벨 몇 개 교체</td>
+<td>바뀐 판과 앞뒤 리듬만 ⑦~⑧</td>
+</tr>
+<tr>
+<td>기믹·규칙 변경</td>
+<td>영향받는 판의 ③ 사전 검증부터</td>
+</tr>
+<tr>
+<td>봇 정책·비율 변경</td>
+<td>새 profileId, 선별 후보와 기준 전체 재측정, 전후 결과 보존</td>
+</tr>
+<tr>
+<td>원작 재분석으로 관측 정정</td>
+<td>1.3의 &#39;원본 관측&#39; 층만 정정. 기준 변경은 팀장님 결정</td>
+</tr>
+</tbody></table></div>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s5"><small>← 이전</small>4. 게임별로 정할 것 — 착수 전 결정 목록</a><a class="next" href="#s7"><small>다음 →</small>6. 수치가 어긋날 때 — 판단표</a></nav></section>
+<section class="panel page" data-page="6"><div class="pagehead"><span class="ph-nav"><a href="#s6">← 이전</a><b>7 / 13</b><a href="#s8">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s7">6. 수치가 어긋날 때 — 판단표</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>상황</th>
+<th>먼저 볼 것</th>
+<th>하는 것</th>
+<th>하지 않는 것</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>등급 평균이 구간 밖</td>
+<td>거리(%p), 해당 등급 판 분포, 극단 판</td>
+<td>그 등급의 판 교체·자원·기믹·변형 조정 후 재측정</td>
+<td>봇·비율 조정, 원본 등급 덮어쓰기</td>
+</tr>
+<tr>
+<td>평균은 맞는데 한 등급에 쏠림</td>
+<td>등급 분포와 퍼짐</td>
+<td>진행 설계표의 목표 D 배치 재검토</td>
+<td>평균만 보고 통과 처리</td>
+</tr>
+<tr>
+<td>고수가 일반보다 5%p 넘게 낮음</td>
+<td>개별 플레이 경로, 후보 범위, 평가 함수</td>
+<td>원인 진단. 정책 결함이면 새 버전</td>
+<td>즉시 버그로 단정, 결과를 보고 실수율 조정</td>
+</tr>
+<tr>
+<td>초보가 일반보다 높음</td>
+<td>집단별 후보 규칙 차이</td>
+<td>규칙 공유 여부 점검(매직소트: 공유 전 초보 &gt; 일반 18개, 공유 후 서열이 뒤집힌 판 6개)</td>
+<td>초보 값만 맞추기</td>
+</tr>
+<tr>
+<td>성공률 0%대 급락</td>
+<td>실패 사유(포화·반복 소진·상한)</td>
+<td>경로 추적, 규칙·모델 오류 확인</td>
+<td>의도된 난도나 랜덤성으로 바로 해석</td>
+</tr>
+<tr>
+<td>반복 소진·상한 도달이 많음</td>
+<td>방문 상태 키, 상한 민감도</td>
+<td>상한 10배 민감도 확인, 순환 원인 점검</td>
+<td>상한만 늘리기(매직소트 4,000수 추가 성공 0)</td>
+</tr>
+<tr>
+<td>허들 → 회복 역전</td>
+<td>판별 차이, 기믹 도입 겹침</td>
+<td>회복 판 교체·완화, 보고서에 목록화</td>
+<td>자동 불합격 처리</td>
+</tr>
+<tr>
+<td>숨김 판 가림 조건 −20%p</td>
+<td>블로커·숨김 비율</td>
+<td>일반 자리면 직접 플레이 확인</td>
+<td>기준 조건을 가린 봇으로 교체</td>
+</tr>
+<tr>
+<td>재도전 변형이 더 어려움</td>
+<td>변형별 독립 성공률</td>
+<td>변형 순서 재편성</td>
+<td>&quot;재도전은 쉬워진다&quot;로 가정</td>
+</tr>
+<tr>
+<td>원작 수치와 다름</td>
+<td>봇 정책·정보 조건·진행 범위 차이</td>
+<td>차이를 문서화</td>
+<td>원작 번호별 성공률 맞추기</td>
+</tr>
+<tr>
+<td>원본 기록값과 우리 실측이 크게 다름</td>
+<td>원본 지표의 정의(미확인 여부)</td>
+<td>별도 열로 병기</td>
+<td>같은 기준으로 섞기(카매치 L120: 원본 100% 대 실측 23.93%)</td>
+</tr>
+<tr>
+<td>기본 봇 50:50 포화 (대부분 ≥ 0.9, 허들 ≈ 일반)</td>
+<td>모델 밖 손실 원천(시간·시야·오클릭·숨김), 한 수 정의</td>
+<td>③-2: 한 수·템포 재정의, 필요하면 눈금 재선정(팀장님 확정)</td>
+<td>평가 가중치·실수율을 숫자에 맞추기</td>
+</tr>
+<tr>
+<td>서열은 맞는데 D2~D5 가 전부 구간 위</td>
+<td>레벨이 쉬운지 봇이 센지</td>
+<td>가이드형 비교 봇 병행. 순서·리듬·이상치로 조정, 절대값은 출시 후</td>
+<td>봇을 약하게 고쳐 구간에 넣기</td>
+</tr>
+<tr>
+<td>특정 기믹에서 봇 0%</td>
+<td>그 기믹에 필요한 수읽기(미리 세우기·파내기 등)</td>
+<td>수읽기 길이로 고치고 새 profileId(BTF v2 → v2.1)</td>
+<td>평가 가중치 조정</td>
+</tr>
+<tr>
+<td>판단 봇이 레벨 변형에 0/1 로만 반응</td>
+<td>허들 변형 수백 안의 분포</td>
+<td>그 봇은 함정 게이트로, 연속 분포를 내는 봇을 눈금으로(Coster)</td>
+<td>판단 봇으로 미세 조정 시도</td>
+</tr>
+</tbody></table></div>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s6"><small>← 이전</small>5. 적용 절차 — 단계별 작업</a><a class="next" href="#s8"><small>다음 →</small>7. 게임별 적용 현황과 사례</a></nav></section>
+<section class="panel page" data-page="7"><div class="pagehead"><span class="ph-nav"><a href="#s7">← 이전</a><b>8 / 13</b><a href="#s9">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s8">7. 게임별 적용 현황과 사례</h2>
+<h3 id="s8-1">7.1 현황</h3>
+<div class="vis" data-vis="games"><div class="cards c4 games"><div class="card gm"><b class="bn">매직소트</b><span class="role">원작 근거</span><span class="st done">● 측정 완료</span><span>1,118 배치 × 3봇 × 1만 = 3,354만 회 · 후보 제한 봇 · 물음표 색 아는 기준</span></div><div class="card gm"><b class="bn">카매치</b><span class="role">원작 근거</span><span class="st done">● 측정 완료</span><span>2,500 seed × 3봇 × 1만 = 7,500만 회 · v2 봇 (모든 합법 행동)</span></div><div class="card gm"><b class="bn">블록아웃</b><span class="role">구조 대조</span><span class="st static">◇ 정적 분석만</span><span>리듬 · 경제 · 기믹 도입만 확인</span></div><div class="card gm"><b class="bn">CubeLand</b><span class="role">v1 파일럿</span><span class="st hold">⏸ 판정 후 보류</span><span>재현 10/10 · ‘적합(경계선)’ · 결정 2건 보류</span></div><div class="card gm"><b class="bn">BusTrafficFever</b><span class="role">GRP1 적용</span><span class="st done">● 최종 측정</span><span>v2.1 롤아웃 봇 · 서열·리듬 OK · D2~D5 구간 위</span></div><div class="card gm"><b class="bn">Coster</b><span class="role">GRP1 적용</span><span class="st done">● 조정 완료</span><span>50:50 포화 → 성급 무작위 초보 축 + 1수 게이트 0.75 · 실기 확인 대기</span></div><div class="card gm"><b class="bn">다음 신규 게임</b><span class="role">GRP1 적용 대상</span><span class="st todo">○ 미착수</span><span>7.8 체크리스트 → 대표 10~20판 + 눈금 점검부터</span></div></div></div><details class="tv"><summary>표로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>게임</th>
+<th>역할</th>
+<th>단계</th>
+<th>봇·프로필</th>
+<th>측정 규모</th>
+<th>비고</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>매직소트</td>
+<td>원작 근거 1</td>
+<td>측정 완료</td>
+<td><code>magic-sort-shared-cohorts-v1</code> (후보 제한 봇, 물음표 색 앎)</td>
+<td>1,118 배치 × 3봇 × 10,000 = 3,354만 회</td>
+<td>물음표 가린 보완 측정 2,000회</td>
+</tr>
+<tr>
+<td>카매치</td>
+<td>원작 근거 2</td>
+<td>측정 완료</td>
+<td>정책 v2 (일반·고수 전체 합법 차량)</td>
+<td>2,500 seed × 3봇 × 10,000 = 7,500만 회</td>
+<td>원본 avgSolRatio 로 D 구간 가설 추정</td>
+</tr>
+<tr>
+<td>블록아웃</td>
+<td>구조 대조</td>
+<td>정적 분석만</td>
+<td>없음</td>
+<td>없음</td>
+<td>리듬·경제·기믹 도입만 확인</td>
+</tr>
+<tr>
+<td>CubeLand (Color Crush Cannon)</td>
+<td>v1 파일럿</td>
+<td>판정 후 보류</td>
+<td>v1 기준 봇(RandomBot)</td>
+<td>400레벨 × 200회(+56개 1,000회)</td>
+<td>공용 폴더 테스트용. GRP1 기준 재측정 안 함</td>
+</tr>
+<tr>
+<td>BusTrafficFever</td>
+<td>GRP1 적용</td>
+<td>10-19 최종 측정, 이상치 재생성</td>
+<td>v2.1 (일반 3탭 · 고수 10탭 롤아웃)</td>
+<td>300판 × 450회 + 허들 58판 × 15,000회</td>
+<td>서열·리듬 OK, D2~D5 구간 위</td>
+</tr>
+<tr>
+<td>Coster</td>
+<td>GRP1 적용</td>
+<td>10-12 조정 완료, 실기·육안 확인 대기</td>
+<td>grp1-cc-v3 (축 = 성급 무작위 초보, 1수 게이트 0.75)</td>
+<td>대표 25판 파일럿 → 전 레벨 축 봇 300판</td>
+<td>50:50 포화 → 눈금 변경</td>
+</tr>
+<tr>
+<td>다음 신규 게임</td>
+<td>GRP1 적용 대상</td>
+<td>미착수</td>
+<td>-</td>
+<td>-</td>
+<td>7.8 체크리스트로 시작</td>
+</tr>
+</tbody></table></div>
+</details><p>입력 판본: 매직소트 iOS 0.0.2965, 카매치 0.0.1089, 블록아웃 번들 223. 모두 번들 기본 설정이고, 서버 설정과 같은지는 확인하지 않았다.</p>
+<h3 id="s8-2">7.2 매직소트 — 무엇을 어떻게 쟀나</h3>
+<p>봇 설계는 아래 순서로 바뀌었다. 바꿀 때마다 같은 시드로 이전 결과를 재현해 효과를 분리했다(<code>MagicSort_*</code> 문서).</p>
+<pre><code>botsim 무작위·그리디 200판 (블로커 판 제외)
+  → 3집단 봇 10,000회 (CubeLand cohort-one-step-v3 이식, 고수도 1수)
+  → 고수 2수 탐색 (D5 고수 11.98 → 16.43%)
+  → 블로커 3종 구현, 1,118 배치 전체
+  → 초보 동색 우선 (L156-3 98.29 → 23.64%: 4수 순환)
+  → + 방문 상태 반복 회피 (초보 31.54%, 400수 도달 0)
+  → 세 집단 공통 후보 규칙 = shared-cohorts-v1 (서열이 뒤집힌 첫 판 6개)
+  → 물음표 실제 규칙 + 가린 봇 보조 지표 (10-12)
+</code></pre>
+<ul>
+<li><strong>현행 기준</strong>:<ul>
+<li>공통 후보는 방문 제외 → 같은 색 병 → 빈 병 순서로 고른다.</li>
+<li>일반 평가는 즉시 승리 &gt; 미방문 후속 이동 존재 &gt; 중단이다.</li>
+<li>고수 평가는 여기에 &#39;두 수 안 승리&#39;를 더한다.</li>
+</ul>
+</li>
+<li><strong>봇 검증</strong>: 대표 블로커 배치에서 세 집단 총 300회를 돌려 실제 이동 11,563개와 후보 예측 21,000개를 추적했다. 후보 일치·재방문 없음·상태 복원을 확인했다(통합 가이드 2절).</li>
+<li><strong>원작 등급과의 관계</strong>: 단순 무작위 봇 성공률과 원작 D 의 순위상관은 −0.914 였다(530판, <code>MagicSort_레벨밸런스_분석.md</code>). 봇 측정이 원작 등급 서열을 따라간다는 근거다.</li>
+</ul>
+<h3 id="s8-3">7.3 카매치 — 봇을 어떻게 고쳤나</h3>
+<pre><code>v1: 세 집단 모두 색 우선 후보 (즉시 매치 → 대기칸 같은 색 → 전체)
+    고수 &lt; 일반 첫 판 96개, 그중 5%p 초과 31개
+v2: 초보만 후보 제한, 일반·고수는 전체 합법 차량. 통로 점수 min(합법,9) → 합법×20
+    5%p 초과 역전 31 → 0. 고수 44.93 → 55.25%, 일반 28.95 → 32.37%
+</code></pre>
+<p>단계를 나눈 진단(L69 seed 1 고수): v1 0.03% → 후보만 확대 10.07% → v2 20.28% → 실수율 0 63.37%.</p>
+<p><strong>교훈</strong></p>
+<ol>
+<li>후보를 넓히면 무작위 분기의 범위도 넓어져 새 실패가 생긴다. v2 고수의 L69 첫 seed 에서 10,000회 중 1,750회는 즉시 매치가 가능한데 다른 차를 골라 대기칸이 차는 순간 끝났다.</li>
+<li>실수가 유일한 원인은 아니다. L22 seed 2 고수는 실수율 0에서도 62.79% 로, v1 의 89.53% 보다 낮다. 짧은 예측과 평가 함수의 한계다.</li>
+<li>그래도 프로필은 다시 튜닝하지 않았다. 실수 모델을 바꾸면 별도 버전으로 재측정한다(봇개선 비교 4절).</li>
+</ol>
+<h3 id="s8-4">7.4 CubeLand 파일럿(v1)에서 배운 것</h3>
+<ul>
+<li><strong>측정 도구는 믿을 만했다.</strong><ul>
+<li>게임팀 Unity 측정과 같은 시드로 10/10 재현됐다.</li>
+<li>L8~400 의 393개가 모두 ±1 등급 안이고, 385개는 정확히 같았다.</li>
+</ul>
+</li>
+<li><strong>판정은 &#39;적합(경계선)&#39;</strong>: 등급 퍼짐이 기준값 3에 딱 걸렸고, 시드 2 에서는 부분 적합이 나왔다.</li>
+<li><strong>CubeLand 레벨은 매직소트 곡선보다 일관되게 쉬웠다.</strong><ul>
+<li>L8~300 의 293개 중 233개가 곡선보다 쉬운 쪽이다.</li>
+<li>하드·슈퍼하드 58개 중 범위 안은 0개다.</li>
+<li>게임 자체 목표 밴드를 지킨 판도 곡선에 못 미쳤다. 측정량이 달라서 단일 봇 절대 등급으로는 게임끼리 비교할 수 없다는 점이 드러났다.</li>
+</ul>
+</li>
+<li><strong>보류한 결정 2건(10-07, 팀장님)</strong><ul>
+<li>(1) 절대 난이도가 곡선보다 쉽고 G1 에 몰리는 문제. 선택지 넷:<ol>
+<li>v1 상대 비교만 한다</li>
+<li>곡선에 맞춰 레벨을 고친다</li>
+<li>환산표를 앞당긴다</li>
+<li>기준 봇을 바꾼다</li>
+</ol>
+</li>
+<li>(2) 새 요소 기준 4종 대 실제 13종.</li>
+<li>판단 이유: &quot;공용 폴더라 인게임은 테스트용, 다른 게임 만들 때 참고.&quot; 다음 게임에서 등급이 또 쉬운 쪽에 몰리면 (1)을 다시 꺼낸다.</li>
+</ul>
+</li>
+<li><strong>현행 GRP1 에서 바뀐 점</strong>: 기준 봇(무작위 1종)과 G1~G7 경계를 쓰지 않는다. 대신 게임별 3봇과 D 평균 가설을 쓴다. 측정 신뢰 관문(같은 시드 재현 + 게임팀 측정 대조)을 판정보다 먼저 통과시키는 순서는 그대로 쓴다.</li>
+<li>출처: <code>CubeLand_파일럿_리포트.html</code>, 공용 저장소 <code>f0272ebf:docs/level-balance/pilots/cubeland/README.md</code>(10-12 삭제 직전 상태).</li>
+</ul>
+<h3 id="s8-5">7.5 BusTrafficFever — 서열은 섰고 절대값은 구간 위</h3>
+<ul>
+<li><strong>게임</strong>: 보트를 탭해 슬롯에 정박시키고 승객을 태운다. 기믹 11종을 L4~57 에서 하나씩 도입한다. 재도전·구제 변형은 아직 없다.</li>
+<li><strong>봇 변천</strong> (BTF <code>docs/btf-grp1-balance.md</code> §2·§5)</li>
+</ul>
+<pre><code>v1   (10-12)  10탭 롤아웃, ε 0.1 / 0
+              → 고수가 일반·회복 판을 100% 깸 → 50:50 이 50% 아래로 못 내려감
+v2   (10-13)  스킬 기본안: 1수 / 2수 평가, ε 0.05
+              → 맹점 2개: 긴 레인 미리 세우기(고수 0~34%), 가려진 구급차 파내기(일반 0%)
+v2.1 (10-13)  3탭 / 10탭 롤아웃, ε 0.05, 교착으로 가는 수는 실수 후보에서 뺌   ← 현행 측정 자
+              가중치가 아니라 수읽기 길이로 차등 (가중치를 고치면 &#39;숫자 맞추기&#39;가 됨)
+guide1 (10-20, 비교용)  1수 / 2수 + 카매치 v2식 무작위 17.39 · 9.00%
+</code></pre>
+<ul>
+<li><strong>측정</strong>: 예비 51판 × 200회 → 전수 300판 × 300회 → 허들 58판 × 10,000회(독립 시드). 10-16~17 재측정은 전수 450회, 허들 15,000회다. 같은 시드로 다시 잰 299판 중 251판은 승수까지 같았고, 나머지 48판은 그사이 레벨이 바뀐 판이다.</li>
+<li><strong>10-19 최종 (v2.1, 299판, 전체 50:50 평균 90.0%)</strong> (BTF <code>tools/balance_ref/grp1/final_2026-10-19/btf-grp1-v2.1.report.md</code>)</li>
+</ul>
+<div class="vis" data-vis="btf"><figure class="viz"><figcaption class="vt">BusTrafficFever 10-19 최종 (v2.1) — 서열은 섰고 D2~D5 는 구간 위</figcaption><div class="legend"><span class="lg"><i class="k s3 sq"></i>일반·고수 50:50</span><span class="lg"><i class="k nov cir"></i>초보 (따로 보고)</span><span class="lg"><i class="k band"></i>가설 구간</span></div><svg viewBox="0 0 780 320" role="img" aria-label="BTF 등급별 성공률"><line x1="46" x2="766" y1="264" y2="264" class="grid"/><text x="38" y="268" class="ta r">0%</text><line x1="46" x2="766" y1="215.20000000000002" y2="215.20000000000002" class="grid"/><text x="38" y="219.20000000000002" class="ta r">20%</text><line x1="46" x2="766" y1="166.4" y2="166.4" class="grid"/><text x="38" y="170.4" class="ta r">40%</text><line x1="46" x2="766" y1="117.60000000000001" y2="117.60000000000001" class="grid"/><text x="38" y="121.60000000000001" class="ta r">60%</text><line x1="46" x2="766" y1="68.80000000000001" y2="68.80000000000001" class="grid"/><text x="38" y="72.80000000000001" class="ta r">80%</text><line x1="46" x2="766" y1="20" y2="20" class="grid"/><text x="38" y="24" class="ta r">100%</text><rect x="56" y="20" width="124" height="48.80000000000001" rx="4" class="band" tabindex="0" data-tip="D1 가설 구간 80~100%"/><rect x="94.96000000000001" y="20" width="46.08" height="244" rx="4" class="s3" tabindex="0" data-tip="BTF v2.1 D1 · 50:50 100.0% · 25판"/><text x="118" y="14" class="tv c b">100.0%</text><circle cx="153.04" cy="52.940000000000005" r="5" class="nov ring" tabindex="0" data-tip="초보 D1 · 86.5%"/><text x="118" y="284" class="tl c b">D1</text><text x="118" y="301" class="ta c">25판</text><rect x="200" y="68.80000000000001" width="124" height="48.8" rx="4" class="band" tabindex="0" data-tip="D2 가설 구간 60~80%"/><rect x="238.96" y="22.44" width="46.08" height="241.56" rx="4" class="s3" tabindex="0" data-tip="BTF v2.1 D2 · 50:50 99.0% · 86판"/><text x="262" y="16.44" class="tv c b">99.0%</text><circle cx="297.04" cy="126.384" r="5" class="nov ring" tabindex="0" data-tip="초보 D2 · 56.4%"/><text x="262" y="284" class="tl c b">D2</text><text x="262" y="301" class="ta c">86판</text><rect x="344" y="117.60000000000001" width="124" height="48.8" rx="4" class="band" tabindex="0" data-tip="D3 가설 구간 40~60%"/><rect x="382.96" y="23.416000000000015" width="46.08" height="240.58399999999997" rx="4" class="s3" tabindex="0" data-tip="BTF v2.1 D3 · 50:50 98.6% · 134판"/><text x="406" y="17.416000000000015" class="tv c b">98.6%</text><circle cx="441.04" cy="132.97199999999998" r="5" class="nov ring" tabindex="0" data-tip="초보 D3 · 53.7%"/><text x="406" y="284" class="tl c b">D3</text><text x="406" y="301" class="ta c">134판</text><rect x="488" y="166.4" width="124" height="48.80000000000001" rx="4" class="band" tabindex="0" data-tip="D4 가설 구간 20~40%"/><rect x="526.96" y="106.61999999999999" width="46.08" height="157.38" rx="4" class="s3" tabindex="0" data-tip="BTF v2.1 D4 · 50:50 64.5% · 5판"/><text x="550" y="100.61999999999999" class="tv c b">64.5%</text><circle cx="585.04" cy="248.62800000000001" r="5" class="nov ring" tabindex="0" data-tip="초보 D4 · 6.3%"/><text x="550" y="284" class="tl c b">D4</text><text x="550" y="301" class="ta c">5판</text><rect x="632" y="215.20000000000002" width="124" height="24.399999999999977" rx="4" class="band" tabindex="0" data-tip="D5 가설 구간 10~20%"/><rect x="670.96" y="146.88" width="46.08" height="117.12" rx="4" class="s3" tabindex="0" data-tip="BTF v2.1 D5 · 50:50 48.0% · 49판"/><text x="694" y="140.88" class="tv c b">48.0%</text><circle cx="729.04" cy="260.096" r="5" class="nov ring" tabindex="0" data-tip="초보 D5 · 1.6%"/><text x="694" y="284" class="tl c b">D5</text><text x="694" y="301" class="ta c">49판</text></svg><p class="cap">역할별 50:50: 일반 99.3 · 회복 99.6 · 하드 60.4 · 슈퍼하드 40.9%. 가이드형 비교 봇(guide1)으로 재면 허들은 D4 33.8% · D5 27.0% — 허들이 쉬워 보인 것의 대부분은 봇 강도였다.</p></figure></div><details class="tv"><summary>표로 보기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>목표 D</th>
+<th align="right">판 수</th>
+<th align="right">50:50</th>
+<th>가설 구간</th>
+<th align="right">거리(%p)</th>
+<th align="right">초보</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>D1</td>
+<td align="right">25</td>
+<td align="right">100.0%</td>
+<td>80~100%</td>
+<td align="right">0</td>
+<td align="right">86.5%</td>
+</tr>
+<tr>
+<td>D2</td>
+<td align="right">86</td>
+<td align="right">99.0%</td>
+<td>60~80%</td>
+<td align="right">+19.0</td>
+<td align="right">56.4%</td>
+</tr>
+<tr>
+<td>D3</td>
+<td align="right">134</td>
+<td align="right">98.6%</td>
+<td>40~60%</td>
+<td align="right">+38.6</td>
+<td align="right">53.7%</td>
+</tr>
+<tr>
+<td>D4</td>
+<td align="right">5</td>
+<td align="right">64.5%</td>
+<td>20~40%</td>
+<td align="right">+24.5</td>
+<td align="right">6.3%</td>
+</tr>
+<tr>
+<td>D5</td>
+<td align="right">49</td>
+<td align="right">48.0%</td>
+<td>10~20%</td>
+<td align="right">+28.0</td>
+<td align="right">1.6%</td>
+</tr>
+</tbody></table></div>
+</details><ul>
+<li>역할별 50:50: 일반 99.3% · 회복 99.6% · 하드 60.4% · 슈퍼하드 40.9%. 등급 서열 역전은 없다.</li>
+<li>허들 → 다음 판 58쌍 평균 +49.0%p, 회복 역전 0. 기믹 도입 11판은 99.7~100%.</li>
+<li><strong>해석 (10-13)</strong><ul>
+<li>구간 위라는 사실만으로는 &#39;레벨이 쉽다&#39;와 &#39;봇이 세다&#39;를 가를 수 없다.</li>
+<li>출시 전에는 순서·리듬·역할 안 이상치(±1.5σ)로 조정하고, 절대 눈금은 출시 후 첫 도전 성공률로 맞춘다.</li>
+<li>목표 D 는 설계 의도로 두고 측정값을 따라 옮기지 않는다.</li>
+</ul>
+</li>
+<li><strong>이상치 조정</strong><ul>
+<li>10-18: 소방차 판 47개 재생성. 시간 제한을 폐지하면서 봇 규칙도 바뀌어 난이도가 양쪽으로 흔들렸다.</li>
+<li>10-19: 약한 판 27개 재생성.</li>
+</ul>
+</li>
+<li><strong>가이드형 봇 비교 (10-20)</strong>: guide1 로 다시 쟀다.<ul>
+<li>허들은 D4 33.8%(구간 안), D5 27.0% 다. &#39;허들이 쉽다&#39;의 대부분은 봇 강도 때문이었다.</li>
+<li>일반·회복 판은 92~94% 로 여전히 높고, 구간이 지나도 거의 어려워지지 않는다(일반 98.7 → 94.6 → 94.1 → 92.0%). BTF 문서는 &quot;쉬운 것은 레벨 쪽&quot;으로 보고, 가이드의 &#39;일반 판 기준선을 점차 올린다&#39;가 지켜지지 않았다고 적었다. 단 가이드 봇이 카매치에서와 같은 실력이라는 가정 위의 판단이다(BTF <code>docs/btf-grp1-balance.md</code> 849행).</li>
+<li>출하 판정 자는 v2.1 그대로 둔다.</li>
+</ul>
+</li>
+<li><strong>정보 조건 정정 (10-15)</strong>: 대기열 순서를 전부 아는 봇이라 정보 경계 검증을 &#39;부분 통과&#39;로 정정했다. 화면에 보이는 줄만 아는 조건이면 허들 50:50 이 하드 약 51%, 슈퍼하드 약 33% 로 내려간다.</li>
+<li><strong>팀장님 결정</strong><ul>
+<li>10-12: 봇 선택.</li>
+<li>10-13: ① 측정 자 = v2.1 ② 목표 D 는 전수 결과로 확정(위임) ③ 최종 10,000회는 허들 58판만. BTF 커밋 <code>35681645</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="s8-6">7.6 Coster — 기본 봇이 포화해서 눈금을 바꿨다</h3>
+<ul>
+<li><strong>게임</strong>: 큐 선두 대포를 탭하면 카트(5대)에 올라 자동으로 쏜다. 회전·시야·탄 비행·교착 유예 같은 실시간 요소가 있다.</li>
+<li><strong>먼저 고친 결함</strong>: 기믹 시뮬레이터가 기믹 레벨에서 전부 예외로 실패하고 있었다. 10-09 이전에는 Coster 기믹 레벨을 잰 적이 없고, 기존 수치는 다른 게임(CubeLand) 측정이었다(Coster <code>grp1-balance-pilot-2026-10-09.md</code> §1).</li>
+<li><strong>포화 경위</strong></li>
+</ul>
+<pre><code>10-09  파일럿 (대표 25판 × 300판)
+       일반·고수 50:50 평균 0.988, VeryHard 도 0.84~0.96
+       원인: 사람의 난이도 원천(회전·시야·교착 유예·숨김·오클릭)이 모델 밖.
+             한 수만 내다봐도 큐 순서는 거의 항상 풀린다.
+10-10  실시간 스파이크
+       1수 봇 10판 중 9판이 1.00. 레벨을 가른 것은 &#39;기다리지 않음&#39;
+       (49번: 기다리면 50/50, 서두르면 0/50)
+10-10  성급 모드 v2
+       카트당 10발 라운드로도 1수 Normal 0.981 · Hard 0.949 · VeryHard 0.890
+10-10  허들 재설계 240안
+       판단 봇 결과가 1.0 인 안 194개, 0.0 인 안 36개, 목표 구간 안 0개
+       → &quot;1수·2수 봇은 함정 게이트이지 다이얼이 아니다&quot;
+10-11  팀장님 결정
+       난이도 축 = 성급 무작위 초보(카트당 10발)
+       1수 봇 = &#39;함정 아님&#39; 게이트 (0.9 → 같은 날 0.75 로 완화)
+       튜토리얼 18판 예외, 목표 D 는 GRP1 구조
+</code></pre>
+<ul>
+<li><strong>축을 고른 근거</strong><ul>
+<li>같은 변형들에서 성급 무작위 초보는 0.13~1.0 으로 연속 분포했다.</li>
+<li>허들 → 회복 리듬이 보였다.</li>
+<li>기존 큐 조정 도구에 반응했다.</li>
+<li>단점도 문서에 적었다: GRP1 의 일반·고수 50:50 정의에서 벗어난다.</li>
+</ul>
+</li>
+<li><strong>조정 단계</strong></li>
+</ul>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>단계</th>
+<th>한 일</th>
+<th>결과</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>A 큐 교환 (10-11)</td>
+<td>복셀·색·탄·기믹은 두고 큐 적재물만 교환. 독립 시드로 확인한 뒤 109건 적용</td>
+<td>하드 0.546 → 0.38, VeryHard 0.271 → 0.23</td>
+</tr>
+<tr>
+<td>B 구조 (10-11)</td>
+<td>VeryHard 19~59 를 연결 배치·매장 색·지터로 수정</td>
+<td>VeryHard 평균 0.261 → 0.180</td>
+</tr>
+<tr>
+<td>C 일반 기준선 (10-12)</td>
+<td>일반 판 목표를 구간별로 나눔(3.8). 114 이후 하드를 D5 로. 172건 적용(큐 116 + 구조 56)</td>
+<td>일반 0.733 → 0.592, 하드 0.375 → 0.227</td>
+</tr>
+<tr>
+<td>D 숨김 정보 v3 (10-12)</td>
+<td>숨김을 공개된 순간부터 아는 봇으로 1수 재측정</td>
+<td>평균 −0.3%p, 미스터리 개수와 무관 → &quot;미스터리는 봇 다이얼이 아니다&quot;</td>
+</tr>
+</tbody></table></div>
+<div class="vis" data-vis="coster"><figure class="viz"><figcaption class="vt">Coster 최종 — 난이도 축(성급 무작위 초보)의 역할별 평균</figcaption><svg viewBox="0 0 780 200" role="img" aria-label="Coster 역할별 성공률"><line x1="110" x2="110" y1="4" y2="180" class="grid"/><text x="110" y="195" class="ta c">0%</text><line x1="262.5" x2="262.5" y1="4" y2="180" class="grid"/><text x="262.5" y="195" class="ta c">25%</text><line x1="415" x2="415" y1="4" y2="180" class="grid"/><text x="415" y="195" class="ta c">50%</text><line x1="567.5" x2="567.5" y1="4" y2="180" class="grid"/><text x="567.5" y="195" class="ta c">75%</text><line x1="720" x2="720" y1="4" y2="180" class="grid"/><text x="720" y="195" class="ta c">100%</text><text x="98" y="23" class="tl r">학습</text><rect x="110" y="11" width="603.2900000000001" height="18" rx="4" class="slate" tabindex="0" data-tip="Coster 학습 · 98.9%"/><text x="719.2900000000001" y="24" class="tv">98.9%</text><text x="98" y="57" class="tl r">일반</text><rect x="110" y="45" width="361.12000000000006" height="18" rx="4" class="slate" tabindex="0" data-tip="Coster 일반 · 59.2%"/><text x="477.12000000000006" y="58" class="tv">59.2%</text><text x="98" y="91" class="tl r">회복</text><rect x="110" y="79" width="494.71000000000004" height="18" rx="4" class="slate" tabindex="0" data-tip="Coster 회복 · 81.1%"/><text x="610.71" y="92" class="tv">81.1%</text><text x="98" y="125" class="tl r">하드</text><rect x="110" y="113" width="138.47" height="18" rx="4" class="slate" tabindex="0" data-tip="Coster 하드 · 22.7%"/><text x="254.47" y="126" class="tv">22.7%</text><text x="98" y="159" class="tl r">슈퍼하드</text><rect x="110" y="147" width="110.41000000000003" height="18" rx="4" class="slate" tabindex="0" data-tip="Coster 슈퍼하드 · 18.1%"/><text x="226.41000000000003" y="160" class="tv">18.1%</text></svg><p class="cap">전 레벨 300판. GRP1 50:50 과 다른 눈금이라 다른 게임 수치와 비교하지 않는다. 허들 → 회복 57쌍 모두 회복 판이 높다(평균 +61.1%p).</p></figure></div><ul>
+<li><strong>최종 결과</strong> (축 봇, 전 레벨 300판)<ul>
+<li>역할별: 학습 0.989 · 일반 0.592 · 회복 0.811 · 하드 0.227 · 슈퍼하드 0.181.</li>
+<li>허들 → 회복 57쌍(L1~299) 모두 회복 판이 높고, 평균 +61.1%p 다.</li>
+<li>매직소트와 비교하면 역할 순서와 일반 곡선 모양은 같고, 절대값은 다르다. 같은 자로 잰 값이 아니라 비교 근거로 쓰지 않는다(Coster <code>grp1-vs-magicsort-2026-10-11.md</code>).</li>
+</ul>
+</li>
+<li><strong>남은 것</strong><ul>
+<li>실기·Unity 테스트 러너·육안 확인은 어느 단계에서도 돌리지 않았다.</li>
+<li>고수 2수 전수 측정은 비용 때문에 하지 않았다.</li>
+<li>1수 봇이 이상하게 지는 판(29·212 변형, 311)은 원인이 확인되지 않았다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="s8-7">7.7 두 적용에서 얻은 것</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>항목</th>
+<th>BusTrafficFever</th>
+<th>Coster</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>기본 50:50</td>
+<td>서열 OK, D2~D5 구간 위</td>
+<td>포화 (0.988)</td>
+</tr>
+<tr>
+<td>원인 판단</td>
+<td>레벨이 쉬운지 봇이 센지 분리 불가 → 가이드형 봇 병행</td>
+<td>모델 밖 손실 원천 + 판단 봇의 0/1 스위치</td>
+</tr>
+<tr>
+<td>눈금</td>
+<td>v2.1 50:50 유지, 절대값은 출시 후</td>
+<td>성급 무작위 초보 = 축, 1수 = 게이트</td>
+</tr>
+<tr>
+<td>허들 → 회복</td>
+<td>+49.0%p, 역전 0</td>
+<td>+61.1%p, 57쌍 모두 회복</td>
+</tr>
+<tr>
+<td>조정 수단</td>
+<td>이상치 판 재생성</td>
+<td>큐 교환 → 구조 수정 → 일반 기준선 재설계</td>
+</tr>
+</tbody></table></div>
+<ul>
+<li><strong>구조는 그대로 옮겨진다.</strong> 두 게임 모두 4·9 허들과 5·0 회복 리듬이 섰다. 회복 폭도 매직소트(+40.8~48.6%p)와 비슷하거나 더 컸다.</li>
+<li><strong>50:50 절대값은 게임마다 맞지 않는다.</strong> 그래서 새 게임은 대표 판 예비 측정 직후 ③-2 눈금 점검을 한다.</li>
+<li><strong>출시 전에는 순서·리듬·이상치, 출시 후에는 절대값.</strong> 두 게임이 같은 결론에 이르렀다.</li>
+<li><strong>두 사례(n=2)에서 나온 절차다.</strong> 판정 수치(포화 0.9, 게이트 0.75, 이상치 ±1.5σ)는 각 게임의 값이지 공통 기준이 아니다.</li>
+</ul>
+<h3 id="s8-8">7.8 다음 신규 게임 — 첫 적용 체크리스트</h3>
+<pre><code>□ 진행 설계표 초안 (역할 · 목표 D · 기믹 도입 · 재도전 · 보상)            → 3.8 · 3.9
+□ 4장 결정 목록 작성, 봇 프로필 팀장님 확정 (미정 항목은 &#39;미정&#39; 명시)      → 4장
+□ 숨김 정보가 있으면 기준 정보 조건 결정 + 가린 조건 보조 측정 계획        → 3.7
+□ 시뮬레이터: 규칙 엔진 · 파서 · 후보 · 평가 · 방문 기록 · 예측 복원       → 8.1
+□ 대표 레벨 10~20개 사전 검증 7항목 (통과/실패/미검증/해당 없음 + 근거)    → ③
+□ 게임팀 기존 측정이 있으면 같은 시드 재현 확인                           → ③
+□ 대표 판 예비 측정으로 난이도 눈금 점검 (포화 · 맹점 · 강도)             → ③-2
+□ D6·D7 이 꼭 필요하면 이유 · 위치 · 개수 제안 → 팀장님 확정              → 2.6
+□ profileId 고정, 소스 스냅숏 · SHA-256 보관                             → ④
+□ 예비 측정 200~1,000회 → 이상 경로 확인                                  → ⑤
+□ 선별 · 배치 → 독립 재검증 10,000회                                      → ⑥ ⑦
+□ compare_results.py 집계 + 진행 리듬 별도 검증                           → ⑦ ⑧
+□ HTML + MD + JSON/CSV 보고 (게임 저장소)                                  → ⑨
+□ 출시 후 지표 수집 설계 (시작 횟수 · 실패 · 이어하기 분리)                 → ⑩
+</code></pre>
+<p>AI 도구로 진행할 때는 이렇게 요청한다: <strong>&quot;GRP1 Balance 작업하자. 초보는 즉시 매치, 없으면 대기칸 같은 색, 없으면 무작위다.&quot;</strong></p>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s7"><small>← 이전</small>6. 수치가 어긋날 때 — 판단표</a><a class="next" href="#s9"><small>다음 →</small>8. 도구와 산출물</a></nav></section>
+<section class="panel page" data-page="8"><div class="pagehead"><span class="ph-nav"><a href="#s8">← 이전</a><b>9 / 13</b><a href="#s10">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s9">8. 도구와 산출물</h2>
+<h3 id="s9-1">8.1 재사용할 것과 새로 만들 것</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>재사용</th>
+<th>게임별로 새로 만든다</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>compare_results.py</code> 와 <code>launch-reference.json</code> (입력 JSON 형식만 맞춘다)</td>
+<td>레벨 추출·파서, 시뮬레이터 입력 생성</td>
+</tr>
+<tr>
+<td>봇 틀: ε-탐욕 선택 + 최고 평가 동점 균등 추첨, 깊이 0/1/2, 50:50</td>
+<td>규칙 엔진(보드·기믹 전이)과 규칙 단위 테스트</td>
+</tr>
+<tr>
+<td>재현 관례: 입력·소스 SHA-256 기록, 소스 스냅숏, 출력 덮어쓰기 거부, 기준선 재현 assert</td>
+<td>초보 후보 규칙, 일반·고수 평가 함수</td>
+</tr>
+<tr>
+<td>카매치 시뮬레이터의 규칙(<code>Board.cs</code>)·정책(<code>Policy.cs</code>)·테스트(<code>Tests.cs</code>) 분리 구조. 이식 원형으로 권장(추정)</td>
+<td>진행표와 결합하는 집계(첫 판·변형·구제), 진행 리듬 검증</td>
+</tr>
+<tr>
+<td>보고서 QA 패턴(Playwright: 외부 요청 0건, 모바일 폭)</td>
+<td>보고서 빌더. 기존 것은 299/1,118/500 같은 건수가 하드코딩돼 있다</td>
+</tr>
+</tbody></table></div>
+<p>매직소트 <code>cohortsim</code> 은 평가 함수가 보드 내부에 있어서 규칙과 정책이 파일 단위로 분리돼 있지 않다. 새 게임은 카매치 구조를 출발점으로 삼는 편이 낫다(추정, 도구 조사 결과).</p>
+<h3 id="s9-2">8.2 도구 목록 (<code>D:\Vibe_Test\MagicSort</code> 기준)</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>경로</th>
+<th>역할</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tools/cohortsim/</code> (.NET 10)</td>
+<td>매직소트 3집단 봇 측정기. <code>--shared-cohorts</code>, <code>--hidden</code> 등</td>
+</tr>
+<tr>
+<td><code>tools/cohortsim-checks/</code></td>
+<td>규칙·후보 추적 검증(<code>--trace-shared</code>, <code>--trace-repeat</code>, <code>--sweep-move-cap</code>)</td>
+</tr>
+<tr>
+<td><code>tools/cohortsim/analyze_*.py</code></td>
+<td>원시 측정 → 요약 JSON·CSV·MD (입력 SHA-256 확인)</td>
+</tr>
+<tr>
+<td><code>tools/car_match/sim/</code></td>
+<td>카매치 측정기(<code>--test</code> 단위 테스트, <code>--audit</code> 보존 검증). 기존 출력은 덮어쓰지 않음</td>
+</tr>
+<tr>
+<td><code>tools/car_match/probe_*.py</code>, <code>compare_policy_v2.py</code></td>
+<td>가설 구간 검사, v1/v2 분리 실험·비교</td>
+</tr>
+<tr>
+<td>스킬 <code>scripts/compare_results.py</code></td>
+<td>측정 집계(게임 실행 없음). 단위 테스트 <code>tools/grp1_balance_skill/test_compare.py</code></td>
+</tr>
+<tr>
+<td>공용 저장소 <code>Tools/LevelBalance/</code></td>
+<td><strong>v1 도구</strong>(무작위 봇·G 등급). 게임별 모듈 추가 절차는 README &quot;모듈 추가&quot;. 현행 3봇 측정은 하지 않는다</td>
+</tr>
+<tr>
+<td><code>tools/build_report.py</code>, <code>build_pilot_report.py</code>, <code>botsim/</code></td>
+<td>v1 시기 도구</td>
+</tr>
+</tbody></table></div>
+<p>실행 예시(문서에 기록된 명령):</p>
+<pre><code>dotnet run --project tools/cohortsim -c Release -- extract/Resources/defaultlevels out/cohortsim_shared_10000.json 10000 --shared-cohorts out/cohortsim_repeat_avoid_10000.json
+dotnet run --project tools/car_match/sim -c Release -- --trials 10000 --salt 1738091 --workers 12 --out &lt;새 경로&gt;
+</code></pre>
+<h3 id="s9-3">8.3 <code>compare_results.py</code> 입력·출력</h3>
+<pre><code class="language-json">{&quot;profileId&quot;:&quot;my-game-grp1-v1&quot;,&quot;botDefinitionsConfirmed&quot;:true,
+ &quot;weights&quot;:{&quot;novice&quot;:0,&quot;intermediate&quot;:0.5,&quot;expert&quot;:0.5},
+ &quot;rows&quot;:[{&quot;stage&quot;:14,&quot;grade&quot;:2,&quot;family&quot;:&quot;first&quot;,
+ &quot;rates&quot;:{&quot;novice&quot;:0.2,&quot;intermediate&quot;:0.6,&quot;expert&quot;:0.8},
+ &quot;trials&quot;:{&quot;novice&quot;:10000,&quot;intermediate&quot;:10000,&quot;expert&quot;:10000}}]}
+</code></pre>
+<ul>
+<li><strong>입력 규칙</strong><ul>
+<li><code>grade</code> 는 합의한 제작 목표 D1~D5 다. 원본 D6·D7 을 D5 로 자동 변환하지 않는다.</li>
+<li><code>first</code> 만 등급 평균에 들어간다. <code>base</code>·<code>rescue</code> 는 독립 행으로 검증한다.</li>
+<li>첫 판 stage 가 중복되면 거부한다. 과거 3집단 가중치(.566/.42/.014)도 거부한다.</li>
+<li>50:50 이 아니면 <code>weightsConfirmed: true</code> 가 필요하다.</li>
+<li>D6·D7 행은 <code>extendedGradesConfirmed: true</code> 일 때만 받는다. 결과는 <code>extendedGrades</code> 로 따로 나오고 D1~D5 판정에는 섞이지 않는다(10-20 추가, 단위 테스트 7개 통과).</li>
+</ul>
+</li>
+<li><strong>출력 항목</strong><ul>
+<li>등급 평균, 구간 포함, 구간까지 거리(%p)</li>
+<li>집단별 평균</li>
+<li>등급 평균 서열 역전</li>
+<li>고수가 일반보다 5%p 넘게 낮은 판</li>
+<li><code>missingGrades</code>, <code>pilot</code>(10,000회 미만이면 참)</li>
+</ul>
+</li>
+<li><strong>판정 아님</strong>: 출력에 &quot;자동 합격 판정 아님&quot;이 명시된다. 5%p 는 진단 표시다. 불합격 기준도, 유의성 기준도 아니다.</li>
+</ul>
+<h3 id="s9-4">8.4 기준 데이터 파일</h3>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>파일</th>
+<th>내용</th>
+<th>주의</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>스킬 <code>references/launch-reference.json</code></td>
+<td>현행 50:50, D1~D5 가설, 두 원작 등급별 값, D6·D7 참고값(<code>extendedGrades</code>)</td>
+<td>현행 기준</td>
+</tr>
+<tr>
+<td><code>out/car-match-inspection/gr1-policy-v2-comparison.json</code></td>
+<td>카매치 v1/v2, 500개 첫 판·2,500 변형, 분리 실험</td>
+<td>10-20 부터 스킬에 동봉하지 않음(용량)</td>
+</tr>
+<tr>
+<td>스킬 <code>references/magic-sort-v1.json</code></td>
+<td>매직소트 과거 측정·299 진행표</td>
+<td><code>expected</code>·<code>gradeTargets</code>·<code>tsTarget</code> 은 <strong>과거 정의</strong>, 현행 목표 아님</td>
+</tr>
+<tr>
+<td><code>out/cohort_shared_summary.json</code></td>
+<td>매직소트 기준 측정 요약</td>
+<td>원시 SHA-256 <code>602d5778…</code></td>
+</tr>
+<tr>
+<td><code>out/cohort_hidden_summary.json</code></td>
+<td>물음표 보완 측정 요약(2,000회)</td>
+<td>원시 SHA-256 <code>d0f79ac0…</code></td>
+</tr>
+<tr>
+<td><code>out/car-match-inspection/avg-sol-ratio-probe.json</code></td>
+<td>D 구간 가설 근거</td>
+<td>끝점 미확정</td>
+</tr>
+<tr>
+<td><code>out/car-match-inspection/gr1-policy-v2-comparison.json</code></td>
+<td>카매치 v2 실측·비교</td>
+<td>7,500만 회</td>
+</tr>
+</tbody></table></div>
+<h3 id="s9-5">8.5 가이드·스킬 갱신 순서</h3>
+<p>통합 가이드는 <strong>손으로 고치지 않는다.</strong> 바꿀 때는 이 순서로 다시 만든다.</p>
+<pre><code>node tools/cohortsim/build_integrated_report.mjs        통합 가이드 MD·HTML 생성(옛 이름 사본 포함)
+  → node tools/cohortsim/qa_integrated_report.mjs         브라우저 QA
+  → python -X utf8 tools/grp1_balance_skill/prepare_package.py   launch-reference.json · manifest 생성
+  → python -X utf8 tools/grp1_balance_skill/install_package.py   Claude·Codex × grp1/gr1 4곳 설치
+  → python -X utf8 tools/grp1_balance_skill/verify_install.py    해시·재집계 확인
+  → node tools/grp1_balance_skill/verify_guide.mjs        설치본 표시 확인(저장소 루트에서 실행)
+</code></pre>
+<p><strong>환경 의존</strong></p>
+<ul>
+<li>Chrome 경로가 하드코딩돼 있다.</li>
+<li><code>out/html-report-runtime/node_modules</code> 가 필요하다.</li>
+</ul>
+<p><strong>관리 상태</strong></p>
+<ul>
+<li><strong>10-20 용량 정리</strong>: 스킬은 16.4MB → 2.79MB 다.<ul>
+<li>빼서 원본에만 둔 것: 긴 이름 가이드 HTML(guide.html 과 동일), 카매치 v1 성공률 HTML, 카매치 v2 비교 HTML, car-match-v2.json.</li>
+<li>빠진 HTML 을 가리키던 링크는 사본에서 MD 로 바꾼다.</li>
+<li><code>install_package.py</code> 는 설치본에 남은 옛 파일을 지운다. 검증 스크립트도 그에 맞게 고쳤다.</li>
+</ul>
+</li>
+<li><code>magic-sort-v1.json</code> 은 이 파이프라인이 다시 만들지 않는다. 생성기 <code>tools/ts_blance/package_reference.py</code> 는 옛 경로(<code>~/.codex/skills/gr1-balance/</code>)에 쓴다.</li>
+<li><strong>스킬 <code>assets/</code> 에는 이 문서와 &#39;한눈에 보기&#39;(각각 MD·HTML)만 넣는다</strong>(10-20 팀장님 결정). 통합 가이드·원작 분석 문서 사본은 넣지 않는다. 그 문서들은 MagicSort <code>docs</code> 원본으로만 남긴다. 사본 안에서 스킬에 없는 문서로 가는 링크는 글자로만 남긴다.</li>
+<li><strong>팀 공유</strong>: grp1_common <code>.claude/skills/grp1-balance/</code> 에 같은 패키지를 넣는다. <code>.gitignore</code> 는 <code>.claude/*</code> 를 무시하되 공유 스킬만 <code>!.claude/skills/&lt;이름&gt;/</code> 으로 예외 처리한다(CubeLand 와 같은 방식).</li>
+</ul>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s8"><small>← 이전</small>7. 게임별 적용 현황과 사례</a><a class="next" href="#s10"><small>다음 →</small>9. 결정 기록</a></nav></section>
+<section class="panel page" data-page="9"><div class="pagehead"><span class="ph-nav"><a href="#s9">← 이전</a><b>10 / 13</b><a href="#s11">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s10">9. 결정 기록</h2>
+<details class="tv"><summary>결정 기록 펼치기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>날짜</th>
+<th>결정</th>
+<th>근거</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10-07</td>
+<td>형태 = 규칙서 + 공용 측정 도구. 런타임 코드는 범위 밖</td>
+<td>v1 설계서 결정 1</td>
+<td>유지</td>
+</tr>
+<tr>
+<td>10-07</td>
+<td>사람 데이터는 Playliner 기록만 쓴다. 목표 % 는 정하지 않는다</td>
+<td>v1 설계서 결정 5</td>
+<td>목표 % 는 이후 D1~D5 가설로 대체</td>
+</tr>
+<tr>
+<td>10-07</td>
+<td>파일럿 = CubeLand 하나(StackSort 중단, BusTrafficFever 레벨 디자인 전)</td>
+<td>v1 설계서 결정 7</td>
+<td>완료</td>
+</tr>
+<tr>
+<td>10-07</td>
+<td>CubeLand 결정 2건 보류</td>
+<td>공용 폴더 테스트용</td>
+<td><strong>보류 중</strong></td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>v1 을 참고용으로 표시. 설계서 오류 2건 정정, <code>standard.v1.json</code> 값은 유지</td>
+<td>팀장님 결정 (가)</td>
+<td>공용 저장소 <code>6cf0336c</code></td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>3집단 봇, 블로커 포함, 판·집단당 10,000회</td>
+<td>매직소트 측정 문서 ④~⑩</td>
+<td>유지</td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>고수 = 2수 탐색</td>
+<td><code>MagicSort_고수봇_두수탐색_비교.md</code></td>
+<td>유지</td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>매직소트: 세 집단 공통 후보 + 방문 상태 회피</td>
+<td><code>MagicSort_반복회피_비교.md</code>, <code>최종_성공률.md</code></td>
+<td>매직소트 기준 봇으로 유지</td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>카매치 v2: 일반·고수 전체 합법 행동</td>
+<td>봇개선 비교</td>
+<td>다른 게임의 기본 설계안</td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>런칭 지표 = 일반 50 + 고수 50, D1~D5 평균 가설</td>
+<td>통합 가이드 3절</td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-08</td>
+<td>별도 구제(DLB)는 공통 필수 아님</td>
+<td>카매치 기본표에 배치 없음</td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-09</td>
+<td>Coster 첫 적용(대표 25판). 기본 봇 50:50 포화 확인</td>
+<td>Coster 파일럿</td>
+<td>기록</td>
+</tr>
+<tr>
+<td>10-11</td>
+<td>Coster: 난이도 축 = 성급 무작위 초보, 1수 봇 게이트 0.75, 튜토리얼 18판 예외</td>
+<td>판단 봇이 0/1 스위치, 연속 분포 봇이 필요</td>
+<td>현행(Coster)</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>매직소트 기준 = 물음표 색 아는 봇. 가린 봇은 &#39;운 위험&#39;(−20%p) 표시용</td>
+<td>원작 D 순서 일치 67.53% 대 64.62%</td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td><strong>기각</strong>: 물음표 우선 후보 제한 (a)(b)</td>
+<td>가린 봇 런칭 50.58% → 47.54·44.68%, −20%p 판 81 → 157·238</td>
+<td>기각</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td><strong>미채택</strong>: 합치기 평가</td>
+<td>구간에는 들었으나 D 순서 일치·흔들림 개선 없음. 구간 맞추기용 정책 변경 금지</td>
+<td>미채택</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>숨김 측정은 10,000회 대신 2,000회</td>
+<td>팀장님 지시</td>
+<td>기록</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>공용 저장소엔 공용 정책·도구만. CubeLand 모듈·결과 삭제</td>
+<td>grp1_common <code>28b43354</code></td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>BTF 첫 적용, 봇 v1 선택</td>
+<td>BTF <code>docs/handoff.md</code></td>
+<td>v2.1 로 대체</td>
+</tr>
+<tr>
+<td>10-12</td>
+<td>Coster 숨김 정보 v3: 게이트에서 떨어진 3판은 그대로 둠</td>
+<td>요청자 결정</td>
+<td>기록</td>
+</tr>
+<tr>
+<td>10-13</td>
+<td>BTF: 측정 자 = v2.1, 목표 D 확정(위임), 10,000회는 허들 58판만</td>
+<td>가중치 대신 수읽기 길이로 차등</td>
+<td>현행(BTF)</td>
+</tr>
+<tr>
+<td>10-16</td>
+<td>블록아웃은 정적 대조만, 등급·봇 측정 안 함</td>
+<td><code>퍼즐3종_개발참고.md</code></td>
+<td>기록</td>
+</tr>
+<tr>
+<td>10-18~19</td>
+<td>BTF 이상치 재생성(소방차 47판, 약한 판 27판)</td>
+<td>역할 안 이상치</td>
+<td>적용</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>통합 가이드 갱신. 기준 수치·구간은 변경 없음</td>
+<td>통합 가이드 갱신 기록</td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>BTF guide1 비교 후에도 출하 자는 v2.1 유지</td>
+<td>허들이 쉬워 보인 것의 대부분은 봇 강도</td>
+<td>현행(BTF)</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>grp1_common 안내문을 현행 GRP1 정의로 갱신·push</td>
+<td>grp1_common <code>6ba08546</code></td>
+<td>완료</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>무작위 봇·3단계 가중과 비교 → GRP1 50:50 유지, 무작위 봇은 보조 지표</td>
+<td>같은 D 두 게임 차이 7.5 / 25.4 / 36.8%p</td>
+<td>현행</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td><strong>실수 기본값 = 일반 17.39%·고수 9.00%, 레벨 보정 없음</strong></td>
+<td>원작 기준표와 같은 조건. Honey 식 레벨별 오클릭은 오히려 쉬워짐</td>
+<td>현행(팀장님 결정)</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td><strong>D6·D7 은 꼭 필요한 경우에만 팀장님 확정 후 제작</strong></td>
+<td>공용 목표 밖, 별도 보고</td>
+<td>현행(팀장님 결정)</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>스킬 용량 정리 16.4MB → 2.79MB, 집계 도구에 D6·D7 예외 입력 추가</td>
+<td>중복·대체본 제거</td>
+<td>완료</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td>이 가이드를 스킬에 포함, Playliner 표 유지, grp1_common <code>.claude/skills/grp1-balance/</code> 로 팀 공유</td>
+<td>팀장님 결정</td>
+<td>완료(develop)</td>
+</tr>
+<tr>
+<td>10-20</td>
+<td><strong>참고 문서는 이 가이드와 &#39;한눈에 보기&#39; 둘만</strong>. 다른 문서 링크와 스킬 속 사본(통합 가이드·원작 분석)은 뺀다</td>
+<td>팀장님 결정</td>
+<td>현행</td>
+</tr>
+</tbody></table></div>
+</details>
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s9"><small>← 이전</small>8. 도구와 산출물</a><a class="next" href="#s11"><small>다음 →</small>10. 교훈과 함정</a></nav></section>
+<section class="panel page" data-page="10"><div class="pagehead"><span class="ph-nav"><a href="#s10">← 이전</a><b>11 / 13</b><a href="#s12">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s11">10. 교훈과 함정</h2>
+<details class="tv"><summary>교훈 40가지 펼치기</summary><p><strong>원본 데이터를 읽을 때</strong></p>
+<ol>
+<li>표시 역할(하드 배너)과 seed 등급은 다르다. 카매치 L14 하드는 seed 가 전부 D1 이다.</li>
+<li>등급 축이 둘일 수 있다. 카매치 설정 등급과 첫 seed 등급은 453개 중 250개에서 다르다. 어느 축인지 항상 적는다.</li>
+<li>원본 기록값(<code>avgSolRatio</code>)을 우리 성공률로 쓰지 않는다. L120 은 원본 100%, 우리 실측 23.93% 다.</li>
+<li>기능이 코드에 있어도 배치되지 않았을 수 있다. 카매치 DLB 는 코드와 <code>with-dlb-40</code> 설정 이름이 있지만 기본표에는 없다.</li>
+<li>반복표를 고유 레벨로 중복 집계하지 않는다. 카매치 반복 200개는 L301~500 과 같다.</li>
+<li>기믹 탐지를 한 필드로만 하지 않는다. 카매치 커튼은 <code>BIT=7</code> 외에 터널 안 <code>TCM</code>, 차량 <code>KM</code> 도 봐야 한다.</li>
+<li>레벨 JSON 과 설치본이 다를 수 있다(CubeLand L1~7, L4·L14 도크 선배치).</li>
+<li>&#39;시도 횟수&#39;의 정의를 확인한다. 매직소트 cap 은 레벨 시작 횟수다.</li>
+</ol>
+<p><strong>봇과 시뮬레이터를 만들 때</strong></p>
+<ol start="9">
+<li>블로커를 빼고 재면 다른 문제의 성공률이 나온다. 블로커 판을 제외하면 L49·59 같은 핵심 허들을 인용할 수 없다.</li>
+<li>&#39;무의미한 수&#39; 필터가 블로커 해제에 필요한 수를 막을 수 있다. 매직소트는 블로커가 남아 있으면 단색 → 빈 병 이동을 허용했다.</li>
+<li>직전 역이동 금지로는 순환을 못 막는다. 수 상한을 늘려도 안 된다. 방문 상태 회피가 필요하다.</li>
+<li>반복 회피는 실패를 &#39;반복 소진&#39;으로 옮길 뿐, 풀이가 없다는 증명이 아니다. 모든 과거 상태를 기억하는 것도 사람과 다르다.</li>
+<li>집단마다 후보 규칙이 다르면 서열이 뒤집힌다. 매직소트에서 초보만 새 규칙을 썼을 때 초보 &gt; 일반인 판이 18개였다. 세 집단이 규칙을 공유한 뒤 서열이 뒤집힌 첫 판(초보 &gt; 일반 또는 일반 &gt; 고수)은 6개다.</li>
+<li>후보 제한은 고수를 약하게 만든다(카매치 역전 31 → 0). 반대로 후보를 넓히면 무작위 분기도 넓어진다.</li>
+<li>짧은 예측과 평가 함수에는 한계가 있다. 실수율 0 에서도 v1 보다 낮은 판이 있다(카매치 L22).</li>
+<li>시뮬레이터 규칙은 원작 코드 근거로 확인한다. 매직소트에서 물음표 칸 붓기 규칙을 실제대로 고치자 런칭 평균이 −0.49%p 움직였다. 규칙을 고치면 버전을 올려 다시 잰다.</li>
+<li>1~2수 봇은 정보 가정에 민감하다. 물음표를 가리면 평균은 −1.98%p 지만, 같은 판이 86.0% → 32.8%(L138, −54.16%p)까지 떨어진다. 숨김 정보가 있으면 두 조건을 함께 본다.</li>
+<li>추상 시뮬레이터는 실제 플레이보다 낙관적일 수 있다. CubeLand 는 회전·시간·시야가 없는 모델이다.</li>
+</ol>
+<p><strong>측정하고 해석할 때</strong></p>
+<ol start="19">
+<li>정책을 바꾸기 전에 같은 시드로 기존 결과를 시행 단위까지 재현한다.</li>
+<li>혼합 평균은 고수 차이를 가린다. 초보 값 하나만 맞추지 않는다.</li>
+<li>재사용 seed 는 독립 표본이 아니다. 첫 판 평균·고유 배치 평균·누적 통과율을 구분한다.</li>
+<li>구간 평균에 예외가 묻힌다. 같은 D5 인 L49 와 L59 는 경험이 전혀 다르다.</li>
+<li>같은 등급의 변형도 크게 갈린다. 카매치 L69 의 D4 변형 5개가 일반 봇 5.2~43.6% 였다.</li>
+<li>측정 신뢰 관문(재현·대조)을 판정보다 먼저 통과시킨다.</li>
+<li>정책 A/B 를 고르는 지표를 미리 고정한다. 원작 D 순서 일치와 배치별 흔들림을 본다. &quot;구간에 들어왔다&quot;로 고르지 않는다.</li>
+<li>관측 도구는 처음 쓸 때 도구 자체부터 검증한다. Cpp2IL 은 ARM64 ADRP 값에 PC 페이지를 더하지 않는다. 인터페이스 호출은 BL 호출 그래프에 잡히지 않는다.</li>
+</ol>
+<p><strong>실제 게임에 적용할 때 (BTF·Coster)</strong></p>
+<ol start="27">
+<li>측정 전에 시뮬레이터가 기믹 레벨을 실제로 도는지 확인한다. Coster 는 기믹 시뮬레이터가 전부 예외로 실패하고 있었다.</li>
+<li>무작위 기준 봇은 수읽기가 필요한 게임에서 바닥에 붙는다. BTF 는 v1 기준 봇으로 L13 부터 전부 G7(가장 어려움)이었다.</li>
+<li>고수가 100% 를 찍으면 50:50 은 50% 아래로 내려가지 않는다(BTF v1).</li>
+<li>1수·2수 평가 봇은 미리 세우기·파내기 같은 기믹에서 0% 로 무너질 수 있다. 가중치가 아니라 수읽기 길이로 고친다(BTF v2 → v2.1).</li>
+<li>정보 경계는 숨김 색만이 아니라 대기열 순서까지 본다. BTF 는 이것을 놓쳐 허들을 약 10%p 낙관했다.</li>
+<li>실시간 요소가 있으면 &#39;한 수&#39; 정의가 포화를 좌우한다. 고정점까지 정착하는 모델에서는 기다림이 공짜다(Coster).</li>
+<li>판단 봇은 레벨 변형에 1.0/0.0 스위치처럼 반응할 수 있다. 그런 봇은 다이얼이 아니라 함정 게이트로 쓴다(Coster 허들 240안).</li>
+<li>숨김 정보의 양으로 난이도를 조절하려 하지 않는다. 매직소트(평균 −1.98%p)와 Coster(평균 −0.3%p, 미스터리 개수와 무관) 모두 평균 효과가 작았다. 판별 차이는 따로 본다(3.7).</li>
+<li>300회 측정은 판별 오차가 ±4~5%p 다. 적용본은 새 시드로 다시 잰다(Coster).</li>
+<li>이상치 목록은 쓰는 자(봇)에 따라 바뀐다. BTF 에서 두 자의 순위 상관은 0.5 안팎이었다.</li>
+<li>게임 규칙이 바뀌면 봇 규칙도 같이 바뀐다. 다시 재고, 필요하면 레벨도 다시 만든다(BTF 소방차 시간 제한 폐지 → 47판 재생성).</li>
+<li>코드 상수의 단위를 확인한다. BTF 의 &#39;줄 앞 20행&#39;은 실제로는 승객 20명이었다.</li>
+</ol>
+<p><strong>실수 모델과 지표를 고를 때 (10-20)</strong></p>
+<ol start="39">
+<li>&#39;사람 같은 실수&#39;를 더한다고 더 어려워지는 것은 아니다. Honey 식 레벨별 오클릭(판당 최대 2회)을 넣으면 오히려 쉬워졌다(카매치 +3.95%p). 매 수 5.7% 고정이 더 보수적이다.</li>
+<li>무작위 봇은 게임을 탄다. 매직소트에서는 원작 등급 서열을 잘 따라갔지만, 카매치는 첫 판 500개 중 408개에서 한 번도 이기지 못했다. 공용 기준이 아니라 보조 지표로만 쓴다.</li>
+</ol>
+</details>
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s10"><small>← 이전</small>9. 결정 기록</a><a class="next" href="#s12"><small>다음 →</small>11. 미결·한계·다음 단계</a></nav></section>
+<section class="panel page" data-page="11"><div class="pagehead"><span class="ph-nav"><a href="#s11">← 이전</a><b>12 / 13</b><a href="#s13">다음 →</a></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s12">11. 미결·한계·다음 단계</h2>
+<p><strong>미결</strong></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>#</th>
+<th>항목</th>
+<th>상태</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>공용 저장소 grp1_common 안내문(규칙서 첫머리·<code>Tools/LevelBalance/README.md</code>·<code>CROSS_PROJECT_GUIDES.md</code>)의 옛 표현(&#39;3집단 가중&#39;, 스킬 <code>gr1-balance</code>)</td>
+<td><strong>완료</strong> — 10-20 <code>6ba08546</code> 으로 현행 GRP1 정의로 고쳐 origin/develop 에 push</td>
+</tr>
+<tr>
+<td>2</td>
+<td>스킬을 grp1_common <code>.claude/skills/grp1-balance/</code> 에 넣어 팀 전체가 쓰게 한다</td>
+<td>10-20 진행(팀장님 지시). develop 반영 여부는 grp1_common 커밋 기록으로 확인</td>
+</tr>
+<tr>
+<td>3</td>
+<td>이 문서를 스킬 패키지에 넣을지</td>
+<td><strong>넣는다</strong>(10-20 팀장님 결정)</td>
+</tr>
+<tr>
+<td>3-1</td>
+<td>스킬 사본의 Playliner 1인 기록 표(<code>MagicSort_공용밸런스_레퍼런스.md</code> 60행)</td>
+<td><strong>남긴다</strong>(10-20 팀장님 결정, 사내 공유 범위)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CubeLand 결정 2건</td>
+<td>보류(다음 게임에서 등급이 쉬운 쪽에 몰리면 재검토)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>어려운 판 연속 임계값, 회복 폭 허용치</td>
+<td>미정. 정하기 전에는 값·이상치만 보고</td>
+</tr>
+<tr>
+<td>6</td>
+<td>난이도 눈금 점검(③-2)의 판정 기준·게이트 값을 공통으로 정할지</td>
+<td>근거 n=2(BTF·Coster). 팀장님 결정 필요</td>
+</tr>
+<tr>
+<td>7</td>
+<td>BTF: 화면에 보이는 줄만 아는 봇을 공식 자로 바꿀지, guide1 이 보여 준 일반 판 기준선(92~94%)을 어떻게 할지, 선택 7판 채택 여부</td>
+<td>BTF 미결</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Coster: 공통 런칭 지표(50:50)와 Coster 눈금의 정합, 실기·육안 확인, 고수 2수 전수 측정, 1수 봇 이상 패배 원인</td>
+<td>Coster 미결</td>
+</tr>
+</tbody></table></div>
+<p><strong>한계</strong></p>
+<ul>
+<li><strong>봇 성공률은 실제 유저 승률이 아니다.</strong> 출시 후 지표로 보정하기 전까지 모든 목표는 가설이다.</li>
+<li><strong>두 원작 수치는 통제 비교가 아니다.</strong> 매직소트는 후보 제한 봇이고 v2 방식으로 재측정하지 않았다.</li>
+<li><strong>가설 구간의 근거가 얇다.</strong> <code>avgSolRatio</code> 산출 방식은 미확인이고, 구간 끝점도 미확정이다. D5 근거는 7개 레벨이다.</li>
+<li><strong>실수율과 과거 집단 비율은 CubeLand 모델(cohort-one-step-v3)에서 왔다.</strong> 대상 게임 이용자에게서 잰 값이 아니다.</li>
+<li><strong>실제 게임과 대조하지 않았다.</strong> 원본은 앱 번들 기본 설정이고 서버 설정은 확인하지 않았다. Unity·실기기 플레이 대조도 하지 않았다(매직소트·카매치).</li>
+<li><strong>적용 게임도 출시 데이터가 없다.</strong> BTF·Coster 모두 봇 측정까지만 했다. 실기·육안 확인이 남아 있다.</li>
+<li><strong>매직소트 물음표 처리에 미확인이 남았다.</strong> 커튼·석고 병 안의 공개 색이 실제 화면에서 가려지는지(<code>HidesWaterColors</code>) 확인하지 않았다.</li>
+<li><strong>제작사의 생성·검수 방식은 모른다.</strong> 에디터가 있다는 것이 자동 생성 공정의 증거는 아니다. 200회는 우리의 초기 실험 횟수이지 제작사 값이 아니다.</li>
+</ul>
+<p><strong>문서 간 표기 정리 필요</strong> (내용 영향 없음)</p>
+<ul>
+<li><code>MagicSort_공용밸런스_레퍼런스.md</code> 상단의 &#39;최신 측정&#39; 링크가 대체된 <code>MagicSort_블로커포함_성공률.md</code> 를 가리킨다.</li>
+<li><code>MagicSort_블로커포함_성공률.md</code> 와 <code>MagicSort_스테이지별_성공률.md</code> 에 &quot;최종 성공률로 대체됨&quot; 표기가 없다.</li>
+<li>카매치 측정 계획(<code>plans/2026-10-08-carmatch-gr1-measurement.md</code>)의 &quot;일반·고수가 같은 후보 우선순위 공유&quot;는 v2 에서 폐기됐다.</li>
+</ul>
+<p><strong>다음 단계 (제안)</strong></p>
+<ol>
+<li>다음 신규 퍼즐 게임에 적용한다(7.8 체크리스트, 대표 10~20판과 ③-2 눈금 점검부터).</li>
+<li>출시 게임의 유저 지표 수집 체계를 만든다. 레벨 시작 횟수·실패·이어하기를 분리해 기록한다.</li>
+<li>공용 안내문(grp1_common 규칙서·<code>CROSS_PROJECT_GUIDES.md</code>)에서 스킬 위치와 부르는 법을 안내한다.</li>
+<li>(선택) 두 원작의 통제 비교가 필요해지면 매직소트를 v2 방식으로 재측정한다.</li>
+</ol>
+
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s11"><small>← 이전</small>10. 교훈과 함정</a><a class="next" href="#s13"><small>다음 →</small>12. 용어</a></nav></section>
+<section class="panel page" data-page="12"><div class="pagehead"><span class="ph-nav"><a href="#s12">← 이전</a><b>13 / 13</b><span class="dis">다음 →</span></span><span class="ph-t">GRP1 Balance 설계·적용 가이드</span></div><h2 id="s13">12. 용어</h2>
+<details class="tv"><summary>용어 펼치기</summary><div class="table-wrap"><table>
+<thead>
+<tr>
+<th>용어</th>
+<th>뜻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>런칭 설계용 성공률</td>
+<td>첫 판 기준 <code>0.5 × 일반 + 0.5 × 고수</code>. 레벨 제작·선별의 기준 지표</td>
+</tr>
+<tr>
+<td>D1~D5</td>
+<td>제작 목표 등급. 등급별 <strong>평균</strong> 성공률 가설 구간을 가진다. 원작 D 와는 별도 필드</td>
+</tr>
+<tr>
+<td>원본 등급 / 목표 등급 / 실측</td>
+<td>원작 데이터의 등급 / 우리가 정한 제작 등급 / 봇으로 잰 성공률. 셋을 섞지 않는다</td>
+</tr>
+<tr>
+<td>역할</td>
+<td>학습·일반·작은 허들·하드·슈퍼하드·회복. 표시 역할이지 등급이 아니다</td>
+</tr>
+<tr>
+<td>첫 판 / 기본 변형 / 별도 구제</td>
+<td>레벨 첫 시작 seed / 재시작 때 쓰는 기본 목록 / cap 도달 후 쓰는 구제 목록</td>
+</tr>
+<tr>
+<td>cap (dlbCap)</td>
+<td>구제 목록으로 넘어가는 레벨 시작 횟수</td>
+</tr>
+<tr>
+<td>DLB</td>
+<td>매직소트 별도 구제 목록. 공통 필수 아님</td>
+</tr>
+<tr>
+<td>profileId</td>
+<td>봇 프로필 버전. 정책·비율·규칙이 바뀌면 올린다</td>
+</tr>
+<tr>
+<td>반복 소진</td>
+<td>갈 수 있는 수는 있지만 모두 이미 방문한 상태로 가는 경우. 실패로 집계</td>
+</tr>
+<tr>
+<td>운 위험</td>
+<td>숨김 정보를 가린 조건에서 기준 조건보다 20%p 이상 낮은 판(매직소트 임시 기준)</td>
+</tr>
+<tr>
+<td>avgSolRatio</td>
+<td>카매치 번들의 원본 기록값. 산출 방식 미확인. 우리 성공률이 아니다</td>
+</tr>
+<tr>
+<td>3집단 가중</td>
+<td>과거 지표 <code>0.566 × 초보 + 0.420 × 일반 + 0.014 × 고수</code>. 새 작업에 쓰지 않는다</td>
+</tr>
+<tr>
+<td>난이도 눈금(자)</td>
+<td>레벨 난이도를 가르는 데 쓰는 봇 또는 봇 조합. 기본은 일반·고수 50:50</td>
+</tr>
+<tr>
+<td>함정 게이트</td>
+<td>판단 봇의 성공률이 기준 이상인지로 &#39;풀 수 없는 함정 판&#39;을 거르는 통과 조건(Coster: 1수 봇 0.75)</td>
+</tr>
+<tr>
+<td>기본 배치안</td>
+<td>구간 × 역할별 목표 D 출발표(3.8). BTF 문서에서는 &#39;목표 D&#39;</td>
+</tr>
+<tr>
+<td>실수 기본값</td>
+<td>일반 17.39% · 고수 9.00%, 레벨 보정 없음. 판단 생략(12.4·3.5%)과 오클릭 바닥(5.7%)을 합친 값</td>
+</tr>
+<tr>
+<td>D6·D7 예외 등급</td>
+<td>공용 목표 밖 등급. 꼭 필요할 때만 팀장님 확정 후 만들고 따로 보고한다(2.6)</td>
+</tr>
+</tbody></table></div>
+</details>
+<nav class="pager" aria-label="페이지 이동"><a class="prev" href="#s12"><small>← 이전</small>11. 미결·한계·다음 단계</a><span></span></nav></section>
+<nav class="pagebar" aria-label="페이지 이동"><a class="pb-prev" href="#"><small>← 이전</small><span></span></a><div class="pb-mid"><b>1 / 13</b><span class="pb-key">← → 키로도 이동</span></div><a class="pb-next" href="#"><small>다음 →</small><span></span></a></nav>
+<footer>원본 <code>docs/GRP1_Balance_설계_적용_가이드.md</code> · SHA-256 <code>4e8aa81a232588da…</code> · 생성 2026-10-20 08:08 UTC · <code>node tools/build_grp1_work_guide.mjs</code> · 수치 출처는 각 그림 아래와 MD 본문</footer>
+</main>
+</div>
+<div id="tip" role="tooltip"></div>
+<script>
+(()=>{const links=[...document.querySelectorAll('nav.toc > ul > li > a')];
+// 페이지 이동: 주소의 #id 가 속한 장(section.page)만 보여 준다. 첫 장에만 표지(header)를 둔다.
+const pages=[...document.querySelectorAll('section.page')],head=document.querySelector('header.top'),btns=[...document.querySelectorAll('.viewall')];
+let all=false,cur=0;document.body.classList.add('paged');
+// 하단 고정 이동 막대: 현재 장에 맞춰 이전·다음 제목과 위치를 바꾼다.
+const bar=document.querySelector('.pagebar'),bp=bar.querySelector('.pb-prev'),bn=bar.querySelector('.pb-next'),bm=bar.querySelector('.pb-mid b');
+const h2=p=>p.querySelector('h2');
+function setLink(a,p){if(p){a.href='#'+h2(p).id;a.title=h2(p).textContent;a.querySelector('span').textContent=h2(p).textContent.split(' — ')[0];a.classList.remove('dis');a.removeAttribute('aria-disabled');a.tabIndex=0;}
+ else{a.removeAttribute('href');a.querySelector('span').textContent='';a.classList.add('dis');a.setAttribute('aria-disabled','true');a.tabIndex=-1;}}
+const chips=[...document.querySelectorAll('.chapbar a')];
+// 페이지 끝의 이전·다음 버튼이 화면에 들어오면 떠 있는 막대는 숨긴다(같은 버튼이 두 번 보이지 않게).
+const pio=new IntersectionObserver(es=>{es.forEach(e=>bar.classList.toggle('hide',e.isIntersecting));},{threshold:0});
+function watchPager(){pio.disconnect();bar.classList.remove('hide');const pager=pages[cur]&&pages[cur].querySelector('.pager');if(pager&&!all)pio.observe(pager);}
+function updateBar(){setLink(bp,pages[cur-1]);setLink(bn,pages[cur+1]);bm.textContent=(cur+1)+' / '+pages.length;watchPager();
+ chips.forEach((c,i)=>{c.classList.toggle('on',i===cur);if(i===cur){c.setAttribute('aria-current','page');const b=c.parentElement;b.scrollLeft=c.offsetLeft-b.clientWidth/2+c.offsetWidth/2;}else c.removeAttribute('aria-current');});}
+// 모바일: 좌우로 밀어 장을 넘긴다. 옆으로 스크롤되는 차트·표·코드 위에서는 넘기지 않는다.
+let tx=null,ty=0;
+addEventListener('touchstart',e=>{const t=e.touches[0];tx=e.target.closest('.scroll,.table-wrap,pre,.chapbar,svg')?null:t.clientX;ty=t.clientY;},{passive:true});
+addEventListener('touchend',e=>{if(tx==null)return;const t=e.changedTouches[0],dx=t.clientX-tx,dy=t.clientY-ty;tx=null;if(Math.abs(dx)>80&&Math.abs(dy)<50)go(dx<0?1:-1);},{passive:true});
+function go(d){const p=pages[cur+d];if(p&&!all)location.hash='#'+h2(p).id;}
+addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||e.shiftKey||e.target.closest('input,textarea,select,[contenteditable]'))return;
+ if(e.key==='ArrowRight'){go(1);e.preventDefault();}else if(e.key==='ArrowLeft'){go(-1);e.preventDefault();}});
+function showPage(id){
+ const el=id?document.getElementById(decodeURIComponent(id)):null;
+ const pg=(el&&el.closest('section.page'))||pages[0];
+ if(!all){pages.forEach(p=>p.classList.toggle('on',p===pg));head.classList.toggle('off',pg!==pages[0]);}
+ const top=pg.querySelector('h2');links.forEach(l=>l.classList.toggle('on',top&&l.hash==='#'+top.id));
+ cur=pages.indexOf(pg);updateBar();
+ if(el&&el.tagName!=='H2')requestAnimationFrame(()=>el.scrollIntoView());else if(!all)scrollTo(0,0);else if(el)el.scrollIntoView();
+ const m=document.querySelector('.toc-mobile');if(m)m.open=false;
+}
+btns.forEach(b=>b.addEventListener('click',()=>{all=!all;document.body.classList.toggle('paged',!all);btns.forEach(x=>{x.textContent=all?'페이지로 보기':'전체 보기 (찾기·인쇄용)';x.setAttribute('aria-pressed',String(all));});if(!all)showPage(location.hash.slice(1));}));
+addEventListener('hashchange',()=>showPage(location.hash.slice(1)));
+showPage(location.hash.slice(1));
+const tip=document.getElementById('tip');
+const show=(el,x,y)=>{tip.textContent=el.getAttribute('data-tip');tip.style.opacity=1;const w=tip.offsetWidth,h=tip.offsetHeight;tip.style.left=Math.min(Math.max(8,x+12),innerWidth-w-8)+'px';tip.style.top=Math.max(8,y-h-12)+'px';};
+document.addEventListener('pointerover',e=>{const el=e.target.closest('[data-tip]');if(el)show(el,e.clientX,e.clientY);});
+document.addEventListener('pointermove',e=>{const el=e.target.closest('[data-tip]');if(el)show(el,e.clientX,e.clientY);else tip.style.opacity=0;});
+document.addEventListener('focusin',e=>{const el=e.target.closest('[data-tip]');if(el){const r=el.getBoundingClientRect();show(el,r.left+r.width/2,r.top);}});
+document.addEventListener('focusout',()=>{tip.style.opacity=0;});
+addEventListener('scroll',()=>{tip.style.opacity=0;},{passive:true});})();
+</script>
+</body>
+</html>
