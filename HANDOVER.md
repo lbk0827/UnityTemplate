@@ -1,5 +1,7 @@
 # 인수인계: grp1 로비 이식 (BK.UI) — 2026-09-10
 
+> 2026-10-21 운영 기준: 공용 아웃게임·로비·상점·팝업은 `main`, Bounce 인게임과 게임별 구성은 `develop-bounce`에서 관리합니다. 현재 작업 규칙은 [CLAUDE.md](CLAUDE.md)의 **공용 템플릿과 게임 전용 영역 관리** 절과 [AGENTS.md](AGENTS.md)를 확인하세요. 아래 남은 작업과 커밋 절차는 과거 기록이며 현재 작업 지시가 아닙니다.
+
 > 2026-10-08 업데이트: 아래 내용은 이전 작업 기록입니다. 현재 실행 진입점은 `BK > Integration > Open Bounce Bootstrap`이며, BK_Kit의 화면·게임이 `Assets/_Project/Bounce/`에 통합되어 있습니다. DUG 폰트는 Kenney Future Narrow(CC0)로 교체했으므로 아래 옛 폰트 이식 절차는 다시 실행하지 않습니다. 현재 검증 결과와 구성은 `docs/bk-kit-integration.json`을 확인하세요.
 
 Claude Code 세션이 토큰 한도로 중단되어 Codex가 이어받는 문서. 아래 "남은 작업"부터 진행하면 된다.
