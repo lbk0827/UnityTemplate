@@ -17,7 +17,7 @@ public sealed class BounceReleaseTests
         Assert.That(AssetDatabase.GetAssetPath(p.levels),Is.EqualTo(BounceReleaseGenerator.DataPath));
         foreach(var l in library.levels)
         {
-            Assert.That(BounceLevelLayout.Validate(l),Is.Empty,l.title);
+            Assert.That(BounceLevelLayout.Validate(l,true),Is.Empty,l.title);
             Assert.That(l.title,Is.Not.Empty);Assert.That(l.intent,Is.Not.Empty);Assert.That(l.chapter,Is.Not.Empty);
             Assert.That(l.rows.Sum(r=>r.Count(char.IsDigit)),Is.GreaterThanOrEqualTo(40));
         }

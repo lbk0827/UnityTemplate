@@ -122,6 +122,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Integrated Bounce project (2026-10-08)
 
+### Bounce 고정 플레이 영역 (2026-10-27)
+
+- 출시 캠페인은 `BounceBoardLayout`의 외곽 **11×16**, **1유닛 셀**, 기준 카메라 **Orthographic Size 11.75 / pitch 60°**를 공유한다. 내부 Grid 크기에 따라 Wall·기물 크기·카메라 배율을 변경하지 않는다. 화면 비율 때문에 좌우가 잘릴 때만 Size를 늘리며 같은 기기에서는 레벨 간 배율이 같다.
+- 레벨의 가로 폭은 외곽 중앙에, 행 0은 외곽 상단에 정렬한다. 내부 `gridRows`는 배치 허용 범위이며 외곽 깊이를 뜻하지 않는다. 물리와 기믹 위치 모두 같은 16행 기준 좌표를 사용한다. 출시 편집기는 가로 3~11, 세로 8~16을 허용하며 초과 배치를 자동 축소하거나 자르지 않는다. 보관용 비캠페인 데이터는 기존 가변 영역을 유지한다.
+- 블록 수를 늘리기 위해 자동 축소하지 않는다. 더 큰 도안은 고정 영역에 맞게 다시 설계하고, 해금 순서를 유지한 채 실제 물리 해법·탄 수를 다시 검증한다. 출시 140레벨 생성 원본과 카탈로그도 이 기준을 따른다.
+- 정원형 잔디 격자·석재 테두리·식재·부두는 `LagoonArena`의 충돌 없는 장식이다. 물리 Wall은 `BounceModule`이 별도로 소유한다. 부스터는 화면 하단 한 줄로 배치한다. `BK > Integration > Apply Garden Presentation`은 Bounce 인게임 조명과 블록·대포 재질을 적용한다.
+- 화면 검증은 `BouncePortraitPresentationTests`로 9:16·9:20·3:4의 서로 다른 레벨에서 동일 Wall/Size, 배치 정렬과 HUD를 확인한다. 결과 이미지는 `TestResults/PortraitGarden/`에 저장한다.
+
 - Active game: `Assets/_Project/Bounce/`, imported from BK_Kit and adapted to BKFramework.
 - Open `BK > Integration > Open Bounce Bootstrap`, then Play. Entry scene: `Assets/_Project/Bounce/Scenes/VisualBootstrap.unity`.
 - `IntegratedProjectScope` boots BKFramework and installs the Bounce meta loop (`MetaInstaller` with `BounceCurrencies`, `BounceContinueOffers`, `BounceEntry.Policy`, `BounceStepOffers`, `BounceWinStreak`). `KitApp` is a facade over `IWallet`, `IStageProgress`, `IOptionsService`, `ISaveService`, `PendingRewardQueue`/`CurrencyDisplayLock`, `ContinueOffers`, `StepOffers`/`WinStreak` and `IMessageService`; it owns no state and flushes the save after every mutation. The former sample project (`Project` namespace lobby) was removed on 2026-10-09; `Assets/_Project/` now holds only Bounce plus the shared `Settings/FrameworkSettings`, `Data/TableCatalog`, `Localization/{en,ko}` and `UI/Sequences`.

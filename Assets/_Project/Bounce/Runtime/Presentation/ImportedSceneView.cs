@@ -217,8 +217,27 @@ namespace BK.Kit
                 foreach(var entry in ingameBindings.entries)if(entry.key==offer.ButtonKey)entry.value=button;
                 Bind(ingameBindings,offer.ButtonKey,()=>UseBooster(offer));
             }
+            LayoutPortraitHud();
             UpdateCounts();
             StartCoroutine(ShowFirstGuides());
+        }
+        private void LayoutPortraitHud()
+        {
+            // These are Bounce-specific placements; shared popup/prefab layouts are untouched.
+            int index=0;
+            foreach(var offer in BoosterCatalog.All)
+            {
+                var rect=(RectTransform)Named(screen,"BTN_"+offer.Kind);
+                rect.SetParent(screen.transform,false);
+                rect.anchorMin=rect.anchorMax=new Vector2(.17f+index++*.22f,.045f);
+                rect.pivot=new Vector2(.5f,.5f);rect.anchoredPosition=Vector2.zero;
+                rect.localScale=Vector3.one*.68f;
+            }
+            foreach(string key in new[]{"LevelBadgeNormal","LevelBadgeHard"})
+            {
+                var go=ingameBindings.Get<GameObject>(key);if(go==null)continue;
+                var rect=go.GetComponent<RectTransform>();rect.localScale=Vector3.one*.78f;
+            }
         }
         private void UpdateCounts()
         {

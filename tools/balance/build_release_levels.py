@@ -2,7 +2,7 @@
 
 Budgets in release-budgets.json are measured overrides, never inferred human win rates.
 """
-import json,hashlib
+import json,hashlib,math
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 CONTENT=ROOT/'Assets/_Project/Bounce/Content'
@@ -49,7 +49,28 @@ def shapes():
     ]
     result.extend(extra)
     order=[0,1,3,10,11,13,14,12,5,4,8,15,2,6,7,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,9]
-    return [result[i] for i in order]
+    portrait=[]
+    for i in order:
+        name,art=result[i]
+        # Fish and whale swim upward; keep square cells and the complete silhouette.
+        if i in (2,12):
+            art=[''.join(row[x] for row in reversed(art)) for x in range(len(art[0]))]
+        width=len(art[0]);height=len(art)
+        new_width=min(11,width);new_height=min(11,height)
+        if new_width%2==0:new_width-=1
+        art=[''.join(art[min(height-1,int((y+.5)*height/new_height))][min(width-1,int((x+.5)*width/new_width))]
+                     for x in range(new_width)) for y in range(new_height)]
+        # Preserve thin motifs as readable clusters after reducing the authored footprint.
+        cells=[list(row) for row in art]
+        while sum(c!='.' for row in cells for c in row)<44:
+            choices=[(x,y) for y in range(1,new_height-1) for x in range(1,new_width-1)
+                     if cells[y][x]=='.' and sum(cells[y+dy][x+dx]!='.' for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)])>=2]
+            if not choices:break
+            x,y=min(choices,key=lambda p:(p[0]-new_width/2)**2+(p[1]-new_height/2)**2)
+            cells[y][x]=next(cells[y+dy][x+dx] for dx,dy in [(-1,0),(1,0),(0,-1),(0,1)] if cells[y+dy][x+dx]!='.')
+        art=[''.join(row) for row in cells]
+        portrait.append((name,art))
+    return portrait
 
 def fingerprint(level):
     data={k:level[k] for k in ['rows','gimmicks','gridRows','difficulty']}
@@ -69,9 +90,9 @@ def build(count=140):
         chapter=sum(stage>=s for s in UNLOCKS.values())
         lesson=intro or (available[-1] if available and stage-UNLOCKS[available[-1]]<=2 else '')
         role='도입' if intro else '복습' if lesson else '도전' if stage%10==0 else '휴식' if stage%10 in (1,6) and stage>13 else '일반'
-        margin=1+variant%2
+        margin=0
         width=max(map(len,art))+2*margin
-        height=len(art)+7+variant%2
+        height=min(16,max(13,len(art)+4+variant%2))
         # Dense, legible source art; each later encounter has a different interior route.
         cells=[['.']*width for _ in range(height)]
         for y,row in enumerate(art):

@@ -21,8 +21,8 @@ namespace BK.Kit.Editor
         {
             Directory.CreateDirectory(Root);AssetDatabase.Refresh();
             var presentation=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
-            steel=Material("Blued iron",presentation.arenaMaterial,new Color(.075f,.16f,.21f),.48f,.45f);
-            brass=Material("Brushed brass",presentation.arenaMaterial,new Color(.78f,.44f,.14f),.42f,.5f);
+            steel=Material("Blued iron",presentation.arenaMaterial,new Color(.055f,.29f,.47f),.58f,.25f);
+            brass=Material("Brushed brass",presentation.arenaMaterial,new Color(.9f,.54f,.11f),.48f,.35f);
             wood=Material("Carriage walnut",presentation.arenaMaterial,new Color(.29f,.105f,.045f),.24f,0);
             woodEdge=Material("Carriage end grain",presentation.arenaMaterial,new Color(.48f,.23f,.085f),.28f,0);
             dark=Material("Bore and tyres",presentation.arenaMaterial,new Color(.018f,.032f,.045f),.22f,.15f);

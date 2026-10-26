@@ -32,12 +32,14 @@ namespace BK.Kit
         public static bool HasBlock(BounceModule.Level level, int col, int row) => row >= 0 && row < level.rows.Length &&
             col >= 0 && col < level.rows[row].Length && level.rows[row][col] >= '1' && level.rows[row][col] <= '9';
 
-        public static List<string> Validate(BounceModule.Level level)
+        public static List<string> Validate(BounceModule.Level level,bool fixedArena=false)
         {
             var errors = new List<string>();
             if (level == null || level.rows == null || level.rows.Length == 0 || string.IsNullOrEmpty(level.rows[0]))
             { errors.Add("보드 데이터가 없습니다."); return errors; }
             int columns = level.rows[0].Length;
+            if(fixedArena && (columns>BounceBoardLayout.Columns || level.GridRows>BounceBoardLayout.Rows))
+                errors.Add("출시 레벨의 내부 Grid는 고정 외곽인 11×16칸을 넘을 수 없습니다.");
             if (columns < 3 || columns > MaxColumns) errors.Add("보드 폭은 3~25칸이어야 합니다.");
             if (level.GridRows < 8 || level.GridRows > MaxRows) errors.Add("그리드 높이는 8~30칸이어야 합니다.");
             if (level.rows.Length > level.GridRows) errors.Add("블록 배치가 그리드 높이를 초과합니다.");

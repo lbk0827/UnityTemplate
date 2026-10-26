@@ -16,7 +16,7 @@ namespace BK.Kit.Editor
             var library=JsonUtility.FromJson<BounceModule.Levels>(asset.text);
             for(int i=0;i<library.levels.Length;i++)
             {
-                var errors=BounceLevelLayout.Validate(library.levels[i]);
+                var errors=BounceLevelLayout.Validate(library.levels[i],true);
                 foreach(var g in library.levels[i].gimmicks)
                     if(!BounceReleasePolicy.IsAllowed(g.type,i+1))errors.Add("Gimmick used before unlock: "+g.type);
                 if(errors.Count>0)throw new InvalidOperationException("Stage "+(i+1)+": "+string.Join(" / ",errors));

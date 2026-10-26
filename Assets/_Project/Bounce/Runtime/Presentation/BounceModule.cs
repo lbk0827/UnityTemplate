@@ -56,7 +56,8 @@ namespace BK.Kit
         private bool playing, holding;
         private int pointerId = -1;
         private readonly Vector3[] trajectoryPoints = new Vector3[3];
-        private int columns, gridRows;
+        private int columns, gridRows,arenaColumns,arenaRows;
+        private bool fixedArena;
         private float fittedAspect;
         private Vector3 aim = Vector3.forward;
         private const int SolidLayer = 10;
@@ -80,12 +81,17 @@ namespace BK.Kit
             var data = library.Resolve(level);
             columns = data.rows[0].Length;
             gridRows = data.GridRows;
+            fixedArena=library.campaign;
+            arenaColumns=fixedArena?BounceBoardLayout.Columns:columns;
+            arenaRows=fixedArena?BounceBoardLayout.Rows:gridRows;
+            if(fixedArena && (columns>arenaColumns || gridRows>arenaRows))
+                throw new InvalidOperationException("Release grid exceeds the fixed arena. Use at most 11 columns and 16 rows.");
             BallsRemaining = data.balls;
             rig = new GameObject("Bounce_Rig");
             camera = Camera.main;
             camera.orthographic = true;
             FitCamera();
-            camera.backgroundColor = new Color(.075f,.34f,.43f);
+            camera.backgroundColor = new Color(.06f,.38f,.55f);
             audioSource = rig.AddComponent<AudioSource>();
             rig.AddComponent<KitAudioChannel>().Initialize(audioSource,KitAudioChannel.Category.Effects);
             BuildArena();
@@ -97,16 +103,16 @@ namespace BK.Kit
                     if (colour<1 || colour>9) continue;
                     var root=new GameObject("Block_"+col+"_"+row).transform;
                     root.SetParent(rig.transform,false);
-                    root.position=BounceGimmicks.Cell(col,row,columns,gridRows);
+                    root.position=BounceGimmicks.Cell(col,row,columns,arenaRows);
                     var block=new Block {root=root,hp=1,skin=Mathf.Clamp(colour-1,0,presentation.blocks.Length-1)};
                     blocks.Add(block); BuildBlock(block);
                 }
             gimmicks=rig.AddComponent<BounceGimmicks>();
-            gimmicks.Build(data.gimmicks,columns,presentation.ingameConfig.gimmickPrefabs,PushCounts,BlastBlocks,gridRows);
+            gimmicks.Build(data.gimmicks,columns,presentation.ingameConfig.gimmickPrefabs,PushCounts,BlastBlocks,arenaRows);
             cannon=Instantiate(presentation.cannon,rig.transform);
             cannon.name="Bounce_Cannon";
             cannon.transform.position=new Vector3(0,0,-8.5f);
-            cannon.transform.localScale=Vector3.one*1.8f;
+            cannon.transform.localScale=new Vector3(2.25f,1.8f,1.8f);
             PrepareVisual(cannon,false);
             RestOnGround(cannon);
             effects=rig.AddComponent<BounceEffects>();effects.Initialize(presentation,cannon);
@@ -133,25 +139,37 @@ namespace BK.Kit
 
         private void BuildArena()
         {
-            float half=columns*.5f;
-            float centre=1.25f+(gridRows-13)*.5f, depth=gridRows+1.5f;
-            Color wall=new Color(.96f,.86f,.65f);
+            float half=arenaColumns*.5f;
+            float centre=1.25f+(arenaRows-13)*.5f, depth=arenaRows+1.5f;
+            Color wall=new Color(.72f,.59f,.36f);
             Box("Wall left",new Vector3(-half-.5f,.6f,centre),new Vector3(1,1.2f,depth),0,wall,true);
             Box("Wall right",new Vector3(half+.5f,.6f,centre),new Vector3(1,1.2f,depth),0,wall,true);
-            Box("Wall top",new Vector3(0,.6f,gridRows-5),new Vector3(columns+2,1.2f,1),0,wall,true);
-            float bumperLength=Mathf.Min(3,(columns-1)*.5f), delta=bumperLength*.5f*Mathf.Sqrt(.5f);
+            Box("Wall top",new Vector3(0,.6f,arenaRows-5),new Vector3(arenaColumns+2,1.2f,1),0,wall,true);
+            float bumperLength=Mathf.Min(3,(arenaColumns-1)*.5f), delta=bumperLength*.5f*Mathf.Sqrt(.5f);
             Box("Bumper left",new Vector3(-half+delta,.6f,-6-delta),new Vector3(bumperLength,1.2f,.6f),45,wall,true);
             Box("Bumper right",new Vector3(half-delta,.6f,-6-delta),new Vector3(bumperLength,1.2f,.6f),135,wall,true);
-            rig.AddComponent<LagoonArena>().Build(columns,presentation.arenaMaterial,gridRows);
+            rig.AddComponent<LagoonArena>().Build(arenaColumns,presentation.arenaMaterial,arenaRows);
         }
 
         private void FitCamera()
         {
             fittedAspect=camera.aspect;
-            camera.orthographicSize=Mathf.Max((columns*.5f+2)/Mathf.Max(.3f,fittedAspect),
-                (gridRows+6)*.5f*Mathf.Sin(cameraPitch*Mathf.Deg2Rad)+2);
             var view=Quaternion.Euler(cameraPitch,0,0);
-            camera.transform.SetPositionAndRotation(new Vector3(0,0,.3f+(gridRows-13)*.5f)-view*Vector3.forward*60,view);
+            var up=view*Vector3.up;
+            if(fixedArena)
+            {
+                camera.orthographicSize=Mathf.Max(BounceBoardLayout.CameraSize,(arenaColumns*.5f+1.1f)/Mathf.Max(.3f,fittedAspect));
+                camera.transform.SetPositionAndRotation(up*.6f-view*Vector3.forward*40,view);
+                return;
+            }
+            float low=Vector3.Dot(up,new Vector3(0,0,-11.2f));
+            float high=Vector3.Dot(up,new Vector3(0,1.8f,gridRows-3.9f));
+            // Reserve only the compact HUD and single booster row; fit the playable world between them.
+            const float bottom=.115f,top=.925f;
+            camera.orthographicSize=Mathf.Max((columns*.5f+1.15f)/Mathf.Max(.3f,fittedAspect),
+                (high-low)/(2*(top-bottom)));
+            float centre=(low+high)*.5f-(bottom+top-1)*camera.orthographicSize;
+            camera.transform.SetPositionAndRotation(up*centre-view*Vector3.forward*40,view);
         }
         private void Box(string name,Vector3 position,Vector3 scale,float yaw,Color color,bool solid)
         {
@@ -161,6 +179,7 @@ namespace BK.Kit
             if(!solid) {go.GetComponent<Collider>().enabled=false;Destroy(go.GetComponent<Collider>());}
             var material=new Material(presentation.arenaMaterial);material.color=color;materials.Add(material);
             go.GetComponent<Renderer>().sharedMaterial=material;
+            if(name=="Wall left" || name=="Wall right")go.GetComponent<Renderer>().enabled=false;
         }
         private void BuildBlock(Block block)
         {

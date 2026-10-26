@@ -59,7 +59,7 @@ namespace BK.Kit.Editor
         {
             for (int i = 0; i < draft.library.levels.Length; i++)
             {
-                var errors = BounceLevelLayout.Validate(draft.library.levels[i]);
+                var errors = BounceLevelLayout.Validate(draft.library.levels[i],draft.library.campaign);
                 if(draft.library.campaign)foreach(var g in draft.library.levels[i].gimmicks ?? new GimmickSpec[0])
                     if(!BounceReleasePolicy.IsAllowed(g.type,i+1))errors.Add("아직 해금되지 않은 기믹입니다: "+g.type);
                 if (errors.Count == 0) continue;
@@ -107,11 +107,13 @@ namespace BK.Kit.Editor
             if (title != Level.title) Change("Change level title", () => Level.title = title);
             string intent = EditorGUILayout.TextField("설계 의도", Level.intent);
             if (intent != Level.intent) Change("Change level intent", () => Level.intent = intent);
-            int width = EditorGUILayout.DelayedIntField("그리드 가로 (3~25)", Level.rows[0].Length);
-            int height = EditorGUILayout.DelayedIntField("그리드 세로 (8~30)", Level.GridRows);
+            int maxWidth=draft.library.campaign?BounceBoardLayout.Columns:BounceLevelLayout.MaxColumns;
+            int maxHeight=draft.library.campaign?BounceBoardLayout.Rows:BounceLevelLayout.MaxRows;
+            int width = EditorGUILayout.DelayedIntField($"내부 Grid 가로 (3~{maxWidth})", Level.rows[0].Length);
+            int height = EditorGUILayout.DelayedIntField($"내부 Grid 세로 (8~{maxHeight})", Level.GridRows);
             if (width != Level.rows[0].Length || height != Level.GridRows)
-                Change("Resize level grid", () => { BounceLevelLayout.TryResize(Level, width, height, out feedback); selected = -1; });
-            EditorGUILayout.LabelField($"일반 블록 {Level.rows.Sum(r => r.Count(c => c >= '1' && c <= '9'))}개 · 화면 자동 맞춤", EditorStyles.miniLabel);
+                Change("Resize level grid", () => { if(width>maxWidth || height>maxHeight)feedback="고정 외곽보다 큰 Grid는 사용할 수 없습니다.";else BounceLevelLayout.TryResize(Level, width, height, out feedback); selected = -1; });
+            EditorGUILayout.LabelField($"일반 블록 {Level.rows.Sum(r => r.Count(c => c >= '1' && c <= '9'))}개 · "+(draft.library.campaign?"외곽 11×16 고정 · 카메라 11.75 · 가로 중앙/세로 상단 정렬":"보관 레벨 화면 자동 맞춤"), EditorStyles.miniLabel);
             brush = (Brush)GUILayout.SelectionGrid((int)brush, new[] { "\uC120\uD0DD", "\uBE14\uB85D", "\uC9C0\uC6B0\uAC1C" }.Concat(BounceLevelLayout.Labels).ToArray(), 6);
             if (brush == Brush.Block) colour = EditorGUILayout.IntSlider("블록 색상", colour, 1, 9);
             EditorGUILayout.HelpBox("도구를 선택하고 칸을 클릭해 배치하세요. 우클릭은 삭제, Ctrl+Z는 실행 취소입니다. 금속관의 용광로는 관 시작 칸의 왼쪽(세로는 위쪽) 한 칸을 차지합니다.", MessageType.Info);
@@ -120,7 +122,7 @@ namespace BK.Kit.Editor
                 DrawGrid();
                 using (new EditorGUILayout.VerticalScope(GUILayout.MinWidth(310))) DrawSelection();
             }
-            foreach (var error in BounceLevelLayout.Validate(Level)) EditorGUILayout.HelpBox(error, MessageType.Error);
+            foreach (var error in BounceLevelLayout.Validate(Level,draft.library.campaign)) EditorGUILayout.HelpBox(error, MessageType.Error);
             if (!string.IsNullOrEmpty(feedback)) EditorGUILayout.HelpBox(feedback, MessageType.Info);
             EditorGUILayout.EndScrollView();
         }
