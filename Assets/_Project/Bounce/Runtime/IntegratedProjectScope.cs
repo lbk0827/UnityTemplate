@@ -73,15 +73,17 @@ namespace BK.Kit
         public readonly LocalPushService Push;
         public readonly StepOffers Offers;
         public readonly WinStreak Streak;
+        public readonly BK.Core.Time.IClock Clock;
 
         public KitServices(ISceneService scenes, IUIService ui, ITableService tables, ISaveService saves, IWallet wallet,
             IStageProgress progress, IOptionsService options, IMessageService messages, PendingRewardQueue rewards,
             CurrencyDisplayLock displayLock, ContinueOffers continues, LocalPushService push,
-            StepOffers offers, WinStreak streak)
+            StepOffers offers, WinStreak streak, BK.Core.Time.IClock clock)
         {
             Scenes = scenes; UI = ui; Tables = tables; Saves = saves; Wallet = wallet; Progress = progress;
             Options = options; Messages = messages; Rewards = rewards; DisplayLock = displayLock; Continues = continues;
             Push = push; Offers = offers; Streak = streak;
+            Clock = clock;
         }
     }
 

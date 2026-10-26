@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,6 +45,7 @@ namespace BK.Kit
         public void Close()=>CloseThen(null);
         public void CloseThen(Action action)
         {
+            if(KitApp.Instance!=null && KitApp.Instance.IsAdBusy)return;
             if(closing)return;closing=true;
             transition.Close(()=>
             {
@@ -82,15 +84,28 @@ namespace BK.Kit
             UseNativeRoot();
             var b=Binding("UIRefillPopup");
             var buy=b?.Get<Button>("purchaseButton");if(buy!=null)buy.gameObject.SetActive(false);
-            var ad=Binding("HeartRechargeExtension")?.Get<Button>("_adButton");if(ad!=null)ad.gameObject.SetActive(false);
+            var ad=Binding("HeartRechargeExtension")?.Get<Button>("_adButton");
+            if(ad!=null)
+            {
+                ad.gameObject.SetActive(KitApp.Instance.HasRewardedAds);
+                foreach(var label in ad.GetComponentsInChildren<TMP_Text>(true))label.text=label.name=="txt_num"?"+1":"Watch ad";
+                Bind(ad,()=>WatchHeart().Forget());
+            }
             Text("TXT_Title","Your lives");Text("TXT_Info","Time to next life");
             StartCoroutine(HeartTicker());
+        }
+        private async UniTask WatchHeart()
+        {
+            bool granted=await KitApp.Instance.WatchHeartAdAsync();
+            if(this!=null && !granted)KitApp.Instance.Messages.Toast("Ad not completed. Please try again.",collapseDuplicate:true);
         }
         private IEnumerator HeartTicker()
         {
             while(!closing)
             {
                 var app=KitApp.Instance;
+                var ad=Binding("HeartRechargeExtension")?.Get<Button>("_adButton");
+                if(ad!=null)ad.interactable=!app.HeartsFull && !app.IsAdBusy;
                 Text("TXT_HeartCount",app.HeartsInfinite?"\u221e":app.Hearts.ToString());
                 Text("TXT_RemainTime",app.HeartsInfinite?"Unlimited":app.HeartsFull?"Full":KitApp.FormatTimer(app.TimeToNextHeart));
                 Text("TXT_Info",app.HeartsInfinite?"Keep the good times rolling!":app.HeartsFull?"Ready for your next adventure!":"Time to next life");

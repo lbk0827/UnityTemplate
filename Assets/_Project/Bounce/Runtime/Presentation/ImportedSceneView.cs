@@ -57,7 +57,7 @@ namespace BK.Kit
         {
             // Consumed in every case: this view drives its own settings/result back flow
             // and must never be popped by the framework.
-            if(app==null || app.IsLoading)return true;
+            if(app==null || app.IsLoading || app.IsAdBusy)return true;
             if(commonPopup!=null){commonPopup.Close();return true;}
             if(dialog!=null){dialog.Close();return true;}
             if(offersView!=null && offersView.IsOpen){offersView.Close();return true;}
@@ -281,6 +281,14 @@ namespace BK.Kit
                 var reward=popup.AddComponent<ClearRewardView>();
                 reward.Initialize(binding,presentation,(int)Math.Min(int.MaxValue,app.Gold),app.LastGoldReward,()=>{app.ReleaseRewardDisplay();app.GoToLobby();});
                 Bind(binding,"basic.claimButton",reward.Collect);Bind(binding,"closeButton",reward.Collect);
+                if(app.CanDoubleClearReward)
+                {
+                    SetActive(binding,"basic.claimButton",false);
+                    SetActive(binding,"basic.twoButtonRoot",true);
+                    Text(binding,"basic.adRewardAmountText",(app.LastGoldReward+KitApp.ClearGoldReward).ToString());
+                    Bind(binding,"basic.adRewardButton",reward.CollectDouble);
+                    Bind(binding,"basic.adContinueButton",reward.Collect);
+                }
             }
             else
             {

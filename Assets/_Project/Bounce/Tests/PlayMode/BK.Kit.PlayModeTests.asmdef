@@ -2,6 +2,7 @@
   "name": "BK.Kit.PlayModeTests",
   "references": [
     "BK.Kit.Runtime",
+    "BK.Ads",
     "UnityEngine.UI",
     "Unity.RenderPipelines.Universal.Runtime",
     "Unity.TextMeshPro",

@@ -116,6 +116,8 @@ A reusable Unity template framework for personal side projects. Unity 6000.3.21f
 
 Local save/gameplay by design — no backend, analytics, or remote config. Optional AppLovin MAX ads use `BK.Ads`; mobile ads are disabled until app-specific SDK/ad unit configuration is supplied. Editor tests use the official MAX stub. See `docs/applovin-ads.md`.
 
+Bounce connects MAX to heart refill, optional double clear rewards, stage/cooldown-gated interstitials, and an optional lobby banner. `Resources/BounceAdsSettings.asset` retains GRP1's stage 12 / 90-second defaults; NoAds purchases suppress interstitials and banners. See `docs/bounce-applovin.md` for editor testing and game-specific configuration.
+
 | Concern | Package |
 | --- | --- |
 | DI / lifetime scopes | VContainer 1.19.0 |

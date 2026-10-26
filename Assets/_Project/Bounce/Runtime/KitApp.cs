@@ -1,5 +1,6 @@
 using System;
 using BK.Meta;
+using BK.Ads;
 using BK.Scene;
 using BK.UI;
 using Cysharp.Threading.Tasks;
@@ -26,6 +27,12 @@ namespace BK.Kit
 
         public ShopCatalog Shop { get; private set; }
         public BouncePurchases Purchases { get; private set; }
+        public AdService Ads { get; private set; }
+        public AdSettings AdSettings { get; private set; }
+        public bool IsAdBusy => Ads != null && (Ads.IsBusy || rewardAdInFlight);
+        public bool HasRewardedAds => AdSettings != null && !string.IsNullOrWhiteSpace(AdSettings.ActiveUnits?.rewarded);
+        public bool CanDoubleClearReward => Session.State == SessionState.Won && !clearBonusGranted && AdSettings != null
+            && HasRewardedAds && AdSettings.firstRewardStage > 0 && Session.Level >= AdSettings.firstRewardStage;
         public GameSession Session { get; } = new GameSession();
         public bool IsLoading { get; private set; }
         public int LastGoldReward { get; private set; }
@@ -40,6 +47,8 @@ namespace BK.Kit
         private int pendingStageAdvance;
         private float nextSaveAttempt;
         private float nextPurchaseRetry;
+        private bool rewardAdInFlight, clearBonusGranted, audioPausedBeforeAd;
+        private float timeScaleBeforeAd;
         [SerializeField] private string lobbyScene = "Lobby";
         [SerializeField] private string ingameScene = "Ingame";
 
@@ -95,11 +104,17 @@ namespace BK.Kit
             services = kitServices;
             Shop = new ShopCatalog(services.Tables.Get<int, ShopProductRow>(), services.Tables.Get<string, CurrencyDefinitionRow>());
             profile = services.Saves.Get<BounceProfileData>();
+            AdSettings = Resources.Load<AdSettings>("BounceAdsSettings");
+            if (AdSettings == null) throw new InvalidOperationException("BounceAdsSettings is missing.");
+            Ads = new AdService(new AppLovinAdProvider(AdSettings), AdSettings, services.Clock,
+                () => services.Wallet.ValueOf(BounceCurrencies.NoAds) > 0);
+            Ads.FullscreenChanged += OnAdFullscreenChanged;
+            Ads.Initialize();
             Purchases = new BouncePurchases(Shop, services.Saves, services.Wallet, services.Offers, new BK.Purchasing.UnityFakeStore());
             Purchases.Changed += OnPurchasesChanged;
             Purchases.Completed += OnPurchaseCompleted;
             Purchases.InitializeAsync().Forget();
-            services.Wallet.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
+            services.Wallet.Changed.Subscribe(_ => { Ads.RefreshBanner(); Changed?.Invoke(); }).AddTo(subscriptions);
             services.Progress.CurrentStage.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             services.DisplayLock.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             ConfigureScenes("VisualLobby", "VisualIngame");
@@ -108,6 +123,7 @@ namespace BK.Kit
 
         private void OnDestroy()
         {
+            Ads?.Dispose();
             Purchases?.Dispose();
             subscriptions.Dispose();
             if (Instance == this) Instance = null;
@@ -118,7 +134,7 @@ namespace BK.Kit
         /// <summary>The single entry gate: charges a heart (stages above the free range) and loads the board.</summary>
         public void Play(int level)
         {
-            if (IsLoading || !UsesFrameworkServices) return;
+            if (IsLoading || IsAdBusy || !UsesFrameworkServices) return;
             level = Mathf.Clamp(level, 1, UnlockedLevel);
             if (!services.Progress.TryStart(level))
             {
@@ -130,12 +146,14 @@ namespace BK.Kit
             Flush();
             pendingStageAdvance = 0;
             LastGoldReward = 0;
+            clearBonusGranted = false;
             Time.timeScale = 1;
             Load(ingameScene, () => Session.Start(level)).Forget();
         }
 
         public void GoToLobby()
         {
+            if (IsAdBusy) return;
             Time.timeScale = 1;
             if (IsLoading) return;
             if (Session.State != SessionState.Lobby) { services.Streak.Abandon(); Flush(); } // leaving a round forfeits the streak (sf); no-op after a clear
@@ -153,6 +171,7 @@ namespace BK.Kit
         {
             if (!UsesFrameworkServices) throw new InvalidOperationException("Open the integrated bootstrap first.");
             IsLoading = true;
+            Ads.SetBannerVisible(false);
             Changed?.Invoke();
             // Leaving a round before the coin flight landed: the HUD must not keep showing the pre-reward balance.
             ReleaseRewardDisplay();
@@ -167,6 +186,7 @@ namespace BK.Kit
             finally
             {
                 IsLoading = false;
+                Ads.SetBannerVisible(scene == lobbyScene && AdSettings.showLobbyBanner);
                 Changed?.Invoke();
             }
             // The OS prompt is shown in the lobby, after the player has seen a few stages, never mid-round.
@@ -302,15 +322,63 @@ namespace BK.Kit
 
         // ----- economy -----
 
+        private void OnAdFullscreenChanged(bool showing)
+        {
+            if (showing)
+            { timeScaleBeforeAd = Time.timeScale; audioPausedBeforeAd = AudioListener.pause; Time.timeScale = 0; AudioListener.pause = true; }
+            else { Time.timeScale = timeScaleBeforeAd; AudioListener.pause = audioPausedBeforeAd; }
+            Changed?.Invoke();
+        }
+
+        public async UniTask<bool> WatchHeartAdAsync()
+        {
+            if (IsAdBusy || IsLoading || HeartsFull || Purchases.IsBusy) return false;
+            rewardAdInFlight = true;
+            try
+            {
+                var result = await Ads.ShowAsync(AdFormat.Rewarded, Session.Level, "heart_refill");
+                if (this == null || result != AdResult.Rewarded) return false;
+                if (!HeartsFull) services.Wallet.Add(BounceCurrencies.Heart, 1, "rewarded_heart");
+                Flush(); Changed?.Invoke(); return true;
+            }
+            finally { rewardAdInFlight = false; }
+        }
+
+        public async UniTask<bool> WatchDoubleClearAdAsync()
+        {
+            if (!CanDoubleClearReward || IsAdBusy || IsLoading || Purchases.IsBusy) return false;
+            rewardAdInFlight = true;
+            try
+            {
+                int level = Session.Level;
+                var result = await Ads.ShowAsync(AdFormat.Rewarded, level, "clear_double");
+                if (this == null || result != AdResult.Rewarded || Session.State != SessionState.Won || Session.Level != level) return false;
+                clearBonusGranted = true;
+                long from = Gold;
+                services.Wallet.Add(BounceCurrencies.Gold, ClearGoldReward, "rewarded_clear");
+                LastGoldReward += ClearGoldReward;
+                services.Rewards.Enqueue(new PendingReward(BounceCurrencies.Gold, ClearGoldReward, from, Gold, alreadyCredited:true));
+                Flush(); Changed?.Invoke(); return true;
+            }
+            finally { rewardAdInFlight = false; }
+        }
+
+        public async UniTask ShowClearInterstitialAsync()
+        {
+            // Complete() already credited the base reward. Do not show an ad while its save is failing.
+            if (IsAdBusy || Purchases.IsBusy || Session.State != SessionState.Won || !Flush()) return;
+            await Ads.ShowAsync(AdFormat.Interstitial, Session.Level, "clear_collect");
+        }
+
         private void OnPurchasesChanged() => Changed?.Invoke();
         private void OnPurchaseCompleted(string message) => services.Messages.ShowAsync("Purchase", message, "OK").Forget();
 
         public void BuyProduct(int id)
-        { if (!IsLoading && !Purchases.TryBuy(id, out var message)) OnPurchaseCompleted(message); }
+        { if (!IsLoading && !IsAdBusy && !Purchases.TryBuy(id, out var message)) OnPurchaseCompleted(message); }
         public void BuyWelcome()
-        { if (!IsLoading && !Purchases.TryBuyWelcome(out var message)) OnPurchaseCompleted(message); }
+        { if (!IsLoading && !IsAdBusy && !Purchases.TryBuyWelcome(out var message)) OnPurchaseCompleted(message); }
         public void BuyStep(in StepOfferCampaign campaign)
-        { if (!IsLoading && !Purchases.TryBuyStep(campaign, out var message)) OnPurchaseCompleted(message); }
+        { if (!IsLoading && !IsAdBusy && !Purchases.TryBuyStep(campaign, out var message)) OnPurchaseCompleted(message); }
 
         // Paid steps use BuyStep; this synchronous path only claims free rewards.
         public bool TryClaimStepOffer(in StepOfferCampaign campaign, out string message)

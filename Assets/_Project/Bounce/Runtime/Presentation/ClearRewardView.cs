@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace BK.Kit
 {
-    // The reward has already been saved by KitApp.Complete. This view never grants currency.
+    // Base reward is already saved. Optional ad bonus is granted by KitApp before presentation.
     public sealed class ClearRewardView : MonoBehaviour
     {
         public bool HasStarted { get; private set; }
@@ -54,7 +55,12 @@ namespace BK.Kit
 
         public void Collect()
         {
-            if (HasStarted) return;
+            BeginCollect(false).Forget();
+        }
+        public void CollectDouble() => BeginCollect(true).Forget();
+        private async UniTask BeginCollect(bool doubled)
+        {
+            if (HasStarted || KitApp.Instance.IsAdBusy) return;
             HasStarted = true; IsCollecting = true;
             foreach (var button in GetComponentsInChildren<Button>(true))
             {
@@ -63,7 +69,26 @@ namespace BK.Kit
                     button.transition = Selectable.Transition.None;
                 button.interactable = false;
             }
-            StartCoroutine(Animate());
+            if(doubled)
+            {
+                bool granted=await KitApp.Instance.WatchDoubleClearAdAsync();
+                if(this==null)return;
+                if(!granted)
+                {
+                    KitApp.Instance.Messages.Toast("Ad not completed. Please try again.",collapseDuplicate:true);
+                    HasStarted=false;IsCollecting=false;
+                    foreach(var key in new[]{"basic.adRewardButton","basic.adContinueButton","closeButton"})
+                    {var button=binding.Get<Button>(key);if(button!=null)button.interactable=true;}
+                    return;
+                }
+                total=(int)Math.Min(int.MaxValue,KitApp.Instance.Gold);reward=KitApp.Instance.LastGoldReward;
+            }
+            else
+            {
+                await KitApp.Instance.ShowClearInterstitialAsync();
+                await UniTask.WaitUntil(()=>this==null || !KitApp.Instance.IsAdBusy);
+            }
+            if(this!=null)StartCoroutine(Animate());
         }
 
         private IEnumerator Animate()
