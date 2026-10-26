@@ -36,13 +36,15 @@ def read(path):
 
 
 def sha(path):
-    return hashlib.sha256(path.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
+    data=path.read_bytes()
+    if path.suffix not in ('.png','.fbx'):data=data.replace(b'\r\n',b'\n')
+    return hashlib.sha256(data).hexdigest()
 
 
 def sources():
     paths = [LEARNING, LEGACY, CONTENT/'Presentation.asset', CONTENT/'IngameConfig.asset',
              ROOT/'ProjectSettings/TimeManager.asset', ROOT/'ProjectSettings/DynamicsManager.asset', ROOT/'ProjectSettings/TagManager.asset',
-             ROOT/'ProjectSettings/ProjectVersion.txt']
+             ROOT/'ProjectSettings/ProjectVersion.txt',ROOT/'Assets/_Project/Bounce/Scenes/VisualIngame.unity']
     paths += list((ROOT/'Assets/_Project/Bounce/Runtime').rglob('*.cs'))
     paths += [ROOT/f'Assets/_Project/Bounce/Tests/PlayMode/{name}.cs' for name in ['BounceReleaseFlowTests']]
     # Include gameplay collider prefabs and referenced meshes, not only JSON layouts.
@@ -55,7 +57,8 @@ def sources():
         match = re.search(r'^guid: (\w+)', p.read_text(encoding='utf-8'), re.M)
         if match:
             metas[match[1]] = Path(str(p)[:-5])
-    queue = block_guids + catalog_guids
+    art_guids=re.findall(r'^  (?:cannon|ball|arenaMaterial|trajectoryMaterial):.*guid: ([a-f0-9]+)',text,re.M)
+    queue = block_guids + catalog_guids + art_guids
     seen = set()
     while queue:
         guid = queue.pop()
@@ -63,10 +66,12 @@ def sources():
             continue
         seen.add(guid)
         p = metas[guid]
-        if p.suffix not in ('.prefab', '.asset', '.fbx', '.obj'):
+        # TMP regenerates font atlas serialization at Editor shutdown; it is not a physics input.
+        if any(part.lower() in ('font','fonts') for part in p.parts):continue
+        if p.suffix not in ('.prefab', '.asset', '.fbx', '.obj', '.mat', '.png', '.shader'):
             continue
         paths.append(p)
-        if p.suffix in ('.prefab', '.asset'):
+        if p.suffix in ('.prefab', '.asset', '.mat'):
             queue += re.findall(r'guid: ([a-f0-9]+)', p.read_text(encoding='utf-8', errors='replace'))
     return sorted(set(p for p in paths if p.is_file()))
 
@@ -107,7 +112,7 @@ def import_evidence():
         shutil.copyfile(src,evidence/src.name)
     manifest=dict(verifiedAt=tests.attrib['end-time'],testsPassed=int(tests.attrib['passed']),
                   commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
-                  hashNormalization='CRLF normalized to LF',
+                  hashNormalization='Text CRLF normalized to LF; binary unchanged',
                   sourceHashes={p.relative_to(ROOT).as_posix():sha(p) for p in paths})
     (evidence/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
@@ -118,6 +123,7 @@ def summarize(level,stage,library,routes,fresh):
     current=library=='active'
     record=dict(id=f'{library}-{stage}',stage=stage,library=library,balls=level['balls'],blocks=blocks,
                 objectives=objectives,columns=len(level['rows'][0]),height=level.get('gridRows') or 13,
+                arenaColumns=11 if current else len(level['rows'][0]),arenaRows=16 if current else level.get('gridRows') or 13,
                 rows=level['rows'],gimmicks=gimmicks,gimmickCounts=dict(counts),
                 gimmickLabel=' · '.join(f'{NAMES[k]} {n}' for k,n in counts.items()) or '없음',
                 title=level.get('title') or f'보관 레벨 {stage:02}',intent=level.get('intent') or '보관 중인 기믹 배치. 현재 출시 순서에 미연결.',

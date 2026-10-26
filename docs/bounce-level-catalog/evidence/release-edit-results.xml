@@ -1,245 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="145" result="Passed" total="145" passed="145" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:26Z" duration="2.5879638">
-  <test-suite type="TestSuite" id="1000" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="145" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:26Z" duration="2.587964" total="145" passed="145" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="145" result="Passed" total="145" passed="145" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:06Z" duration="2.3079037">
+  <test-suite type="TestSuite" id="1000" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="145" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:06Z" duration="2.307904" total="145" passed="145" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="EditMode" />
     </properties>
-    <test-suite type="Assembly" id="1132" name="BK.Framework.EditModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Framework.EditModeTests.dll" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:24Z" duration="0.755152" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1132" name="BK.Framework.EditModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Framework.EditModeTests.dll" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.635559" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="20168" />
+        <property name="_PID" value="64520" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="EditMode" />
         <property name="EditorOnly" value="True" />
       </properties>
-      <test-suite type="TestSuite" id="1133" name="BK" fullname="BK" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:24Z" duration="0.754962" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1133" name="BK" fullname="BK" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.635362" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1134" name="Tests" fullname="BK.Tests" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:24Z" duration="0.754759" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1134" name="Tests" fullname="BK.Tests" runstate="Runnable" testcasecount="103" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.635151" total="103" passed="103" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1001" name="AdServiceTests" fullname="BK.Tests.AdServiceTests" classname="BK.Tests.AdServiceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.020459" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1001" name="AdServiceTests" fullname="BK.Tests.AdServiceTests" classname="BK.Tests.AdServiceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.021013" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1003" name="FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" fullname="BK.Tests.AdServiceTests.FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" methodname="FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="433263357" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.011591" asserts="0">
+            <test-case id="1003" name="FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" fullname="BK.Tests.AdServiceTests.FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" methodname="FullscreenRequestsCannotOverlapOrCrossClaimCallbacks" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="1672641443" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.012332" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1004" name="NoAdsBlocksForcedAdsButKeepsOptionalRewarded" fullname="BK.Tests.AdServiceTests.NoAdsBlocksForcedAdsButKeepsOptionalRewarded" methodname="NoAdsBlocksForcedAdsButKeepsOptionalRewarded" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="874252577" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000508" asserts="0">
+            <test-case id="1004" name="NoAdsBlocksForcedAdsButKeepsOptionalRewarded" fullname="BK.Tests.AdServiceTests.NoAdsBlocksForcedAdsButKeepsOptionalRewarded" methodname="NoAdsBlocksForcedAdsButKeepsOptionalRewarded" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="449246174" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000501" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1006" name="NotReadyAndDisposeDoNotStrandTheCaller" fullname="BK.Tests.AdServiceTests.NotReadyAndDisposeDoNotStrandTheCaller" methodname="NotReadyAndDisposeDoNotStrandTheCaller" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="255917846" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000249" asserts="0">
+            <test-case id="1006" name="NotReadyAndDisposeDoNotStrandTheCaller" fullname="BK.Tests.AdServiceTests.NotReadyAndDisposeDoNotStrandTheCaller" methodname="NotReadyAndDisposeDoNotStrandTheCaller" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="1901670155" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000250" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1002" name="RewardRequiresEarnedCallbackAndCloseOnlyOnce" fullname="BK.Tests.AdServiceTests.RewardRequiresEarnedCallbackAndCloseOnlyOnce" methodname="RewardRequiresEarnedCallbackAndCloseOnlyOnce" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="2119104667" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000277" asserts="0">
+            <test-case id="1002" name="RewardRequiresEarnedCallbackAndCloseOnlyOnce" fullname="BK.Tests.AdServiceTests.RewardRequiresEarnedCallbackAndCloseOnlyOnce" methodname="RewardRequiresEarnedCallbackAndCloseOnlyOnce" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="729496999" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000256" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1005" name="StageAndCooldownUseDisplayedEventsIncludingRewarded" fullname="BK.Tests.AdServiceTests.StageAndCooldownUseDisplayedEventsIncludingRewarded" methodname="StageAndCooldownUseDisplayedEventsIncludingRewarded" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="1607334146" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000332" asserts="0">
+            <test-case id="1005" name="StageAndCooldownUseDisplayedEventsIncludingRewarded" fullname="BK.Tests.AdServiceTests.StageAndCooldownUseDisplayedEventsIncludingRewarded" methodname="StageAndCooldownUseDisplayedEventsIncludingRewarded" classname="BK.Tests.AdServiceTests" runstate="Runnable" seed="1652333476" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000332" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1007" name="ArchitectureConventionTests" fullname="BK.Tests.ArchitectureConventionTests" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.076137" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1007" name="ArchitectureConventionTests" fullname="BK.Tests.ArchitectureConventionTests" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.064156" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1010" name="FrameworkAssembliesOnlyDependDownward" fullname="BK.Tests.ArchitectureConventionTests.FrameworkAssembliesOnlyDependDownward" methodname="FrameworkAssembliesOnlyDependDownward" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="480730651" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005802" asserts="0">
+            <test-case id="1010" name="FrameworkAssembliesOnlyDependDownward" fullname="BK.Tests.ArchitectureConventionTests.FrameworkAssembliesOnlyDependDownward" methodname="FrameworkAssembliesOnlyDependDownward" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="1660738772" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.005393" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1009" name="FrameworkNeverReadsTheSystemClockDirectly" fullname="BK.Tests.ArchitectureConventionTests.FrameworkNeverReadsTheSystemClockDirectly" methodname="FrameworkNeverReadsTheSystemClockDirectly" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="1552026289" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.017962" asserts="0">
+            <test-case id="1009" name="FrameworkNeverReadsTheSystemClockDirectly" fullname="BK.Tests.ArchitectureConventionTests.FrameworkNeverReadsTheSystemClockDirectly" methodname="FrameworkNeverReadsTheSystemClockDirectly" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="506022694" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.014156" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1008" name="OnlyBackInputDriverReadsTheEscapeKey" fullname="BK.Tests.ArchitectureConventionTests.OnlyBackInputDriverReadsTheEscapeKey" methodname="OnlyBackInputDriverReadsTheEscapeKey" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="2091155751" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.051046" asserts="0">
+            <test-case id="1008" name="OnlyBackInputDriverReadsTheEscapeKey" fullname="BK.Tests.ArchitectureConventionTests.OnlyBackInputDriverReadsTheEscapeKey" methodname="OnlyBackInputDriverReadsTheEscapeKey" classname="BK.Tests.ArchitectureConventionTests" runstate="Runnable" seed="679474459" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.043212" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1011" name="BackInputDriverTests" fullname="BK.Tests.BackInputDriverTests" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002146" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1011" name="BackInputDriverTests" fullname="BK.Tests.BackInputDriverTests" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001685" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1013" name="PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" fullname="BK.Tests.BackInputDriverTests.PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" methodname="PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" seed="461594890" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000580" asserts="0">
+            <test-case id="1013" name="PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" fullname="BK.Tests.BackInputDriverTests.PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" methodname="PressIsIgnoredWhileSceneTransitionsOrWhenSuspended" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" seed="214495446" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000599" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1012" name="PressRoutesToUIServiceOncePerPress" fullname="BK.Tests.BackInputDriverTests.PressRoutesToUIServiceOncePerPress" methodname="PressRoutesToUIServiceOncePerPress" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" seed="583962736" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000138" asserts="0">
+            <test-case id="1012" name="PressRoutesToUIServiceOncePerPress" fullname="BK.Tests.BackInputDriverTests.PressRoutesToUIServiceOncePerPress" methodname="PressRoutesToUIServiceOncePerPress" classname="BK.Tests.BackInputDriverTests" runstate="Runnable" seed="455019988" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000127" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1032" name="ContinueOffersTests" fullname="BK.Tests.ContinueOffersTests" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.008799" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1032" name="ContinueOffersTests" fullname="BK.Tests.ContinueOffersTests" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.008653" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1034" name="NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" fullname="BK.Tests.ContinueOffersTests.NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" methodname="NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" seed="2097923583" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007191" asserts="0">
+            <test-case id="1034" name="NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" fullname="BK.Tests.ContinueOffersTests.NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" methodname="NewAttemptResetsTheLadderAndUnknownReasonHasNoOffer" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" seed="1571433086" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007065" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1033" name="PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" fullname="BK.Tests.ContinueOffersTests.PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" methodname="PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" seed="2053399922" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001168" asserts="0">
+            <test-case id="1033" name="PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" fullname="BK.Tests.ContinueOffersTests.PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" methodname="PurchaseClimbsTheLadderAndUnaffordableDoesNotCharge" classname="BK.Tests.ContinueOffersTests" runstate="Runnable" seed="792296343" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001111" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1054" name="CurrencyDisplayLockTests" fullname="BK.Tests.CurrencyDisplayLockTests" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002721" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1054" name="CurrencyDisplayLockTests" fullname="BK.Tests.CurrencyDisplayLockTests" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002660" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1056" name="ChangedCallbackSeesDictionaryAfterUpdate" fullname="BK.Tests.CurrencyDisplayLockTests.ChangedCallbackSeesDictionaryAfterUpdate" methodname="ChangedCallbackSeesDictionaryAfterUpdate" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" seed="873736828" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001822" asserts="0">
+            <test-case id="1056" name="ChangedCallbackSeesDictionaryAfterUpdate" fullname="BK.Tests.CurrencyDisplayLockTests.ChangedCallbackSeesDictionaryAfterUpdate" methodname="ChangedCallbackSeesDictionaryAfterUpdate" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" seed="1182574958" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001756" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1055" name="EngageLocksReleaseClearsAndIsIdempotent" fullname="BK.Tests.CurrencyDisplayLockTests.EngageLocksReleaseClearsAndIsIdempotent" methodname="EngageLocksReleaseClearsAndIsIdempotent" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" seed="1835298164" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000507" asserts="0">
+            <test-case id="1055" name="EngageLocksReleaseClearsAndIsIdempotent" fullname="BK.Tests.CurrencyDisplayLockTests.EngageLocksReleaseClearsAndIsIdempotent" methodname="EngageLocksReleaseClearsAndIsIdempotent" classname="BK.Tests.CurrencyDisplayLockTests" runstate="Runnable" seed="1753498253" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000526" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1043" name="DailyRetentionPushProviderTests" fullname="BK.Tests.DailyRetentionPushProviderTests" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005886" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1043" name="DailyRetentionPushProviderTests" fullname="BK.Tests.DailyRetentionPushProviderTests" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.005864" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1045" name="BodiesCycleAShuffledPoolAndTheSeedIsStable" fullname="BK.Tests.DailyRetentionPushProviderTests.BodiesCycleAShuffledPoolAndTheSeedIsStable" methodname="BodiesCycleAShuffledPoolAndTheSeedIsStable" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" seed="1668101866" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.003883" asserts="0">
+            <test-case id="1045" name="BodiesCycleAShuffledPoolAndTheSeedIsStable" fullname="BK.Tests.DailyRetentionPushProviderTests.BodiesCycleAShuffledPoolAndTheSeedIsStable" methodname="BodiesCycleAShuffledPoolAndTheSeedIsStable" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" seed="624443599" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.003913" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1044" name="FansOutOneSlotPerDayFromTodayOrTomorrow" fullname="BK.Tests.DailyRetentionPushProviderTests.FansOutOneSlotPerDayFromTodayOrTomorrow" methodname="FansOutOneSlotPerDayFromTodayOrTomorrow" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" seed="1888581118" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001634" asserts="0">
+            <test-case id="1044" name="FansOutOneSlotPerDayFromTodayOrTomorrow" fullname="BK.Tests.DailyRetentionPushProviderTests.FansOutOneSlotPerDayFromTodayOrTomorrow" methodname="FansOutOneSlotPerDayFromTodayOrTomorrow" classname="BK.Tests.DailyRetentionPushProviderTests" runstate="Runnable" seed="2096287589" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001603" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1014" name="DailyRewardsTests" fullname="BK.Tests.DailyRewardsTests" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.017447" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1014" name="DailyRewardsTests" fullname="BK.Tests.DailyRewardsTests" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.018307" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1016" name="BonusSlotsAreSequentialAndResetOnNewLocalDate" fullname="BK.Tests.DailyRewardsTests.BonusSlotsAreSequentialAndResetOnNewLocalDate" methodname="BonusSlotsAreSequentialAndResetOnNewLocalDate" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="1517884862" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002924" asserts="0">
+            <test-case id="1016" name="BonusSlotsAreSequentialAndResetOnNewLocalDate" fullname="BK.Tests.DailyRewardsTests.BonusSlotsAreSequentialAndResetOnNewLocalDate" methodname="BonusSlotsAreSequentialAndResetOnNewLocalDate" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="975946837" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002751" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1015" name="FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" fullname="BK.Tests.DailyRewardsTests.FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" methodname="FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="1641455087" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001046" asserts="0">
+            <test-case id="1015" name="FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" fullname="BK.Tests.DailyRewardsTests.FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" methodname="FirstClaimIsDayZero_ThenLockedUntilNextLocalDate_AndWrapsAfterCycle" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="939076983" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000924" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1017" name="HourlyGiftNeedsOneHourAndBadgeCountsEverything" fullname="BK.Tests.DailyRewardsTests.HourlyGiftNeedsOneHourAndBadgeCountsEverything" methodname="HourlyGiftNeedsOneHourAndBadgeCountsEverything" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="1502158852" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001172" asserts="0">
+            <test-case id="1017" name="HourlyGiftNeedsOneHourAndBadgeCountsEverything" fullname="BK.Tests.DailyRewardsTests.HourlyGiftNeedsOneHourAndBadgeCountsEverything" methodname="HourlyGiftNeedsOneHourAndBadgeCountsEverything" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="730358959" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001117" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1018" name="StatePersists" fullname="BK.Tests.DailyRewardsTests.StatePersists" methodname="StatePersists" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="596550876" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.011735" asserts="0">
+            <test-case id="1018" name="StatePersists" fullname="BK.Tests.DailyRewardsTests.StatePersists" methodname="StatePersists" classname="BK.Tests.DailyRewardsTests" runstate="Runnable" seed="1774260124" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.012966" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1019" name="DimRefCounterTests" fullname="BK.Tests.DimRefCounterTests" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007986" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1019" name="DimRefCounterTests" fullname="BK.Tests.DimRefCounterTests" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.008390" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1020" name="AcquireManyShowsOnce" fullname="BK.Tests.DimRefCounterTests.AcquireManyShowsOnce" methodname="AcquireManyShowsOnce" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="979510616" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000341" asserts="0">
+            <test-case id="1020" name="AcquireManyShowsOnce" fullname="BK.Tests.DimRefCounterTests.AcquireManyShowsOnce" methodname="AcquireManyShowsOnce" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1381794738" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000318" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1025" name="ExplicitLevelWhileVisibleReappliesLevel" fullname="BK.Tests.DimRefCounterTests.ExplicitLevelWhileVisibleReappliesLevel" methodname="ExplicitLevelWhileVisibleReappliesLevel" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1338432542" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000185" asserts="0">
+            <test-case id="1025" name="ExplicitLevelWhileVisibleReappliesLevel" fullname="BK.Tests.DimRefCounterTests.ExplicitLevelWhileVisibleReappliesLevel" methodname="ExplicitLevelWhileVisibleReappliesLevel" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1368274805" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000167" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1023" name="HoldForTransitionKeepsDimUntilNextAcquire" fullname="BK.Tests.DimRefCounterTests.HoldForTransitionKeepsDimUntilNextAcquire" methodname="HoldForTransitionKeepsDimUntilNextAcquire" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1168166585" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.003617" asserts="0">
+            <test-case id="1023" name="HoldForTransitionKeepsDimUntilNextAcquire" fullname="BK.Tests.DimRefCounterTests.HoldForTransitionKeepsDimUntilNextAcquire" methodname="HoldForTransitionKeepsDimUntilNextAcquire" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="439427952" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004218" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1024" name="HoldTimeoutWithoutAcquireHides" fullname="BK.Tests.DimRefCounterTests.HoldTimeoutWithoutAcquireHides" methodname="HoldTimeoutWithoutAcquireHides" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="2142060756" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001004" asserts="0">
+            <test-case id="1024" name="HoldTimeoutWithoutAcquireHides" fullname="BK.Tests.DimRefCounterTests.HoldTimeoutWithoutAcquireHides" methodname="HoldTimeoutWithoutAcquireHides" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="158262848" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000932" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1022" name="ReacquireWithinGraceCancelsHide" fullname="BK.Tests.DimRefCounterTests.ReacquireWithinGraceCancelsHide" methodname="ReacquireWithinGraceCancelsHide" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="747043188" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001179" asserts="0">
+            <test-case id="1022" name="ReacquireWithinGraceCancelsHide" fullname="BK.Tests.DimRefCounterTests.ReacquireWithinGraceCancelsHide" methodname="ReacquireWithinGraceCancelsHide" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1975365656" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001205" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1021" name="ReleaseToZeroHidesAfterGrace" fullname="BK.Tests.DimRefCounterTests.ReleaseToZeroHidesAfterGrace" methodname="ReleaseToZeroHidesAfterGrace" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="1554457790" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000467" asserts="0">
+            <test-case id="1021" name="ReleaseToZeroHidesAfterGrace" fullname="BK.Tests.DimRefCounterTests.ReleaseToZeroHidesAfterGrace" methodname="ReleaseToZeroHidesAfterGrace" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="797639311" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000496" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1026" name="UnbalancedReleaseIsIgnoredAndResetHides" fullname="BK.Tests.DimRefCounterTests.UnbalancedReleaseIsIgnoredAndResetHides" methodname="UnbalancedReleaseIsIgnoredAndResetHides" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="702008124" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000151" asserts="0">
+            <test-case id="1026" name="UnbalancedReleaseIsIgnoredAndResetHides" fullname="BK.Tests.DimRefCounterTests.UnbalancedReleaseIsIgnoredAndResetHides" methodname="UnbalancedReleaseIsIgnoredAndResetHides" classname="BK.Tests.DimRefCounterTests" runstate="Runnable" seed="757545812" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000151" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1027" name="FailContinueLogicTests" fullname="BK.Tests.FailContinueLogicTests" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001598" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1027" name="FailContinueLogicTests" fullname="BK.Tests.FailContinueLogicTests" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001620" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1029" name="CanAffordBoundary" fullname="BK.Tests.FailContinueLogicTests.CanAffordBoundary" methodname="CanAffordBoundary" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="1285430840" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000089" asserts="0">
+            <test-case id="1029" name="CanAffordBoundary" fullname="BK.Tests.FailContinueLogicTests.CanAffordBoundary" methodname="CanAffordBoundary" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="2083068068" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000096" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1028" name="ComputePriceLadderCapsAtMax" fullname="BK.Tests.FailContinueLogicTests.ComputePriceLadderCapsAtMax" methodname="ComputePriceLadderCapsAtMax" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="533068970" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000511" asserts="0">
+            <test-case id="1028" name="ComputePriceLadderCapsAtMax" fullname="BK.Tests.FailContinueLogicTests.ComputePriceLadderCapsAtMax" methodname="ComputePriceLadderCapsAtMax" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="826714753" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000498" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1030" name="MovesWinOverTime" fullname="BK.Tests.FailContinueLogicTests.MovesWinOverTime" methodname="MovesWinOverTime" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="1817588274" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000441" asserts="0">
+            <test-case id="1030" name="MovesWinOverTime" fullname="BK.Tests.FailContinueLogicTests.MovesWinOverTime" methodname="MovesWinOverTime" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="1973087442" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000446" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1031" name="OnlyTimeOverAndMovesZeroOfferContinue" fullname="BK.Tests.FailContinueLogicTests.OnlyTimeOverAndMovesZeroOfferContinue" methodname="OnlyTimeOverAndMovesZeroOfferContinue" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="1242823263" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000119" asserts="0">
+            <test-case id="1031" name="OnlyTimeOverAndMovesZeroOfferContinue" fullname="BK.Tests.FailContinueLogicTests.OnlyTimeOverAndMovesZeroOfferContinue" methodname="OnlyTimeOverAndMovesZeroOfferContinue" classname="BK.Tests.FailContinueLogicTests" runstate="Runnable" seed="1720645635" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000118" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1035" name="HeartFullPushProviderTests" fullname="BK.Tests.HeartFullPushProviderTests" classname="BK.Tests.HeartFullPushProviderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001939" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1035" name="HeartFullPushProviderTests" fullname="BK.Tests.HeartFullPushProviderTests" classname="BK.Tests.HeartFullPushProviderTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001952" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1036" name="SchedulesAtFullTimeOnlyWhileRecharging" fullname="BK.Tests.HeartFullPushProviderTests.SchedulesAtFullTimeOnlyWhileRecharging" methodname="SchedulesAtFullTimeOnlyWhileRecharging" classname="BK.Tests.HeartFullPushProviderTests" runstate="Runnable" seed="1684060012" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001627" asserts="0">
+            <test-case id="1036" name="SchedulesAtFullTimeOnlyWhileRecharging" fullname="BK.Tests.HeartFullPushProviderTests.SchedulesAtFullTimeOnlyWhileRecharging" methodname="SchedulesAtFullTimeOnlyWhileRecharging" classname="BK.Tests.HeartFullPushProviderTests" runstate="Runnable" seed="1457844349" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001624" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1037" name="LocalPushServiceTests" fullname="BK.Tests.LocalPushServiceTests" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.017414" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1037" name="LocalPushServiceTests" fullname="BK.Tests.LocalPushServiceTests" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.017869" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1040" name="BackgroundSchedulesFutureRequestsAndForegroundCancels" fullname="BK.Tests.LocalPushServiceTests.BackgroundSchedulesFutureRequestsAndForegroundCancels" methodname="BackgroundSchedulesFutureRequestsAndForegroundCancels" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1359066271" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005173" asserts="0">
+            <test-case id="1040" name="BackgroundSchedulesFutureRequestsAndForegroundCancels" fullname="BK.Tests.LocalPushServiceTests.BackgroundSchedulesFutureRequestsAndForegroundCancels" methodname="BackgroundSchedulesFutureRequestsAndForegroundCancels" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1886609369" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004762" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -248,7 +248,7 @@
 [Push] scheduled 2 notifications
 ]]></output>
             </test-case>
-            <test-case id="1039" name="DeniedPermissionIsRecordedAndNothingIsScheduled" fullname="BK.Tests.LocalPushServiceTests.DeniedPermissionIsRecordedAndNothingIsScheduled" methodname="DeniedPermissionIsRecordedAndNothingIsScheduled" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1740933257" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001581" asserts="0">
+            <test-case id="1039" name="DeniedPermissionIsRecordedAndNothingIsScheduled" fullname="BK.Tests.LocalPushServiceTests.DeniedPermissionIsRecordedAndNothingIsScheduled" methodname="DeniedPermissionIsRecordedAndNothingIsScheduled" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1400605083" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001398" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -256,7 +256,7 @@
               <output><![CDATA[[Push] permission denied
 ]]></output>
             </test-case>
-            <test-case id="1042" name="FailingProviderDoesNotBlockOthers" fullname="BK.Tests.LocalPushServiceTests.FailingProviderDoesNotBlockOthers" methodname="FailingProviderDoesNotBlockOthers" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1850791681" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002958" asserts="0">
+            <test-case id="1042" name="FailingProviderDoesNotBlockOthers" fullname="BK.Tests.LocalPushServiceTests.FailingProviderDoesNotBlockOthers" methodname="FailingProviderDoesNotBlockOthers" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="60169105" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.003501" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -266,7 +266,7 @@
 [Push] scheduled 1 notifications
 ]]></output>
             </test-case>
-            <test-case id="1038" name="PermissionFlowIsPendingThenRequestedOnce" fullname="BK.Tests.LocalPushServiceTests.PermissionFlowIsPendingThenRequestedOnce" methodname="PermissionFlowIsPendingThenRequestedOnce" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1236003897" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005653" asserts="0">
+            <test-case id="1038" name="PermissionFlowIsPendingThenRequestedOnce" fullname="BK.Tests.LocalPushServiceTests.PermissionFlowIsPendingThenRequestedOnce" methodname="PermissionFlowIsPendingThenRequestedOnce" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1633796761" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.006103" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -274,7 +274,7 @@
               <output><![CDATA[[Push] permission granted
 ]]></output>
             </test-case>
-            <test-case id="1041" name="UnsupportedPlatformNeverSchedules" fullname="BK.Tests.LocalPushServiceTests.UnsupportedPlatformNeverSchedules" methodname="UnsupportedPlatformNeverSchedules" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="1792068440" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001373" asserts="0">
+            <test-case id="1041" name="UnsupportedPlatformNeverSchedules" fullname="BK.Tests.LocalPushServiceTests.UnsupportedPlatformNeverSchedules" methodname="UnsupportedPlatformNeverSchedules" classname="BK.Tests.LocalPushServiceTests" runstate="Runnable" seed="539459960" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001444" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -283,108 +283,108 @@
 ]]></output>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1046" name="MessageServiceTests" fullname="BK.Tests.MessageServiceTests" classname="BK.Tests.MessageServiceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005602" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1046" name="MessageServiceTests" fullname="BK.Tests.MessageServiceTests" classname="BK.Tests.MessageServiceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.005293" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1048" name="CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" fullname="BK.Tests.MessageServiceTests.CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" methodname="CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" classname="BK.Tests.MessageServiceTests" runstate="Runnable" seed="866799176" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002701" asserts="0">
+            <test-case id="1048" name="CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" fullname="BK.Tests.MessageServiceTests.CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" methodname="CollapsedToastSkipsDuplicatesWhileQueuedOrShowing" classname="BK.Tests.MessageServiceTests" runstate="Runnable" seed="1602515208" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002385" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1047" name="MessagesAreShownOneAtATimeInOrder" fullname="BK.Tests.MessageServiceTests.MessagesAreShownOneAtATimeInOrder" methodname="MessagesAreShownOneAtATimeInOrder" classname="BK.Tests.MessageServiceTests" runstate="Runnable" seed="62750894" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002518" asserts="0">
+            <test-case id="1047" name="MessagesAreShownOneAtATimeInOrder" fullname="BK.Tests.MessageServiceTests.MessagesAreShownOneAtATimeInOrder" methodname="MessagesAreShownOneAtATimeInOrder" classname="BK.Tests.MessageServiceTests" runstate="Runnable" seed="1317633720" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002524" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1049" name="OptionsServiceTests" fullname="BK.Tests.OptionsServiceTests" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.008732" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1049" name="OptionsServiceTests" fullname="BK.Tests.OptionsServiceTests" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.008225" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1051" name="ChangesPersistThroughTheSaveService" fullname="BK.Tests.OptionsServiceTests.ChangesPersistThroughTheSaveService" methodname="ChangesPersistThroughTheSaveService" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" seed="1173893313" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007808" asserts="0">
+            <test-case id="1051" name="ChangesPersistThroughTheSaveService" fullname="BK.Tests.OptionsServiceTests.ChangesPersistThroughTheSaveService" methodname="ChangesPersistThroughTheSaveService" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" seed="2040177558" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007359" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1050" name="DefaultsAreOnAndLanguageFallsBackToDefault" fullname="BK.Tests.OptionsServiceTests.DefaultsAreOnAndLanguageFallsBackToDefault" methodname="DefaultsAreOnAndLanguageFallsBackToDefault" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" seed="1942890087" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000570" asserts="0">
+            <test-case id="1050" name="DefaultsAreOnAndLanguageFallsBackToDefault" fullname="BK.Tests.OptionsServiceTests.DefaultsAreOnAndLanguageFallsBackToDefault" methodname="DefaultsAreOnAndLanguageFallsBackToDefault" classname="BK.Tests.OptionsServiceTests" runstate="Runnable" seed="1128162699" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000520" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1052" name="PendingRewardTests" fullname="BK.Tests.PendingRewardTests" classname="BK.Tests.PendingRewardTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001030" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1052" name="PendingRewardTests" fullname="BK.Tests.PendingRewardTests" classname="BK.Tests.PendingRewardTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001076" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1053" name="CtorDefaultsAndQueueOrder" fullname="BK.Tests.PendingRewardTests.CtorDefaultsAndQueueOrder" methodname="CtorDefaultsAndQueueOrder" classname="BK.Tests.PendingRewardTests" runstate="Runnable" seed="1399837085" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000751" asserts="0">
+            <test-case id="1053" name="CtorDefaultsAndQueueOrder" fullname="BK.Tests.PendingRewardTests.CtorDefaultsAndQueueOrder" methodname="CtorDefaultsAndQueueOrder" classname="BK.Tests.PendingRewardTests" runstate="Runnable" seed="1493698057" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000764" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1057" name="PurchaseRewardsTests" fullname="BK.Tests.PurchaseRewardsTests" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.008036" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1057" name="PurchaseRewardsTests" fullname="BK.Tests.PurchaseRewardsTests" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007738" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1058" name="DuplicateReceiptDoesNotGrantAgainAfterReload" fullname="BK.Tests.PurchaseRewardsTests.DuplicateReceiptDoesNotGrantAgainAfterReload" methodname="DuplicateReceiptDoesNotGrantAgainAfterReload" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" seed="1291687169" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.006873" asserts="0">
+            <test-case id="1058" name="DuplicateReceiptDoesNotGrantAgainAfterReload" fullname="BK.Tests.PurchaseRewardsTests.DuplicateReceiptDoesNotGrantAgainAfterReload" methodname="DuplicateReceiptDoesNotGrantAgainAfterReload" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" seed="1291820899" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.006542" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1059" name="InvalidBasketCannotPartiallyGrantOrConsumeReceipt" fullname="BK.Tests.PurchaseRewardsTests.InvalidBasketCannotPartiallyGrantOrConsumeReceipt" methodname="InvalidBasketCannotPartiallyGrantOrConsumeReceipt" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" seed="244150717" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000765" asserts="0">
+            <test-case id="1059" name="InvalidBasketCannotPartiallyGrantOrConsumeReceipt" fullname="BK.Tests.PurchaseRewardsTests.InvalidBasketCannotPartiallyGrantOrConsumeReceipt" methodname="InvalidBasketCannotPartiallyGrantOrConsumeReceipt" classname="BK.Tests.PurchaseRewardsTests" runstate="Runnable" seed="1259995143" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000824" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1060" name="RechargeLogicTests" fullname="BK.Tests.RechargeLogicTests" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002036" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1060" name="RechargeLogicTests" fullname="BK.Tests.RechargeLogicTests" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002098" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1061" name="AdvanceAppliesWholeIntervalsAndKeepsFraction" fullname="BK.Tests.RechargeLogicTests.AdvanceAppliesWholeIntervalsAndKeepsFraction" methodname="AdvanceAppliesWholeIntervalsAndKeepsFraction" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1209451997" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000297" asserts="0">
+            <test-case id="1061" name="AdvanceAppliesWholeIntervalsAndKeepsFraction" fullname="BK.Tests.RechargeLogicTests.AdvanceAppliesWholeIntervalsAndKeepsFraction" methodname="AdvanceAppliesWholeIntervalsAndKeepsFraction" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="572392444" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000295" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1062" name="AdvanceClampsToMaxAndClearsAnchor" fullname="BK.Tests.RechargeLogicTests.AdvanceClampsToMaxAndClearsAnchor" methodname="AdvanceClampsToMaxAndClearsAnchor" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1589571552" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000124" asserts="0">
+            <test-case id="1062" name="AdvanceClampsToMaxAndClearsAnchor" fullname="BK.Tests.RechargeLogicTests.AdvanceClampsToMaxAndClearsAnchor" methodname="AdvanceClampsToMaxAndClearsAnchor" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1359135052" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000168" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1063" name="AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" fullname="BK.Tests.RechargeLogicTests.AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" methodname="AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="734631507" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000187" asserts="0">
+            <test-case id="1063" name="AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" fullname="BK.Tests.RechargeLogicTests.AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" methodname="AdvanceNoOpWhenFullOrNoAnchorOrTooEarly" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1715102131" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000207" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1065" name="OnLoadGivesAnchorToNonFullValueWithoutOne" fullname="BK.Tests.RechargeLogicTests.OnLoadGivesAnchorToNonFullValueWithoutOne" methodname="OnLoadGivesAnchorToNonFullValueWithoutOne" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1360703028" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000213" asserts="0">
+            <test-case id="1065" name="OnLoadGivesAnchorToNonFullValueWithoutOne" fullname="BK.Tests.RechargeLogicTests.OnLoadGivesAnchorToNonFullValueWithoutOne" methodname="OnLoadGivesAnchorToNonFullValueWithoutOne" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1363762686" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000214" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1064" name="SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" fullname="BK.Tests.RechargeLogicTests.SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" methodname="SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="276037192" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000199" asserts="0">
+            <test-case id="1064" name="SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" fullname="BK.Tests.RechargeLogicTests.SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" methodname="SpendBelowMaxKeepsAnchor_SpendFromFullStartsCycle" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="216425135" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000184" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1066" name="TimeToNextAndFullAt" fullname="BK.Tests.RechargeLogicTests.TimeToNextAndFullAt" methodname="TimeToNextAndFullAt" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="1361778458" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000309" asserts="0">
+            <test-case id="1066" name="TimeToNextAndFullAt" fullname="BK.Tests.RechargeLogicTests.TimeToNextAndFullAt" methodname="TimeToNextAndFullAt" classname="BK.Tests.RechargeLogicTests" runstate="Runnable" seed="122007372" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000318" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1067" name="SaveFileTests" fullname="BK.Tests.SaveFileTests" classname="BK.Tests.SaveFileTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.031760" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1067" name="SaveFileTests" fullname="BK.Tests.SaveFileTests" classname="BK.Tests.SaveFileTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.031317" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1071" name="PreserveCorruptMovesFileAsideInsteadOfDeleting" fullname="BK.Tests.SaveFileTests.PreserveCorruptMovesFileAsideInsteadOfDeleting" methodname="PreserveCorruptMovesFileAsideInsteadOfDeleting" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="1373187378" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007751" asserts="0">
+            <test-case id="1071" name="PreserveCorruptMovesFileAsideInsteadOfDeleting" fullname="BK.Tests.SaveFileTests.PreserveCorruptMovesFileAsideInsteadOfDeleting" methodname="PreserveCorruptMovesFileAsideInsteadOfDeleting" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="947168988" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007526" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1069" name="ReadUsablePrefersPrimaryThenBackup" fullname="BK.Tests.SaveFileTests.ReadUsablePrefersPrimaryThenBackup" methodname="ReadUsablePrefersPrimaryThenBackup" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="38593418" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.010151" asserts="0">
+            <test-case id="1069" name="ReadUsablePrefersPrimaryThenBackup" fullname="BK.Tests.SaveFileTests.ReadUsablePrefersPrimaryThenBackup" methodname="ReadUsablePrefersPrimaryThenBackup" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="2103580771" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.010238" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -392,84 +392,84 @@
               <output><![CDATA[[Save] primary unusable, recovered from backup: a.json
 ]]></output>
             </test-case>
-            <test-case id="1070" name="ReadUsableReturnsNullWhenNothingParses" fullname="BK.Tests.SaveFileTests.ReadUsableReturnsNullWhenNothingParses" methodname="ReadUsableReturnsNullWhenNothingParses" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="1415002414" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.004832" asserts="0">
+            <test-case id="1070" name="ReadUsableReturnsNullWhenNothingParses" fullname="BK.Tests.SaveFileTests.ReadUsableReturnsNullWhenNothingParses" methodname="ReadUsableReturnsNullWhenNothingParses" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="117994748" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004689" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1072" name="TryReadVersionRejectsInvalidJsonAndMissingVersion" fullname="BK.Tests.SaveFileTests.TryReadVersionRejectsInvalidJsonAndMissingVersion" methodname="TryReadVersionRejectsInvalidJsonAndMissingVersion" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="1685162086" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001147" asserts="0">
+            <test-case id="1072" name="TryReadVersionRejectsInvalidJsonAndMissingVersion" fullname="BK.Tests.SaveFileTests.TryReadVersionRejectsInvalidJsonAndMissingVersion" methodname="TryReadVersionRejectsInvalidJsonAndMissingVersion" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="846307491" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001199" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1068" name="WriteAtomicRotatesPreviousFileIntoBackup" fullname="BK.Tests.SaveFileTests.WriteAtomicRotatesPreviousFileIntoBackup" methodname="WriteAtomicRotatesPreviousFileIntoBackup" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="944255675" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007260" asserts="0">
+            <test-case id="1068" name="WriteAtomicRotatesPreviousFileIntoBackup" fullname="BK.Tests.SaveFileTests.WriteAtomicRotatesPreviousFileIntoBackup" methodname="WriteAtomicRotatesPreviousFileIntoBackup" classname="BK.Tests.SaveFileTests" runstate="Runnable" seed="1026171598" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007011" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1073" name="SaveServiceTests" fullname="BK.Tests.SaveServiceTests" classname="BK.Tests.SaveServiceTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.040089" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1073" name="SaveServiceTests" fullname="BK.Tests.SaveServiceTests" classname="BK.Tests.SaveServiceTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.038007" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1078" name="CorruptPrimaryFallsBackToBackupAndPreservesEvidence" fullname="BK.Tests.SaveServiceTests.CorruptPrimaryFallsBackToBackupAndPreservesEvidence" methodname="CorruptPrimaryFallsBackToBackupAndPreservesEvidence" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="372299741" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.010660" asserts="0">
+            <test-case id="1078" name="CorruptPrimaryFallsBackToBackupAndPreservesEvidence" fullname="BK.Tests.SaveServiceTests.CorruptPrimaryFallsBackToBackupAndPreservesEvidence" methodname="CorruptPrimaryFallsBackToBackupAndPreservesEvidence" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="868492607" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.010078" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
               <output><![CDATA[[Save] primary unusable, recovered from backup: Progress.json
-[Save] corrupt save Progress, preserved at C:\Users\DG-250~1\AppData\Local\Temp\BKSaveTests\5dae3de48f7444659b1c915fc6421bf9\Progress.json.corrupt-20261026094023672
+[Save] corrupt save Progress, preserved at C:\Users\DG-250~1\AppData\Local\Temp\BKSaveTests\5ea0d8fa4e074dc396e0e807d604aeed\Progress.json.corrupt-20261026154104348
 ]]></output>
             </test-case>
-            <test-case id="1075" name="DirtySlotRoundTripsAndKeepsBackup" fullname="BK.Tests.SaveServiceTests.DirtySlotRoundTripsAndKeepsBackup" methodname="DirtySlotRoundTripsAndKeepsBackup" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1785646908" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.006358" asserts="0">
+            <test-case id="1075" name="DirtySlotRoundTripsAndKeepsBackup" fullname="BK.Tests.SaveServiceTests.DirtySlotRoundTripsAndKeepsBackup" methodname="DirtySlotRoundTripsAndKeepsBackup" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="123716366" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.006207" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1080" name="DisposeFlushesDirtySlots" fullname="BK.Tests.SaveServiceTests.DisposeFlushesDirtySlots" methodname="DisposeFlushesDirtySlots" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1903806082" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.004523" asserts="0">
+            <test-case id="1080" name="DisposeFlushesDirtySlots" fullname="BK.Tests.SaveServiceTests.DisposeFlushesDirtySlots" methodname="DisposeFlushesDirtySlots" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="300437472" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.003517" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1079" name="FailedValidationIsTreatedAsCorrupt" fullname="BK.Tests.SaveServiceTests.FailedValidationIsTreatedAsCorrupt" methodname="FailedValidationIsTreatedAsCorrupt" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1927202644" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.005333" asserts="0">
+            <test-case id="1079" name="FailedValidationIsTreatedAsCorrupt" fullname="BK.Tests.SaveServiceTests.FailedValidationIsTreatedAsCorrupt" methodname="FailedValidationIsTreatedAsCorrupt" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1311004880" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004561" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
-              <output><![CDATA[[Save] invalid save Progress, preserved at C:\Users\DG-250~1\AppData\Local\Temp\BKSaveTests\c682b7e750f94e7cb97b5eafbdc37bf8\Progress.json.corrupt-20261026094023689
+              <output><![CDATA[[Save] invalid save Progress, preserved at C:\Users\DG-250~1\AppData\Local\Temp\BKSaveTests\036f2cddd5794810b42b99e9a1764036\Progress.json.corrupt-20261026154104363
 ]]></output>
             </test-case>
-            <test-case id="1074" name="GetCreatesDefaultsAndFlushWritesVersionedJson" fullname="BK.Tests.SaveServiceTests.GetCreatesDefaultsAndFlushWritesVersionedJson" methodname="GetCreatesDefaultsAndFlushWritesVersionedJson" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1221212874" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.004451" asserts="0">
+            <test-case id="1074" name="GetCreatesDefaultsAndFlushWritesVersionedJson" fullname="BK.Tests.SaveServiceTests.GetCreatesDefaultsAndFlushWritesVersionedJson" methodname="GetCreatesDefaultsAndFlushWritesVersionedJson" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1482194727" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004321" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1077" name="OlderFileIsMigratedAndMarkedDirty" fullname="BK.Tests.SaveServiceTests.OlderFileIsMigratedAndMarkedDirty" methodname="OlderFileIsMigratedAndMarkedDirty" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1876388154" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.003082" asserts="0">
+            <test-case id="1077" name="OlderFileIsMigratedAndMarkedDirty" fullname="BK.Tests.SaveServiceTests.OlderFileIsMigratedAndMarkedDirty" methodname="OlderFileIsMigratedAndMarkedDirty" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1072955391" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.003893" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1076" name="UnchangedSlotIsNotRewritten" fullname="BK.Tests.SaveServiceTests.UnchangedSlotIsNotRewritten" methodname="UnchangedSlotIsNotRewritten" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="449176171" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.004537" asserts="0">
+            <test-case id="1076" name="UnchangedSlotIsNotRewritten" fullname="BK.Tests.SaveServiceTests.UnchangedSlotIsNotRewritten" methodname="UnchangedSlotIsNotRewritten" classname="BK.Tests.SaveServiceTests" runstate="Runnable" seed="1293933539" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004393" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1081" name="ScreenCoverTests" fullname="BK.Tests.ScreenCoverTests" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.058898" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1081" name="ScreenCoverTests" fullname="BK.Tests.ScreenCoverTests" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.058801" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1082" name="HoldShowsAndReleaseHidesAfterFade" fullname="BK.Tests.ScreenCoverTests.HoldShowsAndReleaseHidesAfterFade" methodname="HoldShowsAndReleaseHidesAfterFade" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="1956357970" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002765" asserts="0">
+            <test-case id="1082" name="HoldShowsAndReleaseHidesAfterFade" fullname="BK.Tests.ScreenCoverTests.HoldShowsAndReleaseHidesAfterFade" methodname="HoldShowsAndReleaseHidesAfterFade" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="1737831986" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002812" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1084" name="ReleaseWhenReadyTimesOutWithoutReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWhenReadyTimesOutWithoutReady" methodname="ReleaseWhenReadyTimesOutWithoutReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="1708430071" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.052926" asserts="0">
+            <test-case id="1084" name="ReleaseWhenReadyTimesOutWithoutReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWhenReadyTimesOutWithoutReady" methodname="ReleaseWhenReadyTimesOutWithoutReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="1523202856" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.052902" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -477,40 +477,40 @@
               <output><![CDATA[[UI] reveal ready timed out after 0.05s; releasing cover
 ]]></output>
             </test-case>
-            <test-case id="1083" name="ReleaseWhenReadyWaitsForRegisteredReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWhenReadyWaitsForRegisteredReady" methodname="ReleaseWhenReadyWaitsForRegisteredReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="61936524" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000935" asserts="0">
+            <test-case id="1083" name="ReleaseWhenReadyWaitsForRegisteredReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWhenReadyWaitsForRegisteredReady" methodname="ReleaseWhenReadyWaitsForRegisteredReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="182886804" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000863" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1085" name="ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" methodname="ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="386075366" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001549" asserts="0">
+            <test-case id="1085" name="ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" fullname="BK.Tests.ScreenCoverTests.ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" methodname="ReleaseWithoutHoldIsNoOpAndUnregisterClearsReady" classname="BK.Tests.ScreenCoverTests" runstate="Runnable" seed="951256439" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001533" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1086" name="StagePreloaderRegistryTests" fullname="BK.Tests.StagePreloaderRegistryTests" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.006675" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1086" name="StagePreloaderRegistryTests" fullname="BK.Tests.StagePreloaderRegistryTests" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007412" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1090" name="DisposeCancelsInflight" fullname="BK.Tests.StagePreloaderRegistryTests.DisposeCancelsInflight" methodname="DisposeCancelsInflight" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="1306323750" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.003804" asserts="0">
+            <test-case id="1090" name="DisposeCancelsInflight" fullname="BK.Tests.StagePreloaderRegistryTests.DisposeCancelsInflight" methodname="DisposeCancelsInflight" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="1257988009" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.003920" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1087" name="RegisterStartInvokesPreloaderAndLastRegistrationWins" fullname="BK.Tests.StagePreloaderRegistryTests.RegisterStartInvokesPreloaderAndLastRegistrationWins" methodname="RegisterStartInvokesPreloaderAndLastRegistrationWins" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="1031569249" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000485" asserts="0">
+            <test-case id="1087" name="RegisterStartInvokesPreloaderAndLastRegistrationWins" fullname="BK.Tests.StagePreloaderRegistryTests.RegisterStartInvokesPreloaderAndLastRegistrationWins" methodname="RegisterStartInvokesPreloaderAndLastRegistrationWins" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="2122478015" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000885" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1089" name="SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" fullname="BK.Tests.StagePreloaderRegistryTests.SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" methodname="SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="330580174" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001137" asserts="0">
+            <test-case id="1089" name="SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" fullname="BK.Tests.StagePreloaderRegistryTests.SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" methodname="SecondStartCancelsFirstAndKeepsIsPreloadingForTheNewRun" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="975373076" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001281" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1088" name="UnregisterOnlyClearsMatchingReference" fullname="BK.Tests.StagePreloaderRegistryTests.UnregisterOnlyClearsMatchingReference" methodname="UnregisterOnlyClearsMatchingReference" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="1229398679" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000748" asserts="0">
+            <test-case id="1088" name="UnregisterOnlyClearsMatchingReference" fullname="BK.Tests.StagePreloaderRegistryTests.UnregisterOnlyClearsMatchingReference" methodname="UnregisterOnlyClearsMatchingReference" classname="BK.Tests.StagePreloaderRegistryTests" runstate="Runnable" seed="808550912" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000815" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -519,108 +519,108 @@
 ]]></output>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1091" name="StageProgressTests" fullname="BK.Tests.StageProgressTests" classname="BK.Tests.StageProgressTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.013733" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1091" name="StageProgressTests" fullname="BK.Tests.StageProgressTests" classname="BK.Tests.StageProgressTests" runstate="Runnable" testcasecount="8" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.013171" total="8" passed="8" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1099" name="ClearSavesPointerBeforeEventsAndNeverMovesBackwards" fullname="BK.Tests.StageProgressTests.ClearSavesPointerBeforeEventsAndNeverMovesBackwards" methodname="ClearSavesPointerBeforeEventsAndNeverMovesBackwards" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="10182509" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.007948" asserts="0">
+            <test-case id="1099" name="ClearSavesPointerBeforeEventsAndNeverMovesBackwards" fullname="BK.Tests.StageProgressTests.ClearSavesPointerBeforeEventsAndNeverMovesBackwards" methodname="ClearSavesPointerBeforeEventsAndNeverMovesBackwards" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1226646146" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.007608" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1092" name="FreeStagesNeverChargeOrRefund" fullname="BK.Tests.StageProgressTests.FreeStagesNeverChargeOrRefund" methodname="FreeStagesNeverChargeOrRefund" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="33928236" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000720" asserts="0">
+            <test-case id="1092" name="FreeStagesNeverChargeOrRefund" fullname="BK.Tests.StageProgressTests.FreeStagesNeverChargeOrRefund" methodname="FreeStagesNeverChargeOrRefund" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1214212910" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000679" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1096" name="InfiniteBuffSkipsChargeAndRefund" fullname="BK.Tests.StageProgressTests.InfiniteBuffSkipsChargeAndRefund" methodname="InfiniteBuffSkipsChargeAndRefund" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="245207462" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000623" asserts="0">
+            <test-case id="1096" name="InfiniteBuffSkipsChargeAndRefund" fullname="BK.Tests.StageProgressTests.InfiniteBuffSkipsChargeAndRefund" methodname="InfiniteBuffSkipsChargeAndRefund" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="160255465" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000568" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1097" name="RefundIsSkippedWhenAlreadyFull" fullname="BK.Tests.StageProgressTests.RefundIsSkippedWhenAlreadyFull" methodname="RefundIsSkippedWhenAlreadyFull" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1283936500" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000602" asserts="0">
+            <test-case id="1097" name="RefundIsSkippedWhenAlreadyFull" fullname="BK.Tests.StageProgressTests.RefundIsSkippedWhenAlreadyFull" methodname="RefundIsSkippedWhenAlreadyFull" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="904466496" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000567" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1094" name="RetryChargesAgainAndCountsAttempts_FailDoesNot" fullname="BK.Tests.StageProgressTests.RetryChargesAgainAndCountsAttempts_FailDoesNot" methodname="RetryChargesAgainAndCountsAttempts_FailDoesNot" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1757225571" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000808" asserts="0">
+            <test-case id="1094" name="RetryChargesAgainAndCountsAttempts_FailDoesNot" fullname="BK.Tests.StageProgressTests.RetryChargesAgainAndCountsAttempts_FailDoesNot" methodname="RetryChargesAgainAndCountsAttempts_FailDoesNot" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="286244386" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000763" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1098" name="SetCurrentStageIsForToolsOnly" fullname="BK.Tests.StageProgressTests.SetCurrentStageIsForToolsOnly" methodname="SetCurrentStageIsForToolsOnly" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1345489016" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000836" asserts="0">
+            <test-case id="1098" name="SetCurrentStageIsForToolsOnly" fullname="BK.Tests.StageProgressTests.SetCurrentStageIsForToolsOnly" methodname="SetCurrentStageIsForToolsOnly" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="2124509827" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000815" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1093" name="StartChargesOnceAndClearRefunds" fullname="BK.Tests.StageProgressTests.StartChargesOnceAndClearRefunds" methodname="StartChargesOnceAndClearRefunds" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1509548628" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000621" asserts="0">
+            <test-case id="1093" name="StartChargesOnceAndClearRefunds" fullname="BK.Tests.StageProgressTests.StartChargesOnceAndClearRefunds" methodname="StartChargesOnceAndClearRefunds" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1344868614" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000577" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1095" name="StartFailsAtZeroHeartsWithoutSideEffects" fullname="BK.Tests.StageProgressTests.StartFailsAtZeroHeartsWithoutSideEffects" methodname="StartFailsAtZeroHeartsWithoutSideEffects" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="2118589045" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000741" asserts="0">
+            <test-case id="1095" name="StartFailsAtZeroHeartsWithoutSideEffects" fullname="BK.Tests.StageProgressTests.StartFailsAtZeroHeartsWithoutSideEffects" methodname="StartFailsAtZeroHeartsWithoutSideEffects" classname="BK.Tests.StageProgressTests" runstate="Runnable" seed="1691136670" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000715" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1100" name="StepOfferLogicTests" fullname="BK.Tests.StepOfferLogicTests" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001709" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1100" name="StepOfferLogicTests" fullname="BK.Tests.StepOfferLogicTests" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001713" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1102" name="SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" fullname="BK.Tests.StepOfferLogicTests.SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" methodname="SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" seed="847013663" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001024" asserts="0">
+            <test-case id="1102" name="SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" fullname="BK.Tests.StepOfferLogicTests.SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" methodname="SelectTakesLowestOfferIdWithStepsAndWindowHasOneCurrent" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" seed="1511155183" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001035" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1101" name="TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" fullname="BK.Tests.StepOfferLogicTests.TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" methodname="TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" seed="1392069913" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.000209" asserts="0">
+            <test-case id="1101" name="TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" fullname="BK.Tests.StepOfferLogicTests.TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" methodname="TypeAlternatesChainThenVerticalAndNoneBeforeEpoch" classname="BK.Tests.StepOfferLogicTests" runstate="Runnable" seed="13496826" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000219" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1103" name="StepOffersTests" fullname="BK.Tests.StepOffersTests" classname="BK.Tests.StepOffersTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.016261" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1103" name="StepOffersTests" fullname="BK.Tests.StepOffersTests" classname="BK.Tests.StepOffersTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.015281" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1108" name="AutoOpenedIsPerRound" fullname="BK.Tests.StepOffersTests.AutoOpenedIsPerRound" methodname="AutoOpenedIsPerRound" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="617802782" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.002278" asserts="0">
+            <test-case id="1108" name="AutoOpenedIsPerRound" fullname="BK.Tests.StepOffersTests.AutoOpenedIsPerRound" methodname="AutoOpenedIsPerRound" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="777177774" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002372" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1107" name="CompletedExpiredLockedAndPreEpochAreInactive" fullname="BK.Tests.StepOffersTests.CompletedExpiredLockedAndPreEpochAreInactive" methodname="CompletedExpiredLockedAndPreEpochAreInactive" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="138032810" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001436" asserts="0">
+            <test-case id="1107" name="CompletedExpiredLockedAndPreEpochAreInactive" fullname="BK.Tests.StepOffersTests.CompletedExpiredLockedAndPreEpochAreInactive" methodname="CompletedExpiredLockedAndPreEpochAreInactive" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="925574003" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001468" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1105" name="FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" fullname="BK.Tests.StepOffersTests.FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" methodname="FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="1043309958" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.009749" asserts="0">
+            <test-case id="1105" name="FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" fullname="BK.Tests.StepOffersTests.FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" methodname="FreeClaimAdvancesAndGrants_PaidRefused_ProgressSurvivesReentry" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="467572043" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.008773" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1106" name="NewWeekResetsRoundAndOldCampaignIsRejected" fullname="BK.Tests.StepOffersTests.NewWeekResetsRoundAndOldCampaignIsRejected" methodname="NewWeekResetsRoundAndOldCampaignIsRejected" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="1036741155" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001060" asserts="0">
+            <test-case id="1106" name="NewWeekResetsRoundAndOldCampaignIsRejected" fullname="BK.Tests.StepOffersTests.NewWeekResetsRoundAndOldCampaignIsRejected" methodname="NewWeekResetsRoundAndOldCampaignIsRejected" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="184631996" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001013" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1104" name="OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" fullname="BK.Tests.StepOffersTests.OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" methodname="OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="2070800966" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:23Z" duration="0.001055" asserts="0">
+            <test-case id="1104" name="OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" fullname="BK.Tests.StepOffersTests.OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" methodname="OddWeekIsVerticalEvenWeekIsChain_RoundStampsWeekStart" classname="BK.Tests.StepOffersTests" runstate="Runnable" seed="4478734" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000990" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1109" name="TableImporterTests" fullname="BK.Tests.TableImporterTests" classname="BK.Tests.TableImporterTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:24Z" duration="0.360584" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1109" name="TableImporterTests" fullname="BK.Tests.TableImporterTests" classname="BK.Tests.TableImporterTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.259144" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1110" name="ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" fullname="BK.Tests.TableImporterTests.ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" methodname="ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" classname="BK.Tests.TableImporterTests" runstate="Runnable" seed="993531990" result="Passed" start-time="2026-10-26 09:40:23Z" end-time="2026-10-26 09:40:24Z" duration="0.360082" asserts="0">
+            <test-case id="1110" name="ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" fullname="BK.Tests.TableImporterTests.ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" methodname="ImportsJsonIntoMatchingTableAssetAndUpdatesInPlace" classname="BK.Tests.TableImporterTests" runstate="Runnable" seed="889189966" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.258665" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -629,114 +629,114 @@
 ]]></output>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1111" name="WalletTests" fullname="BK.Tests.WalletTests" classname="BK.Tests.WalletTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.015691" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1111" name="WalletTests" fullname="BK.Tests.WalletTests" classname="BK.Tests.WalletTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.014323" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1117" name="AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" fullname="BK.Tests.WalletTests.AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" methodname="AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" classname="BK.Tests.WalletTests" runstate="Runnable" seed="853531664" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001910" asserts="0">
+            <test-case id="1117" name="AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" fullname="BK.Tests.WalletTests.AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" methodname="AddBelowZeroClampsToZeroAndChangedEmitsDeltaAndReason" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1667460796" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002010" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1116" name="BuffSecondsSetEndTimeAndExpireOnTick" fullname="BK.Tests.WalletTests.BuffSecondsSetEndTimeAndExpireOnTick" methodname="BuffSecondsSetEndTimeAndExpireOnTick" classname="BK.Tests.WalletTests" runstate="Runnable" seed="334122025" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000640" asserts="0">
+            <test-case id="1116" name="BuffSecondsSetEndTimeAndExpireOnTick" fullname="BK.Tests.WalletTests.BuffSecondsSetEndTimeAndExpireOnTick" methodname="BuffSecondsSetEndTimeAndExpireOnTick" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1696122774" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000685" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1112" name="NewWalletSeedsInitialValuesAndPersists" fullname="BK.Tests.WalletTests.NewWalletSeedsInitialValuesAndPersists" methodname="NewWalletSeedsInitialValuesAndPersists" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1963285650" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.004221" asserts="0">
+            <test-case id="1112" name="NewWalletSeedsInitialValuesAndPersists" fullname="BK.Tests.WalletTests.NewWalletSeedsInitialValuesAndPersists" methodname="NewWalletSeedsInitialValuesAndPersists" classname="BK.Tests.WalletTests" runstate="Runnable" seed="380484081" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004067" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1114" name="OfflineCatchUpOnConstruct" fullname="BK.Tests.WalletTests.OfflineCatchUpOnConstruct" methodname="OfflineCatchUpOnConstruct" classname="BK.Tests.WalletTests" runstate="Runnable" seed="521809536" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.004294" asserts="0">
+            <test-case id="1114" name="OfflineCatchUpOnConstruct" fullname="BK.Tests.WalletTests.OfflineCatchUpOnConstruct" methodname="OfflineCatchUpOnConstruct" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1870443889" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004323" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1113" name="SpendAndRefundHeartFollowAnchorRules" fullname="BK.Tests.WalletTests.SpendAndRefundHeartFollowAnchorRules" methodname="SpendAndRefundHeartFollowAnchorRules" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1779163893" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000771" asserts="0">
+            <test-case id="1113" name="SpendAndRefundHeartFollowAnchorRules" fullname="BK.Tests.WalletTests.SpendAndRefundHeartFollowAnchorRules" methodname="SpendAndRefundHeartFollowAnchorRules" classname="BK.Tests.WalletTests" runstate="Runnable" seed="982439518" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000665" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1115" name="TickRechargesOverTime" fullname="BK.Tests.WalletTests.TickRechargesOverTime" methodname="TickRechargesOverTime" classname="BK.Tests.WalletTests" runstate="Runnable" seed="956945128" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000585" asserts="0">
+            <test-case id="1115" name="TickRechargesOverTime" fullname="BK.Tests.WalletTests.TickRechargesOverTime" methodname="TickRechargesOverTime" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1211304814" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000529" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1118" name="UnknownCurrencyThrows" fullname="BK.Tests.WalletTests.UnknownCurrencyThrows" methodname="UnknownCurrencyThrows" classname="BK.Tests.WalletTests" runstate="Runnable" seed="1731667752" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000611" asserts="0">
+            <test-case id="1118" name="UnknownCurrencyThrows" fullname="BK.Tests.WalletTests.UnknownCurrencyThrows" methodname="UnknownCurrencyThrows" classname="BK.Tests.WalletTests" runstate="Runnable" seed="606589600" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000511" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1119" name="WeekRotationTests" fullname="BK.Tests.WeekRotationTests" classname="BK.Tests.WeekRotationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001101" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1119" name="WeekRotationTests" fullname="BK.Tests.WeekRotationTests" classname="BK.Tests.WeekRotationTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001024" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1121" name="FormatRemainingMatchesSpec" fullname="BK.Tests.WeekRotationTests.FormatRemainingMatchesSpec" methodname="FormatRemainingMatchesSpec" classname="BK.Tests.WeekRotationTests" runstate="Runnable" seed="1501738780" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000291" asserts="0">
+            <test-case id="1121" name="FormatRemainingMatchesSpec" fullname="BK.Tests.WeekRotationTests.FormatRemainingMatchesSpec" methodname="FormatRemainingMatchesSpec" classname="BK.Tests.WeekRotationTests" runstate="Runnable" seed="585443481" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000280" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1120" name="IndexBoundaries" fullname="BK.Tests.WeekRotationTests.IndexBoundaries" methodname="IndexBoundaries" classname="BK.Tests.WeekRotationTests" runstate="Runnable" seed="1725934985" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000244" asserts="0">
+            <test-case id="1120" name="IndexBoundaries" fullname="BK.Tests.WeekRotationTests.IndexBoundaries" methodname="IndexBoundaries" classname="BK.Tests.WeekRotationTests" runstate="Runnable" seed="948841906" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000236" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1122" name="WinStreakLogicTests" fullname="BK.Tests.WinStreakLogicTests" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001697" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1122" name="WinStreakLogicTests" fullname="BK.Tests.WinStreakLogicTests" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001558" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1125" name="GaugeFillLandsOnTierLinesAndInterpolates" fullname="BK.Tests.WinStreakLogicTests.GaugeFillLandsOnTierLinesAndInterpolates" methodname="GaugeFillLandsOnTierLinesAndInterpolates" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="1113684416" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000643" asserts="0">
+            <test-case id="1125" name="GaugeFillLandsOnTierLinesAndInterpolates" fullname="BK.Tests.WinStreakLogicTests.GaugeFillLandsOnTierLinesAndInterpolates" methodname="GaugeFillLandsOnTierLinesAndInterpolates" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="1166583336" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000604" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1123" name="IncrementClampsAtCapAndTreatsNegativeAsZero" fullname="BK.Tests.WinStreakLogicTests.IncrementClampsAtCapAndTreatsNegativeAsZero" methodname="IncrementClampsAtCapAndTreatsNegativeAsZero" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="1032154829" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000143" asserts="0">
+            <test-case id="1123" name="IncrementClampsAtCapAndTreatsNegativeAsZero" fullname="BK.Tests.WinStreakLogicTests.IncrementClampsAtCapAndTreatsNegativeAsZero" methodname="IncrementClampsAtCapAndTreatsNegativeAsZero" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="1615992850" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000132" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1124" name="RewardForPicksHighestThresholdRegardlessOfOrder" fullname="BK.Tests.WinStreakLogicTests.RewardForPicksHighestThresholdRegardlessOfOrder" methodname="RewardForPicksHighestThresholdRegardlessOfOrder" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="2113876377" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000276" asserts="0">
+            <test-case id="1124" name="RewardForPicksHighestThresholdRegardlessOfOrder" fullname="BK.Tests.WinStreakLogicTests.RewardForPicksHighestThresholdRegardlessOfOrder" methodname="RewardForPicksHighestThresholdRegardlessOfOrder" classname="BK.Tests.WinStreakLogicTests" runstate="Runnable" seed="521955269" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000289" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
           </test-suite>
-          <test-suite type="TestFixture" id="1126" name="WinStreakTests" fullname="BK.Tests.WinStreakTests" classname="BK.Tests.WinStreakTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.016532" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1126" name="WinStreakTests" fullname="BK.Tests.WinStreakTests" classname="BK.Tests.WinStreakTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.014855" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1129" name="AbandonIsIdempotentAndClearsPending" fullname="BK.Tests.WinStreakTests.AbandonIsIdempotentAndClearsPending" methodname="AbandonIsIdempotentAndClearsPending" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="518910037" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.002403" asserts="0">
+            <test-case id="1129" name="AbandonIsIdempotentAndClearsPending" fullname="BK.Tests.WinStreakTests.AbandonIsIdempotentAndClearsPending" methodname="AbandonIsIdempotentAndClearsPending" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="1609512973" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002191" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1131" name="ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" fullname="BK.Tests.WinStreakTests.ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" methodname="ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="1248036061" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000991" asserts="0">
+            <test-case id="1131" name="ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" fullname="BK.Tests.WinStreakTests.ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" methodname="ClearBelowUnlockStageResetsAndConsumePendingIsOneShot" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="48460579" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000841" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1130" name="ForceQuitMarkerResetsOnConstructAndStatePersists" fullname="BK.Tests.WinStreakTests.ForceQuitMarkerResetsOnConstructAndStatePersists" methodname="ForceQuitMarkerResetsOnConstructAndStatePersists" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="1722495092" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.010114" asserts="0">
+            <test-case id="1130" name="ForceQuitMarkerResetsOnConstructAndStatePersists" fullname="BK.Tests.WinStreakTests.ForceQuitMarkerResetsOnConstructAndStatePersists" methodname="ForceQuitMarkerResetsOnConstructAndStatePersists" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="335856921" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.009147" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1128" name="RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" fullname="BK.Tests.WinStreakTests.RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" methodname="RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="1810807074" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001077" asserts="0">
+            <test-case id="1128" name="RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" fullname="BK.Tests.WinStreakTests.RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" methodname="RetryViaStartedWhileInProgressResets_ContinueThenWinKeeps" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="993970427" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000928" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
               </properties>
             </test-case>
-            <test-case id="1127" name="WinsAccumulateAndPendingIsOverwrittenPerTier" fullname="BK.Tests.WinStreakTests.WinsAccumulateAndPendingIsOverwrittenPerTier" methodname="WinsAccumulateAndPendingIsOverwrittenPerTier" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="967153855" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001246" asserts="0">
+            <test-case id="1127" name="WinsAccumulateAndPendingIsOverwrittenPerTier" fullname="BK.Tests.WinStreakTests.WinsAccumulateAndPendingIsOverwrittenPerTier" methodname="WinsAccumulateAndPendingIsOverwrittenPerTier" classname="BK.Tests.WinStreakTests" runstate="Runnable" seed="1380787029" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001118" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
@@ -746,30 +746,30 @@
         </test-suite>
       </test-suite>
     </test-suite>
-    <test-suite type="Assembly" id="1189" name="BK.Kit.EditModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.EditModeTests.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:26Z" duration="1.828068" total="41" passed="41" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1189" name="BK.Kit.EditModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.EditModeTests.dll" runstate="Runnable" testcasecount="41" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:06Z" duration="1.667441" total="41" passed="41" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="20168" />
+        <property name="_PID" value="64520" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="EditMode" />
         <property name="EditorOnly" value="True" />
       </properties>
-      <test-suite type="TestFixture" id="1135" name="AnimationSequencerInstallTests" fullname="AnimationSequencerInstallTests" classname="AnimationSequencerInstallTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.004643" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1135" name="AnimationSequencerInstallTests" fullname="AnimationSequencerInstallTests" classname="AnimationSequencerInstallTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004438" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1136" name="DOTweenAndSequencerTypesResolve" fullname="AnimationSequencerInstallTests.DOTweenAndSequencerTypesResolve" methodname="DOTweenAndSequencerTypesResolve" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="1279212532" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001425" asserts="0">
+        <test-case id="1136" name="DOTweenAndSequencerTypesResolve" fullname="AnimationSequencerInstallTests.DOTweenAndSequencerTypesResolve" methodname="DOTweenAndSequencerTypesResolve" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="1937956121" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001399" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-suite type="ParameterizedMethod" id="1139" name="ImportedPopupSequencePrefabsKeepTheirSteps" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.002787" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="ParameterizedMethod" id="1139" name="ImportedPopupSequencePrefabsKeepTheirSteps" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002629" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-case id="1137" name="ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Open.prefab&quot;)" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Open.prefab&quot;)" methodname="ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="2076775380" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001841" asserts="0">
+          <test-case id="1137" name="ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Open.prefab&quot;)" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Open.prefab&quot;)" methodname="ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="1714895439" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001757" asserts="0">
             <properties>
               <property name="retryIteration" value="0" />
               <property name="repeatIteration" value="0" />
             </properties>
           </test-case>
-          <test-case id="1138" name="ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Close.prefab&quot;)" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Close.prefab&quot;)" methodname="ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="212063227" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000411" asserts="0">
+          <test-case id="1138" name="ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Close.prefab&quot;)" fullname="AnimationSequencerInstallTests.ImportedPopupSequencePrefabsKeepTheirSteps(&quot;Assets/_Project/UI/Sequences/SQ_Popup_Close.prefab&quot;)" methodname="ImportedPopupSequencePrefabsKeepTheirSteps" classname="AnimationSequencerInstallTests" runstate="Runnable" seed="1573302311" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000342" asserts="0">
             <properties>
               <property name="retryIteration" value="0" />
               <property name="repeatIteration" value="0" />
@@ -777,81 +777,81 @@
           </test-case>
         </test-suite>
       </test-suite>
-      <test-suite type="TestFixture" id="1140" name="BounceCatalogTests" fullname="BounceCatalogTests" classname="BounceCatalogTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.005126" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1140" name="BounceCatalogTests" fullname="BounceCatalogTests" classname="BounceCatalogTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.004965" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1143" name="DescribeListsGoldThenBoosters" fullname="BounceCatalogTests.DescribeListsGoldThenBoosters" methodname="DescribeListsGoldThenBoosters" classname="BounceCatalogTests" runstate="Runnable" seed="1202474426" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.000992" asserts="0">
+        <test-case id="1143" name="DescribeListsGoldThenBoosters" fullname="BounceCatalogTests.DescribeListsGoldThenBoosters" methodname="DescribeListsGoldThenBoosters" classname="BounceCatalogTests" runstate="Runnable" seed="1335172346" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.000963" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1141" name="StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" fullname="BounceCatalogTests.StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" methodname="StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" classname="BounceCatalogTests" runstate="Runnable" seed="731012412" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.001452" asserts="0">
+        <test-case id="1141" name="StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" fullname="BounceCatalogTests.StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" methodname="StepOffersAreLinearWithFreeFirstStepsAndPricedPaidSteps" classname="BounceCatalogTests" runstate="Runnable" seed="1464902397" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.001481" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1142" name="WinStreakTiersAscendBelowTheCap" fullname="BounceCatalogTests.WinStreakTiersAscendBelowTheCap" methodname="WinStreakTiersAscendBelowTheCap" classname="BounceCatalogTests" runstate="Runnable" seed="39774056" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.002280" asserts="0">
+        <test-case id="1142" name="WinStreakTiersAscendBelowTheCap" fullname="BounceCatalogTests.WinStreakTiersAscendBelowTheCap" methodname="WinStreakTiersAscendBelowTheCap" classname="BounceCatalogTests" runstate="Runnable" seed="1998620745" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002134" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1144" name="BounceLearningTests" fullname="BounceLearningTests" classname="BounceLearningTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.312896" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1144" name="BounceLearningTests" fullname="BounceLearningTests" classname="BounceLearningTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:05Z" duration="0.273403" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1146" name="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" fullname="BounceLearningTests.FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" methodname="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" classname="BounceLearningTests" runstate="Runnable" seed="1825869424" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.002499" asserts="0">
+        <test-case id="1146" name="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" fullname="BounceLearningTests.FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" methodname="FirstGimmickIsIntroducedAloneAndRepeatedWithoutChangingBoxDurability" classname="BounceLearningTests" runstate="Runnable" seed="1182302096" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:04Z" duration="0.002393" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1145" name="SeedReproducesTheAppliedTenDistinctLearningBoards" fullname="BounceLearningTests.SeedReproducesTheAppliedTenDistinctLearningBoards" methodname="SeedReproducesTheAppliedTenDistinctLearningBoards" classname="BounceLearningTests" runstate="Runnable" seed="1541263966" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.309930" asserts="0">
+        <test-case id="1145" name="SeedReproducesTheAppliedTenDistinctLearningBoards" fullname="BounceLearningTests.SeedReproducesTheAppliedTenDistinctLearningBoards" methodname="SeedReproducesTheAppliedTenDistinctLearningBoards" classname="BounceLearningTests" runstate="Runnable" seed="104213306" result="Passed" start-time="2026-10-26 15:41:04Z" end-time="2026-10-26 15:41:05Z" duration="0.270640" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1147" name="BounceLevelEditorTests" fullname="BounceLevelEditorTests" classname="BounceLevelEditorTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:25Z" duration="1.188495" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1147" name="BounceLevelEditorTests" fullname="BounceLevelEditorTests" classname="BounceLevelEditorTests" runstate="Runnable" testcasecount="7" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:06Z" duration="1.118973" total="7" passed="7" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1153" name="ExternallyChangedFileIsNotOverwritten" fullname="BounceLevelEditorTests.ExternallyChangedFileIsNotOverwritten" methodname="ExternallyChangedFileIsNotOverwritten" classname="BounceLevelEditorTests" runstate="Runnable" seed="1498966829" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.011210" asserts="0">
+        <test-case id="1153" name="ExternallyChangedFileIsNotOverwritten" fullname="BounceLevelEditorTests.ExternallyChangedFileIsNotOverwritten" methodname="ExternallyChangedFileIsNotOverwritten" classname="BounceLevelEditorTests" runstate="Runnable" seed="630301863" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.009558" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1150" name="InvalidDraftDoesNotOverwriteLevelFile" fullname="BounceLevelEditorTests.InvalidDraftDoesNotOverwriteLevelFile" methodname="InvalidDraftDoesNotOverwriteLevelFile" classname="BounceLevelEditorTests" runstate="Runnable" seed="523919911" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.006688" asserts="0">
+        <test-case id="1150" name="InvalidDraftDoesNotOverwriteLevelFile" fullname="BounceLevelEditorTests.InvalidDraftDoesNotOverwriteLevelFile" methodname="InvalidDraftDoesNotOverwriteLevelFile" classname="BounceLevelEditorTests" runstate="Runnable" seed="180060078" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.005191" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1152" name="LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" fullname="BounceLevelEditorTests.LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" methodname="LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" classname="BounceLevelEditorTests" runstate="Runnable" seed="1930957488" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.003579" asserts="0">
+        <test-case id="1152" name="LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" fullname="BounceLevelEditorTests.LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" methodname="LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether" classname="BounceLevelEditorTests" runstate="Runnable" seed="234552023" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.002710" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1148" name="PlaceAndEraseUseTheSameFootprintAsRuntime" fullname="BounceLevelEditorTests.PlaceAndEraseUseTheSameFootprintAsRuntime" methodname="PlaceAndEraseUseTheSameFootprintAsRuntime" classname="BounceLevelEditorTests" runstate="Runnable" seed="1237677258" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.003992" asserts="0">
+        <test-case id="1148" name="PlaceAndEraseUseTheSameFootprintAsRuntime" fullname="BounceLevelEditorTests.PlaceAndEraseUseTheSameFootprintAsRuntime" methodname="PlaceAndEraseUseTheSameFootprintAsRuntime" classname="BounceLevelEditorTests" runstate="Runnable" seed="263963591" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.003641" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1151" name="ResizePreservesPaintAndSupportsUndo" fullname="BounceLevelEditorTests.ResizePreservesPaintAndSupportsUndo" methodname="ResizePreservesPaintAndSupportsUndo" classname="BounceLevelEditorTests" runstate="Runnable" seed="1010855746" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.011655" asserts="0">
+        <test-case id="1151" name="ResizePreservesPaintAndSupportsUndo" fullname="BounceLevelEditorTests.ResizePreservesPaintAndSupportsUndo" methodname="ResizePreservesPaintAndSupportsUndo" classname="BounceLevelEditorTests" runstate="Runnable" seed="980263662" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.009823" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1149" name="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" fullname="BounceLevelEditorTests.UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" methodname="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" classname="BounceLevelEditorTests" runstate="Runnable" seed="246060643" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:24Z" duration="0.006063" asserts="0">
+        <test-case id="1149" name="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" fullname="BounceLevelEditorTests.UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" methodname="UndoAddedStageClampsSelectedStageAndKeepsWindowUsable" classname="BounceLevelEditorTests" runstate="Runnable" seed="458660922" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:05Z" duration="0.005006" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1154" name="WindowRendersEachGimmickInspectorWithoutGuiErrors" fullname="BounceLevelEditorTests.WindowRendersEachGimmickInspectorWithoutGuiErrors" methodname="WindowRendersEachGimmickInspectorWithoutGuiErrors" classname="BounceLevelEditorTests" runstate="Runnable" seed="1022542989" result="Passed" start-time="2026-10-26 09:40:24Z" end-time="2026-10-26 09:40:25Z" duration="1.143221" asserts="0">
+        <test-case id="1154" name="WindowRendersEachGimmickInspectorWithoutGuiErrors" fullname="BounceLevelEditorTests.WindowRendersEachGimmickInspectorWithoutGuiErrors" methodname="WindowRendersEachGimmickInspectorWithoutGuiErrors" classname="BounceLevelEditorTests" runstate="Runnable" seed="1351055755" result="Passed" start-time="2026-10-26 15:41:05Z" end-time="2026-10-26 15:41:06Z" duration="1.080853" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -859,180 +859,180 @@
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1155" name="BounceLevelLayoutTests" fullname="BounceLevelLayoutTests" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.005285" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1155" name="BounceLevelLayoutTests" fullname="BounceLevelLayoutTests" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.004365" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1159" name="CupboardRequiresTenDistinctAdjacentBlocks" fullname="BounceLevelLayoutTests.CupboardRequiresTenDistinctAdjacentBlocks" methodname="CupboardRequiresTenDistinctAdjacentBlocks" classname="BounceLevelLayoutTests" runstate="Runnable" seed="139015041" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.000562" asserts="0">
+        <test-case id="1159" name="CupboardRequiresTenDistinctAdjacentBlocks" fullname="BounceLevelLayoutTests.CupboardRequiresTenDistinctAdjacentBlocks" methodname="CupboardRequiresTenDistinctAdjacentBlocks" classname="BounceLevelLayoutTests" runstate="Runnable" seed="2047164629" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000462" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-suite type="ParameterizedMethod" id="1162" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.002760" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="ParameterizedMethod" id="1162" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.002187" total="2" passed="2" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-case id="1160" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1693680081" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.001476" asserts="0">
+          <test-case id="1160" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1199181882" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.001232" asserts="0">
             <properties>
               <property name="retryIteration" value="0" />
               <property name="repeatIteration" value="0" />
             </properties>
           </test-case>
-          <test-case id="1161" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="723172361" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.001029" asserts="0">
+          <test-case id="1161" name="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" fullname="BounceLevelLayoutTests.EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip(&quot;Assets/_Project/Bounce/Content/bounce-learning-levels.json&quot;)" methodname="EveryAuthoredStageValidatesAndSurvivesJsonRoundTrip" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1816274754" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000736" asserts="0">
             <properties>
               <property name="retryIteration" value="0" />
               <property name="repeatIteration" value="0" />
             </properties>
           </test-case>
         </test-suite>
-        <test-case id="1157" name="FurnaceCannotExtendOutsideBoardOrOverlapABlock" fullname="BounceLevelLayoutTests.FurnaceCannotExtendOutsideBoardOrOverlapABlock" methodname="FurnaceCannotExtendOutsideBoardOrOverlapABlock" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1046276428" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.000378" asserts="0">
+        <test-case id="1157" name="FurnaceCannotExtendOutsideBoardOrOverlapABlock" fullname="BounceLevelLayoutTests.FurnaceCannotExtendOutsideBoardOrOverlapABlock" methodname="FurnaceCannotExtendOutsideBoardOrOverlapABlock" classname="BounceLevelLayoutTests" runstate="Runnable" seed="1439798828" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000228" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1156" name="FurnaceIsIncludedInBothOrientations" fullname="BounceLevelLayoutTests.FurnaceIsIncludedInBothOrientations" methodname="FurnaceIsIncludedInBothOrientations" classname="BounceLevelLayoutTests" runstate="Runnable" seed="347211724" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.000705" asserts="0">
+        <test-case id="1156" name="FurnaceIsIncludedInBothOrientations" fullname="BounceLevelLayoutTests.FurnaceIsIncludedInBothOrientations" methodname="FurnaceIsIncludedInBothOrientations" classname="BounceLevelLayoutTests" runstate="Runnable" seed="892245804" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000676" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1158" name="PanelSweepMustBeClearAndStayWithinWalls" fullname="BounceLevelLayoutTests.PanelSweepMustBeClearAndStayWithinWalls" methodname="PanelSweepMustBeClearAndStayWithinWalls" classname="BounceLevelLayoutTests" runstate="Runnable" seed="578629486" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.000320" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-      </test-suite>
-      <test-suite type="TestFixture" id="1163" name="BouncePurchaseTests" fullname="BouncePurchaseTests" classname="BouncePurchaseTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.137881" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
-        <properties />
-        <test-case id="1164" name="BundleMapsImportedBoosterIdsAndPersistsOnce" fullname="BouncePurchaseTests.BundleMapsImportedBoosterIdsAndPersistsOnce" methodname="BundleMapsImportedBoosterIdsAndPersistsOnce" classname="BouncePurchaseTests" runstate="Runnable" seed="820369015" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.030905" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1165" name="NoAdsAndWelcomeCanOnlyBeBoughtOnce" fullname="BouncePurchaseTests.NoAdsAndWelcomeCanOnlyBeBoughtOnce" methodname="NoAdsAndWelcomeCanOnlyBeBoughtOnce" classname="BouncePurchaseTests" runstate="Runnable" seed="1689847198" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.021415" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1167" name="PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" fullname="BouncePurchaseTests.PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" methodname="PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" classname="BouncePurchaseTests" runstate="Runnable" seed="1969553619" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.024899" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1169" name="RestartReconcilesStepFromDurableWalletReceipt" fullname="BouncePurchaseTests.RestartReconcilesStepFromDurableWalletReceipt" methodname="RestartReconcilesStepFromDurableWalletReceipt" classname="BouncePurchaseTests" runstate="Runnable" seed="447862359" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.017810" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1166" name="SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" fullname="BouncePurchaseTests.SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" methodname="SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" classname="BouncePurchaseTests" runstate="Runnable" seed="783113200" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.018617" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1168" name="WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" fullname="BouncePurchaseTests.WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" methodname="WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" classname="BouncePurchaseTests" runstate="Runnable" seed="2147126872" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.022563" asserts="0">
+        <test-case id="1158" name="PanelSweepMustBeClearAndStayWithinWalls" fullname="BounceLevelLayoutTests.PanelSweepMustBeClearAndStayWithinWalls" methodname="PanelSweepMustBeClearAndStayWithinWalls" classname="BounceLevelLayoutTests" runstate="Runnable" seed="2128411144" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000301" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1170" name="BounceReleaseTests" fullname="BounceReleaseTests" classname="BounceReleaseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.018926" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1163" name="BouncePurchaseTests" fullname="BouncePurchaseTests" classname="BouncePurchaseTests" runstate="Runnable" testcasecount="6" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.124846" total="6" passed="6" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1173" name="AuthoredLayoutsAreNotATenStageLoop" fullname="BounceReleaseTests.AuthoredLayoutsAreNotATenStageLoop" methodname="AuthoredLayoutsAreNotATenStageLoop" classname="BounceReleaseTests" runstate="Runnable" seed="868928803" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.002920" asserts="0">
+        <test-case id="1164" name="BundleMapsImportedBoosterIdsAndPersistsOnce" fullname="BouncePurchaseTests.BundleMapsImportedBoosterIdsAndPersistsOnce" methodname="BundleMapsImportedBoosterIdsAndPersistsOnce" classname="BouncePurchaseTests" runstate="Runnable" seed="1077261189" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.028065" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1171" name="ShippingCampaignHas140ValidNonLoopingStages" fullname="BounceReleaseTests.ShippingCampaignHas140ValidNonLoopingStages" methodname="ShippingCampaignHas140ValidNonLoopingStages" classname="BounceReleaseTests" runstate="Runnable" seed="694901027" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.005302" asserts="0">
+        <test-case id="1165" name="NoAdsAndWelcomeCanOnlyBeBoughtOnce" fullname="BouncePurchaseTests.NoAdsAndWelcomeCanOnlyBeBoughtOnce" methodname="NoAdsAndWelcomeCanOnlyBeBoughtOnce" classname="BouncePurchaseTests" runstate="Runnable" seed="177717837" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.020047" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1172" name="UnlockBoundariesAndIntroductionsAreExact" fullname="BounceReleaseTests.UnlockBoundariesAndIntroductionsAreExact" methodname="UnlockBoundariesAndIntroductionsAreExact" classname="BounceReleaseTests" runstate="Runnable" seed="245112630" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.002835" asserts="0">
+        <test-case id="1167" name="PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" fullname="BouncePurchaseTests.PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" methodname="PaidStepAdvancesOnlyAfterPurchaseAndRejectsStaleButton" classname="BouncePurchaseTests" runstate="Runnable" seed="13603143" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.021554" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1169" name="RestartReconcilesStepFromDurableWalletReceipt" fullname="BouncePurchaseTests.RestartReconcilesStepFromDurableWalletReceipt" methodname="RestartReconcilesStepFromDurableWalletReceipt" classname="BouncePurchaseTests" runstate="Runnable" seed="1064604011" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.015059" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1166" name="SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" fullname="BouncePurchaseTests.SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" methodname="SaveFailureBlocksConfirmationAndRetryDoesNotDoubleGrant" classname="BouncePurchaseTests" runstate="Runnable" seed="667200713" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.017237" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1168" name="WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" fullname="BouncePurchaseTests.WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" methodname="WeekRolloverStillGrantsPaidGoodsWithoutAdvancingNewCampaign" classname="BouncePurchaseTests" runstate="Runnable" seed="836259978" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.021995" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1174" name="GimmickPrefabTests" fullname="GimmickPrefabTests" classname="GimmickPrefabTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.094447" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1170" name="BounceReleaseTests" fullname="BounceReleaseTests" classname="BounceReleaseTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.009807" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1177" name="CreateMissingPrefabsPreservesAuthoredPrefabFiles" fullname="GimmickPrefabTests.CreateMissingPrefabsPreservesAuthoredPrefabFiles" methodname="CreateMissingPrefabsPreservesAuthoredPrefabFiles" classname="GimmickPrefabTests" runstate="Runnable" seed="554962010" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.064433" asserts="0">
+        <test-case id="1173" name="AuthoredLayoutsAreNotATenStageLoop" fullname="BounceReleaseTests.AuthoredLayoutsAreNotATenStageLoop" methodname="AuthoredLayoutsAreNotATenStageLoop" classname="BounceReleaseTests" runstate="Runnable" seed="1831286565" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.002333" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1176" name="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" fullname="GimmickPrefabTests.EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" methodname="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1665710586" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.005171" asserts="0">
+        <test-case id="1171" name="ShippingCampaignHas140ValidNonLoopingStages" fullname="BounceReleaseTests.ShippingCampaignHas140ValidNonLoopingStages" methodname="ShippingCampaignHas140ValidNonLoopingStages" classname="BounceReleaseTests" runstate="Runnable" seed="2043641791" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.004205" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1175" name="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" fullname="GimmickPrefabTests.GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" methodname="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1405176114" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.023786" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1178" name="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" fullname="GimmickPrefabTests.SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" methodname="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" classname="GimmickPrefabTests" runstate="Runnable" seed="504146219" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.000339" asserts="0">
+        <test-case id="1172" name="UnlockBoundariesAndIntroductionsAreExact" fullname="BounceReleaseTests.UnlockBoundariesAndIntroductionsAreExact" methodname="UnlockBoundariesAndIntroductionsAreExact" classname="BounceReleaseTests" runstate="Runnable" seed="91534678" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.002540" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1179" name="ProgressTests" fullname="ProgressTests" classname="ProgressTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:26Z" duration="0.039876" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1174" name="GimmickPrefabTests" fullname="GimmickPrefabTests" classname="GimmickPrefabTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.081338" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1180" name="CatalogCoversGoldHeartsAndEveryBooster" fullname="ProgressTests.CatalogCoversGoldHeartsAndEveryBooster" methodname="CatalogCoversGoldHeartsAndEveryBooster" classname="ProgressTests" runstate="Runnable" seed="432592471" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:25Z" duration="0.001784" asserts="0">
+        <test-case id="1177" name="CreateMissingPrefabsPreservesAuthoredPrefabFiles" fullname="GimmickPrefabTests.CreateMissingPrefabsPreservesAuthoredPrefabFiles" methodname="CreateMissingPrefabsPreservesAuthoredPrefabFiles" classname="GimmickPrefabTests" runstate="Runnable" seed="1872844429" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.056590" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1182" name="DuplicateResultsDoNotChangeAnAlreadyFinishedRound" fullname="ProgressTests.DuplicateResultsDoNotChangeAnAlreadyFinishedRound" methodname="DuplicateResultsDoNotChangeAnAlreadyFinishedRound" classname="ProgressTests" runstate="Runnable" seed="1207661000" result="Passed" start-time="2026-10-26 09:40:25Z" end-time="2026-10-26 09:40:26Z" duration="0.000666" asserts="0">
+        <test-case id="1176" name="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" fullname="GimmickPrefabTests.EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" methodname="EveryGimmickHasAnEditablePrefabWithPersistentMaterialAndColliderBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1324992836" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.005025" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1181" name="FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" fullname="ProgressTests.FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" methodname="FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" classname="ProgressTests" runstate="Runnable" seed="2115392784" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.005306" asserts="0">
+        <test-case id="1175" name="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" fullname="GimmickPrefabTests.GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" methodname="GameplayPropsUseBoxShadingWithBakedAtlasesAndKeepGameplayBindings" classname="GimmickPrefabTests" runstate="Runnable" seed="1648947107" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.018650" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1178" name="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" fullname="GimmickPrefabTests.SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" methodname="SwitchAndDoorRequireMatchingLinksAndArmorRequiresValidDirection" classname="GimmickPrefabTests" runstate="Runnable" seed="478552337" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000344" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1183" name="RippleBoxTests" fullname="RippleBoxTests" classname="RippleBoxTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.013032" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1179" name="ProgressTests" fullname="ProgressTests" classname="ProgressTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.028264" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1184" name="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" fullname="RippleBoxTests.OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" methodname="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" classname="RippleBoxTests" runstate="Runnable" seed="1064620303" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.011309" asserts="0">
+        <test-case id="1180" name="CatalogCoversGoldHeartsAndEveryBooster" fullname="ProgressTests.CatalogCoversGoldHeartsAndEveryBooster" methodname="CatalogCoversGoldHeartsAndEveryBooster" classname="ProgressTests" runstate="Runnable" seed="2026741710" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.002373" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1182" name="DuplicateResultsDoNotChangeAnAlreadyFinishedRound" fullname="ProgressTests.DuplicateResultsDoNotChangeAnAlreadyFinishedRound" methodname="DuplicateResultsDoNotChangeAnAlreadyFinishedRound" classname="ProgressTests" runstate="Runnable" seed="1350078908" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000653" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1181" name="FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" fullname="ProgressTests.FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" methodname="FreshProfileStartsAtStageOneWithFiveHeartsAndFreeEarlyStages" classname="ProgressTests" runstate="Runnable" seed="1518967564" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.006009" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
       </test-suite>
-      <test-suite type="TestFixture" id="1185" name="ShopTableTests" fullname="ShopTableTests" classname="ShopTableTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.006684" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1183" name="RippleBoxTests" fullname="RippleBoxTests" classname="RippleBoxTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.010355" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1186" name="CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" fullname="ShopTableTests.CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" methodname="CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" classname="ShopTableTests" runstate="Runnable" seed="974948666" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.003437" asserts="0">
+        <test-case id="1184" name="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" fullname="RippleBoxTests.OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" methodname="OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement" classname="RippleBoxTests" runstate="Runnable" seed="32007530" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.009899" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1188" name="UnknownRewardIsRejectedBeforeRendering" fullname="ShopTableTests.UnknownRewardIsRejectedBeforeRendering" methodname="UnknownRewardIsRejectedBeforeRendering" classname="ShopTableTests" runstate="Runnable" seed="612490164" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000992" asserts="0">
+      </test-suite>
+      <test-suite type="TestFixture" id="1185" name="ShopTableTests" fullname="ShopTableTests" classname="ShopTableTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.005930" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1186" name="CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" fullname="ShopTableTests.CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" methodname="CurrentTableReplacesScreenshotValuesAndOrdersCurrencyRewards" classname="ShopTableTests" runstate="Runnable" seed="1835453650" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.003357" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
           </properties>
         </test-case>
-        <test-case id="1187" name="VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" fullname="ShopTableTests.VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" methodname="VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" classname="ShopTableTests" runstate="Runnable" seed="931887112" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.001265" asserts="0">
+        <test-case id="1188" name="UnknownRewardIsRejectedBeforeRendering" fullname="ShopTableTests.UnknownRewardIsRejectedBeforeRendering" methodname="UnknownRewardIsRejectedBeforeRendering" classname="ShopTableTests" runstate="Runnable" seed="60556325" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000879" asserts="0">
+          <properties>
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+        </test-case>
+        <test-case id="1187" name="VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" fullname="ShopTableTests.VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" methodname="VisibilityHonorsHiddenLimitsUnsupportedConditionsAndPriority" classname="ShopTableTests" runstate="Runnable" seed="35928836" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.001122" asserts="0">
           <properties>
             <property name="retryIteration" value="0" />
             <property name="repeatIteration" value="0" />
@@ -1040,20 +1040,20 @@
         </test-case>
       </test-suite>
     </test-suite>
-    <test-suite type="Assembly" id="1193" name="Unity.Addressables.DocExampleCode.Editor.Tests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/Unity.Addressables.DocExampleCode.Editor.Tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000642" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1193" name="Unity.Addressables.DocExampleCode.Editor.Tests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/Unity.Addressables.DocExampleCode.Editor.Tests.dll" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000625" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="20168" />
+        <property name="_PID" value="64520" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="EditMode" />
         <property name="EditorOnly" value="True" />
       </properties>
-      <test-suite type="TestSuite" id="1194" name="AddressableAssets" fullname="AddressableAssets" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000504" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestSuite" id="1194" name="AddressableAssets" fullname="AddressableAssets" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000490" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-suite type="TestSuite" id="1195" name="DocExampleCode" fullname="AddressableAssets.DocExampleCode" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000426" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <test-suite type="TestSuite" id="1195" name="DocExampleCode" fullname="AddressableAssets.DocExampleCode" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000409" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
           <properties />
-          <test-suite type="TestFixture" id="1191" name="TestStub" fullname="AddressableAssets.DocExampleCode.TestStub" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000355" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
+          <test-suite type="TestFixture" id="1191" name="TestStub" fullname="AddressableAssets.DocExampleCode.TestStub" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000331" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
             <properties />
-            <test-case id="1192" name="RequiredTest" fullname="AddressableAssets.DocExampleCode.TestStub.RequiredTest" methodname="RequiredTest" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" seed="1084261585" result="Passed" start-time="2026-10-26 09:40:26Z" end-time="2026-10-26 09:40:26Z" duration="0.000057" asserts="0">
+            <test-case id="1192" name="RequiredTest" fullname="AddressableAssets.DocExampleCode.TestStub.RequiredTest" methodname="RequiredTest" classname="AddressableAssets.DocExampleCode.TestStub" runstate="Runnable" seed="1292253407" result="Passed" start-time="2026-10-26 15:41:06Z" end-time="2026-10-26 15:41:06Z" duration="0.000051" asserts="0">
               <properties>
                 <property name="retryIteration" value="0" />
                 <property name="repeatIteration" value="0" />
