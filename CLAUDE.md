@@ -98,6 +98,25 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 `HANDOVER.md`는 과거 작업 기록이다. 현재 운영 기준은 이 절을 따르며, 과거의 남은 작업이나 커밋 절차를 현재 요청으로 해석하지 않는다.
 
+## Bounce 레벨의 기믹 등장 규칙 (2026-10-26)
+
+사용자가 확정한 레벨 설계 기준이다. 앞으로 레벨을 제작·확장하거나 밸런스를 조정할 때 따른다.
+
+| 실제 레벨 번호 | 신규 기믹 첫 등장 | 사용할 수 있는 기믹 |
+| --- | --- | --- |
+| 1~13 | 없음 | 기믹 없이 일반 블록만 사용 |
+| 14 | 첫 번째 기믹 | 첫 번째 기믹 |
+| 15~20 | 없음 | 이미 등장한 첫 번째 기믹 |
+| 21 | 두 번째 기믹 | 첫 번째·두 번째 기믹 |
+| 22~40 | 없음 | 이미 등장한 두 종류의 기믹 |
+| 41, 61, 81, 101, … | 이후 20레벨마다 다음 신규 기믹 | 해당 레벨까지 등장한 모든 기믹 |
+
+- 신규 기믹의 첫 등장 순서는 **14 → 21 → 41 → 61 → 81 → …**이다. 첫 번째와 두 번째 사이만 7레벨이며, 이후 간격은 20레벨이다.
+- 이미 등장한 기믹은 해금 이후 어느 레벨에서든 다시 사용할 수 있다. 신규 기믹이 없는 레벨에서도 사용할 수 있으며, 여러 해금된 기믹을 혼합한 레벨 구성을 권장한다. 모든 레벨에 기믹을 반드시 넣어야 한다는 뜻은 아니다.
+- 아직 등장 시점이 되지 않은 기믹을 미리 배치하지 않는다. 등장 시점은 반복 도안 번호가 아닌 **실제 진행 레벨 번호**를 기준으로 판단한다.
+- 기믹 종류별 도입 순서는 아직 지정되지 않았다. 특정 기믹을 첫 번째·두 번째로 확정한 것으로 해석하지 않는다.
+- 기록 시점의 적용 상태: 현재 10개 사물 도안의 반복 구성에는 이 해금 규칙이 아직 반영되지 않았다. 이번 요청은 기준을 기억하는 것이며, 실제 레벨 데이터와 진행 로직의 반영은 별도 작업이다.
+
 ## Integrated Bounce project (2026-10-08)
 
 - Active game: `Assets/_Project/Bounce/`, imported from BK_Kit and adapted to BKFramework.
@@ -107,7 +126,7 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 - Bounce lobby (sf layout): home keeps the imported stage_slot path; the Play button opens `WinStreakPopup` (pre-play: streak gauge, milestones 3/5/10, next-round boosters) which calls `KitApp.Play`. Step offers run on BK.Meta `StepOffers` with `BounceStepOffers` (epoch 2026-01-05 UTC, unlock stage 2, one type per week: odd weeks vertical 4 steps, even weeks chain 7 steps; paid steps reference shop rows 1001+/1011+ and purchase through Unity IAP Fake Store in the editor). Daily rewards were removed from the lobby on 2026-10-16 (BK.Meta `DailyRewards` stays in the framework, unused by Bounce). `WinStreakPopup` is a `BouncePopupView` prefab at `Assets/_Project/Bounce/Views/` with addresses `Bounce/UI/<Name>`; regenerate with `BK > Integration > Generate Bounce UI Prefabs`. `BouncePurchases` connects shop products, the welcome deal and paid step offers to the official Unity IAP 5.4.1 Fake Store in the editor. Rewards and transaction IDs share `WalletData`; paid steps advance only after that save succeeds. Players keep purchases disabled until real store setup. See `docs/unity-iap-fake-store.md`.
 - Keep the existing `BKFramework` independent of the game module. Imported presentation remains game content, with its existing provenance.
 - Bounce cannon: `BK > Integration > Build Cannon` rebuilds the original iron/brass barrel, timber carriage, wheels and recoil assets under `Content/Cannon`. The existing `Content/Pearl/PearlCannon.prefab` path/GUID is retained for presentation references; the pearl ball is separate. The combined `Build Cannon And Pearl Ball` menu uses the same cannon builder. Verify with `VisualFlowTests.CannonPreservesLaunchAndRecoilContract` and `BounceAimTests`.
-- Level catalog: open `docs/bounce-level-catalog/index.html` or `BK Kit > Balance > Open Level Catalog`. It distinguishes the active 10 learning layouts (repeated modulo 10 after stage 10) from the inactive legacy 22, and lists block/objective counts, gimmicks, ball budgets, replayable clears and aim-error diagnostics. Rebuild with `python tools/balance/build_level_catalog.py`; import a fresh passing `BounceLearningFlowTests;BounceLearningDifficultyTests` run saved as `TestResults/level-catalog-play.xml` with `--accept-run`. Source hashes invalidate old clear/difficulty evidence after relevant changes. Automatic aim diagnostics are not human win rates or confirmed D grades.
+- Level catalog: open `docs/bounce-level-catalog/index.html` or `BK Kit > Balance > Open Level Catalog`. It distinguishes the active 10 shape layouts (repeated modulo 10 after stage 10) from the inactive legacy 22, and lists block/objective counts, gimmicks, ball budgets, replayable clears and aim-error diagnostics. Rebuild with `python tools/balance/build_level_catalog.py`; import a fresh passing `BounceLearningFlowTests;BounceLearningDifficultyTests` run saved as `TestResults/level-catalog-play.xml` with `--accept-run`. Source hashes invalidate old clear/difficulty evidence after relevant changes. Automatic aim diagnostics are not human win rates or confirmed D grades.
 - Active Bounce fonts: Lilita One (Latin) with Jua (Korean fallback), SIL OFL 1.1. Preserve each original TTF and `Resources/FontLicenses/<family>/OFL.txt` under `Assets/_Project/ThirdParty/`. Resources packages the full copyright/license notices with players; Settings > Font Licenses displays both offline. Rebuild atlases with `BK > Integration > Rebuild OFL Fonts`. Historical Kenney CC0 source/provenance is retained; do not reimport DUG fonts.
 - Bounce shop data lives in `Assets/_Project/Bounce/Content/Tables/`. Edit the JSON sources and run `BK > Integration > Import Shop Tables`. The two game tables are the only entries in `Assets/_Project/Data/TableCatalog.asset` and load through BK.Data at boot.
 - Target editor remains 6000.3.21f1. See `docs/bk-kit-integration.json` for actual validation versions/results.
