@@ -3,6 +3,7 @@
   "rootNamespace": "BK.Tests",
   "references": [
     "BK.Core",
+    "BK.Purchasing",
     "BK.Save",
     "BK.Options",
     "BK.Meta",
