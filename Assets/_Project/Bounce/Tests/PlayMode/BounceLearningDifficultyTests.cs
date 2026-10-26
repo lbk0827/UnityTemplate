@@ -13,6 +13,7 @@ using Object = UnityEngine.Object;
 
 // A sensitivity probe, not a calibrated novice/intermediate/expert or human win-rate model.
 // Uses the live game, one ball at a time, no future-state rollout and no direct damage calls.
+[Explicit("Archived ten-board prototype. Release validation is BounceReleaseFlowTests.")]
 public sealed class BounceLearningDifficultyTests
 {
     [Serializable] public sealed class Shot

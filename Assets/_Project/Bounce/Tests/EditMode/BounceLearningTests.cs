@@ -17,7 +17,7 @@ public sealed class BounceLearningTests
         Assert.That(actual.levels, Has.Length.EqualTo(10));
         Assert.That(actual.levels.Select(l => string.Join("/", l.rows)+string.Join(";",l.gimmicks.Select(JsonUtility.ToJson))).Distinct().Count(), Is.EqualTo(10));
         var presentation = AssetDatabase.LoadAssetAtPath<GamePresentation>(BounceLearningGenerator.PresentationPath);
-        Assert.That(AssetDatabase.GetAssetPath(presentation.levels), Is.EqualTo(BounceLearningGenerator.DataPath));
+        Assert.That(AssetDatabase.GetAssetPath(presentation.levels), Is.EqualTo(BounceReleaseGenerator.DataPath));
         foreach (var level in actual.levels)
         {
             Assert.That(BounceLevelLayout.Validate(level), Is.Empty);

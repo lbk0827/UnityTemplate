@@ -73,6 +73,7 @@ namespace BK.Kit
         {
             app=KitApp.Instance;
             if(app==null) {Debug.LogError("Open VisualBootstrap first.");return;}
+            app.ConfigureLevels(presentation.levels);
             // UIService already parents this view under its full-screen Content canvas.
             // A nested Canvas would leave a default 100x100 rect and collapse authored anchors.
             canvas=(RectTransform)transform;
@@ -200,6 +201,9 @@ namespace BK.Kit
             SetActive(ingameBindings,"RemainingMovesRoot",true);
             SetActive(ingameBindings,"LevelBadgeNormal",true);
             foreach(var key in new[]{"LevelBadgeHard","LevelBadgeSuperHard","LevelBadgeBonus","ModeBoxRoot","BoosterTutoRoot","AdLayoutRoot","WinStreakRevealRoot","BoosterRevealRoot"})SetActive(ingameBindings,key,false);
+            var levelData=JsonUtility.FromJson<BounceModule.Levels>(presentation.levels.text).Resolve(app.Session.Level);
+            bool hard=levelData.difficulty=="도전";
+            SetActive(ingameBindings,"LevelBadgeNormal",!hard);SetActive(ingameBindings,"LevelBadgeHard",hard);
             Active(screen,"NonStagedPanel",false);Active(screen,"UI_CountInfo",true);
             foreach(var t in screen.GetComponentsInChildren<TMP_Text>(true))if(t.name=="TXT_Level")t.text="Level "+app.Session.Level;
             Bind(ingameBindings,"IngameSettingButton",OpenSettings);
@@ -244,7 +248,16 @@ namespace BK.Kit
             if(lobby && hud!=null)
                 foreach(var top in hud.GetComponentsInChildren<VisualBindings>(true).Where(b=>b.role=="UIHUDSub_Top"))
                     Text(top.Get<VisualBindings>("gold"),"currencyCountText",app.DisplayedGold.ToString());
-            if(lobby)UpdateHeartHud();
+            if(lobby)
+            {
+                UpdateHeartHud();
+                var stage=Role(screen,"StageInfo");
+                Text(stage,"buttons.0.buttonText",app.CampaignComplete?"All clear!":"Play");
+                var play=stage?.Get<Button>("buttons.0.button");if(play!=null)play.interactable=!app.CampaignComplete;
+                Active(screen,"IMG_ComingSoonBox",app.CampaignComplete);
+                var coming=Named(screen,"IMG_ComingSoonBox");
+                if(app.CampaignComplete && coming!=null)foreach(var text in coming.GetComponentsInChildren<TMP_Text>(true))text.text="More levels coming!";
+            }
             if(!lobby && !resultShown && (app.Session.State==SessionState.Won || app.Session.State==SessionState.Lost))
             {
                 resultShown=true;
@@ -425,8 +438,8 @@ namespace BK.Kit
         {
             yield return null;
             var library=JsonUtility.FromJson<BounceModule.Levels>(presentation.levels.text);
-            var level=library.levels[(Mathf.Max(1,app.Session.Level)-1)%library.levels.Length];
-            foreach(var type in (level.gimmicks??Array.Empty<GimmickSpec>()).Select(g=>g.type).Distinct())
+            var level=library.Resolve(app.Session.Level);
+            foreach(var type in (level.gimmicks??Array.Empty<GimmickSpec>()).Select(g=>g.type).Where(t=>t!="door").Distinct())
             {
                 string key="gimmick."+type;if(app.HasSeenGuide(key))continue;
                 while(popup!=null || commonPopup!=null || app.IsLoading)yield return null;
@@ -454,6 +467,7 @@ namespace BK.Kit
         private void OpenPrePlay(int level)
         {
             if(PopupBlocked)return;
+            if(!app.HasReleasedLevel(level)){app.Play(level);return;}
             OpenPopup(app.UI.OpenAsync<WinStreakPopup,int>(WinStreakPopup.Address,level)).Forget();
         }
         private async UniTask OpenPopup<T>(UniTask<T> open)

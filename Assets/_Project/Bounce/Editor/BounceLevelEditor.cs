@@ -9,7 +9,7 @@ namespace BK.Kit.Editor
 {
     public sealed class BounceLevelEditor : EditorWindow
     {
-        public const string DataPath = BounceLearningGenerator.DataPath;
+        public const string DataPath = BounceReleaseGenerator.DataPath;
         private enum Brush { Select, Block, Erase, Tube, Cupboard, Panel, Mine, Switch, Door, Combo, Armor }
         [SerializeField] private BounceLevelDraft draft;
         [SerializeField] private int stage, selected = -1, colour = 1;
@@ -60,6 +60,8 @@ namespace BK.Kit.Editor
             for (int i = 0; i < draft.library.levels.Length; i++)
             {
                 var errors = BounceLevelLayout.Validate(draft.library.levels[i]);
+                if(draft.library.campaign)foreach(var g in draft.library.levels[i].gimmicks ?? new GimmickSpec[0])
+                    if(!BounceReleasePolicy.IsAllowed(g.type,i+1))errors.Add("아직 해금되지 않은 기믹입니다: "+g.type);
                 if (errors.Count == 0) continue;
                 stage = i; selected = -1; feedback = "저장 실패: 스테이지 " + (i + 1) + "의 배치를 수정하세요."; return false;
             }

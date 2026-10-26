@@ -14,6 +14,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Object = UnityEngine.Object;
 
+[Explicit("Archived ten-board prototype. Release validation is BounceReleaseFlowTests.")]
 public sealed class BounceLearningFlowTests
 {
     [Serializable] public sealed class ShotRecord { public float angle; public int before, after; }

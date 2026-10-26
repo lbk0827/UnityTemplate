@@ -16,7 +16,7 @@ namespace BK.Kit.Editor
         public const string LegacyPath = "Assets/_Project/Bounce/Content/bounce-levels.json";
         public const string PresentationPath = "Assets/_Project/Bounce/Content/Presentation.asset";
 
-        [MenuItem("BK Kit/Balance/Generate Shape Levels 1-10")]
+        // Archived prototype generator; release content is authored by BounceReleaseGenerator.
         public static void GenerateAndApply()
         {
             var library = Create(Seed);

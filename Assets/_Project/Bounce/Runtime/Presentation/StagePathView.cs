@@ -23,6 +23,7 @@ namespace BK.Kit
         {
             art=presentation;
             var app=KitApp.Instance;
+            if(app.CampaignComplete){app.ConsumeStageAdvance();return;}
             var content=stage.Get<RectTransform>("levelContentRoot");
             var prefab=stage.Get<GameObject>("levelSlotPrefab");
             if(content==null || prefab==null)return;
@@ -35,7 +36,7 @@ namespace BK.Kit
             input.interactable=input.blocksRaycasts=!IsAdvancing;
             for(int i=0;i<(IsAdvancing?9:8);i++)
             {
-                if((long)first+i>int.MaxValue)break;
+                if((long)first+i>int.MaxValue || !app.HasReleasedLevel(first+i))break;
                 int level=first+i;var go=Instantiate(prefab,content,false);go.name="Stage_Slot_"+level;go.SetActive(true);
                 var b=go.GetComponent<VisualBindings>();
                 foreach(var key in new[]{"hardText","veryHardText","feverText"})SetActive(b,key,false);

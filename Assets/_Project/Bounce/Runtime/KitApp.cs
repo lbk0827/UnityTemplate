@@ -80,7 +80,15 @@ namespace BK.Kit
         public bool HeartsInfinite => services.Wallet.IsInfinite(BounceCurrencies.Heart);
         public bool HeartsFull => HeartsInfinite || Hearts >= BounceCurrencies.HeartMax;
         public TimeSpan TimeToNextHeart => services.Wallet.TimeToNext(BounceCurrencies.Heart);
-        public bool CanEnter(int level) => services.Progress.CanEnter(level);
+        public int ReleasedLevelCount { get; private set; } = int.MaxValue;
+        public bool CampaignComplete => UnlockedLevel > ReleasedLevelCount;
+        public bool HasReleasedLevel(int level) => level >= 1 && level <= ReleasedLevelCount;
+        public void ConfigureLevels(TextAsset source)
+        {
+            var library=JsonUtility.FromJson<BounceModule.Levels>(source.text);
+            ReleasedLevelCount=library.campaign?library.levels.Length:int.MaxValue;
+        }
+        public bool CanEnter(int level) => HasReleasedLevel(level) && services.Progress.CanEnter(level);
         public bool HasSeenGuide(string id) => profile.seenGuides != null && profile.seenGuides.Contains(id);
         public void MarkGuideSeen(string id)
         {
@@ -136,6 +144,11 @@ namespace BK.Kit
         {
             if (IsLoading || IsAdBusy || !UsesFrameworkServices) return;
             level = Mathf.Clamp(level, 1, UnlockedLevel);
+            if (!HasReleasedLevel(level))
+            {
+                services.Messages.ShowAsync("All levels cleared", "You've completed all available levels. More levels are coming!", "OK").Forget();
+                return;
+            }
             if (!services.Progress.TryStart(level))
             {
                 if(HeartsRequired!=null)HeartsRequired.Invoke();

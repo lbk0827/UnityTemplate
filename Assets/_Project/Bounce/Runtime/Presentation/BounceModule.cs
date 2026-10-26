@@ -14,12 +14,22 @@ namespace BK.Kit
         {
             public int balls, gridRows;
             public string title, intent;
+            public string chapter, difficulty, introduction;
             public string[] rows;
             public GimmickSpec[] gimmicks;
             // Missing/zero means the original 13-row arena, including short legacy layouts.
             public int GridRows => gridRows == 0 ? 13 : gridRows;
         }
-        [Serializable] public sealed class Levels { public Level[] levels; }
+        [Serializable] public sealed class Levels
+        {
+            public bool campaign;
+            public Level[] levels;
+            public Level Resolve(int stage)
+            {
+                if (campaign && (stage < 1 || stage > levels.Length)) throw new ArgumentOutOfRangeException(nameof(stage), "No released level at this stage.");
+                return levels[(Mathf.Max(1, stage)-1)%levels.Length];
+            }
+        }
         [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp, skin; }
         private sealed class Shot { public int id; public GameObject visual; public Vector3 position, direction; public float age; }
         public GamePresentation presentation;
@@ -67,7 +77,7 @@ namespace BK.Kit
             nextImpactSound=0;nextShotId=0;
             completed = onCompleted;
             var library = JsonUtility.FromJson<Levels>(presentation.levels.text);
-            var data = library.levels[(Mathf.Max(1, level)-1)%library.levels.Length];
+            var data = library.Resolve(level);
             columns = data.rows[0].Length;
             gridRows = data.GridRows;
             BallsRemaining = data.balls;
