@@ -2,11 +2,11 @@
   "activeSource": "Assets/_Project/Bounce/Content/bounce-learning-levels.json",
   "archiveSource": "Assets/_Project/Bounce/Content/bounce-levels.json",
   "activeCount": 10,
-  "verifiedAt": "2026-10-26 06:21:54Z",
+  "verifiedAt": "2026-10-26 08:24:36Z",
   "fresh": true,
   "staleSources": [],
-  "testedCommit": "d2a531381ac15566fb299df2ed94ce2db71630cb",
-  "testsPassed": 3,
+  "testedCommit": "ddb01d4e6601c3406cedf98dea2ae54c389d1dc4",
+  "testsPassed": 4,
   "names": {
     "tube": "금속관",
     "cupboard": "찬장",
@@ -32,32 +32,992 @@
       "id": "active-1",
       "stage": 1,
       "library": "active",
-      "balls": 8,
-      "blocks": 6,
-      "objectives": 6,
-      "columns": 9,
-      "height": 13,
+      "balls": 42,
+      "blocks": 74,
+      "objectives": 74,
+      "columns": 13,
+      "height": 15,
       "rows": [
-        ".........",
-        ".........",
-        ".........",
-        "...111...",
-        "...111...",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        ".............",
+        "..555...555..",
+        ".55555.55555.",
+        ".55855555555.",
+        ".55855555555.",
+        ".55555555555.",
+        "..555555555..",
+        "...5555555...",
+        "....55555....",
+        ".....555.....",
+        "......5......",
+        ".............",
+        ".............",
+        ".............",
+        "............."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "첫 조준",
-      "intent": "넓은 중앙 목표 6개로 조준과 소모되는 공을 이해합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "title": "루비 하트",
+      "intent": "두 갈래 곡선을 따라 반사시켜 넓은 하트 내부를 정리합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
+      "status": "클리어·재현 확인",
+      "pressure": "빠듯",
+      "groups": [
+        {
+          "error": 0,
+          "wins": 0,
+          "count": 1,
+          "medianShots": 42,
+          "medianSeconds": 99.4
+        },
+        {
+          "error": 2,
+          "wins": 0,
+          "count": 4,
+          "medianShots": 42.0,
+          "medianSeconds": 90.2
+        },
+        {
+          "error": 5,
+          "wins": 0,
+          "count": 4,
+          "medianShots": 42.0,
+          "medianSeconds": 75.7
+        }
+      ],
+      "route": {
+        "stage": 1,
+        "budget": 42,
+        "objectives": 74,
+        "shots": [
+          {
+            "angle": 0.0,
+            "before": 74,
+            "after": 73
+          },
+          {
+            "angle": 0.0,
+            "before": 73,
+            "after": 72
+          },
+          {
+            "angle": 0.0,
+            "before": 72,
+            "after": 71
+          },
+          {
+            "angle": 0.0,
+            "before": 71,
+            "after": 70
+          },
+          {
+            "angle": 0.0,
+            "before": 70,
+            "after": 69
+          },
+          {
+            "angle": 0.0,
+            "before": 69,
+            "after": 67
+          },
+          {
+            "angle": 6.0,
+            "before": 67,
+            "after": 66
+          },
+          {
+            "angle": 0.0,
+            "before": 66,
+            "after": 65
+          },
+          {
+            "angle": 0.0,
+            "before": 65,
+            "after": 63
+          },
+          {
+            "angle": 5.0,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": -53.5,
+            "before": 62,
+            "after": 59
+          },
+          {
+            "angle": -6.0,
+            "before": 59,
+            "after": 58
+          },
+          {
+            "angle": -16.0,
+            "before": 58,
+            "after": 56
+          },
+          {
+            "angle": -5.5,
+            "before": 56,
+            "after": 55
+          },
+          {
+            "angle": -5.0,
+            "before": 55,
+            "after": 54
+          },
+          {
+            "angle": -36.5,
+            "before": 54,
+            "after": 50
+          },
+          {
+            "angle": 16.0,
+            "before": 50,
+            "after": 47
+          },
+          {
+            "angle": -13.5,
+            "before": 47,
+            "after": 36
+          },
+          {
+            "angle": -16.5,
+            "before": 36,
+            "after": 35
+          },
+          {
+            "angle": 40.0,
+            "before": 35,
+            "after": 34
+          },
+          {
+            "angle": 12.5,
+            "before": 34,
+            "after": 29
+          },
+          {
+            "angle": 16.5,
+            "before": 29,
+            "after": 28
+          },
+          {
+            "angle": 45.0,
+            "before": 28,
+            "after": 24
+          },
+          {
+            "angle": 45.0,
+            "before": 24,
+            "after": 17
+          },
+          {
+            "angle": 70.5,
+            "before": 17,
+            "after": 16
+          },
+          {
+            "angle": 14.5,
+            "before": 16,
+            "after": 14
+          },
+          {
+            "angle": 31.5,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": 19.0,
+            "before": 13,
+            "after": 12
+          },
+          {
+            "angle": -48.5,
+            "before": 12,
+            "after": 11
+          },
+          {
+            "angle": 75.0,
+            "before": 11,
+            "after": 10
+          },
+          {
+            "angle": 48.5,
+            "before": 10,
+            "after": 9
+          },
+          {
+            "angle": -75.0,
+            "before": 9,
+            "after": 8
+          },
+          {
+            "angle": -56.0,
+            "before": 8,
+            "after": 5
+          },
+          {
+            "angle": 56.0,
+            "before": 5,
+            "after": 2
+          },
+          {
+            "angle": -41.0,
+            "before": 2,
+            "after": 1
+          },
+          {
+            "angle": 34.0,
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "replayPassed": true
+      },
+      "witnessShots": 36,
+      "spareBalls": 6,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
+    },
+    {
+      "id": "active-2",
+      "stage": 2,
+      "library": "active",
+      "balls": 50,
+      "blocks": 93,
+      "objectives": 93,
+      "columns": 15,
+      "height": 17,
+      "rows": [
+        "...............",
+        ".......9.11....",
+        ".......91111...",
+        ".......91......",
+        "....555.555....",
+        "...558555555...",
+        "..55885555555..",
+        "..55855555555..",
+        "..55555555555..",
+        "..55555555555..",
+        "...555555555...",
+        "...555555555...",
+        "....555.555....",
+        "...............",
+        "...............",
+        "...............",
+        "..............."
+      ],
+      "gimmicks": [],
+      "gimmickCounts": {},
+      "gimmickLabel": "없음",
+      "title": "빨간 사과",
+      "intent": "잎과 꼭지까지 남김없이 제거해야 합니다. 외곽 반사로 윗부분에 진입하세요.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
+      "status": "클리어·재현 확인",
+      "pressure": "빠듯",
+      "groups": [
+        {
+          "error": 0,
+          "wins": 0,
+          "count": 1,
+          "medianShots": 50,
+          "medianSeconds": 78.6
+        },
+        {
+          "error": 2,
+          "wins": 0,
+          "count": 4,
+          "medianShots": 50.0,
+          "medianSeconds": 74.7
+        },
+        {
+          "error": 5,
+          "wins": 1,
+          "count": 4,
+          "medianShots": 50.0,
+          "medianSeconds": 89.4
+        }
+      ],
+      "route": {
+        "stage": 2,
+        "budget": 50,
+        "objectives": 93,
+        "shots": [
+          {
+            "angle": 0.0,
+            "before": 93,
+            "after": 92
+          },
+          {
+            "angle": 0.0,
+            "before": 92,
+            "after": 91
+          },
+          {
+            "angle": 0.0,
+            "before": 91,
+            "after": 90
+          },
+          {
+            "angle": 0.0,
+            "before": 90,
+            "after": 88
+          },
+          {
+            "angle": 0.0,
+            "before": 88,
+            "after": 86
+          },
+          {
+            "angle": 6.0,
+            "before": 86,
+            "after": 85
+          },
+          {
+            "angle": 0.0,
+            "before": 85,
+            "after": 84
+          },
+          {
+            "angle": 0.0,
+            "before": 84,
+            "after": 82
+          },
+          {
+            "angle": -51.0,
+            "before": 82,
+            "after": 79
+          },
+          {
+            "angle": 0.0,
+            "before": 79,
+            "after": 76
+          },
+          {
+            "angle": -15.0,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": 15.0,
+            "before": 75,
+            "after": 74
+          },
+          {
+            "angle": 0.0,
+            "before": 74,
+            "after": 71
+          },
+          {
+            "angle": -6.0,
+            "before": 71,
+            "after": 70
+          },
+          {
+            "angle": 5.0,
+            "before": 70,
+            "after": 69
+          },
+          {
+            "angle": 0.0,
+            "before": 69,
+            "after": 67
+          },
+          {
+            "angle": -5.5,
+            "before": 67,
+            "after": 66
+          },
+          {
+            "angle": -5.0,
+            "before": 66,
+            "after": 65
+          },
+          {
+            "angle": -4.5,
+            "before": 65,
+            "after": 64
+          },
+          {
+            "angle": 39.5,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": 72.5,
+            "before": 63,
+            "after": 57
+          },
+          {
+            "angle": -72.5,
+            "before": 57,
+            "after": 47
+          },
+          {
+            "angle": 45.0,
+            "before": 47,
+            "after": 46
+          },
+          {
+            "angle": -40.0,
+            "before": 46,
+            "after": 45
+          },
+          {
+            "angle": -70.5,
+            "before": 45,
+            "after": 42
+          },
+          {
+            "angle": 40.0,
+            "before": 42,
+            "after": 41
+          },
+          {
+            "angle": 70.5,
+            "before": 41,
+            "after": 36
+          },
+          {
+            "angle": 12.0,
+            "before": 36,
+            "after": 35
+          },
+          {
+            "angle": 50.0,
+            "before": 35,
+            "after": 34
+          },
+          {
+            "angle": 57.5,
+            "before": 34,
+            "after": 30
+          },
+          {
+            "angle": 45.0,
+            "before": 30,
+            "after": 29
+          },
+          {
+            "angle": 12.5,
+            "before": 29,
+            "after": 28
+          },
+          {
+            "angle": -4.0,
+            "before": 28,
+            "after": 26
+          },
+          {
+            "angle": 25.5,
+            "before": 26,
+            "after": 22
+          },
+          {
+            "angle": 8.5,
+            "before": 22,
+            "after": 21
+          },
+          {
+            "angle": 45.0,
+            "before": 21,
+            "after": 15
+          },
+          {
+            "angle": -12.5,
+            "before": 15,
+            "after": 14
+          },
+          {
+            "angle": -8.5,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": -45.0,
+            "before": 13,
+            "after": 7
+          },
+          {
+            "angle": 3.5,
+            "before": 7,
+            "after": 6
+          },
+          {
+            "angle": -27.5,
+            "before": 6,
+            "after": 1
+          },
+          {
+            "angle": 4.5,
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "replayPassed": true
+      },
+      "witnessShots": 42,
+      "spareBalls": 8,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
+    },
+    {
+      "id": "active-3",
+      "stage": 3,
+      "library": "active",
+      "balls": 82,
+      "blocks": 120,
+      "objectives": 120,
+      "columns": 21,
+      "height": 17,
+      "rows": [
+        ".....................",
+        ".......7.7...........",
+        "......77.77..........",
+        "........7............",
+        "......222222.........",
+        "....2222222222.......",
+        "...222222222222......",
+        "..22222222222222..22.",
+        "..222922222222222222.",
+        "..228888888222222222.",
+        "...8888888888822222..",
+        "....8888888882222....",
+        "......2222...........",
+        ".....................",
+        ".....................",
+        ".....................",
+        "....................."
+      ],
+      "gimmicks": [],
+      "gimmickCounts": {},
+      "gimmickLabel": "없음",
+      "title": "푸른 고래",
+      "intent": "넓은 몸통과 떨어진 물줄기, 꼬리를 모두 공략하는 가로형 보드입니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
+      "status": "클리어·재현 확인",
+      "pressure": "빠듯",
+      "groups": [
+        {
+          "error": 0,
+          "wins": 0,
+          "count": 1,
+          "medianShots": 82,
+          "medianSeconds": 96.1
+        },
+        {
+          "error": 2,
+          "wins": 0,
+          "count": 4,
+          "medianShots": 82.0,
+          "medianSeconds": 123.8
+        },
+        {
+          "error": 5,
+          "wins": 3,
+          "count": 4,
+          "medianShots": 77.5,
+          "medianSeconds": 129.6
+        }
+      ],
+      "route": {
+        "stage": 3,
+        "budget": 82,
+        "objectives": 120,
+        "shots": [
+          {
+            "angle": 0.0,
+            "before": 120,
+            "after": 119
+          },
+          {
+            "angle": 0.0,
+            "before": 119,
+            "after": 118
+          },
+          {
+            "angle": 0.0,
+            "before": 118,
+            "after": 117
+          },
+          {
+            "angle": 0.0,
+            "before": 117,
+            "after": 116
+          },
+          {
+            "angle": 0.0,
+            "before": 116,
+            "after": 114
+          },
+          {
+            "angle": 6.0,
+            "before": 114,
+            "after": 113
+          },
+          {
+            "angle": 0.0,
+            "before": 113,
+            "after": 112
+          },
+          {
+            "angle": 0.0,
+            "before": 112,
+            "after": 110
+          },
+          {
+            "angle": 0.0,
+            "before": 110,
+            "after": 108
+          },
+          {
+            "angle": 30.5,
+            "before": 108,
+            "after": 107
+          },
+          {
+            "angle": -15.0,
+            "before": 107,
+            "after": 106
+          },
+          {
+            "angle": 0.0,
+            "before": 106,
+            "after": 103
+          },
+          {
+            "angle": 19.5,
+            "before": 103,
+            "after": 102
+          },
+          {
+            "angle": -28.0,
+            "before": 102,
+            "after": 101
+          },
+          {
+            "angle": -30.5,
+            "before": 101,
+            "after": 100
+          },
+          {
+            "angle": -7.5,
+            "before": 100,
+            "after": 99
+          },
+          {
+            "angle": -6.0,
+            "before": 99,
+            "after": 98
+          },
+          {
+            "angle": -5.5,
+            "before": 98,
+            "after": 97
+          },
+          {
+            "angle": -5.0,
+            "before": 97,
+            "after": 96
+          },
+          {
+            "angle": -50.0,
+            "before": 96,
+            "after": 95
+          },
+          {
+            "angle": -4.5,
+            "before": 95,
+            "after": 94
+          },
+          {
+            "angle": 4.5,
+            "before": 94,
+            "after": 93
+          },
+          {
+            "angle": 4.0,
+            "before": 93,
+            "after": 91
+          },
+          {
+            "angle": -22.0,
+            "before": 91,
+            "after": 90
+          },
+          {
+            "angle": -19.5,
+            "before": 90,
+            "after": 89
+          },
+          {
+            "angle": -25.0,
+            "before": 89,
+            "after": 88
+          },
+          {
+            "angle": -23.0,
+            "before": 88,
+            "after": 87
+          },
+          {
+            "angle": 25.0,
+            "before": 87,
+            "after": 86
+          },
+          {
+            "angle": 23.0,
+            "before": 86,
+            "after": 85
+          },
+          {
+            "angle": 47.5,
+            "before": 85,
+            "after": 84
+          },
+          {
+            "angle": 45.0,
+            "before": 84,
+            "after": 83
+          },
+          {
+            "angle": -13.0,
+            "before": 83,
+            "after": 82
+          },
+          {
+            "angle": -17.5,
+            "before": 82,
+            "after": 81
+          },
+          {
+            "angle": -12.0,
+            "before": 81,
+            "after": 80
+          },
+          {
+            "angle": -16.0,
+            "before": 80,
+            "after": 79
+          },
+          {
+            "angle": -21.0,
+            "before": 79,
+            "after": 78
+          },
+          {
+            "angle": 13.0,
+            "before": 78,
+            "after": 77
+          },
+          {
+            "angle": 17.5,
+            "before": 77,
+            "after": 76
+          },
+          {
+            "angle": 12.0,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": 16.0,
+            "before": 75,
+            "after": 74
+          },
+          {
+            "angle": 65.0,
+            "before": 74,
+            "after": 65
+          },
+          {
+            "angle": -4.0,
+            "before": 65,
+            "after": 64
+          },
+          {
+            "angle": 9.0,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": 12.5,
+            "before": 63,
+            "after": 61
+          },
+          {
+            "angle": 8.5,
+            "before": 61,
+            "after": 60
+          },
+          {
+            "angle": -10.0,
+            "before": 60,
+            "after": 59
+          },
+          {
+            "angle": -13.5,
+            "before": 59,
+            "after": 58
+          },
+          {
+            "angle": -12.5,
+            "before": 58,
+            "after": 57
+          },
+          {
+            "angle": -8.5,
+            "before": 57,
+            "after": 56
+          },
+          {
+            "angle": -63.0,
+            "before": 56,
+            "after": 52
+          },
+          {
+            "angle": 16.5,
+            "before": 52,
+            "after": 50
+          },
+          {
+            "angle": 16.5,
+            "before": 50,
+            "after": 32
+          },
+          {
+            "angle": 4.5,
+            "before": 32,
+            "after": 31
+          },
+          {
+            "angle": 63.0,
+            "before": 31,
+            "after": 27
+          },
+          {
+            "angle": -15.5,
+            "before": 27,
+            "after": 25
+          },
+          {
+            "angle": -16.5,
+            "before": 25,
+            "after": 22
+          },
+          {
+            "angle": -14.5,
+            "before": 22,
+            "after": 21
+          },
+          {
+            "angle": 14.0,
+            "before": 21,
+            "after": 20
+          },
+          {
+            "angle": -66.5,
+            "before": 20,
+            "after": 16
+          },
+          {
+            "angle": -49.5,
+            "before": 16,
+            "after": 14
+          },
+          {
+            "angle": -58.5,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": -25.5,
+            "before": 13,
+            "after": 12
+          },
+          {
+            "angle": -23.5,
+            "before": 12,
+            "after": 11
+          },
+          {
+            "angle": -54.0,
+            "before": 11,
+            "after": 6
+          },
+          {
+            "angle": -46.5,
+            "before": 6,
+            "after": 5
+          },
+          {
+            "angle": 35.0,
+            "before": 5,
+            "after": 4
+          },
+          {
+            "angle": 40.0,
+            "before": 4,
+            "after": 3
+          },
+          {
+            "angle": 50.0,
+            "before": 3,
+            "after": 2
+          },
+          {
+            "angle": 25.0,
+            "before": 2,
+            "after": 1
+          },
+          {
+            "angle": 32.5,
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "replayPassed": true
+      },
+      "witnessShots": 70,
+      "spareBalls": 12,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
+    },
+    {
+      "id": "active-4",
+      "stage": 4,
+      "library": "active",
+      "balls": 56,
+      "blocks": 80,
+      "objectives": 80,
+      "columns": 15,
+      "height": 19,
+      "rows": [
+        "...............",
+        "...3...3...3...",
+        "...33.333.33...",
+        "...333333333...",
+        "...338333333...",
+        "...338333333...",
+        "....3333333....",
+        ".....33333.....",
+        ".......1.......",
+        "..11...1...11..",
+        "..111..1..111..",
+        "...111111111...",
+        "....1111111....",
+        ".......1.......",
+        ".......1.......",
+        "...............",
+        "...............",
+        "...............",
+        "..............."
+      ],
+      "gimmicks": [],
+      "gimmickCounts": {},
+      "gimmickLabel": "없음",
+      "title": "봄 튤립",
+      "intent": "꽃잎의 홈과 가는 줄기가 서로 다른 조준을 요구합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
       "pressure": "보통",
       "groups": [
@@ -65,528 +1025,691 @@
           "error": 0,
           "wins": 1,
           "count": 1,
-          "medianShots": 6,
-          "medianSeconds": 6.2
+          "medianShots": 41,
+          "medianSeconds": 81.7
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 6.0,
-          "medianSeconds": 6.2
+          "wins": 3,
+          "count": 4,
+          "medianShots": 54.5,
+          "medianSeconds": 130.4
         },
         {
           "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 5.0,
-          "medianSeconds": 8.1
-        }
-      ],
-      "route": {
-        "stage": 1,
-        "budget": 8,
-        "objectives": 6,
-        "shots": [
-          {
-            "angle": 0.0,
-            "before": 6,
-            "after": 5
-          },
-          {
-            "angle": 0.0,
-            "before": 5,
-            "after": 4
-          },
-          {
-            "angle": -5.0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": 5.0,
-            "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -52.0,
-            "before": 2,
-            "after": 0
-          }
-        ],
-        "replayPassed": true
-      },
-      "witnessShots": 5,
-      "spareBalls": 3,
-      "consumption": 75,
-      "note": "직선 조준과 자연스러운 반사만으로도 탄 여유가 관찰됐습니다."
-    },
-    {
-      "id": "active-2",
-      "stage": 2,
-      "library": "active",
-      "balls": 10,
-      "blocks": 11,
-      "objectives": 11,
-      "columns": 9,
-      "height": 13,
-      "rows": [
-        ".........",
-        ".........",
-        "...222...",
-        "..22222..",
-        "...222...",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
-      ],
-      "gimmicks": [],
-      "gimmickCounts": {},
-      "gimmickLabel": "없음",
-      "title": "넓은 면과 반사",
-      "intent": "마름모 배열의 넓은 면에서 튕기는 방향을 살펴봅니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
-      "status": "클리어·재현 확인",
-      "pressure": "빠듯",
-      "groups": [
-        {
-          "error": 0,
-          "wins": 1,
-          "count": 1,
-          "medianShots": 10,
-          "medianSeconds": 15.2
-        },
-        {
-          "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 7.0,
-          "medianSeconds": 15.3
-        },
-        {
-          "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 8.5,
-          "medianSeconds": 18.3
-        }
-      ],
-      "route": {
-        "stage": 2,
-        "budget": 10,
-        "objectives": 11,
-        "shots": [
-          {
-            "angle": 0.0,
-            "before": 11,
-            "after": 10
-          },
-          {
-            "angle": 0.0,
-            "before": 10,
-            "after": 9
-          },
-          {
-            "angle": 0.0,
-            "before": 9,
-            "after": 8
-          },
-          {
-            "angle": -5.0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": 5.0,
-            "before": 7,
-            "after": 6
-          },
-          {
-            "angle": -27.5,
-            "before": 6,
-            "after": 2
-          },
-          {
-            "angle": 27.5,
-            "before": 2,
-            "after": 0
-          }
-        ],
-        "replayPassed": true
-      },
-      "witnessShots": 7,
-      "spareBalls": 3,
-      "consumption": 100,
-      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요."
-    },
-    {
-      "id": "active-3",
-      "stage": 3,
-      "library": "active",
-      "balls": 12,
-      "blocks": 12,
-      "objectives": 12,
-      "columns": 9,
-      "height": 13,
-      "rows": [
-        ".........",
-        ".........",
-        ".11...11.",
-        ".11...11.",
-        ".11...11.",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
-      ],
-      "gimmicks": [],
-      "gimmickCounts": {},
-      "gimmickLabel": "없음",
-      "title": "좌우 목표 나누기",
-      "intent": "떨어진 두 묶음을 보며 조준 방향을 바꿉니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
-      "status": "클리어·재현 확인",
-      "pressure": "여유",
-      "groups": [
-        {
-          "error": 0,
-          "wins": 1,
-          "count": 1,
-          "medianShots": 6,
-          "medianSeconds": 29.8
-        },
-        {
-          "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 5.0,
-          "medianSeconds": 23.8
-        },
-        {
-          "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 5.0,
-          "medianSeconds": 17.0
-        }
-      ],
-      "route": {
-        "stage": 3,
-        "budget": 12,
-        "objectives": 12,
-        "shots": [
-          {
-            "angle": -29.5,
-            "before": 12,
-            "after": 10
-          },
-          {
-            "angle": 45.0,
-            "before": 10,
-            "after": 8
-          },
-          {
-            "angle": -13.5,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": 13.5,
-            "before": 7,
-            "after": 6
-          },
-          {
-            "angle": -27.5,
-            "before": 6,
-            "after": 4
-          },
-          {
-            "angle": 27.5,
-            "before": 4,
-            "after": 2
-          },
-          {
-            "angle": -12.5,
-            "before": 2,
-            "after": 1
-          },
-          {
-            "angle": 12.5,
-            "before": 1,
-            "after": 0
-          }
-        ],
-        "replayPassed": true
-      },
-      "witnessShots": 8,
-      "spareBalls": 4,
-      "consumption": 50,
-      "note": "직선 조준과 자연스러운 반사만으로도 탄 여유가 관찰됐습니다."
-    },
-    {
-      "id": "active-4",
-      "stage": 4,
-      "library": "active",
-      "balls": 18,
-      "blocks": 16,
-      "objectives": 16,
-      "columns": 9,
-      "height": 13,
-      "rows": [
-        ".........",
-        ".22...22.",
-        ".22...22.",
-        ".22...22.",
-        ".22...22.",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
-      ],
-      "gimmicks": [],
-      "gimmickCounts": {},
-      "gimmickLabel": "없음",
-      "title": "벽과 중앙 통로",
-      "intent": "중앙 통로와 벽 반사를 실험합니다. 하드 역할은 아닙니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
-      "status": "클리어·재현 확인",
-      "pressure": "여유",
-      "groups": [
-        {
-          "error": 0,
-          "wins": 1,
-          "count": 1,
-          "medianShots": 8,
-          "medianSeconds": 49.0
-        },
-        {
-          "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 6.5,
-          "medianSeconds": 21.2
-        },
-        {
-          "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 7.0,
-          "medianSeconds": 24.5
+          "wins": 4,
+          "count": 4,
+          "medianShots": 42.0,
+          "medianSeconds": 105.1
         }
       ],
       "route": {
         "stage": 4,
-        "budget": 18,
-        "objectives": 16,
+        "budget": 56,
+        "objectives": 80,
         "shots": [
           {
-            "angle": -29.5,
-            "before": 16,
-            "after": 14
+            "angle": 0.0,
+            "before": 80,
+            "after": 79
+          },
+          {
+            "angle": 0.0,
+            "before": 79,
+            "after": 78
+          },
+          {
+            "angle": 0.0,
+            "before": 78,
+            "after": 77
+          },
+          {
+            "angle": 0.0,
+            "before": 77,
+            "after": 76
+          },
+          {
+            "angle": -6.0,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": 6.0,
+            "before": 75,
+            "after": 74
+          },
+          {
+            "angle": 0.0,
+            "before": 74,
+            "after": 73
+          },
+          {
+            "angle": 0.0,
+            "before": 73,
+            "after": 72
+          },
+          {
+            "angle": 0.0,
+            "before": 72,
+            "after": 71
+          },
+          {
+            "angle": -17.5,
+            "before": 71,
+            "after": 70
+          },
+          {
+            "angle": 17.5,
+            "before": 70,
+            "after": 69
+          },
+          {
+            "angle": 0.0,
+            "before": 69,
+            "after": 67
+          },
+          {
+            "angle": -45.0,
+            "before": 67,
+            "after": 66
+          },
+          {
+            "angle": -23.5,
+            "before": 66,
+            "after": 65
           },
           {
             "angle": 45.0,
-            "before": 14,
-            "after": 12
+            "before": 65,
+            "after": 64
           },
           {
-            "angle": -13.5,
-            "before": 12,
+            "angle": 23.5,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": 0.0,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": 0.0,
+            "before": 62,
+            "after": 61
+          },
+          {
+            "angle": 0.0,
+            "before": 61,
+            "after": 60
+          },
+          {
+            "angle": 0.0,
+            "before": 60,
+            "after": 58
+          },
+          {
+            "angle": 0.0,
+            "before": 58,
+            "after": 55
+          },
+          {
+            "angle": 0.0,
+            "before": 55,
+            "after": 53
+          },
+          {
+            "angle": 72.5,
+            "before": 53,
+            "after": 52
+          },
+          {
+            "angle": -72.5,
+            "before": 52,
+            "after": 51
+          },
+          {
+            "angle": -4.0,
+            "before": 51,
+            "after": 49
+          },
+          {
+            "angle": -12.0,
+            "before": 49,
+            "after": 48
+          },
+          {
+            "angle": -16.0,
+            "before": 48,
+            "after": 47
+          },
+          {
+            "angle": 12.0,
+            "before": 47,
+            "after": 46
+          },
+          {
+            "angle": 16.0,
+            "before": 46,
+            "after": 45
+          },
+          {
+            "angle": 50.0,
+            "before": 45,
+            "after": 44
+          },
+          {
+            "angle": -32.5,
+            "before": 44,
+            "after": 35
+          },
+          {
+            "angle": 32.5,
+            "before": 35,
+            "after": 34
+          },
+          {
+            "angle": -71.5,
+            "before": 34,
+            "after": 31
+          },
+          {
+            "angle": -45.0,
+            "before": 31,
+            "after": 30
+          },
+          {
+            "angle": 31.0,
+            "before": 30,
+            "after": 28
+          },
+          {
+            "angle": -53.5,
+            "before": 28,
+            "after": 15
+          },
+          {
+            "angle": 6.5,
+            "before": 15,
+            "after": 14
+          },
+          {
+            "angle": -3.5,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": 45.0,
+            "before": 13,
             "after": 11
           },
           {
-            "angle": 13.5,
+            "angle": -6.5,
             "before": 11,
             "after": 10
           },
           {
-            "angle": -27.5,
+            "angle": 70.0,
             "before": 10,
+            "after": 9
+          },
+          {
+            "angle": -70.0,
+            "before": 9,
             "after": 8
           },
           {
-            "angle": 27.5,
+            "angle": 58.0,
             "before": 8,
-            "after": 6
-          },
-          {
-            "angle": -12.5,
-            "before": 6,
             "after": 5
           },
           {
-            "angle": 12.5,
+            "angle": -38.5,
             "before": 5,
             "after": 4
           },
           {
-            "angle": -44.0,
+            "angle": -30.5,
             "before": 4,
             "after": 3
           },
           {
-            "angle": 44.0,
+            "angle": 43.5,
             "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -63.0,
-            "before": 2,
             "after": 1
           },
           {
-            "angle": 63.0,
+            "angle": 40.0,
             "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 12,
-      "spareBalls": 6,
-      "consumption": 44,
-      "note": "직선 조준과 자연스러운 반사만으로도 탄 여유가 관찰됐습니다."
+      "witnessShots": 47,
+      "spareBalls": 9,
+      "consumption": 73,
+      "note": "직선 조준과 자연스러운 반사만으로도 탄 여유가 관찰됐습니다. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "active-5",
       "stage": 5,
       "library": "active",
-      "balls": 10,
-      "blocks": 9,
-      "objectives": 9,
-      "columns": 9,
-      "height": 13,
+      "balls": 73,
+      "blocks": 133,
+      "objectives": 133,
+      "columns": 17,
+      "height": 18,
       "rows": [
-        ".........",
-        ".........",
-        ".........",
-        "...111...",
-        "...111...",
-        "...111...",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        ".................",
+        "......9...9......",
+        "..33...9.9...33..",
+        ".33333..9..33333.",
+        ".338333999333833.",
+        ".334433999334433.",
+        "..3443399933443..",
+        "...33339993333...",
+        "....222999222....",
+        "...22729992722...",
+        "..2227299927222..",
+        "..2222299922222..",
+        "...2222.9.2222...",
+        "....22..9..22....",
+        ".................",
+        ".................",
+        ".................",
+        "................."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "짧은 복습",
-      "intent": "작은 중앙 묶음으로 부담을 낮추고 복습합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "title": "무지개 나비",
+      "intent": "양쪽 날개를 번갈아 공략합니다. 여러 색은 내구도가 아닌 그림의 일부입니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
       "pressure": "빠듯",
       "groups": [
         {
           "error": 0,
-          "wins": 1,
+          "wins": 0,
           "count": 1,
-          "medianShots": 9,
-          "medianSeconds": 9.1
+          "medianShots": 73,
+          "medianSeconds": 128.7
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 9.0,
-          "medianSeconds": 9.1
+          "wins": 1,
+          "count": 4,
+          "medianShots": 73.0,
+          "medianSeconds": 135.4
         },
         {
           "error": 5,
-          "wins": 11,
-          "count": 12,
-          "medianShots": 8.5,
-          "medianSeconds": 11.4
+          "wins": 1,
+          "count": 4,
+          "medianShots": 73.0,
+          "medianSeconds": 155.0
         }
       ],
       "route": {
         "stage": 5,
-        "budget": 10,
-        "objectives": 9,
+        "budget": 73,
+        "objectives": 133,
         "shots": [
           {
             "angle": 0.0,
-            "before": 9,
-            "after": 8
+            "before": 133,
+            "after": 132
           },
           {
             "angle": 0.0,
-            "before": 8,
-            "after": 7
+            "before": 132,
+            "after": 131
           },
           {
             "angle": 0.0,
-            "before": 7,
+            "before": 131,
+            "after": 130
+          },
+          {
+            "angle": 0.0,
+            "before": 130,
+            "after": 129
+          },
+          {
+            "angle": -6.0,
+            "before": 129,
+            "after": 128
+          },
+          {
+            "angle": 6.0,
+            "before": 128,
+            "after": 127
+          },
+          {
+            "angle": 0.0,
+            "before": 127,
+            "after": 126
+          },
+          {
+            "angle": 0.0,
+            "before": 126,
+            "after": 125
+          },
+          {
+            "angle": 0.0,
+            "before": 125,
+            "after": 124
+          },
+          {
+            "angle": 0.0,
+            "before": 124,
+            "after": 122
+          },
+          {
+            "angle": 0.0,
+            "before": 122,
+            "after": 120
+          },
+          {
+            "angle": 0.0,
+            "before": 120,
+            "after": 118
+          },
+          {
+            "angle": 0.0,
+            "before": 118,
+            "after": 116
+          },
+          {
+            "angle": -28.0,
+            "before": 116,
+            "after": 115
+          },
+          {
+            "angle": -30.5,
+            "before": 115,
+            "after": 113
+          },
+          {
+            "angle": 28.0,
+            "before": 113,
+            "after": 112
+          },
+          {
+            "angle": 30.5,
+            "before": 112,
+            "after": 110
+          },
+          {
+            "angle": -5.5,
+            "before": 110,
+            "after": 109
+          },
+          {
+            "angle": -5.0,
+            "before": 109,
+            "after": 108
+          },
+          {
+            "angle": -75.0,
+            "before": 108,
+            "after": 105
+          },
+          {
+            "angle": -45.0,
+            "before": 105,
+            "after": 104
+          },
+          {
+            "angle": 75.0,
+            "before": 104,
+            "after": 101
+          },
+          {
+            "angle": 45.0,
+            "before": 101,
+            "after": 100
+          },
+          {
+            "angle": 4.0,
+            "before": 100,
+            "after": 98
+          },
+          {
+            "angle": -12.0,
+            "before": 98,
+            "after": 97
+          },
+          {
+            "angle": 12.0,
+            "before": 97,
+            "after": 96
+          },
+          {
+            "angle": -4.5,
+            "before": 96,
+            "after": 95
+          },
+          {
+            "angle": -61.0,
+            "before": 95,
+            "after": 83
+          },
+          {
+            "angle": -45.0,
+            "before": 83,
+            "after": 82
+          },
+          {
+            "angle": -19.5,
+            "before": 82,
+            "after": 81
+          },
+          {
+            "angle": -17.5,
+            "before": 81,
+            "after": 80
+          },
+          {
+            "angle": -16.0,
+            "before": 80,
+            "after": 79
+          },
+          {
+            "angle": -28.5,
+            "before": 79,
+            "after": 76
+          },
+          {
+            "angle": -32.5,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": 61.0,
+            "before": 75,
+            "after": 63
+          },
+          {
+            "angle": 45.0,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": 19.5,
+            "before": 62,
+            "after": 61
+          },
+          {
+            "angle": 17.5,
+            "before": 61,
+            "after": 60
+          },
+          {
+            "angle": 16.0,
+            "before": 60,
+            "after": 59
+          },
+          {
+            "angle": 28.5,
+            "before": 59,
+            "after": 56
+          },
+          {
+            "angle": 32.5,
+            "before": 56,
+            "after": 55
+          },
+          {
+            "angle": -31.0,
+            "before": 55,
+            "after": 53
+          },
+          {
+            "angle": 31.0,
+            "before": 53,
+            "after": 51
+          },
+          {
+            "angle": 10.0,
+            "before": 51,
+            "after": 50
+          },
+          {
+            "angle": 13.5,
+            "before": 50,
+            "after": 49
+          },
+          {
+            "angle": 45.0,
+            "before": 49,
+            "after": 48
+          },
+          {
+            "angle": 9.0,
+            "before": 48,
+            "after": 47
+          },
+          {
+            "angle": 8.5,
+            "before": 47,
+            "after": 46
+          },
+          {
+            "angle": 15.5,
+            "before": 46,
+            "after": 42
+          },
+          {
+            "angle": 14.5,
+            "before": 42,
+            "after": 39
+          },
+          {
+            "angle": 11.0,
+            "before": 39,
+            "after": 38
+          },
+          {
+            "angle": -4.0,
+            "before": 38,
+            "after": 36
+          },
+          {
+            "angle": 71.5,
+            "before": 36,
+            "after": 35
+          },
+          {
+            "angle": 16.0,
+            "before": 35,
+            "after": 34
+          },
+          {
+            "angle": 18.0,
+            "before": 34,
+            "after": 33
+          },
+          {
+            "angle": 35.5,
+            "before": 33,
+            "after": 23
+          },
+          {
+            "angle": -45.0,
+            "before": 23,
+            "after": 22
+          },
+          {
+            "angle": 3.5,
+            "before": 22,
+            "after": 21
+          },
+          {
+            "angle": -15.5,
+            "before": 21,
             "after": 6
           },
           {
-            "angle": -35.5,
+            "angle": -43.0,
             "before": 6,
             "after": 5
           },
           {
-            "angle": -5.0,
+            "angle": -14.5,
             "before": 5,
-            "after": 4
+            "after": 1
           },
           {
-            "angle": 52.0,
-            "before": 4,
+            "angle": -71.5,
+            "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 6,
-      "spareBalls": 4,
-      "consumption": 90,
+      "witnessShots": 62,
+      "spareBalls": 11,
+      "consumption": 100,
       "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "active-6",
       "stage": 6,
       "library": "active",
-      "balls": 6,
-      "blocks": 7,
-      "objectives": 8,
-      "columns": 9,
-      "height": 13,
+      "balls": 55,
+      "blocks": 114,
+      "objectives": 115,
+      "columns": 15,
+      "height": 20,
       "rows": [
-        ".........",
-        ".........",
-        ".........",
-        "...333...",
-        "...3.3...",
-        "...3.3...",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        "...............",
+        ".......1.......",
+        "....11.1.11....",
+        "...111111111...",
+        "....1111111....",
+        "...555555555...",
+        "..55455555455..",
+        ".5555555555555.",
+        ".5555545555555.",
+        "..55555.55555..",
+        "..55455555455..",
+        "...555555555...",
+        "....5545555....",
+        ".....55555.....",
+        "......555......",
+        ".......5.......",
+        "...............",
+        "...............",
+        "...............",
+        "..............."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 4,
-          "row": 4,
+          "col": 7,
+          "row": 9,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -600,81 +1723,311 @@
         "mine": 1
       },
       "gimmickLabel": "기뢰 1",
-      "title": "기뢰 첫 만남",
-      "intent": "기뢰 앞을 비워 바로 맞힐 수 있게 합니다. 다른 새 기믹은 없습니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "title": "씨앗 딸기",
+      "intent": "처음 등장한 기뢰가 주변 씨앗과 과육을 함께 제거합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
-      "pressure": "여유",
+      "pressure": "빠듯",
       "groups": [
         {
           "error": 0,
-          "wins": 1,
+          "wins": 0,
           "count": 1,
-          "medianShots": 1,
-          "medianSeconds": 0.6
+          "medianShots": 55,
+          "medianSeconds": 94.2
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 1.0,
-          "medianSeconds": 0.6
+          "wins": 0,
+          "count": 4,
+          "medianShots": 55.0,
+          "medianSeconds": 105.3
         },
         {
           "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 2.0,
-          "medianSeconds": 2.6
+          "wins": 1,
+          "count": 4,
+          "medianShots": 55.0,
+          "medianSeconds": 136.1
         }
       ],
       "route": {
         "stage": 6,
-        "budget": 6,
-        "objectives": 8,
+        "budget": 55,
+        "objectives": 115,
         "shots": [
           {
             "angle": 0.0,
-            "before": 8,
+            "before": 115,
+            "after": 114
+          },
+          {
+            "angle": 0.0,
+            "before": 114,
+            "after": 113
+          },
+          {
+            "angle": 0.0,
+            "before": 113,
+            "after": 112
+          },
+          {
+            "angle": 0.0,
+            "before": 112,
+            "after": 111
+          },
+          {
+            "angle": 0.0,
+            "before": 111,
+            "after": 110
+          },
+          {
+            "angle": 0.0,
+            "before": 110,
+            "after": 108
+          },
+          {
+            "angle": 0.0,
+            "before": 108,
+            "after": 99
+          },
+          {
+            "angle": 0.0,
+            "before": 99,
+            "after": 97
+          },
+          {
+            "angle": 0.0,
+            "before": 97,
+            "after": 85
+          },
+          {
+            "angle": 0.0,
+            "before": 85,
+            "after": 84
+          },
+          {
+            "angle": 58.5,
+            "before": 84,
+            "after": 57
+          },
+          {
+            "angle": 72.5,
+            "before": 57,
+            "after": 56
+          },
+          {
+            "angle": -72.5,
+            "before": 56,
+            "after": 55
+          },
+          {
+            "angle": 54.5,
+            "before": 55,
+            "after": 51
+          },
+          {
+            "angle": 12.5,
+            "before": 51,
+            "after": 50
+          },
+          {
+            "angle": -6.5,
+            "before": 50,
+            "after": 49
+          },
+          {
+            "angle": -12.0,
+            "before": 49,
+            "after": 48
+          },
+          {
+            "angle": -42.5,
+            "before": 48,
+            "after": 47
+          },
+          {
+            "angle": -40.0,
+            "before": 47,
+            "after": 46
+          },
+          {
+            "angle": -16.5,
+            "before": 46,
+            "after": 44
+          },
+          {
+            "angle": 11.0,
+            "before": 44,
+            "after": 42
+          },
+          {
+            "angle": -15.5,
+            "before": 42,
+            "after": 39
+          },
+          {
+            "angle": -7.0,
+            "before": 39,
+            "after": 38
+          },
+          {
+            "angle": -6.5,
+            "before": 38,
+            "after": 37
+          },
+          {
+            "angle": 42.5,
+            "before": 37,
+            "after": 36
+          },
+          {
+            "angle": 15.5,
+            "before": 36,
+            "after": 30
+          },
+          {
+            "angle": -22.5,
+            "before": 30,
+            "after": 29
+          },
+          {
+            "angle": -19.0,
+            "before": 29,
+            "after": 28
+          },
+          {
+            "angle": -31.5,
+            "before": 28,
+            "after": 27
+          },
+          {
+            "angle": -45.0,
+            "before": 27,
+            "after": 25
+          },
+          {
+            "angle": 22.5,
+            "before": 25,
+            "after": 24
+          },
+          {
+            "angle": 19.0,
+            "before": 24,
+            "after": 23
+          },
+          {
+            "angle": 31.5,
+            "before": 23,
+            "after": 22
+          },
+          {
+            "angle": 6.5,
+            "before": 22,
+            "after": 21
+          },
+          {
+            "angle": -14.5,
+            "before": 21,
+            "after": 19
+          },
+          {
+            "angle": -11.0,
+            "before": 19,
+            "after": 18
+          },
+          {
+            "angle": -32.5,
+            "before": 18,
+            "after": 17
+          },
+          {
+            "angle": 32.5,
+            "before": 17,
+            "after": 16
+          },
+          {
+            "angle": -56.0,
+            "before": 16,
+            "after": 14
+          },
+          {
+            "angle": 31.0,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": 56.0,
+            "before": 13,
+            "after": 11
+          },
+          {
+            "angle": -22.0,
+            "before": 11,
+            "after": 6
+          },
+          {
+            "angle": -56.0,
+            "before": 6,
+            "after": 4
+          },
+          {
+            "angle": -68.5,
+            "before": 4,
+            "after": 3
+          },
+          {
+            "angle": 60.0,
+            "before": 3,
+            "after": 1
+          },
+          {
+            "angle": 30.5,
+            "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 1,
-      "spareBalls": 5,
-      "consumption": 17,
-      "note": "기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다."
+      "witnessShots": 46,
+      "spareBalls": 9,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "active-7",
       "stage": 7,
       "library": "active",
-      "balls": 8,
-      "blocks": 14,
-      "objectives": 16,
-      "columns": 9,
-      "height": 13,
+      "balls": 64,
+      "blocks": 115,
+      "objectives": 117,
+      "columns": 17,
+      "height": 18,
       "rows": [
-        ".........",
-        ".........",
-        ".444.....",
-        ".4.4.....",
-        ".4.4.444.",
-        ".....4.4.",
-        ".....4.4.",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        ".................",
+        ".......111.......",
+        ".......191.......",
+        "...77..111..77...",
+        "..7771111111777..",
+        "..7711444441177..",
+        "...11411411411...",
+        "...1141.41.411...",
+        "...11411411411...",
+        "...11444444411...",
+        "..7711444441177..",
+        "..7771111111777..",
+        "...77..111..77...",
+        "........1........",
+        ".................",
+        ".................",
+        ".................",
+        "................."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 2,
-          "row": 3,
+          "col": 7,
+          "row": 7,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -685,8 +2038,8 @@
         },
         {
           "type": "mine",
-          "col": 6,
-          "row": 5,
+          "col": 10,
+          "row": 7,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -700,86 +2053,357 @@
         "mine": 2
       },
       "gimmickLabel": "기뢰 2",
-      "title": "두 묶음의 기뢰",
-      "intent": "높이가 다른 두 묶음에 기뢰를 다시 노출합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "title": "바다거북",
+      "intent": "등딱지 안의 기뢰와 바깥 지느러미를 분리해 공략합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
-      "pressure": "여유",
+      "pressure": "빠듯",
       "groups": [
         {
           "error": 0,
-          "wins": 1,
+          "wins": 0,
           "count": 1,
-          "medianShots": 2,
-          "medianSeconds": 5.6
+          "medianShots": 64,
+          "medianSeconds": 111.2
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 3.0,
-          "medianSeconds": 9.0
+          "wins": 3,
+          "count": 4,
+          "medianShots": 61.0,
+          "medianSeconds": 125.8
         },
         {
           "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 4.0,
-          "medianSeconds": 8.4
+          "wins": 2,
+          "count": 4,
+          "medianShots": 61.5,
+          "medianSeconds": 119.2
         }
       ],
       "route": {
         "stage": 7,
-        "budget": 8,
-        "objectives": 16,
+        "budget": 64,
+        "objectives": 117,
         "shots": [
           {
-            "angle": 11.0,
-            "before": 16,
+            "angle": 0.0,
+            "before": 117,
+            "after": 116
+          },
+          {
+            "angle": 0.0,
+            "before": 116,
+            "after": 115
+          },
+          {
+            "angle": 0.0,
+            "before": 115,
+            "after": 114
+          },
+          {
+            "angle": 0.0,
+            "before": 114,
+            "after": 113
+          },
+          {
+            "angle": 0.0,
+            "before": 113,
+            "after": 112
+          },
+          {
+            "angle": 0.0,
+            "before": 112,
+            "after": 110
+          },
+          {
+            "angle": 6.0,
+            "before": 110,
+            "after": 109
+          },
+          {
+            "angle": 0.0,
+            "before": 109,
+            "after": 108
+          },
+          {
+            "angle": -17.5,
+            "before": 108,
+            "after": 107
+          },
+          {
+            "angle": 17.5,
+            "before": 107,
+            "after": 106
+          },
+          {
+            "angle": 0.0,
+            "before": 106,
+            "after": 104
+          },
+          {
+            "angle": 0.0,
+            "before": 104,
+            "after": 102
+          },
+          {
+            "angle": -30.5,
+            "before": 102,
+            "after": 96
+          },
+          {
+            "angle": -6.0,
+            "before": 96,
+            "after": 95
+          },
+          {
+            "angle": 30.5,
+            "before": 95,
+            "after": 90
+          },
+          {
+            "angle": 0.0,
+            "before": 90,
+            "after": 88
+          },
+          {
+            "angle": 0.0,
+            "before": 88,
+            "after": 86
+          },
+          {
+            "angle": 5.5,
+            "before": 86,
+            "after": 78
+          },
+          {
+            "angle": 0.0,
+            "before": 78,
+            "after": 77
+          },
+          {
+            "angle": 0.0,
+            "before": 77,
+            "after": 76
+          },
+          {
+            "angle": -5.5,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": -5.0,
+            "before": 75,
+            "after": 74
+          },
+          {
+            "angle": 3.5,
+            "before": 74,
+            "after": 71
+          },
+          {
+            "angle": -4.5,
+            "before": 71,
+            "after": 70
+          },
+          {
+            "angle": -4.0,
+            "before": 70,
+            "after": 65
+          },
+          {
+            "angle": -14.5,
+            "before": 65,
+            "after": 64
+          },
+          {
+            "angle": -10.0,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": -13.5,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": -12.5,
+            "before": 62,
+            "after": 60
+          },
+          {
+            "angle": 64.0,
+            "before": 60,
+            "after": 52
+          },
+          {
+            "angle": 21.0,
+            "before": 52,
+            "after": 50
+          },
+          {
+            "angle": -23.5,
+            "before": 50,
+            "after": 48
+          },
+          {
+            "angle": -45.0,
+            "before": 48,
+            "after": 47
+          },
+          {
+            "angle": -70.5,
+            "before": 47,
+            "after": 46
+          },
+          {
+            "angle": -71.5,
+            "before": 46,
+            "after": 43
+          },
+          {
+            "angle": -45.0,
+            "before": 43,
+            "after": 42
+          },
+          {
+            "angle": -16.5,
+            "before": 42,
+            "after": 38
+          },
+          {
+            "angle": 25.5,
+            "before": 38,
+            "after": 31
+          },
+          {
+            "angle": 23.5,
+            "before": 31,
+            "after": 29
+          },
+          {
+            "angle": 45.0,
+            "before": 29,
+            "after": 28
+          },
+          {
+            "angle": 70.5,
+            "before": 28,
+            "after": 27
+          },
+          {
+            "angle": -19.0,
+            "before": 27,
+            "after": 26
+          },
+          {
+            "angle": 71.5,
+            "before": 26,
+            "after": 19
+          },
+          {
+            "angle": 45.0,
+            "before": 19,
+            "after": 18
+          },
+          {
+            "angle": 19.0,
+            "before": 18,
+            "after": 17
+          },
+          {
+            "angle": -27.5,
+            "before": 17,
+            "after": 9
+          },
+          {
+            "angle": 13.5,
+            "before": 9,
+            "after": 8
+          },
+          {
+            "angle": 13.0,
+            "before": 8,
+            "after": 7
+          },
+          {
+            "angle": -43.0,
+            "before": 7,
             "after": 6
           },
           {
-            "angle": -9.0,
+            "angle": -14.5,
             "before": 6,
+            "after": 4
+          },
+          {
+            "angle": -11.0,
+            "before": 4,
+            "after": 3
+          },
+          {
+            "angle": 50.0,
+            "before": 3,
+            "after": 2
+          },
+          {
+            "angle": -36.5,
+            "before": 2,
+            "after": 1
+          },
+          {
+            "angle": -71.5,
+            "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 2,
-      "spareBalls": 6,
-      "consumption": 25,
-      "note": "기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다."
+      "witnessShots": 54,
+      "spareBalls": 10,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "active-8",
       "stage": 8,
       "library": "active",
-      "balls": 8,
-      "blocks": 11,
-      "objectives": 14,
-      "columns": 9,
-      "height": 13,
+      "balls": 88,
+      "blocks": 132,
+      "objectives": 135,
+      "columns": 17,
+      "height": 24,
       "rows": [
-        ".........",
-        ".........",
-        ".........",
-        "..44444..",
-        "..4...4..",
-        "..44.44..",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        ".................",
+        "........5........",
+        ".......555.......",
+        "......55555......",
+        "......88888......",
+        ".....8888888.....",
+        ".....8822288.....",
+        ".....8277728.....",
+        ".....8279728.....",
+        ".....8822288.....",
+        "....5888.8885....",
+        "...55888888855...",
+        "..5558888888555..",
+        ".5555888.8885555.",
+        ".555588888885555.",
+        ".....6699966.....",
+        ".....644.446.....",
+        "......64446......",
+        ".......646.......",
+        "........6........",
+        ".................",
+        ".................",
+        ".................",
+        "................."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 3,
-          "row": 4,
+          "col": 8,
+          "row": 10,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -790,8 +2414,8 @@
         },
         {
           "type": "mine",
-          "col": 4,
-          "row": 4,
+          "col": 8,
+          "row": 13,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -802,8 +2426,8 @@
         },
         {
           "type": "mine",
-          "col": 5,
-          "row": 4,
+          "col": 8,
+          "row": 16,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -817,174 +2441,482 @@
         "mine": 3
       },
       "gimmickLabel": "기뢰 3",
-      "title": "기뢰 연쇄",
-      "intent": "나란히 둔 기뢰가 함께 터지는 보상을 경험합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "title": "별빛 로켓",
+      "intent": "중앙 기뢰로 동체를 열고 양쪽 날개와 불꽃을 정리합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
-      "pressure": "여유",
+      "pressure": "빠듯",
       "groups": [
         {
           "error": 0,
-          "wins": 1,
+          "wins": 0,
           "count": 1,
-          "medianShots": 1,
-          "medianSeconds": 0.5
+          "medianShots": 88,
+          "medianSeconds": 172.9
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 1.0,
-          "medianSeconds": 0.6
+          "wins": 2,
+          "count": 4,
+          "medianShots": 85.0,
+          "medianSeconds": 192.7
         },
         {
           "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 1.5,
-          "medianSeconds": 1.0
+          "wins": 4,
+          "count": 4,
+          "medianShots": 57.5,
+          "medianSeconds": 165.3
         }
       ],
       "route": {
         "stage": 8,
-        "budget": 8,
-        "objectives": 14,
+        "budget": 88,
+        "objectives": 135,
         "shots": [
           {
             "angle": 0.0,
+            "before": 135,
+            "after": 134
+          },
+          {
+            "angle": 0.0,
+            "before": 134,
+            "after": 133
+          },
+          {
+            "angle": 0.0,
+            "before": 133,
+            "after": 132
+          },
+          {
+            "angle": 0.0,
+            "before": 132,
+            "after": 124
+          },
+          {
+            "angle": 0.0,
+            "before": 124,
+            "after": 122
+          },
+          {
+            "angle": 0.0,
+            "before": 122,
+            "after": 114
+          },
+          {
+            "angle": 0.0,
+            "before": 114,
+            "after": 113
+          },
+          {
+            "angle": 0.0,
+            "before": 113,
+            "after": 105
+          },
+          {
+            "angle": 0.0,
+            "before": 105,
+            "after": 104
+          },
+          {
+            "angle": 0.0,
+            "before": 104,
+            "after": 103
+          },
+          {
+            "angle": 0.0,
+            "before": 103,
+            "after": 102
+          },
+          {
+            "angle": -70.5,
+            "before": 102,
+            "after": 101
+          },
+          {
+            "angle": -45.0,
+            "before": 101,
+            "after": 100
+          },
+          {
+            "angle": 70.5,
+            "before": 100,
+            "after": 99
+          },
+          {
+            "angle": 45.0,
+            "before": 99,
+            "after": 98
+          },
+          {
+            "angle": 0.0,
+            "before": 98,
+            "after": 97
+          },
+          {
+            "angle": 0.0,
+            "before": 97,
+            "after": 92
+          },
+          {
+            "angle": 0.0,
+            "before": 92,
+            "after": 90
+          },
+          {
+            "angle": 0.0,
+            "before": 90,
+            "after": 88
+          },
+          {
+            "angle": 0.0,
+            "before": 88,
+            "after": 86
+          },
+          {
+            "angle": -12.0,
+            "before": 86,
+            "after": 85
+          },
+          {
+            "angle": -16.0,
+            "before": 85,
+            "after": 84
+          },
+          {
+            "angle": 12.0,
+            "before": 84,
+            "after": 83
+          },
+          {
+            "angle": 16.0,
+            "before": 83,
+            "after": 82
+          },
+          {
+            "angle": 2.5,
+            "before": 82,
+            "after": 80
+          },
+          {
+            "angle": -49.5,
+            "before": 80,
+            "after": 79
+          },
+          {
+            "angle": 49.5,
+            "before": 79,
+            "after": 78
+          },
+          {
+            "angle": -3.0,
+            "before": 78,
+            "after": 76
+          },
+          {
+            "angle": 73.5,
+            "before": 76,
+            "after": 75
+          },
+          {
+            "angle": 24.0,
+            "before": 75,
+            "after": 74
+          },
+          {
+            "angle": 71.5,
+            "before": 74,
+            "after": 73
+          },
+          {
+            "angle": 22.5,
+            "before": 73,
+            "after": 71
+          },
+          {
+            "angle": 27.5,
+            "before": 71,
+            "after": 70
+          },
+          {
+            "angle": 38.5,
+            "before": 70,
+            "after": 67
+          },
+          {
+            "angle": -40.0,
+            "before": 67,
+            "after": 66
+          },
+          {
+            "angle": -24.0,
+            "before": 66,
+            "after": 65
+          },
+          {
+            "angle": -71.5,
+            "before": 65,
+            "after": 64
+          },
+          {
+            "angle": -22.5,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": -10.0,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": -13.5,
+            "before": 62,
+            "after": 61
+          },
+          {
+            "angle": -16.5,
+            "before": 61,
+            "after": 57
+          },
+          {
+            "angle": -19.0,
+            "before": 57,
+            "after": 56
+          },
+          {
+            "angle": -8.5,
+            "before": 56,
+            "after": 55
+          },
+          {
+            "angle": -45.0,
+            "before": 55,
+            "after": 54
+          },
+          {
+            "angle": -6.5,
+            "before": 54,
+            "after": 53
+          },
+          {
+            "angle": -11.0,
+            "before": 53,
+            "after": 52
+          },
+          {
+            "angle": -15.5,
+            "before": 52,
+            "after": 46
+          },
+          {
+            "angle": -43.5,
+            "before": 46,
+            "after": 42
+          },
+          {
+            "angle": 13.5,
+            "before": 42,
+            "after": 41
+          },
+          {
+            "angle": 16.5,
+            "before": 41,
+            "after": 37
+          },
+          {
+            "angle": 45.0,
+            "before": 37,
+            "after": 36
+          },
+          {
+            "angle": 14.5,
+            "before": 36,
+            "after": 34
+          },
+          {
+            "angle": 11.0,
+            "before": 34,
+            "after": 33
+          },
+          {
+            "angle": -71.5,
+            "before": 33,
+            "after": 32
+          },
+          {
+            "angle": 71.5,
+            "before": 32,
+            "after": 31
+          },
+          {
+            "angle": -50.0,
+            "before": 31,
+            "after": 29
+          },
+          {
+            "angle": 7.0,
+            "before": 29,
+            "after": 28
+          },
+          {
+            "angle": 6.5,
+            "before": 28,
+            "after": 27
+          },
+          {
+            "angle": 43.5,
+            "before": 27,
+            "after": 18
+          },
+          {
+            "angle": -46.5,
+            "before": 18,
+            "after": 17
+          },
+          {
+            "angle": -45.0,
+            "before": 17,
+            "after": 15
+          },
+          {
+            "angle": 34.0,
+            "before": 15,
+            "after": 14
+          },
+          {
+            "angle": 46.5,
             "before": 14,
+            "after": 13
+          },
+          {
+            "angle": 45.0,
+            "before": 13,
+            "after": 11
+          },
+          {
+            "angle": 40.5,
+            "before": 11,
+            "after": 10
+          },
+          {
+            "angle": -2.5,
+            "before": 10,
+            "after": 9
+          },
+          {
+            "angle": 8.0,
+            "before": 9,
+            "after": 8
+          },
+          {
+            "angle": -5.5,
+            "before": 8,
+            "after": 7
+          },
+          {
+            "angle": -2.5,
+            "before": 7,
+            "after": 6
+          },
+          {
+            "angle": 2.5,
+            "before": 6,
+            "after": 5
+          },
+          {
+            "angle": 43.5,
+            "before": 5,
+            "after": 4
+          },
+          {
+            "angle": -34.0,
+            "before": 4,
+            "after": 3
+          },
+          {
+            "angle": -8.0,
+            "before": 3,
+            "after": 2
+          },
+          {
+            "angle": -71.5,
+            "before": 2,
+            "after": 1
+          },
+          {
+            "angle": -5.0,
+            "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 1,
-      "spareBalls": 7,
-      "consumption": 12,
-      "note": "기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다."
+      "witnessShots": 75,
+      "spareBalls": 13,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "active-9",
       "stage": 9,
       "library": "active",
-      "balls": 12,
-      "blocks": 13,
-      "objectives": 14,
-      "columns": 9,
-      "height": 13,
+      "balls": 96,
+      "blocks": 144,
+      "objectives": 147,
+      "columns": 19,
+      "height": 20,
       "rows": [
-        ".........",
-        ".........",
-        ".333..33.",
-        ".3.3..33.",
-        ".3.3..33.",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
-      ],
-      "gimmicks": [
-        {
-          "type": "mine",
-          "col": 2,
-          "row": 3,
-          "length": 3,
-          "vertical": false,
-          "travel": 2.0,
-          "speed": 1.2000000476837158,
-          "width": 2.0,
-          "link": "A",
-          "weakSide": 0
-        }
-      ],
-      "gimmickCounts": {
-        "mine": 1
-      },
-      "gimmickLabel": "기뢰 1",
-      "title": "기뢰와 남은 블록",
-      "intent": "기뢰를 먼저 활용하고 떨어진 일반 블록을 정리합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
-      "status": "클리어·재현 확인",
-      "pressure": "여유",
-      "groups": [
-        {
-          "error": 0,
-          "wins": 1,
-          "count": 1,
-          "medianShots": 4,
-          "medianSeconds": 10.6
-        },
-        {
-          "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 4.0,
-          "medianSeconds": 15.9
-        },
-        {
-          "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 4.5,
-          "medianSeconds": 19.0
-        }
-      ],
-      "route": {
-        "stage": 9,
-        "budget": 12,
-        "objectives": 14,
-        "shots": [
-          {
-            "angle": -9.5,
-            "before": 14,
-            "after": 1
-          },
-          {
-            "angle": -45.0,
-            "before": 1,
-            "after": 0
-          }
-        ],
-        "replayPassed": true
-      },
-      "witnessShots": 2,
-      "spareBalls": 10,
-      "consumption": 33,
-      "note": "기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다."
-    },
-    {
-      "id": "active-10",
-      "stage": 10,
-      "library": "active",
-      "balls": 10,
-      "blocks": 11,
-      "objectives": 12,
-      "columns": 9,
-      "height": 13,
-      "rows": [
-        ".........",
-        ".44...44.",
-        ".........",
-        "...444...",
-        "...4.4...",
-        "...4.4...",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        ".........",
-        "........."
+        "...................",
+        ".........9.........",
+        "........49.........",
+        ".......4498........",
+        "......444988.......",
+        ".....44449888......",
+        "....4444498888.....",
+        "...444444988888....",
+        "..44444449888888...",
+        ".4444444498888888..",
+        ".........9.........",
+        ".99999999999999999.",
+        "..66.666666666.66..",
+        "...666666.666666...",
+        "....99999999999....",
+        ".77777777777777777.",
+        "...................",
+        "...................",
+        "...................",
+        "..................."
       ],
       "gimmicks": [
         {
           "type": "mine",
           "col": 4,
-          "row": 4,
+          "row": 12,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        },
+        {
+          "type": "mine",
+          "col": 14,
+          "row": 12,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        },
+        {
+          "type": "mine",
+          "col": 9,
+          "row": 13,
           "length": 3,
           "vertical": false,
           "travel": 2.0,
@@ -995,74 +2927,900 @@
         }
       ],
       "gimmickCounts": {
-        "mine": 1
+        "mine": 3
       },
-      "gimmickLabel": "기뢰 1",
-      "title": "배운 규칙 마무리",
-      "intent": "익숙한 기뢰와 양쪽의 작은 목표로 학습을 마무리합니다.",
-      "grade": "학습 D1 목표 · 체감 등급 미확정",
+      "gimmickLabel": "기뢰 3",
+      "title": "황금 돛단배",
+      "intent": "돛 사이 빈 통로에서 반사를 만들고 선체의 기뢰를 활용합니다.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
       "status": "클리어·재현 확인",
-      "pressure": "여유",
+      "pressure": "빠듯",
       "groups": [
         {
           "error": 0,
-          "wins": 1,
+          "wins": 0,
           "count": 1,
-          "medianShots": 3,
-          "medianSeconds": 19.5
+          "medianShots": 96,
+          "medianSeconds": 165.4
         },
         {
           "error": 2,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 4.0,
-          "medianSeconds": 13.5
+          "wins": 3,
+          "count": 4,
+          "medianShots": 93.0,
+          "medianSeconds": 166.1
         },
         {
           "error": 5,
-          "wins": 12,
-          "count": 12,
-          "medianShots": 4.5,
-          "medianSeconds": 12.2
+          "wins": 4,
+          "count": 4,
+          "medianShots": 77.0,
+          "medianSeconds": 156.7
         }
       ],
       "route": {
-        "stage": 10,
-        "budget": 10,
-        "objectives": 12,
+        "stage": 9,
+        "budget": 96,
+        "objectives": 147,
         "shots": [
           {
             "angle": 0.0,
+            "before": 147,
+            "after": 146
+          },
+          {
+            "angle": 0.0,
+            "before": 146,
+            "after": 145
+          },
+          {
+            "angle": 0.0,
+            "before": 145,
+            "after": 137
+          },
+          {
+            "angle": 0.0,
+            "before": 137,
+            "after": 135
+          },
+          {
+            "angle": 0.0,
+            "before": 135,
+            "after": 134
+          },
+          {
+            "angle": 0.0,
+            "before": 134,
+            "after": 133
+          },
+          {
+            "angle": 0.0,
+            "before": 133,
+            "after": 132
+          },
+          {
+            "angle": 0.0,
+            "before": 132,
+            "after": 130
+          },
+          {
+            "angle": 0.0,
+            "before": 130,
+            "after": 129
+          },
+          {
+            "angle": -15.0,
+            "before": 129,
+            "after": 128
+          },
+          {
+            "angle": 15.0,
+            "before": 128,
+            "after": 127
+          },
+          {
+            "angle": 0.0,
+            "before": 127,
+            "after": 124
+          },
+          {
+            "angle": -5.0,
+            "before": 124,
+            "after": 123
+          },
+          {
+            "angle": 0.0,
+            "before": 123,
+            "after": 121
+          },
+          {
+            "angle": -28.0,
+            "before": 121,
+            "after": 120
+          },
+          {
+            "angle": 28.0,
+            "before": 120,
+            "after": 119
+          },
+          {
+            "angle": 0.0,
+            "before": 119,
+            "after": 117
+          },
+          {
+            "angle": 0.0,
+            "before": 117,
+            "after": 115
+          },
+          {
+            "angle": -54.5,
+            "before": 115,
+            "after": 113
+          },
+          {
+            "angle": 54.5,
+            "before": 113,
+            "after": 111
+          },
+          {
+            "angle": 0.0,
+            "before": 111,
+            "after": 109
+          },
+          {
+            "angle": 72.5,
+            "before": 109,
+            "after": 107
+          },
+          {
+            "angle": -72.5,
+            "before": 107,
+            "after": 105
+          },
+          {
+            "angle": -61.0,
+            "before": 105,
+            "after": 102
+          },
+          {
+            "angle": -30.5,
+            "before": 102,
+            "after": 98
+          },
+          {
+            "angle": 19.5,
+            "before": 98,
+            "after": 97
+          },
+          {
+            "angle": 17.5,
+            "before": 97,
+            "after": 96
+          },
+          {
+            "angle": 12.0,
+            "before": 96,
+            "after": 95
+          },
+          {
+            "angle": 16.0,
+            "before": 95,
+            "after": 93
+          },
+          {
+            "angle": 61.0,
+            "before": 93,
+            "after": 90
+          },
+          {
+            "angle": 30.5,
+            "before": 90,
+            "after": 86
+          },
+          {
+            "angle": -19.5,
+            "before": 86,
+            "after": 85
+          },
+          {
+            "angle": -17.5,
+            "before": 85,
+            "after": 84
+          },
+          {
+            "angle": -12.0,
+            "before": 84,
+            "after": 83
+          },
+          {
+            "angle": -16.0,
+            "before": 83,
+            "after": 82
+          },
+          {
+            "angle": -68.0,
+            "before": 82,
+            "after": 80
+          },
+          {
+            "angle": 25.5,
+            "before": 80,
+            "after": 73
+          },
+          {
+            "angle": 72.0,
+            "before": 73,
+            "after": 64
+          },
+          {
+            "angle": -24.0,
+            "before": 64,
+            "after": 63
+          },
+          {
+            "angle": -45.0,
+            "before": 63,
+            "after": 62
+          },
+          {
+            "angle": -22.5,
+            "before": 62,
+            "after": 61
+          },
+          {
+            "angle": 24.0,
+            "before": 61,
+            "after": 60
+          },
+          {
+            "angle": 45.0,
+            "before": 60,
+            "after": 59
+          },
+          {
+            "angle": 22.5,
+            "before": 59,
+            "after": 58
+          },
+          {
+            "angle": -75.0,
+            "before": 58,
+            "after": 57
+          },
+          {
+            "angle": 75.0,
+            "before": 57,
+            "after": 56
+          },
+          {
+            "angle": -57.5,
+            "before": 56,
+            "after": 53
+          },
+          {
+            "angle": 16.5,
+            "before": 53,
+            "after": 52
+          },
+          {
+            "angle": 19.0,
+            "before": 52,
+            "after": 50
+          },
+          {
+            "angle": -16.5,
+            "before": 50,
+            "after": 49
+          },
+          {
+            "angle": 45.0,
+            "before": 49,
+            "after": 48
+          },
+          {
+            "angle": -19.0,
+            "before": 48,
+            "after": 46
+          },
+          {
+            "angle": -45.0,
+            "before": 46,
+            "after": 45
+          },
+          {
+            "angle": 12.5,
+            "before": 45,
+            "after": 44
+          },
+          {
+            "angle": 8.5,
+            "before": 44,
+            "after": 43
+          },
+          {
+            "angle": -35.0,
+            "before": 43,
+            "after": 40
+          },
+          {
+            "angle": -10.0,
+            "before": 40,
+            "after": 39
+          },
+          {
+            "angle": -12.5,
+            "before": 39,
+            "after": 38
+          },
+          {
+            "angle": -8.5,
+            "before": 38,
+            "after": 37
+          },
+          {
+            "angle": 41.0,
+            "before": 37,
+            "after": 36
+          },
+          {
+            "angle": -38.5,
+            "before": 36,
+            "after": 33
+          },
+          {
+            "angle": 56.0,
+            "before": 33,
+            "after": 30
+          },
+          {
+            "angle": -45.0,
+            "before": 30,
+            "after": 29
+          },
+          {
+            "angle": 51.5,
+            "before": 29,
+            "after": 27
+          },
+          {
+            "angle": -3.5,
+            "before": 27,
+            "after": 26
+          },
+          {
+            "angle": -56.0,
+            "before": 26,
+            "after": 24
+          },
+          {
+            "angle": 14.5,
+            "before": 24,
+            "after": 23
+          },
+          {
+            "angle": 45.0,
+            "before": 23,
+            "after": 22
+          },
+          {
+            "angle": -7.0,
+            "before": 22,
+            "after": 21
+          },
+          {
+            "angle": -6.5,
+            "before": 21,
+            "after": 20
+          },
+          {
+            "angle": 52.5,
+            "before": 20,
+            "after": 15
+          },
+          {
+            "angle": -45.0,
+            "before": 15,
+            "after": 14
+          },
+          {
+            "angle": -46.5,
+            "before": 14,
+            "after": 13
+          },
+          {
+            "angle": -45.0,
+            "before": 13,
+            "after": 12
+          },
+          {
+            "angle": 30.5,
             "before": 12,
+            "after": 10
+          },
+          {
+            "angle": 7.0,
+            "before": 10,
+            "after": 9
+          },
+          {
+            "angle": -52.5,
+            "before": 9,
+            "after": 8
+          },
+          {
+            "angle": -18.0,
+            "before": 8,
             "after": 4
           },
           {
-            "angle": -44.0,
+            "angle": -25.0,
             "before": 4,
             "after": 3
           },
           {
-            "angle": 44.0,
+            "angle": -41.5,
             "before": 3,
             "after": 2
           },
           {
-            "angle": -63.0,
+            "angle": -40.0,
             "before": 2,
             "after": 1
           },
           {
-            "angle": 63.0,
+            "angle": 48.0,
             "before": 1,
             "after": 0
           }
         ],
         "replayPassed": true
       },
-      "witnessShots": 5,
-      "spareBalls": 5,
-      "consumption": 30,
-      "note": "기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다."
+      "witnessShots": 82,
+      "spareBalls": 14,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
+    },
+    {
+      "id": "active-10",
+      "stage": 10,
+      "library": "active",
+      "balls": 75,
+      "blocks": 183,
+      "objectives": 187,
+      "columns": 19,
+      "height": 20,
+      "rows": [
+        "...................",
+        "..4.............4..",
+        "..44...........44..",
+        "..9.............9..",
+        ".89898.......89898.",
+        ".88888..444..88888.",
+        ".88.88.44444.88.88.",
+        ".88988888888888988.",
+        ".88988888888888988.",
+        ".88888889898888888.",
+        ".88888889898888888.",
+        ".88888888888888888.",
+        ".888.888...888.888.",
+        ".8888888...8888888.",
+        ".8888888...8888888.",
+        ".9999999...9999999.",
+        "...................",
+        "...................",
+        "...................",
+        "..................."
+      ],
+      "gimmicks": [
+        {
+          "type": "mine",
+          "col": 3,
+          "row": 6,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        },
+        {
+          "type": "mine",
+          "col": 15,
+          "row": 6,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        },
+        {
+          "type": "mine",
+          "col": 4,
+          "row": 12,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        },
+        {
+          "type": "mine",
+          "col": 14,
+          "row": 12,
+          "length": 3,
+          "vertical": false,
+          "travel": 2.0,
+          "speed": 1.2000000476837158,
+          "width": 2.0,
+          "link": "A",
+          "weakSide": 0
+        }
+      ],
+      "gimmickCounts": {
+        "mine": 4
+      },
+      "gimmickLabel": "기뢰 4",
+      "title": "바닷가 성",
+      "intent": "가장 큰 보드입니다. 성벽 기뢰와 창문 통로로 깊은 반사를 만드세요.",
+      "grade": "사물 도안 · 체감 난이도 미확정",
+      "status": "클리어·재현 확인",
+      "pressure": "빠듯",
+      "groups": [
+        {
+          "error": 0,
+          "wins": 0,
+          "count": 1,
+          "medianShots": 75,
+          "medianSeconds": 136.0
+        },
+        {
+          "error": 2,
+          "wins": 0,
+          "count": 4,
+          "medianShots": 75.0,
+          "medianSeconds": 122.0
+        },
+        {
+          "error": 5,
+          "wins": 1,
+          "count": 4,
+          "medianShots": 75.0,
+          "medianSeconds": 133.0
+        }
+      ],
+      "route": {
+        "stage": 10,
+        "budget": 75,
+        "objectives": 187,
+        "shots": [
+          {
+            "angle": 0.0,
+            "before": 187,
+            "after": 186
+          },
+          {
+            "angle": 0.0,
+            "before": 186,
+            "after": 185
+          },
+          {
+            "angle": 0.0,
+            "before": 185,
+            "after": 184
+          },
+          {
+            "angle": 0.0,
+            "before": 184,
+            "after": 183
+          },
+          {
+            "angle": 0.0,
+            "before": 183,
+            "after": 181
+          },
+          {
+            "angle": 0.0,
+            "before": 181,
+            "after": 179
+          },
+          {
+            "angle": -15.0,
+            "before": 179,
+            "after": 178
+          },
+          {
+            "angle": 15.0,
+            "before": 178,
+            "after": 177
+          },
+          {
+            "angle": 0.0,
+            "before": 177,
+            "after": 175
+          },
+          {
+            "angle": -5.0,
+            "before": 175,
+            "after": 174
+          },
+          {
+            "angle": -28.0,
+            "before": 174,
+            "after": 173
+          },
+          {
+            "angle": 28.0,
+            "before": 173,
+            "after": 172
+          },
+          {
+            "angle": -54.5,
+            "before": 172,
+            "after": 170
+          },
+          {
+            "angle": -51.0,
+            "before": 170,
+            "after": 168
+          },
+          {
+            "angle": 54.5,
+            "before": 168,
+            "after": 166
+          },
+          {
+            "angle": 51.0,
+            "before": 166,
+            "after": 164
+          },
+          {
+            "angle": -53.5,
+            "before": 164,
+            "after": 156
+          },
+          {
+            "angle": -45.0,
+            "before": 156,
+            "after": 155
+          },
+          {
+            "angle": 53.5,
+            "before": 155,
+            "after": 147
+          },
+          {
+            "angle": 45.0,
+            "before": 147,
+            "after": 146
+          },
+          {
+            "angle": -50.0,
+            "before": 146,
+            "after": 145
+          },
+          {
+            "angle": -51.5,
+            "before": 145,
+            "after": 136
+          },
+          {
+            "angle": 53.5,
+            "before": 136,
+            "after": 127
+          },
+          {
+            "angle": 58.5,
+            "before": 127,
+            "after": 125
+          },
+          {
+            "angle": 4.0,
+            "before": 125,
+            "after": 123
+          },
+          {
+            "angle": -4.5,
+            "before": 123,
+            "after": 122
+          },
+          {
+            "angle": -67.5,
+            "before": 122,
+            "after": 114
+          },
+          {
+            "angle": 12.0,
+            "before": 114,
+            "after": 113
+          },
+          {
+            "angle": 9.0,
+            "before": 113,
+            "after": 110
+          },
+          {
+            "angle": 8.5,
+            "before": 110,
+            "after": 109
+          },
+          {
+            "angle": -9.0,
+            "before": 109,
+            "after": 107
+          },
+          {
+            "angle": -8.5,
+            "before": 107,
+            "after": 105
+          },
+          {
+            "angle": -22.0,
+            "before": 105,
+            "after": 104
+          },
+          {
+            "angle": -14.5,
+            "before": 104,
+            "after": 102
+          },
+          {
+            "angle": -13.5,
+            "before": 102,
+            "after": 101
+          },
+          {
+            "angle": -12.5,
+            "before": 101,
+            "after": 100
+          },
+          {
+            "angle": 14.5,
+            "before": 100,
+            "after": 99
+          },
+          {
+            "angle": 13.5,
+            "before": 99,
+            "after": 98
+          },
+          {
+            "angle": 16.5,
+            "before": 98,
+            "after": 97
+          },
+          {
+            "angle": 12.5,
+            "before": 97,
+            "after": 96
+          },
+          {
+            "angle": -62.0,
+            "before": 96,
+            "after": 93
+          },
+          {
+            "angle": 3.5,
+            "before": 93,
+            "after": 92
+          },
+          {
+            "angle": 51.5,
+            "before": 92,
+            "after": 86
+          },
+          {
+            "angle": -56.0,
+            "before": 86,
+            "after": 77
+          },
+          {
+            "angle": -16.5,
+            "before": 77,
+            "after": 76
+          },
+          {
+            "angle": 14.5,
+            "before": 76,
+            "after": 74
+          },
+          {
+            "angle": 19.0,
+            "before": 74,
+            "after": 72
+          },
+          {
+            "angle": 24.0,
+            "before": 72,
+            "after": 71
+          },
+          {
+            "angle": 22.5,
+            "before": 71,
+            "after": 69
+          },
+          {
+            "angle": 56.0,
+            "before": 69,
+            "after": 57
+          },
+          {
+            "angle": 62.0,
+            "before": 57,
+            "after": 52
+          },
+          {
+            "angle": -24.0,
+            "before": 52,
+            "after": 51
+          },
+          {
+            "angle": -63.0,
+            "before": 51,
+            "after": 39
+          },
+          {
+            "angle": -68.5,
+            "before": 39,
+            "after": 27
+          },
+          {
+            "angle": -19.0,
+            "before": 27,
+            "after": 22
+          },
+          {
+            "angle": -18.0,
+            "before": 22,
+            "after": 18
+          },
+          {
+            "angle": -10.5,
+            "before": 18,
+            "after": 16
+          },
+          {
+            "angle": 12.5,
+            "before": 16,
+            "after": 10
+          },
+          {
+            "angle": 12.0,
+            "before": 10,
+            "after": 4
+          },
+          {
+            "angle": -42.5,
+            "before": 4,
+            "after": 3
+          },
+          {
+            "angle": -40.0,
+            "before": 3,
+            "after": 2
+          },
+          {
+            "angle": -36.0,
+            "before": 2,
+            "after": 1
+          },
+          {
+            "angle": -71.0,
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "replayPassed": true
+      },
+      "witnessShots": 63,
+      "spareBalls": 12,
+      "consumption": 100,
+      "note": "정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요. 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다."
     },
     {
       "id": "archive-1",
@@ -1072,7 +3830,7 @@
       "blocks": 24,
       "objectives": 24,
       "columns": 9,
-      "height": 5,
+      "height": 13,
       "rows": [
         ".........",
         "..11111..",
@@ -1099,7 +3857,7 @@
       "blocks": 24,
       "objectives": 24,
       "columns": 9,
-      "height": 7,
+      "height": 13,
       "rows": [
         ".........",
         "111...111",
@@ -1128,7 +3886,7 @@
       "blocks": 28,
       "objectives": 28,
       "columns": 9,
-      "height": 5,
+      "height": 13,
       "rows": [
         ".........",
         ".1111111.",
@@ -1155,7 +3913,7 @@
       "blocks": 25,
       "objectives": 25,
       "columns": 9,
-      "height": 7,
+      "height": 13,
       "rows": [
         "....1....",
         "...121...",
@@ -1184,7 +3942,7 @@
       "blocks": 37,
       "objectives": 37,
       "columns": 9,
-      "height": 7,
+      "height": 13,
       "rows": [
         ".22...22.",
         "2332.2332",
@@ -1213,7 +3971,7 @@
       "blocks": 28,
       "objectives": 28,
       "columns": 9,
-      "height": 8,
+      "height": 13,
       "rows": [
         "....3....",
         "...333...",
@@ -1243,7 +4001,7 @@
       "blocks": 30,
       "objectives": 30,
       "columns": 9,
-      "height": 6,
+      "height": 13,
       "rows": [
         "4.4.4.4.4",
         "4.4.4.4.4",
@@ -1271,7 +4029,7 @@
       "blocks": 40,
       "objectives": 40,
       "columns": 9,
-      "height": 6,
+      "height": 13,
       "rows": [
         "4.4...4.4",
         "444...444",
@@ -1299,7 +4057,7 @@
       "blocks": 43,
       "objectives": 43,
       "columns": 9,
-      "height": 6,
+      "height": 13,
       "rows": [
         "414141414",
         "141414141",
@@ -1327,7 +4085,7 @@
       "blocks": 44,
       "objectives": 44,
       "columns": 9,
-      "height": 9,
+      "height": 13,
       "rows": [
         "...444...",
         "..44444..",
@@ -1982,5 +4740,18 @@
       "groups": [],
       "route": null
     }
-  ]
+  ],
+  "colors": [
+    "#57aa06",
+    "#0071f3",
+    "#c73893",
+    "#fab614",
+    "#e61f33",
+    "#ff6314",
+    "#1fc7cc",
+    "#f5e6b8",
+    "#3d241f"
+  ],
+  "trialCount": 90,
+  "noisyTrialsPerStage": 4
 }

@@ -16,8 +16,6 @@ import statistics
 import subprocess
 import xml.etree.ElementTree as ET
 
-from build_learning_report import TITLES, INTENTS
-
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'docs/bounce-level-catalog'
 CONTENT = ROOT / 'Assets/_Project/Bounce/Content'
@@ -89,7 +87,8 @@ def import_evidence():
     assert tests.attrib['result'] == 'Passed' and int(tests.attrib['failed']) == 0, 'Unity test run failed'
     required = {'TenProductionLearningBoardsClearAndReplayWithoutBoosters',
                 'MeasureDirectAimWithZeroTwoAndFiveDegreeErrors',
-                'FirstMineGuideShowsTheMineRuleAndPreservesTheBallBudget'}
+                'FirstMineGuideShowsTheMineRuleAndPreservesTheBallBudget',
+                'SmallAndLargeGridsFitPortraitAndKeepCollisionAligned'}
     passed = {case.attrib['name'] for case in tests.iter('test-case') if case.attrib['result'] == 'Passed'}
     assert required <= passed, 'Missing required runtime checks'
     start = datetime.fromisoformat(tests.attrib['start-time'].replace('Z', '+00:00'))
@@ -97,9 +96,15 @@ def import_evidence():
     paths = sources()
     assert all(p.stat().st_mtime <= start.timestamp()+2 for p in paths), 'A gameplay source changed after the run started; rerun tests'
     witness = read(source/'BounceLearning/solutions.json')['boards']
-    trials = read(source/'BounceDifficulty/trials.json')['trials']
+    probe = read(source/'BounceDifficulty/trials.json')
+    trials = probe['trials']
     assert len(witness) == 10 and all(w['replayPassed'] for w in witness)
-    assert len(trials) == 250
+    assert {w['stage'] for w in witness} == set(range(1, 11))
+    assert probe['noisyTrialsPerStage'] >= 1
+    assert len(trials) == 10 * (1 + 2 * probe['noisyTrialsPerStage'])
+    for stage in range(1, 11):
+        for error in [0, 2, 5]:
+            assert sum(t['stage'] == stage and t['errorDegrees'] == error for t in trials) == (1 if error == 0 else probe['noisyTrialsPerStage'])
     evidence = OUT/'evidence'
     evidence.mkdir(parents=True, exist_ok=True)
     for src, dst in [(source/'level-catalog-play.xml', 'test-results.xml'),
@@ -118,19 +123,19 @@ def import_evidence():
     (evidence/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
 
 
-def summarize(level, stage, library, routes, trials, fresh):
+def summarize(level, stage, library, routes, trials, fresh, noisy_trials):
     blocks = sum('1' <= c <= '9' for row in level['rows'] for c in row)
     gimmicks = level.get('gimmicks') or []
     counts = Counter(g['type'] for g in gimmicks)
     objectives = blocks + sum(g['type'] not in ('panel', 'switch', 'door') for g in gimmicks)
     current = library == 'active'
     record = dict(id=f'{library}-{stage}', stage=stage, library=library, balls=level['balls'], blocks=blocks,
-                  objectives=objectives, columns=len(level['rows'][0]), height=len(level['rows']),
+                  objectives=objectives, columns=len(level['rows'][0]), height=level.get('gridRows') or 13,
                   rows=level['rows'], gimmicks=gimmicks, gimmickCounts=dict(counts),
                   gimmickLabel=' · '.join(f'{NAMES[k]} {n}' for k, n in counts.items()) or '없음',
-                  title=TITLES[stage-1] if current and stage <= 10 else f'보관 레벨 {stage:02}',
-                  intent=INTENTS[stage-1] if current and stage <= 10 else '이전 배치 및 기믹 검증용 라이브러리. 현재 플레이에 미연결.',
-                  grade='학습 D1 목표 · 체감 등급 미확정' if current else '미평가',
+                  title=level.get('title') or f'{"레벨" if current else "보관 레벨"} {stage:02}',
+                  intent=level.get('intent') or '이전 배치 및 기믹 검증용 라이브러리. 현재 플레이에 미연결.',
+                  grade='사물 도안 · 체감 난이도 미확정' if current else '미평가',
                   status='재검증 필요' if current else '클리어 미검증', pressure='미평가', groups=[], route=None)
     if not current or not fresh:
         return record
@@ -140,7 +145,7 @@ def summarize(level, stage, library, routes, trials, fresh):
     record.update(status='클리어·재현 확인', route=route, witnessShots=len(route['shots']), spareBalls=level['balls']-len(route['shots']))
     for error in [0, 2, 5]:
         group = [t for t in trials if t['stage'] == stage and t['errorDegrees'] == error]
-        assert len(group) == (1 if error == 0 else 12)
+        assert len(group) == (1 if error == 0 else noisy_trials)
         assert all(t['budget'] == level['balls'] and len(t['shots'])+t['ballsLeft'] == t['budget'] for t in group)
         record['groups'].append(dict(error=error, wins=sum(t['cleared'] for t in group), count=len(group),
                                      medianShots=statistics.median(len(t['shots']) for t in group),
@@ -164,15 +169,22 @@ def build():
     current_hashes = {p.relative_to(ROOT).as_posix(): sha(p) for p in sources()}
     stale = [p for p in set(current_hashes) | set(manifest['sourceHashes']) if current_hashes.get(p) != manifest['sourceHashes'].get(p)]
     routes = read(OUT/'evidence/solutions.json')['boards']
-    trials = read(OUT/'evidence/trials.json')['trials']
+    probe = read(OUT/'evidence/trials.json')
+    trials = probe['trials']
+    colors = []
+    for suffix in ['G', 'B', 'P', 'Y', '5', '6', '7', '8', '9']:
+        material = (CONTENT/f'RippleBox/Ripple_{suffix}.mat').read_text(encoding='utf-8')
+        rgb = re.search(r'_BaseColor: \{r: ([\d.]+), g: ([\d.]+), b: ([\d.]+)', material).groups()
+        colors.append('#'+''.join(f'{round(float(v)*255):02x}' for v in rgb))
     records = []
     for library, path in [('active', active), ('archive', LEGACY)]:
         for stage, level in enumerate(read(path)['levels'], 1):
-            records.append(summarize(level, stage, library, routes, trials, not stale))
+            records.append(summarize(level, stage, library, routes, trials, not stale, probe['noisyTrialsPerStage']))
     result = dict(activeSource=active.relative_to(ROOT).as_posix(), archiveSource=LEGACY.relative_to(ROOT).as_posix(),
                   activeCount=len(read(active)['levels']), verifiedAt=manifest['verifiedAt'], fresh=not stale,
                   staleSources=sorted(stale), testedCommit=manifest['commit'], testsPassed=manifest['testsPassed'],
-                  names=NAMES, rules=RULES, levels=records)
+                  names=NAMES, rules=RULES, levels=records, colors=colors,
+                  trialCount=len(trials), noisyTrialsPerStage=probe['noisyTrialsPerStage'])
     (OUT/'catalog.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     template = Path(__file__).with_suffix('.html').read_text(encoding='utf-8')
     data = json.dumps(result, ensure_ascii=False).replace('<', '\\u003c')
