@@ -161,7 +161,7 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator PearlCannonPreservesLaunchAndRecoilContract()
+    public IEnumerator CannonPreservesLaunchAndRecoilContract()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
@@ -177,13 +177,13 @@ public sealed class VisualFlowTests
         Assert.That(cannon.GetComponentsInChildren<MonoBehaviour>().All(c=>c!=null),Is.True);
         Assert.That(barrel.position.y,Is.EqualTo(.5f).Within(.025f));
         Assert.That(barrel.Find("CannonExplodeParticle").position.z,Is.EqualTo(-7.6f).Within(.025f));
-        Dump("pearl-ingame");
+        Dump("cannon-ingame");
         // Detail view uses the same 60-degree gameplay angle, without changing the authored assets.
         var camera=Camera.main;var position=camera.transform.position;var size=camera.orthographicSize;
         camera.transform.position=cannon.transform.position-camera.transform.forward*12;camera.orthographicSize=3.4f;
-        var sample=UnityEngine.Object.Instantiate(game.presentation.ball);
-        sample.transform.position=cannon.transform.position+new Vector3(1.15f,.5f,1.1f);sample.transform.localScale=Vector3.one*.5f;
-        Dump("pearl-detail");UnityEngine.Object.Destroy(sample);
+        Dump("cannon-detail");
+        cannon.transform.rotation=Quaternion.Euler(0,-30,0);Dump("cannon-angle");
+        cannon.transform.rotation=Quaternion.identity;
         camera.transform.position=position;camera.orthographicSize=size;
         yield return null;
         int count=game.BallsRemaining;Assert.That(game.Fire(Vector3.forward),Is.True);
@@ -193,10 +193,10 @@ public sealed class VisualFlowTests
         var animator=cannon.GetComponent<Animator>();animator.Update(0);animator.Update(.06f);
         Assert.That(barrel.localPosition.z,Is.LessThan(-.02f),"New barrel recoils on the existing launch trigger");
         Assert.That(barrel.localPosition.y,Is.EqualTo(.278f).Within(.005f),"Recoil preserves the launch plane");
-        Dump("pearl-shot");
+        Dump("cannon-shot");
         yield return new WaitForSeconds(.3f);
         Assert.That(barrel.localPosition.z,Is.EqualTo(0).Within(.005f));
-        Assert.That(cannon.transform.Find("Shell").localScale.x,Is.EqualTo(1).Within(.005f));
+        Assert.That(cannon.transform.Find("Carriage").localScale,Is.EqualTo(Vector3.one));
         yield return new WaitForSeconds(2);
         Assert.That(game.ActiveBalls,Is.Zero);
         Assert.That(game.BlocksRemaining,Is.LessThan(24));
