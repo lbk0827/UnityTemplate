@@ -49,10 +49,10 @@ namespace BK.Kit
         public int ObjectivesRemaining => targets.Count(t => t.IsObjective && t.Remaining > 0);
         public IEnumerable<Vector3> ObjectivePositions => targets.Where(t => t.IsObjective && t.Remaining > 0)
             .Select(t => t.spec.type == "tube" ? t.pieces[t.pieces.Count - 1].transform.position : t.root.position);
-        public static Vector3 Cell(int col, int row, int columns) => new Vector3(col - (columns - 1) * .5f, .5f, 7 - row);
+        public static Vector3 Cell(int col, int row, int columns, int gridRows = 13) => new Vector3(col - (columns - 1) * .5f, .5f, gridRows - 6 - row);
         public static Vector3 WeakNormal(int side) => side == 1 ? Vector3.right : side == 2 ? Vector3.forward : side == 3 ? Vector3.left : Vector3.back;
 
-        public void Build(GimmickSpec[] specs, int columns, GimmickPrefabCatalog prefabs, Action onChanged, Action<Vector3> onBlast = null)
+        public void Build(GimmickSpec[] specs, int columns, GimmickPrefabCatalog prefabs, Action onChanged, Action<Vector3> onBlast = null, int gridRows = 13)
         {
             changed = onChanged; blastBlocks = onBlast; catalog = prefabs; tubeProperties = new MaterialPropertyBlock();
             if (specs == null || specs.Length == 0) return;
@@ -63,11 +63,11 @@ namespace BK.Kit
                 if (prefab == null) throw new InvalidOperationException("Missing gimmick prefab: " + spec.type);
                 var view = Instantiate(prefab, transform);
                 view.name = spec.type + "_" + spec.col + "_" + spec.row;
-                view.transform.position = Cell(spec.col, spec.row, columns);
+                view.transform.position = Cell(spec.col, spec.row, columns, gridRows);
                 var t = new Target { spec = spec, view = view, root = view.transform, origin = view.transform.position, collider = view.solid };
                 targets.Add(t);
                 t.pieces.AddRange(view.pieces ?? Array.Empty<GameObject>());
-                foreach (var cell in BounceLevelLayout.Cells(spec)) t.cells.Add(Cell(cell.x, cell.y, columns));
+                foreach (var cell in BounceLevelLayout.Cells(spec)) t.cells.Add(Cell(cell.x, cell.y, columns, gridRows));
                 if (spec.type == "tube")
                 {
                     view.transform.localRotation = Quaternion.Euler(0, spec.vertical ? 90 : 0, 0);

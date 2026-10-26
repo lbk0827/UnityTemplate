@@ -21,10 +21,15 @@ public sealed class BounceLearningTests
         foreach (var level in actual.levels)
         {
             Assert.That(BounceLevelLayout.Validate(level), Is.Empty);
-            Assert.That(level.rows.Length, Is.EqualTo(13));
-            Assert.That(level.rows.All(r => r.Length == 9), Is.True);
-            Assert.That(level.rows.Skip(8).All(r => r == "........."), Is.True, "Leave the launch area clear");
+            Assert.That(level.rows.Length, Is.EqualTo(level.GridRows));
+            Assert.That(level.rows.All(r => r.Length == level.rows[0].Length), Is.True);
+            Assert.That(level.rows.TakeLast(4).All(r => r.All(c => c == '.')), Is.True, "Leave the launch area clear");
+            Assert.That(level.rows.Sum(r => r.Count(c => c >= '1' && c <= '9')), Is.GreaterThanOrEqualTo(70));
+            Assert.That(level.title, Is.Not.Empty);
         }
+        Assert.That(actual.levels.Select(l => l.GridRows).Distinct().Count(), Is.GreaterThan(3));
+        Assert.That(actual.levels.Select(l => l.rows[0].Length).Distinct().Count(), Is.GreaterThan(3));
+        Assert.That(actual.levels.SelectMany(l => string.Concat(l.rows)).Where(char.IsDigit).Distinct().Count(), Is.EqualTo(9));
     }
 
     [Test]

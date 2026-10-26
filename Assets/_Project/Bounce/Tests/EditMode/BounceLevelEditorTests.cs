@@ -59,6 +59,40 @@ public sealed class BounceLevelEditorTests
     }
 
     [Test]
+    public void ResizePreservesPaintAndSupportsUndo()
+    {
+        Call("Add", false);
+        Call("SetBlock", new Vector2Int(8, 12), '9');
+        var level=Draft.library.levels[^1];
+        Assert.That(BK.Kit.BounceLevelLayout.TryResize(level, 19, 24, out _), Is.True);
+        Assert.That(level.rows[12][8], Is.EqualTo('9'));
+        Assert.That(level.rows, Has.Length.EqualTo(24));
+        var before=JsonUtility.ToJson(level);
+        Assert.That(BK.Kit.BounceLevelLayout.TryResize(level, 8, 12, out var error), Is.False);
+        Assert.That(error, Is.Not.Empty);
+        Assert.That(JsonUtility.ToJson(level), Is.EqualTo(before), "Failed shrink must be atomic");
+        Undo.IncrementCurrentGroup();Undo.RecordObject(Draft,"Resize test");
+        Assert.That(BK.Kit.BounceLevelLayout.TryResize(level, 21, 26, out _), Is.True);
+        Undo.FlushUndoRecordObjects();Undo.PerformUndo();
+        Assert.That(Draft.library.levels[^1].GridRows, Is.EqualTo(24));
+        Assert.That(Draft.library.levels[^1].rows[0].Length, Is.EqualTo(19));
+    }
+
+    [Test]
+    public void LegacyShortRowsKeepTheirCoordinatesAndTallGridMovesBlocksAndGimmicksTogether()
+    {
+        var legacy=JsonUtility.FromJson<BK.Kit.BounceModule.Level>("{\"balls\":1,\"rows\":[\"..1..\"]}");
+        Assert.That(legacy.GridRows, Is.EqualTo(13));
+        Assert.That(BK.Kit.BounceGimmicks.Cell(2,0,5,legacy.GridRows), Is.EqualTo(new Vector3(0,.5f,7)));
+        Assert.That(BK.Kit.BounceGimmicks.Cell(2,23,5,24), Is.EqualTo(new Vector3(0,.5f,-5)));
+        legacy.gridRows=24;legacy.gimmicks=new[]{new BK.Kit.GimmickSpec {type="mine",col=2,row=20}};
+        Assert.That(BK.Kit.BounceLevelLayout.Validate(legacy), Is.Empty);
+        Assert.That(BK.Kit.BounceLevelLayout.TryResize(legacy,5,19,out _), Is.False);
+        legacy.gimmicks=new[]{new BK.Kit.GimmickSpec {type="panel",col=2,row=20,width=1,travel=.5f}};
+        Assert.That(BK.Kit.BounceLevelLayout.TryResize(legacy,5,20,out _), Is.False);
+    }
+
+    [Test]
     public void ExternallyChangedFileIsNotOverwritten()
     {
         string before = File.ReadAllText(BounceLevelEditor.DataPath);

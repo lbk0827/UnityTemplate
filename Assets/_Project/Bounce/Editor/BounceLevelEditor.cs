@@ -101,6 +101,15 @@ namespace BK.Kit.Editor
             EditorGUILayout.LabelField("Play sets the local sandbox stage and booster inventory.", EditorStyles.miniLabel);
             int balls = EditorGUILayout.IntField("발사 가능한 공", Level.balls);
             if (balls != Level.balls) Change("Change ball budget", () => Level.balls = balls);
+            string title = EditorGUILayout.TextField("레벨 이름", Level.title);
+            if (title != Level.title) Change("Change level title", () => Level.title = title);
+            string intent = EditorGUILayout.TextField("설계 의도", Level.intent);
+            if (intent != Level.intent) Change("Change level intent", () => Level.intent = intent);
+            int width = EditorGUILayout.DelayedIntField("그리드 가로 (3~25)", Level.rows[0].Length);
+            int height = EditorGUILayout.DelayedIntField("그리드 세로 (8~30)", Level.GridRows);
+            if (width != Level.rows[0].Length || height != Level.GridRows)
+                Change("Resize level grid", () => { BounceLevelLayout.TryResize(Level, width, height, out feedback); selected = -1; });
+            EditorGUILayout.LabelField($"일반 블록 {Level.rows.Sum(r => r.Count(c => c >= '1' && c <= '9'))}개 · 화면 자동 맞춤", EditorStyles.miniLabel);
             brush = (Brush)GUILayout.SelectionGrid((int)brush, new[] { "\uC120\uD0DD", "\uBE14\uB85D", "\uC9C0\uC6B0\uAC1C" }.Concat(BounceLevelLayout.Labels).ToArray(), 6);
             if (brush == Brush.Block) colour = EditorGUILayout.IntSlider("블록 색상", colour, 1, 9);
             EditorGUILayout.HelpBox("도구를 선택하고 칸을 클릭해 배치하세요. 우클릭은 삭제, Ctrl+Z는 실행 취소입니다. 금속관의 용광로는 관 시작 칸의 왼쪽(세로는 위쪽) 한 칸을 차지합니다.", MessageType.Info);
@@ -117,7 +126,7 @@ namespace BK.Kit.Editor
         private void Add(bool duplicate)
         {
             var value = duplicate ? JsonUtility.FromJson<BounceModule.Level>(JsonUtility.ToJson(Level)) :
-                new BounceModule.Level { balls = 20, rows = Enumerable.Repeat(".........", BounceLevelLayout.MaxRows).ToArray(), gimmicks = new GimmickSpec[0] };
+                new BounceModule.Level { balls = 20, gridRows = BounceLevelLayout.DefaultRows, rows = Enumerable.Repeat(".........", BounceLevelLayout.DefaultRows).ToArray(), gimmicks = new GimmickSpec[0] };
             Change("Add stage", () => draft.library.levels = draft.library.levels.Concat(new[] { value }).ToArray());
             stage = draft.library.levels.Length - 1; selected = -1;
         }
@@ -125,15 +134,15 @@ namespace BK.Kit.Editor
         private void DrawGrid()
         {
             int columns = Level.rows[0].Length;
-            const float cellSize = 34;
-            var area = GUILayoutUtility.GetRect(columns * cellSize, BounceLevelLayout.MaxRows * cellSize, GUILayout.ExpandWidth(false));
+            float cellSize = Mathf.Clamp((position.width - 350) / columns, 16, 34);
+            var area = GUILayoutUtility.GetRect(columns * cellSize, Level.GridRows * cellSize, GUILayout.ExpandWidth(false));
             var specs = Level.gimmicks ?? new GimmickSpec[0];
-            for (int row = 0; row < BounceLevelLayout.MaxRows; row++) for (int col = 0; col < columns; col++)
+            for (int row = 0; row < Level.GridRows; row++) for (int col = 0; col < columns; col++)
             {
                 var rect = new Rect(area.x + col * cellSize, area.y + row * cellSize, cellSize - 2, cellSize - 2);
                 var point = new Vector2Int(col, row);
                 int index = Find(point);
-                var color = BounceLevelLayout.HasBlock(Level, col, row) ? Color.HSVToRGB((Level.rows[row][col] - '1') / 9f, .6f, .65f) : new Color(.19f, .27f, .29f);
+                var color = BounceLevelLayout.HasBlock(Level, col, row) ? BounceBlockPalette.Colours[Level.rows[row][col] - '1'] : new Color(.19f, .27f, .29f);
                 string label = BounceLevelLayout.HasBlock(Level, col, row) ? Level.rows[row][col].ToString() : "";
                 if (index >= 0)
                 {
@@ -191,7 +200,7 @@ namespace BK.Kit.Editor
 
         private void SetBlock(Vector2Int point, char value)
         {
-            if (point.x < 0 || point.x >= Level.rows[0].Length || point.y < 0 || point.y >= BounceLevelLayout.MaxRows) return;
+            if (point.x < 0 || point.x >= Level.rows[0].Length || point.y < 0 || point.y >= Level.GridRows) return;
             if (point.y >= Level.rows.Length)
                 Level.rows = Level.rows.Concat(Enumerable.Repeat(new string('.', Level.rows[0].Length), point.y + 1 - Level.rows.Length)).ToArray();
             var row = Level.rows[point.y].ToCharArray(); row[point.x] = value; Level.rows[point.y] = new string(row);
@@ -211,7 +220,7 @@ namespace BK.Kit.Editor
             string link = spec.link; int weakSide = spec.weakSide;
             if (spec.type == "tube")
             {
-                length = EditorGUILayout.IntSlider("관 길이 (용광로 제외)", length, 1, 13);
+                length = EditorGUILayout.IntSlider("관 길이 (용광로 제외)", length, 1, BounceLevelLayout.MaxRows);
                 vertical = EditorGUILayout.Popup("방향", vertical ? 1 : 0, new[] { "가로 →", "세로 ↓" }) == 1;
                 EditorGUILayout.HelpBox("타격마다 한 칸이 용광로로 들어가 녹습니다. 관을 모두 녹이면 용광로가 꺼지고 충돌도 해제됩니다.", MessageType.None);
             }

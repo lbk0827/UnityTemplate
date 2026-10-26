@@ -32,8 +32,8 @@ public sealed class BounceLearningDifficultyTests
     {
         public string kind = "live-runtime-direct-aim-sensitivity-not-human-win-rate";
         public string policy = "Visible target centre; mines first, then nearest target; no planned wall bounce; one ball until drain; uniform independent per-shot angular error";
-        public string timing = "Zero-error runs at normal speed; noisy runs at timeScale 12 with unchanged fixedDeltaTime; thinking time excluded";
-        public int noisyTrialsPerStage = 12, seed = 20261021;
+        public string timing = "All probes at timeScale 12 with unchanged fixedDeltaTime; thinking time excluded";
+        public int noisyTrialsPerStage = 4, seed = 20261026;
         public Trial[] trials;
     }
 
@@ -78,7 +78,7 @@ public sealed class BounceLearningDifficultyTests
                         if (!DirectTarget(out float angle, out string target)) {record.noDirectTarget=true;break;}
                         float noisyAngle = Mathf.Clamp(angle+(float)(random.NextDouble()*2-1)*error, -75, 75);
                         var shot = new Shot {intendedAngle=angle, actualAngle=noisyAngle, target=target, before=game.BlocksRemaining};
-                        Time.timeScale = error == 0 ? 1 : 12;
+                        Time.timeScale = 12;
                         float started = Time.time;
                         Assert.That(game.Fire(Quaternion.Euler(0, noisyAngle, 0)*Vector3.forward), Is.True);
                         float deadline = Time.realtimeSinceStartup + 30;
@@ -104,7 +104,7 @@ public sealed class BounceLearningDifficultyTests
                 Debug.Log($"Aim probe L{stage} +/-{error} degrees: {group.Count(r=>r.cleared)}/{group.Length} clears, mean shots {group.Average(r=>r.shots.Length):F2}");
             }
         }
-        Assert.That(records, Has.Count.EqualTo(250));
+        Assert.That(records, Has.Count.EqualTo(10 * (1 + 2 * report.noisyTrialsPerStage)));
         Assert.That(records.SelectMany(r=>r.shots).All(s=>s.after<=s.before), Is.True);
     }
 

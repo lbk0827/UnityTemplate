@@ -50,7 +50,7 @@ public sealed class BounceLearningFlowTests
         Assert.That(Time.timeScale,Is.EqualTo(1));Assert.That(game.BallsRemaining,Is.EqualTo(balls));
     }
 
-    [UnityTest]
+    [UnityTest, Timeout(1200000)]
     public IEnumerator TenProductionLearningBoardsClearAndReplayWithoutBoosters()
     {
         folder = Path.Combine(Path.GetTempPath(), "BKKitTests", Guid.NewGuid().ToString("N"));
@@ -70,7 +70,16 @@ public sealed class BounceLearningFlowTests
             app.Play(stage); yield return Ready("VisualIngame");
             game = Object.FindFirstObjectByType<BounceModule>();
             Assert.That(game.presentation.levels.name, Is.EqualTo("bounce-learning-levels"), "Test the shipping assignment, not the legacy fixtures");
+            Camera.main.aspect=9f/16;
             game.Begin(stage, _ => {}); yield return null;
+            var authored=JsonUtility.FromJson<BounceModule.Levels>(game.presentation.levels.text).levels[stage-1];
+            Assert.That(GameObject.Find("Wall top").transform.position.z,Is.EqualTo(authored.GridRows-5));
+            foreach(Transform block in GameObject.Find("Bounce_Rig").transform)
+            {
+                if(!block.name.StartsWith("Block_"))continue;
+                var cell=block.name.Split('_');
+                Assert.That(block.position,Is.EqualTo(BounceGimmicks.Cell(int.Parse(cell[1]),int.Parse(cell[2]),authored.rows[0].Length,authored.GridRows)));
+            }
             Capture(stage);
             var record = new BoardRecord { stage=stage, budget=game.BallsRemaining, objectives=game.BlocksRemaining };
             var shots = new List<ShotRecord>();
@@ -98,6 +107,53 @@ public sealed class BounceLearningFlowTests
             File.WriteAllText("TestResults/BounceLearning/solutions.json", JsonUtility.ToJson(new Report {boards=records.ToArray()}, true));
             Debug.Log("Learning stage " + stage + " cleared and replayed: " + shots.Count + "/" + record.budget + " balls");
         }
+    }
+
+    [UnityTest]
+    public IEnumerator SmallAndLargeGridsFitPortraitAndKeepCollisionAligned()
+    {
+        folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);previousScale=Time.timeScale;
+        if(KitApp.Instance!=null)Object.Destroy(KitApp.Instance.gameObject);yield return null;
+        yield return SceneManager.LoadSceneAsync("VisualBootstrap");yield return Ready("VisualLobby");
+        KitApp.Instance.Play(1);yield return Ready("VisualIngame");
+        game=Object.FindFirstObjectByType<BounceModule>();
+        var original=game.presentation.levels;var camera=Camera.main;camera.aspect=9f/16;
+        float smallSize=0;
+        try
+        {
+            foreach(var size in new[]{new Vector2Int(3,8),new Vector2Int(25,30)})
+            {
+                var rows=Enumerable.Repeat(new string('.',size.x),size.y).ToArray();
+                rows[0]="1"+new string('.',size.x-1);rows[^1]=new string('.',size.x-1)+"9";
+                var data=new BounceModule.Level {gridRows=size.y,balls=10,rows=rows,gimmicks=new[]{new GimmickSpec {type="mine",col=2,row=2}}};
+                var asset=new TextAsset(JsonUtility.ToJson(new BounceModule.Levels {levels=new[]{data}}));
+                game.presentation.levels=asset;game.Begin(1,_=>{});yield return null;
+                Assert.That(GameObject.Find("Wall top").transform.position.z,Is.EqualTo(size.y-5));
+                Assert.That(GameObject.Find("Wall left").transform.localScale.z,Is.EqualTo(size.y+1.5f));
+                Physics.SyncTransforms();
+                Assert.That(Physics.SphereCast(Origin+Vector3.forward*.9f,.25f,Vector3.forward,out var forwardHit,40,1<<10),Is.True);
+                Assert.That(forwardHit.collider.name,Does.Not.StartWith("Bumper"),"Narrow grids must leave the launcher exit open");
+                var mine=Object.FindFirstObjectByType<BounceGimmicks>().Targets.Single();
+                Assert.That(mine.origin,Is.EqualTo(BounceGimmicks.Cell(2,2,size.x,size.y)));
+                foreach(var point in new[]{new Vector3(-size.x*.5f-1,1,size.y-4),new Vector3(size.x*.5f+1,1,size.y-4),new Vector3(0,0,-10)})
+                {
+                    var viewport=camera.WorldToViewportPoint(point);
+                    Assert.That(viewport.x,Is.InRange(0f,1f));Assert.That(viewport.y,Is.InRange(.02f,.98f));
+                }
+                if(smallSize==0)
+                {
+                    smallSize=camera.orthographicSize;
+                    camera.aspect=.3f;yield return null;
+                    Assert.That(camera.orthographicSize,Is.GreaterThan(smallSize),"Camera refits when the viewport changes");
+                    camera.aspect=9f/16;yield return null;
+                }
+                else Assert.That(camera.orthographicSize,Is.GreaterThan(smallSize*2),"Large grid uses smaller on-screen cells");
+                Directory.CreateDirectory("TestResults/BounceLearning");Capture(1,"grid-"+size.x+"x"+size.y+".png");
+                game.End();game.presentation.levels=original;Object.Destroy(asset);yield return null;
+            }
+        }
+        finally {game.presentation.levels=original;camera.ResetAspect();}
     }
 
     private IEnumerator FireAndSettle(float angle)

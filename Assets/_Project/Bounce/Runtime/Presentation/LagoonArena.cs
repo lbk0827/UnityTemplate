@@ -16,31 +16,31 @@ namespace BK.Kit
         private static readonly Color Gold=new Color(.94f,.65f,.25f);
         private static readonly Color Teal=new Color(.10f,.40f,.40f);
 
-        public void Build(int columns,Material material)
+        public void Build(int columns,Material material,int gridRows=13)
         {
             source=material;
             bevelBox=CreateBevelBox();meshes.Add(bevelBox);
             decor=new GameObject("Lagoon terrace • scenery").transform;decor.SetParent(transform,false);
-            float half=columns*.5f;
-            Shape("Lagoon",PrimitiveType.Cube,new Vector3(0,-.26f,0),new Vector3(columns+18,.2f,40),new Color(.10f,.48f,.59f));
-            Shape("Terrace foundation",PrimitiveType.Cube,new Vector3(0,-.18f,1),new Vector3(columns+2.8f,.3f,16.2f),Teal);
-            Shape("Tile grout",PrimitiveType.Cube,new Vector3(0,-.08f,.25f),new Vector3(columns,.1f,14.5f),new Color(.24f,.57f,.54f));
-            for(int row=0;row<15;row++)
+            float half=columns*.5f, extra=gridRows-13, top=gridRows-5;
+            Shape("Lagoon",PrimitiveType.Cube,new Vector3(0,-.26f,extra*.5f),new Vector3(200,.2f,200),new Color(.10f,.48f,.59f));
+            Shape("Terrace foundation",PrimitiveType.Cube,new Vector3(0,-.18f,1+extra*.5f),new Vector3(columns+2.8f,.3f,gridRows+3.2f),Teal);
+            Shape("Tile grout",PrimitiveType.Cube,new Vector3(0,-.08f,.25f+extra*.5f),new Vector3(columns,.1f,gridRows+1.5f),new Color(.24f,.57f,.54f));
+            for(int row=0;row<gridRows+2;row++)
                 for(int col=0;col<columns;col++)
                     Shape("Glazed sea tile",PrimitiveType.Cube,new Vector3(col-(columns-1)*.5f,-.035f,-6.5f+row),
                         new Vector3(.98f,.055f,.98f),(row+col)%2==0?new Color(.32f,.66f,.59f):new Color(.35f,.69f,.62f));
             for(int side=-1;side<=1;side+=2)
             {
                 float x=side*(half+.5f);
-                Shape("Gold wall inlay",PrimitiveType.Cube,new Vector3(x,1.215f,1.25f),new Vector3(.13f,.035f,14.5f),Gold);
-                for(int i=0;i<8;i++)
+                Shape("Gold wall inlay",PrimitiveType.Cube,new Vector3(x,1.215f,1.25f+extra*.5f),new Vector3(.13f,.035f,gridRows+1.5f),Gold);
+                for(int i=0;i<Mathf.CeilToInt((gridRows+1)/1.8f);i++)
                 {
                     float z=-5.5f+i*1.8f;
                     Shape("Pillar foot",PrimitiveType.Cube,new Vector3(x,.72f,z),new Vector3(1.16f,1.45f,.52f),Stone);
                     Shape("Pillar cap",PrimitiveType.Cube,new Vector3(x,1.47f,z),new Vector3(1.23f,.24f,.64f),Stone);
                     Shape("Pillar inset",PrimitiveType.Cube,new Vector3(x,1.61f,z),new Vector3(.64f,.035f,.3f),Gold);
                 }
-                for(int i=0;i<5;i++)
+                for(int i=0;i<Mathf.CeilToInt((gridRows-1)/2.8f);i++)
                 {
                     float z=-4.8f+i*2.8f;
                     Shape("Planter",PrimitiveType.Cylinder,new Vector3(side*(half+1.22f),.14f,z),new Vector3(.95f,.25f,.95f),Stone);
@@ -53,11 +53,11 @@ namespace BK.Kit
                     Shape("Coral blossom",PrimitiveType.Sphere,new Vector3(side*(half+1.22f),.76f,z),new Vector3(.32f,.25f,.32f),new Color(1,.48f,.38f));
                 }
             }
-            Shape("Upper coping",PrimitiveType.Cube,new Vector3(0,1.22f,8),new Vector3(columns+2.3f,.16f,1.2f),Stone);
-            Shape("Upper gold inlay",PrimitiveType.Cube,new Vector3(0,1.32f,8),new Vector3(columns+2.3f,.045f,.12f),Gold);
-            Shape("Sun medallion rim",PrimitiveType.Cylinder,new Vector3(0,1.4f,8),new Vector3(1.35f,.09f,1.35f),Gold);
-            Shape("Sun medallion",PrimitiveType.Cylinder,new Vector3(0,1.51f,8),new Vector3(1.08f,.035f,1.08f),Teal);
-            Shape("Compass jewel",PrimitiveType.Cube,new Vector3(0,1.58f,8),new Vector3(.42f,.08f,.42f),Stone,45);
+            Shape("Upper coping",PrimitiveType.Cube,new Vector3(0,1.22f,top),new Vector3(columns+2.3f,.16f,1.2f),Stone);
+            Shape("Upper gold inlay",PrimitiveType.Cube,new Vector3(0,1.32f,top),new Vector3(columns+2.3f,.045f,.12f),Gold);
+            Shape("Sun medallion rim",PrimitiveType.Cylinder,new Vector3(0,1.4f,top),new Vector3(1.35f,.09f,1.35f),Gold);
+            Shape("Sun medallion",PrimitiveType.Cylinder,new Vector3(0,1.51f,top),new Vector3(1.08f,.035f,1.08f),Teal);
+            Shape("Compass jewel",PrimitiveType.Cube,new Vector3(0,1.58f,top),new Vector3(.42f,.08f,.42f),Stone,45);
             // A visible shoreline corresponds to the preview and returning-ball cutoff.
             Shape("Shoreline lip",PrimitiveType.Cube,new Vector3(0,-.01f,BounceModule.DeadZoneZ),new Vector3(columns,.12f,.13f),Stone);
             Shape("Launcher dock rim",PrimitiveType.Cylinder,new Vector3(0,-.035f,-8.6f),new Vector3(3.3f,.13f,3.3f),Gold);

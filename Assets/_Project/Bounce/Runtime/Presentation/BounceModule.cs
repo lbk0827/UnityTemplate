@@ -10,7 +10,15 @@ namespace BK.Kit
 {
     public sealed class BounceModule : GameModule
     {
-        [Serializable] public sealed class Level { public int balls; public string[] rows; public GimmickSpec[] gimmicks; }
+        [Serializable] public sealed class Level
+        {
+            public int balls, gridRows;
+            public string title, intent;
+            public string[] rows;
+            public GimmickSpec[] gimmicks;
+            // Missing/zero means the original 13-row arena, including short legacy layouts.
+            public int GridRows => gridRows == 0 ? 13 : gridRows;
+        }
         [Serializable] public sealed class Levels { public Level[] levels; }
         [Serializable] private sealed class Block { public Transform root; public GameObject visual; public int hp, skin; }
         private sealed class Shot { public int id; public GameObject visual; public Vector3 position, direction; public float age; }
@@ -38,7 +46,8 @@ namespace BK.Kit
         private bool playing, holding;
         private int pointerId = -1;
         private readonly Vector3[] trajectoryPoints = new Vector3[3];
-        private int columns;
+        private int columns, gridRows;
+        private float fittedAspect;
         private Vector3 aim = Vector3.forward;
         private const int SolidLayer = 10;
         // Blocks are unit cubes centred on their root; Height lifts them so their base rests on the grass top (y=0).
@@ -60,14 +69,12 @@ namespace BK.Kit
             var library = JsonUtility.FromJson<Levels>(presentation.levels.text);
             var data = library.levels[(Mathf.Max(1, level)-1)%library.levels.Length];
             columns = data.rows[0].Length;
+            gridRows = data.GridRows;
             BallsRemaining = data.balls;
             rig = new GameObject("Bounce_Rig");
             camera = Camera.main;
             camera.orthographic = true;
-            camera.orthographicSize = Mathf.Max((columns*.5f+2)/Mathf.Max(.3f,camera.aspect),11.5f);
-            // Orthographic keeps every row the same size; the tilt only reveals block and wall sides.
-            var view=Quaternion.Euler(cameraPitch,0,0);
-            camera.transform.SetPositionAndRotation(new Vector3(0,0,.3f)-view*Vector3.forward*40,view);
+            FitCamera();
             camera.backgroundColor = new Color(.075f,.34f,.43f);
             audioSource = rig.AddComponent<AudioSource>();
             rig.AddComponent<KitAudioChannel>().Initialize(audioSource,KitAudioChannel.Category.Effects);
@@ -80,12 +87,12 @@ namespace BK.Kit
                     if (colour<1 || colour>9) continue;
                     var root=new GameObject("Block_"+col+"_"+row).transform;
                     root.SetParent(rig.transform,false);
-                    root.position=new Vector3(col-(columns-1)*.5f,Height,7-row);
+                    root.position=BounceGimmicks.Cell(col,row,columns,gridRows);
                     var block=new Block {root=root,hp=1,skin=Mathf.Clamp(colour-1,0,presentation.blocks.Length-1)};
                     blocks.Add(block); BuildBlock(block);
                 }
             gimmicks=rig.AddComponent<BounceGimmicks>();
-            gimmicks.Build(data.gimmicks,columns,presentation.ingameConfig.gimmickPrefabs,PushCounts,BlastBlocks);
+            gimmicks.Build(data.gimmicks,columns,presentation.ingameConfig.gimmickPrefabs,PushCounts,BlastBlocks,gridRows);
             cannon=Instantiate(presentation.cannon,rig.transform);
             cannon.name="Bounce_Cannon";
             cannon.transform.position=new Vector3(0,0,-8.5f);
@@ -117,14 +124,24 @@ namespace BK.Kit
         private void BuildArena()
         {
             float half=columns*.5f;
+            float centre=1.25f+(gridRows-13)*.5f, depth=gridRows+1.5f;
             Color wall=new Color(.96f,.86f,.65f);
-            Box("Wall left",new Vector3(-half-.5f,.6f,1.25f),new Vector3(1,1.2f,14.5f),0,wall,true);
-            Box("Wall right",new Vector3(half+.5f,.6f,1.25f),new Vector3(1,1.2f,14.5f),0,wall,true);
-            Box("Wall top",new Vector3(0,.6f,8),new Vector3(columns+2,1.2f,1),0,wall,true);
-            float delta=1.5f*Mathf.Sqrt(.5f);
-            Box("Bumper left",new Vector3(-half+delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),45,wall,true);
-            Box("Bumper right",new Vector3(half-delta,.6f,-6-delta),new Vector3(3,1.2f,.6f),135,wall,true);
-            rig.AddComponent<LagoonArena>().Build(columns,presentation.arenaMaterial);
+            Box("Wall left",new Vector3(-half-.5f,.6f,centre),new Vector3(1,1.2f,depth),0,wall,true);
+            Box("Wall right",new Vector3(half+.5f,.6f,centre),new Vector3(1,1.2f,depth),0,wall,true);
+            Box("Wall top",new Vector3(0,.6f,gridRows-5),new Vector3(columns+2,1.2f,1),0,wall,true);
+            float bumperLength=Mathf.Min(3,(columns-1)*.5f), delta=bumperLength*.5f*Mathf.Sqrt(.5f);
+            Box("Bumper left",new Vector3(-half+delta,.6f,-6-delta),new Vector3(bumperLength,1.2f,.6f),45,wall,true);
+            Box("Bumper right",new Vector3(half-delta,.6f,-6-delta),new Vector3(bumperLength,1.2f,.6f),135,wall,true);
+            rig.AddComponent<LagoonArena>().Build(columns,presentation.arenaMaterial,gridRows);
+        }
+
+        private void FitCamera()
+        {
+            fittedAspect=camera.aspect;
+            camera.orthographicSize=Mathf.Max((columns*.5f+2)/Mathf.Max(.3f,fittedAspect),
+                (gridRows+6)*.5f*Mathf.Sin(cameraPitch*Mathf.Deg2Rad)+2);
+            var view=Quaternion.Euler(cameraPitch,0,0);
+            camera.transform.SetPositionAndRotation(new Vector3(0,0,.3f+(gridRows-13)*.5f)-view*Vector3.forward*60,view);
         }
         private void Box(string name,Vector3 position,Vector3 scale,float yaw,Color color,bool solid)
         {
@@ -159,6 +176,7 @@ namespace BK.Kit
         }
         private void Update()
         {
+            if(rig!=null && camera!=null && Mathf.Abs(camera.aspect-fittedAspect)>.001f) FitCamera();
             if(!playing || IsUsingBooster || BallsRemaining<=0 || KitApp.Instance==null || KitApp.Instance.IsLoading || Time.timeScale==0) { CancelAim();return; }
             Vector2 screen=Input.mousePosition;
             bool began=Input.GetMouseButtonDown(0),released=Input.GetMouseButtonUp(0),canceled=false;

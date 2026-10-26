@@ -11,7 +11,7 @@ public sealed class RippleBoxTests
     public void OriginalBoxCollisionAndColourOrderSurviveTheVisualReplacement()
     {
         var p=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
-        Assert.That(p.blocks.Length,Is.EqualTo(4));Assert.That(p.brokenBlocks.Length,Is.EqualTo(4));
+        Assert.That(p.blocks.Length,Is.EqualTo(9));Assert.That(p.brokenBlocks.Length,Is.EqualTo(9));
         for(int i=0;i<4;i++)
         {
             var original=RippleBoxSetup.Original(i);
@@ -35,5 +35,14 @@ public sealed class RippleBoxTests
             Assert.That(pieces.All(r=>r.sharedMaterial==renderer.sharedMaterial),Is.True);
             Assert.That(p.brokenBlocks[i].GetComponentsInChildren<Collider>(),Is.Empty);
         }
+        for(int i=4;i<9;i++)
+        {
+            var material=p.blocks[i].GetComponentInChildren<MeshRenderer>().sharedMaterial;
+            Assert.That(((Vector4)(material.GetColor("_BaseColor")-BounceBlockPalette.Colours[i])).sqrMagnitude, Is.LessThan(1e-10f));
+            Assert.That(p.blocks[i].GetComponentInChildren<MeshCollider>().sharedMesh,
+                Is.EqualTo(p.blocks[0].GetComponentInChildren<MeshCollider>().sharedMesh));
+            Assert.That(p.brokenBlocks[i].GetComponentsInChildren<MeshRenderer>().All(r=>r.sharedMaterial==material),Is.True);
+        }
+        Assert.That(p.blocks.Select(b=>b.GetComponentInChildren<MeshRenderer>().sharedMaterial.GetColor("_BaseColor")).Distinct().Count(),Is.EqualTo(9));
     }
 }

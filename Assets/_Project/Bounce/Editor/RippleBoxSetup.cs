@@ -84,11 +84,44 @@ namespace BK.Kit.Editor
             }
             presentation.blocks=blocks;presentation.brokenBlocks=fragments;
             EditorUtility.SetDirty(presentation);AssetDatabase.SaveAssets();
+            ExpandPalette();
             Capture(blocks,"after");
             Debug.Log("RIPPLE_BOX_READY: four colours, own mesh/atlas/fragments; original collision preserved.");
         }
 
         public static GameObject Original(int index)=>AssetDatabase.LoadAssetAtPath<GameObject>(Source+"Box_Rocket_Square_"+Colours[index]+".prefab");
+        [MenuItem("BK Kit/Balance/Apply Nine Block Colours")]
+        public static void ExpandPalette()
+        {
+            var presentation=AssetDatabase.LoadAssetAtPath<GamePresentation>("Assets/_Project/Bounce/Content/Presentation.asset");
+            var blocks=new GameObject[9];var fragments=new GameObject[9];
+            Array.Copy(presentation.blocks,blocks,4);Array.Copy(presentation.brokenBlocks,fragments,4);
+            var reference=blocks[0].GetComponentInChildren<MeshRenderer>().sharedMaterial;
+            for(int i=4;i<9;i++)
+            {
+                string path=Root+"/Ripple_"+(i+1)+".mat";
+                var material=AssetDatabase.LoadAssetAtPath<Material>(path);
+                if(material==null){material=new Material(reference);AssetDatabase.CreateAsset(material,path);}
+                material.SetColor("_BaseColor",BounceBlockPalette.Colours[i]);
+                EditorUtility.SetDirty(material);
+                blocks[i]=Recolour(blocks[0],material,Root+"/RippleBox_"+(i+1)+".prefab");
+                fragments[i]=Recolour(fragments[0],material,Root+"/RippleBoxFragments_"+(i+1)+".prefab");
+            }
+            presentation.blocks=blocks;presentation.brokenBlocks=fragments;
+            EditorUtility.SetDirty(presentation);AssetDatabase.SaveAssets();
+        }
+
+        private static GameObject Recolour(GameObject source,Material material,string path)
+        {
+            var root=Object.Instantiate(source);
+            try
+            {
+                root.name=Path.GetFileNameWithoutExtension(path);
+                foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>()) renderer.sharedMaterial=material;
+                return PrefabUtility.SaveAsPrefabAsset(root,path);
+            }
+            finally { Object.DestroyImmediate(root); }
+        }
         public static void CaptureBefore()=>Capture(new[]{Original(0),Original(1),Original(2),Original(3)},"before");
         static void Part(Transform parent,string name,Mesh mesh,Material material,Vector3 position)
         {

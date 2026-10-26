@@ -7,7 +7,7 @@ namespace BK.Kit
     // Shared by the authoring grid and validation; coordinates are column/row, not world X/Z.
     public static class BounceLevelLayout
     {
-        public const int MaxRows = 13;
+        public const int DefaultRows = 13, MaxRows = 30, MaxColumns = 25;
         public static readonly string[] Types = { "tube", "cupboard", "panel", "mine", "switch", "door", "combo", "armor" };
         public static readonly string[] Labels = { "금속관", "찬장", "이동 판", "기뢰", "스위치", "문", "연속 타격", "방향 장갑" };
 
@@ -38,8 +38,9 @@ namespace BK.Kit
             if (level == null || level.rows == null || level.rows.Length == 0 || string.IsNullOrEmpty(level.rows[0]))
             { errors.Add("보드 데이터가 없습니다."); return errors; }
             int columns = level.rows[0].Length;
-            if (columns < 3 || columns > 15) errors.Add("보드 폭은 3~15칸이어야 합니다.");
-            if (level.rows.Length > MaxRows) errors.Add("보드 높이는 최대 13칸입니다.");
+            if (columns < 3 || columns > MaxColumns) errors.Add("보드 폭은 3~25칸이어야 합니다.");
+            if (level.GridRows < 8 || level.GridRows > MaxRows) errors.Add("그리드 높이는 8~30칸이어야 합니다.");
+            if (level.rows.Length > level.GridRows) errors.Add("블록 배치가 그리드 높이를 초과합니다.");
             if (level.balls < 1) errors.Add("발사할 공이 1개 이상 필요합니다.");
             if (level.rows.Any(r => r == null || r.Length != columns || r.Any(c => c != '.' && (c < '1' || c > '9'))))
             { errors.Add("모든 행의 폭이 같아야 하며 빈칸(.)과 색상(1~9)만 사용할 수 있습니다."); return errors; }
@@ -58,7 +59,7 @@ namespace BK.Kit
                         spec.width < .5f || spec.travel <= 0 || spec.speed <= 0 || spec.speed > 3)
                     { errors.Add(label + ": 폭 ≥ 0.5, 이동 거리 > 0, 속도 0~3 범위로 설정하세요."); continue; }
                     var area = PanelArea(spec);
-                    if (area.xMin < -.4f || area.xMax > columns - .6f || area.yMin < -.5f || area.yMax > MaxRows - .5f)
+                    if (area.xMin < -.4f || area.xMax > columns - .6f || area.yMin < -.5f || area.yMax > level.GridRows - .5f)
                         errors.Add(label + ": 이동 범위가 벽 밖으로 나갑니다.");
                     panels.Add(area);
                     continue;
@@ -74,10 +75,10 @@ namespace BK.Kit
                 }
                 if (spec.type == "armor" && (spec.weakSide < 0 || spec.weakSide > 3)) errors.Add(label + ": 약점 방향은 0~3이어야 합니다.");
                 if (spec.type == "tube" && (spec.length < 1 || spec.length > MaxRows))
-                { errors.Add(label + ": 관 길이는 1~13칸입니다."); continue; }
+                { errors.Add(label + ": 관 길이는 1~30칸입니다."); continue; }
                 foreach (var cell in Cells(spec))
                 {
-                    if (cell.x < 0 || cell.x >= columns || cell.y < 0 || cell.y >= MaxRows)
+                    if (cell.x < 0 || cell.x >= columns || cell.y < 0 || cell.y >= level.GridRows)
                         errors.Add(label + ": 용광로를 포함한 기믹이 보드 밖으로 나갑니다.");
                     if (!occupied.Add(cell)) errors.Add(label + ": 다른 기믹 또는 블록과 겹칩니다.");
                 }
@@ -103,5 +104,27 @@ namespace BK.Kit
         }
 
         private static bool Finite(float value) => !float.IsNaN(value) && !float.IsInfinity(value);
+
+        // Resizing never silently deletes authored cells or a gimmick's travel range.
+        public static bool TryResize(BounceModule.Level level, int columns, int rows, out string error)
+        {
+            error = null;
+            if (columns < 3 || columns > MaxColumns || rows < 8 || rows > MaxRows)
+            { error = "가로 3~25칸, 세로 8~30칸으로 설정하세요."; return false; }
+            for (int y = 0; y < level.rows.Length; y++) for (int x = 0; x < level.rows[y].Length; x++)
+                if ((x >= columns || y >= rows) && HasBlock(level, x, y))
+                { error = "줄어드는 영역에 블록이 있습니다. 먼저 이동하거나 지워주세요."; return false; }
+            foreach (var spec in level.gimmicks ?? new GimmickSpec[0])
+            {
+                bool outside = spec.type == "panel"
+                    ? PanelArea(spec).xMax > columns - .6f || PanelArea(spec).yMax > rows - .5f
+                    : Cells(spec).Any(c => c.x >= columns || c.y >= rows);
+                if (outside) { error = "줄어드는 영역에 기믹 또는 이동 경로가 있습니다."; return false; }
+            }
+            level.rows = Enumerable.Range(0, rows).Select(y =>
+                (y < level.rows.Length ? level.rows[y] : "").PadRight(columns, '.').Substring(0, columns)).ToArray();
+            level.gridRows = rows;
+            return true;
+        }
     }
 }
