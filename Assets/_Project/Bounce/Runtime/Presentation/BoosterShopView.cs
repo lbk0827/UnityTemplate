@@ -12,19 +12,19 @@ namespace BK.Kit
     {
         private static readonly Color Ink = new Color(.19f,.09f,.36f);
         private readonly Dictionary<string,Sprite> sprites=new Dictionary<string,Sprite>();
+        private readonly Dictionary<int,Button> purchaseButtons=new();
         private KitApp app;
         private TMP_Text fontSource,goldBalance;
         private Material shopFontMaterial;
         private Button purchaseTemplate;
         private RectTransform content;
-        private Action<string,string> showInfo;
         private float cursor;
         public ScrollRect Scroll { get; private set; }
         public RectTransform CoinsSection { get; private set; }
 
         public void Initialize(GameObject screen,GamePresentation presentation,Action<string,string> showInfo)
         {
-            this.showInfo=showInfo;app=KitApp.Instance;
+            app=KitApp.Instance;
             purchaseTemplate=presentation.retry.GetComponentsInChildren<VisualBindings>(true).First(b=>b.role=="UIRetryPopup").Get<Button>("retryButton");
             foreach(var sprite in presentation.shopSprites)if(sprite!=null)sprites[sprite.name]=sprite;
             var store=screen.GetComponentsInChildren<Transform>(true).First(t=>t.name=="store");
@@ -73,8 +73,8 @@ namespace BK.Kit
                         // The existing card geometry also reserves the footer for the purchase action.
                         Icon(card,product.icon,new Vector2(200,160),new Vector2(0,78));
                         Label(card,app.Shop.Amount(reward),new Vector2(240,46),new Vector2(0,-30),40,Ink);
-                        Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
-                            ()=>Preview(product));
+                        purchaseButtons[product.id]=Buy(card,"Preview_Coins_"+reward.amount,ShopCatalog.Price(product),new Vector2(240,90),new Vector2(0,-114),38,
+                            ()=>app.BuyProduct(product.id));
                     }
                     else RenderPackage(product,boosterIcons);
                     index++;
@@ -154,11 +154,8 @@ namespace BK.Kit
                 var badge=Label(tag.transform,product.badge,new Vector2(180,42),new Vector2(-17,23),27,Color.white);
                 badge.rectTransform.localEulerAngles=new Vector3(0,0,45);
             }
-            Footer(card,product.name,ShopCatalog.Price(product),()=>Preview(product));
-        }
-        private void Preview(ShopProductRow product)
-        {
-            showInfo(product.name,app.Shop.Describe(product)+"\n\nPurchases are not available yet.\nNo payment will be taken.");
+            Footer(card,product.name,ShopCatalog.Price(product),()=>app.BuyProduct(product.id));
+            purchaseButtons[product.id]=card.GetComponentsInChildren<Button>().First(b=>b.name.StartsWith("Preview_"));
         }
         private Sprite Sprite(string name)=>sprites[name];
         private void Gap(float height)=>cursor+=height;
@@ -202,6 +199,13 @@ namespace BK.Kit
         private void Refresh()
         {
             if(goldBalance!=null)goldBalance.text=app.Gold.ToString();
+            foreach(var pair in purchaseButtons)
+            {
+                bool owned=app.Purchases.IsOwned(pair.Key);
+                pair.Value.interactable=!owned && !app.Purchases.IsBusy;
+                foreach(var label in pair.Value.GetComponentsInChildren<TMP_Text>())
+                    label.text=owned?"Purchased":ShopCatalog.Price(app.Shop.Products.Get(pair.Key));
+            }
         }
         private RectTransform Rect(Transform parent,string name,Vector2 size,Vector2 position)
         {

@@ -125,11 +125,14 @@ public sealed class OfferFlowTests
         Assert.That(slot1.Get<TMP_Text>("priceText").text,Is.EqualTo("FREE"),"Step 3 is free again");
         slot0.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward),"Paid step grants nothing offline");
-        Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(2),"Paid step does not advance without a store");
-        var notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
-        Assert.That(notice,Is.Not.Null,"Paid step explains that payments are not connected");
-        notice.Close();yield return null;
+        yield return FakeStoreTestUI.Resolve(false);
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward),"Cancelled payment grants nothing");
+        Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(2),"Cancelled payment does not advance");
+        slot0.Get<Button>("buyButton").onClick.Invoke();yield return null;
+        yield return FakeStoreTestUI.Resolve(true);
+        long paidGold=app.Shop.Products.Get(paidProduct).rewards.Where(r=>r.currencyId=="Gold").Sum(r=>(long)r.amount);
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward+paidGold));
+        Assert.That(KitTestSaves.StepOfferNextStep(folder,type),Is.EqualTo(3));
         yield return new WaitForSecondsRealtime(.35f);
         Dump(capture+"-paid");
         var close=binding.Get<Button>("closeButton");
@@ -138,10 +141,10 @@ public sealed class OfferFlowTests
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(offers.IsOpen,Is.False);
         Assert.That(UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).Any(b=>b.role==role),Is.False,"Popup instance is destroyed");
-        if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.False,"Current step is paid, so the red dot hides");
+        if(dot!=null)Assert.That(dot.gameObject.activeInHierarchy,Is.True,"Successful payment unlocks the next free step");
         Assert.That(icon.gameObject.activeInHierarchy,Is.True,"The icon stays until the week ends or the ladder completes");
 
-        // Welcome deal: visuals and local reward list, purchase only informs.
+        // Welcome deal: official Fake Store purchase grants once and hides the purchased offer.
         var welcome=right.GetComponentsInChildren<Button>(true).First(b=>HierarchyPath(b.transform).Contains("Welcome"));
         Click(welcome);
         yield return null;
@@ -156,10 +159,10 @@ public sealed class OfferFlowTests
         Dump("offer-welcome");
         deal.Get<Button>("buyButton").onClick.Invoke();
         yield return null;
-        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward));
-        notice=UnityEngine.Object.FindFirstObjectByType<KitDialog>();
-        Assert.That(notice,Is.Not.Null);notice.Close();yield return null;
-        deal.Get<Button>("dimButton").onClick.Invoke();
+        Assert.That(app.Gold,Is.EqualTo(goldBefore+firstReward+paidGold));
+        yield return FakeStoreTestUI.Resolve(true);
+        Assert.That(app.Purchases.WelcomeOwned,Is.True);
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(goldBefore+firstReward+paidGold+3000));
         yield return new WaitForSecondsRealtime(.25f);
         Assert.That(offers.IsOpen,Is.False);
         var stage=UnityEngine.Object.FindObjectsByType<VisualBindings>(FindObjectsInactive.Include,FindObjectsSortMode.None).First(b=>b.role=="StageInfo");

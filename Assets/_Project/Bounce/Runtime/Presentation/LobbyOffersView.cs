@@ -14,16 +14,12 @@ namespace BK.Kit
 
     // Lobby floating offer icons (UI_Right) and the imported WelcomeDeal / EndlessOffer / EndlessGifts popups.
     // Step data and claiming go through BK.Meta.StepOffers (weekly rotation, sf rules); this class only binds authored prefabs.
-    // Only the icon of the week's active type is shown; the welcome deal is display-only until a store is connected.
+    // Only the icon of the week's active type is shown; purchases go through BouncePurchases.
     public sealed class LobbyOffersView : MonoBehaviour
     {
         public const string WelcomePrice="$4.99";
         public const int WelcomeBonusPercent=300;
-        public static readonly ItemGrant[] WelcomeRewards=
-        {
-            BounceItems.Gold(3000),BounceItems.Booster(BoosterKind.Missile,3),BounceItems.Booster(BoosterKind.ExtraBall,3),
-            BounceItems.Booster(BoosterKind.Bomb,2),BounceItems.Booster(BoosterKind.Laser,2)
-        };
+        public static readonly ItemGrant[] WelcomeRewards=BouncePurchases.WelcomeRewards;
 
         private KitApp app;
         private GamePresentation presentation;
@@ -128,6 +124,9 @@ namespace BK.Kit
 
         private void Refresh()
         {
+            if(icons.TryGetValue(LobbyOfferIcon.WelcomeDeal,out var welcomeRoots))
+                foreach(var root in welcomeRoots)if(root!=null)root.SetActive(!app.Purchases.WelcomeOwned);
+            if(popup!=null && openKind==LobbyOfferIcon.WelcomeDeal && app.Purchases.WelcomeOwned)Close();
             var campaign=Active;
             foreach(var kind in new[]{LobbyOfferIcon.EndlessOffer,LobbyOfferIcon.EndlessGift})
             {
@@ -282,7 +281,7 @@ namespace BK.Kit
             var campaign=active.Value;
             var window=app.Offers.Window(campaign,SlotCount());
             if(index>=window.Count || !window[index].IsCurrent)return;
-            if(window[index].Step.IsPaid){showInfo("Purchase",KitApp.PaymentsNotConnected);return;}
+            if(window[index].Step.IsPaid){app.BuyStep(campaign);return;}
             bool claimed=app.TryClaimStepOffer(campaign,out var message); // a successful claim rebinds through ProgressChanged
             if(feedback!=null)feedback.text=claimed?"":message;
             if(claimed)showInfo("Rewards",message);
@@ -349,7 +348,7 @@ namespace BK.Kit
                     if(count!=null){count.text=AmountFor(reward);count.font=textStyle.font;count.fontSharedMaterial=textStyle.fontSharedMaterial;count.color=new Color(1,1,.8f);count.enableVertexGradient=false;Center(count.rectTransform,new Vector2(0,-60),new Vector2(140,55));count.enableAutoSizing=true;count.fontSizeMin=28;count.fontSizeMax=40;}
                 }
             }
-            Bind(popupBinding.Get<Button>("buyButton"),()=>showInfo("Purchase",KitApp.PaymentsNotConnected));
+            Bind(popupBinding.Get<Button>("buyButton"),app.BuyWelcome);
         }
         private static void Center(RectTransform rect,Vector2 position,Vector2 size)
         {rect.anchorMin=rect.anchorMax=rect.pivot=new Vector2(.5f,.5f);rect.anchoredPosition=position;rect.sizeDelta=size;rect.localScale=Vector3.one;}

@@ -5,7 +5,7 @@ using System.Linq;
 using BK.Data;
 namespace BK.Kit
 {
-    // Presentation/economy data only. Cash products cannot grant inventory or initiate a payment.
+    // Presentation/economy data only. BouncePurchases owns payment and fulfillment.
     public sealed class ShopCatalog
     {
         public ITable<int,ShopProductRow> Products { get; }

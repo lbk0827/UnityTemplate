@@ -463,7 +463,7 @@ public sealed class VisualFlowTests
     }
 
     [UnityTest]
-    public IEnumerator CategorizedShopScrollsAndPreviewNeverCharges()
+    public IEnumerator CategorizedShopScrollsAndFakeStorePurchasesPersist()
     {
         folder=Path.Combine(Path.GetTempPath(),"BKKitTests",Guid.NewGuid().ToString("N"));
         Environment.SetEnvironmentVariable("BK_KIT_TEST_SAVE_DIR",folder);
@@ -484,17 +484,21 @@ public sealed class VisualFlowTests
         Assert.That(GameObject.Find("UI_Top"),Is.Null,"Home HUD must be hidden on Shop");
         long balance=KitApp.Instance.Gold;
         Click(GameObject.Find("Preview_NoAds_7").GetComponent<Button>());yield return null;
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
+        yield return FakeStoreTestUI.Resolve(true);
+        Assert.That(KitApp.Instance.Wallet.ValueOf(BounceCurrencies.NoAds),Is.EqualTo(1));
+        Assert.That(GameObject.Find("Preview_NoAds_7").GetComponent<Button>().interactable,Is.False);
         Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance));
-        Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
         shop.Scroll.content.anchoredPosition=new Vector2(0,1300);Canvas.ForceUpdateCanvases();yield return null;
         Dump("shop-bundles");
         shop.Scroll.content.anchoredPosition=new Vector2(0,-shop.CoinsSection.anchoredPosition.y-82);Canvas.ForceUpdateCanvases();yield return null;
         Dump("shop-coins");
         Click(GameObject.Find("Preview_Coins_1000").GetComponent<Button>());yield return null;
-        Assert.That(UnityEngine.Object.FindFirstObjectByType<KitDialog>(),Is.Not.Null);
+        yield return FakeStoreTestUI.Resolve(false);
         Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance));
-        Click(GameObject.Find("Dialog Close").GetComponent<Button>());yield return null;
+        Click(GameObject.Find("Preview_Coins_1000").GetComponent<Button>());yield return null;
+        yield return FakeStoreTestUI.Resolve(true);
+        Assert.That(KitApp.Instance.Gold,Is.EqualTo(balance+1000));
+        Assert.That(KitTestSaves.Gold(folder),Is.EqualTo(balance+1000));
         Assert.That(GameObject.Find("Category_Boosters"),Is.Null,"Boosters are not sold for Gold in the shop");
         Click(Binding("UIHUDPanel").Get<Toggle>("HomeToggle"));yield return new WaitForSecondsRealtime(.35f);
         Assert.That(UnityEngine.Object.FindFirstObjectByType<LobbyNavigation>().SelectedPage,Is.EqualTo(1));
@@ -847,7 +851,7 @@ public sealed class VisualFlowTests
         var pointer=new PointerEventData(EventSystem.current) {position=RectTransformUtility.WorldToScreenPoint(null,rect.TransformPoint(rect.rect.center))};
         var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(pointer,hits);
         Assert.That(hits.Count,Is.GreaterThan(0),"No hit at "+pointer.position+" screen="+Screen.width+"x"+Screen.height+" target="+toggle.name+" raycast="+toggle.targetGraphic.raycastTarget);
-        Assert.That(hits[0].gameObject.GetComponentInParent<Selectable>(),Is.EqualTo(toggle),"The selected tab must receive the actual UI raycast");
+        Assert.That(hits[0].gameObject.GetComponentInParent<Selectable>(),Is.EqualTo(toggle),"The selected tab must receive the actual UI raycast; hit="+hits[0].gameObject.name+" at "+pointer.position+" target="+toggle.name);
         ExecuteEvents.ExecuteHierarchy(hits[0].gameObject,pointer,ExecuteEvents.pointerClickHandler);
     }
     private static IEnumerator Ready(string name)

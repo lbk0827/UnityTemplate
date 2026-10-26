@@ -25,6 +25,7 @@ namespace BK.Kit
         public const int PushPermissionStage = 3;
 
         public ShopCatalog Shop { get; private set; }
+        public BouncePurchases Purchases { get; private set; }
         public GameSession Session { get; } = new GameSession();
         public bool IsLoading { get; private set; }
         public int LastGoldReward { get; private set; }
@@ -38,6 +39,7 @@ namespace BK.Kit
         private readonly CompositeDisposable subscriptions = new();
         private int pendingStageAdvance;
         private float nextSaveAttempt;
+        private float nextPurchaseRetry;
         [SerializeField] private string lobbyScene = "Lobby";
         [SerializeField] private string ingameScene = "Ingame";
 
@@ -93,6 +95,10 @@ namespace BK.Kit
             services = kitServices;
             Shop = new ShopCatalog(services.Tables.Get<int, ShopProductRow>(), services.Tables.Get<string, CurrencyDefinitionRow>());
             profile = services.Saves.Get<BounceProfileData>();
+            Purchases = new BouncePurchases(Shop, services.Saves, services.Wallet, services.Offers, new BK.Purchasing.UnityFakeStore());
+            Purchases.Changed += OnPurchasesChanged;
+            Purchases.Completed += OnPurchaseCompleted;
+            Purchases.InitializeAsync().Forget();
             services.Wallet.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             services.Progress.CurrentStage.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
             services.DisplayLock.Changed.Subscribe(_ => Changed?.Invoke()).AddTo(subscriptions);
@@ -102,6 +108,7 @@ namespace BK.Kit
 
         private void OnDestroy()
         {
+            Purchases?.Dispose();
             subscriptions.Dispose();
             if (Instance == this) Instance = null;
         }
@@ -284,22 +291,35 @@ namespace BK.Kit
             return ok;
         }
 
-        private void Update() { if (HasPendingSave && Time.unscaledTime >= nextSaveAttempt) RetryPendingSave(); }
+        private void Update()
+        {
+            if (HasPendingSave && Time.unscaledTime >= nextSaveAttempt) RetryPendingSave();
+            if (Purchases != null && Time.unscaledTime >= nextPurchaseRetry)
+            { nextPurchaseRetry = Time.unscaledTime + 2; Purchases.RetryPending(); }
+        }
         private void OnApplicationPause(bool paused) { if (paused && HasPendingSave) RetryPendingSave(); }
         private void OnApplicationQuit() { if (HasPendingSave) RetryPendingSave(); }
 
         // ----- economy -----
 
-        public const string PaymentsNotConnected = "Payments are not connected in this offline kit.\nConnect a store backend to enable purchases.";
+        private void OnPurchasesChanged() => Changed?.Invoke();
+        private void OnPurchaseCompleted(string message) => services.Messages.ShowAsync("Purchase", message, "OK").Forget();
 
-        // Free steps grant through StepOffers; paid steps wait for a store backend (ConfirmPaid hook).
+        public void BuyProduct(int id)
+        { if (!IsLoading && !Purchases.TryBuy(id, out var message)) OnPurchaseCompleted(message); }
+        public void BuyWelcome()
+        { if (!IsLoading && !Purchases.TryBuyWelcome(out var message)) OnPurchaseCompleted(message); }
+        public void BuyStep(in StepOfferCampaign campaign)
+        { if (!IsLoading && !Purchases.TryBuyStep(campaign, out var message)) OnPurchaseCompleted(message); }
+
+        // Paid steps use BuyStep; this synchronous path only claims free rewards.
         public bool TryClaimStepOffer(in StepOfferCampaign campaign, out string message)
         {
             message = "";
             if (IsLoading || Session.State != SessionState.Lobby) { message = "Return to the lobby to collect."; return false; }
             var step = campaign.Current;
             if (step == null) { message = "All rewards collected."; return false; }
-            if (step.IsPaid) { message = PaymentsNotConnected; return false; }
+            if (step.IsPaid) { message = "Use the purchase button for this step."; return false; }
             if (!services.Offers.TryClaimFree(campaign)) { message = "This offer has changed. Reopen it."; return false; }
             Flush();
             message = "Collected " + BounceItems.Describe(step.Rewards);

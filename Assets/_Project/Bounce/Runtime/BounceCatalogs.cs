@@ -11,6 +11,7 @@ namespace BK.Kit
         public const string Gold = "Gold";
         public const string Heart = "Heart";
         public const string InfiniteHeart = "InfiniteHeart";
+        public const string NoAds = "NoAds";
         public const int HeartMax = 5;
         public static readonly TimeSpan HeartInterval = TimeSpan.FromMinutes(30);
 
@@ -27,6 +28,7 @@ namespace BK.Kit
                     RechargeAmount = 1, RechargeInterval = HeartInterval, InfiniteBuffIds = new[] { InfiniteHeart },
                 },
                 new() { Id = InfiniteHeart, Kind = CurrencyKind.Buff },
+                new() { Id = NoAds },
             };
             foreach (var offer in BoosterCatalog.All)
                 list.Add(new CurrencyDefinition { Id = offer.Kind.ToString() });

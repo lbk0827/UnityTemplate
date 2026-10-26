@@ -6,6 +6,7 @@
     "Unity.TextMeshPro",
     "Unity.RenderPipelines.Universal.Runtime",
     "BK.Core",
+    "BK.Purchasing",
     "BK.Assets",
     "BK.Scene",
     "BK.UI",

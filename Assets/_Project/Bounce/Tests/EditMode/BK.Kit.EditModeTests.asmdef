@@ -19,6 +19,7 @@
     "BK.Meta",
     "BK.Options",
     "BK.Core",
+    "BK.Purchasing",
     "BK.Notifications"
   ],
   "includePlatforms": [
