@@ -1,0 +1,5 @@
+{
+  "name": "BK.Ads",
+  "rootNamespace": "BK.Ads",
+  "references": ["BK.Core", "UniTask", "MaxSdk.Scripts"]
+}

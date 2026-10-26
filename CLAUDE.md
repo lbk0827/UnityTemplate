@@ -114,7 +114,7 @@ A reusable Unity template framework for personal side projects. Unity 6000.3.21f
 
 ## Stack
 
-Local-only by design — no backend, no analytics, no remote config.
+Local save/gameplay by design — no backend, analytics, or remote config. Optional AppLovin MAX ads use `BK.Ads`; mobile ads are disabled until app-specific SDK/ad unit configuration is supplied. Editor tests use the official MAX stub. See `docs/applovin-ads.md`.
 
 | Concern | Package |
 | --- | --- |
