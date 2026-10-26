@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<test-run id="2" testcasecount="3" result="Passed" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 09:41:39Z" end-time="2026-10-26 09:44:58Z" duration="198.8397468">
+  <test-suite type="TestSuite" id="1076" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="55" result="Passed" start-time="2026-10-26 09:41:39Z" end-time="2026-10-26 09:44:58Z" duration="198.839747" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <properties>
+      <property name="platform" value="PlayMode" />
+    </properties>
+    <test-suite type="Assembly" id="1072" name="BK.Kit.PlayModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.PlayModeTests.dll" runstate="Runnable" testcasecount="52" result="Passed" start-time="2026-10-26 09:41:39Z" end-time="2026-10-26 09:44:58Z" duration="198.834157" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <properties>
+        <property name="_PID" value="64836" />
+        <property name="_APPDOMAIN" value="Unity Child Domain" />
+        <property name="platform" value="PlayMode" />
+        <property name="EditorOnly" value="False" />
+      </properties>
+      <test-suite type="TestFixture" id="1025" name="BounceReleaseFlowTests" fullname="BounceReleaseFlowTests" classname="BounceReleaseFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 09:41:39Z" end-time="2026-10-26 09:44:58Z" duration="198.832467" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
+        <properties />
+        <test-case id="1026" name="EveryReleasedStageClearsAndReplaysWithinBudget" fullname="BounceReleaseFlowTests.EveryReleasedStageClearsAndReplaysWithinBudget" methodname="EveryReleasedStageClearsAndReplaysWithinBudget" classname="BounceReleaseFlowTests" runstate="Runnable" seed="879873128" result="Passed" start-time="2026-10-26 09:41:39Z" end-time="2026-10-26 09:42:39Z" duration="60.149602" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="Timeout" value="3600000" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+Debug [AppLovin MAX] Listener has been added to callback: OnSdkInitializedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdLoadedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdLoadFailedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdDisplayedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdDisplayFailedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdReceivedRewardEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnRewardedAdHiddenEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnInterstitialAdLoadedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnInterstitialAdLoadFailedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnInterstitialAdDisplayedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnInterstitialAdDisplayFailedEvent
+Debug [AppLovin MAX] Listener has been added to callback: OnInterstitialAdHiddenEvent
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+[UI] opened ImportedSceneView on Content
+Release L1: 37/79, remaining 0, replay True
+Release L2: 44/98, remaining 0, replay True
+Release L3: 38/85, remaining 0, replay True
+Release L4: 38/68, remaining 0, replay True
+Release L5: 66/96, remaining 0, replay True
+Release L6: 46/83, remaining 0, replay True
+Release L7: 46/68, remaining 0, replay True
+Release L8: 61/100, remaining 0, replay True
+Release L9: 60/110, remaining 0, replay True
+Release L10: 69/126, remaining 0, replay True
+Release L11: 90/139, remaining 0, replay True
+Release L12: 76/110, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L13: 60/114, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L14: 55/83, remaining 0, replay True
+Release L15: 66/93, remaining 0, replay True
+Release L16: 51/72, remaining 0, replay True
+Release L17: 36/48, remaining 0, replay True
+Release L18: 60/80, remaining 0, replay True
+Release L19: 54/72, remaining 0, replay True
+Release L20: 51/62, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L21: 61/92, remaining 0, replay True
+Release L22: 68/96, remaining 0, replay True
+Release L23: 57/80, remaining 0, replay True
+Release L24: 60/80, remaining 0, replay True
+Release L25: 52/69, remaining 0, replay True
+Release L26: 48/77, remaining 0, replay True
+Release L27: 47/63, remaining 0, replay True
+Release L28: 43/57, remaining 0, replay True
+Release L29: 53/70, remaining 0, replay True
+Release L30: 42/51, remaining 0, replay True
+Release L31: 43/69, remaining 0, replay True
+Release L32: 28/37, remaining 0, replay True
+Release L33: 33/44, remaining 0, replay True
+Release L34: 82/109, remaining 0, replay True
+Release L35: 127/168, remaining 0, replay True
+Release L36: 49/79, remaining 0, replay True
+Release L37: 43/57, remaining 0, replay True
+Release L38: 33/44, remaining 0, replay True
+Release L39: 27/36, remaining 0, replay True
+Release L40: 50/60, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L41: 31/47, remaining 0, replay True
+Release L42: 33/47, remaining 0, replay True
+Release L43: 53/75, remaining 0, replay True
+Release L44: 41/55, remaining 0, replay True
+Release L45: 68/90, remaining 0, replay True
+Release L46: 78/125, remaining 0, replay True
+Release L47: 60/80, remaining 0, replay True
+Release L48: 51/68, remaining 0, replay True
+Release L49: 24/32, remaining 0, replay True
+Release L50: 65/78, remaining 0, replay True
+Release L51: 45/72, remaining 0, replay True
+Release L52: 29/39, remaining 0, replay True
+Release L53: 44/59, remaining 0, replay True
+Release L54: 42/56, remaining 0, replay True
+Release L55: 29/39, remaining 0, replay True
+Release L56: 64/103, remaining 0, replay True
+Release L57: 33/44, remaining 0, replay True
+Release L58: 31/41, remaining 0, replay True
+Release L59: 37/49, remaining 0, replay True
+Release L60: 41/50, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L61: 50/75, remaining 0, replay True
+Release L62: 41/58, remaining 0, replay True
+Release L63: 52/73, remaining 0, replay True
+Release L64: 24/32, remaining 0, replay True
+Release L65: 20/28, remaining 0, replay True
+Release L66: 39/63, remaining 0, replay True
+Release L67: 32/43, remaining 0, replay True
+Release L68: 15/23, remaining 0, replay True
+Release L69: 31/41, remaining 0, replay True
+Release L70: 108/130, remaining 0, replay True
+Release L71: 40/64, remaining 0, replay True
+Release L72: 10/18, remaining 0, replay True
+Release L73: 21/29, remaining 0, replay True
+Release L74: 40/53, remaining 0, replay True
+Release L75: 50/66, remaining 0, replay True
+Release L76: 44/71, remaining 0, replay True
+Release L77: 16/24, remaining 0, replay True
+Release L78: 58/77, remaining 0, replay True
+Release L79: 46/61, remaining 0, replay True
+Release L80: 40/48, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L81: 77/116, remaining 0, replay True
+Release L82: 59/83, remaining 0, replay True
+Release L83: 61/86, remaining 0, replay True
+Release L84: 57/76, remaining 0, replay True
+Release L85: 45/60, remaining 0, replay True
+Release L86: 53/85, remaining 0, replay True
+Release L87: 51/68, remaining 0, replay True
+Release L88: 49/65, remaining 0, replay True
+Release L89: 34/45, remaining 0, replay True
+Release L90: 35/42, remaining 0, replay True
+Release L91: 59/95, remaining 0, replay True
+Release L92: 59/78, remaining 0, replay True
+Release L93: 49/65, remaining 0, replay True
+Release L94: 60/80, remaining 0, replay True
+Release L95: 33/44, remaining 0, replay True
+Release L96: 60/96, remaining 0, replay True
+Release L97: 44/59, remaining 0, replay True
+Release L98: 66/88, remaining 0, replay True
+Release L99: 20/28, remaining 0, replay True
+Release L100: 21/27, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L101: 44/66, remaining 0, replay True
+Release L102: 33/47, remaining 0, replay True
+Release L103: 43/61, remaining 0, replay True
+Release L104: 69/92, remaining 0, replay True
+Release L105: 125/165, remaining 0, replay True
+Release L106: 46/74, remaining 0, replay True
+Release L107: 25/33, remaining 0, replay True
+Release L108: 9/17, remaining 0, replay True
+Release L109: 34/45, remaining 0, replay True
+Release L110: 43/52, remaining 0, replay True
+Release L111: 41/66, remaining 0, replay True
+Release L112: 36/48, remaining 0, replay True
+Release L113: 28/37, remaining 0, replay True
+Release L114: 37/49, remaining 0, replay True
+Release L115: 76/101, remaining 0, replay True
+Release L116: 79/127, remaining 0, replay True
+Release L117: 59/78, remaining 0, replay True
+Release L118: 38/51, remaining 0, replay True
+Release L119: 30/40, remaining 0, replay True
+Release L120: 43/52, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L121: 50/75, remaining 0, replay True
+Release L122: 43/61, remaining 0, replay True
+Release L123: 53/75, remaining 0, replay True
+Release L124: 32/43, remaining 0, replay True
+Release L125: 31/41, remaining 0, replay True
+Release L126: 61/98, remaining 0, replay True
+Release L127: 48/64, remaining 0, replay True
+Release L128: 40/53, remaining 0, replay True
+Release L129: 20/28, remaining 0, replay True
+Release L130: 65/78, remaining 0, replay True
+Release L131: 45/72, remaining 0, replay True
+Release L132: 37/49, remaining 0, replay True
+Release L133: 41/55, remaining 0, replay True
+Release L134: 30/40, remaining 0, replay True
+Release L135: 40/53, remaining 0, replay True
+Release L136: 38/79, remaining 0, replay True
+Release L137: 28/37, remaining 0, replay True
+Release L138: 13/21, remaining 0, replay True
+Release L139: 45/60, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L140: 56/68, remaining 0, replay True
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1027" name="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" fullname="BounceReleaseFlowTests.FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" methodname="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" classname="BounceReleaseFlowTests" runstate="Runnable" seed="1584356144" result="Passed" start-time="2026-10-26 09:42:39Z" end-time="2026-10-26 09:42:41Z" duration="1.881843" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1028" name="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" fullname="BounceReleaseFlowTests.RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" methodname="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" classname="BounceReleaseFlowTests" runstate="Runnable" seed="2085780365" result="Passed" start-time="2026-10-26 09:42:41Z" end-time="2026-10-26 09:44:58Z" duration="136.790630" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="Timeout" value="300000" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+<b><color=#2EA3FF>MCP-FOR-UNITY</color></b>: [TestRunnerNoThrottle] Restored Interaction Mode after test run.
+Saving results to: C:/Users/DG-2507-PC-061/AppData/LocalLow/DefaultCompany/BKFrameWork\TestResults.xml
+]]></output>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

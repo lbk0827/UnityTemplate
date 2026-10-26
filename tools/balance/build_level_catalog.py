@@ -1,7 +1,7 @@
 """Build the offline level catalog. --accept-run imports a fresh, passing Unity run.
 
-Unity filter: BounceLearningFlowTests;BounceLearningDifficultyTests
-Results: TestResults/level-catalog-play.xml
+Unity filter: BounceReleaseFlowTests
+Results: TestResults/release-final.xml
 Rebuild: python tools/balance/build_level_catalog.py [--accept-run]
 """
 import argparse
@@ -12,14 +12,13 @@ import json
 from pathlib import Path
 import re
 import shutil
-import statistics
 import subprocess
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / 'docs/bounce-level-catalog'
 CONTENT = ROOT / 'Assets/_Project/Bounce/Content'
-LEARNING = CONTENT / 'bounce-learning-levels.json'
+LEARNING = CONTENT / 'bounce-release-levels.json'
 LEGACY = CONTENT / 'bounce-levels.json'
 NAMES = dict(tube='금속관', cupboard='찬장', panel='이동 패널', mine='기뢰', switch='스위치', door='문', combo='연속 타격', armor='방향 장갑')
 RULES = dict(tube='관 조각을 타격할 때마다 1개 제거. 길이만큼 맞혀야 완료. 용광로를 포함해 배치되지만 목표 카운터는 관 1개.',
@@ -45,7 +44,7 @@ def sources():
              ROOT/'ProjectSettings/TimeManager.asset', ROOT/'ProjectSettings/DynamicsManager.asset', ROOT/'ProjectSettings/TagManager.asset',
              ROOT/'ProjectSettings/ProjectVersion.txt']
     paths += list((ROOT/'Assets/_Project/Bounce/Runtime').rglob('*.cs'))
-    paths += [ROOT/f'Assets/_Project/Bounce/Tests/PlayMode/{name}.cs' for name in ['BounceLearningFlowTests', 'BounceLearningDifficultyTests']]
+    paths += [ROOT/f'Assets/_Project/Bounce/Tests/PlayMode/{name}.cs' for name in ['BounceReleaseFlowTests']]
     # Include gameplay collider prefabs and referenced meshes, not only JSON layouts.
     paths += list((CONTENT/'Gimmicks').rglob('*.prefab'))
     text = (CONTENT/'Presentation.asset').read_text(encoding='utf-8')
@@ -82,123 +81,89 @@ def active_source():
 
 
 def import_evidence():
-    source = ROOT/'TestResults'
-    tests = ET.parse(source/'level-catalog-play.xml').getroot()
-    assert tests.attrib['result'] == 'Passed' and int(tests.attrib['failed']) == 0, 'Unity test run failed'
-    required = {'TenProductionLearningBoardsClearAndReplayWithoutBoosters',
-                'MeasureDirectAimWithZeroTwoAndFiveDegreeErrors',
-                'FirstMineGuideShowsTheMineRuleAndPreservesTheBallBudget',
-                'SmallAndLargeGridsFitPortraitAndKeepCollisionAligned'}
-    passed = {case.attrib['name'] for case in tests.iter('test-case') if case.attrib['result'] == 'Passed'}
-    assert required <= passed, 'Missing required runtime checks'
-    start = datetime.fromisoformat(tests.attrib['start-time'].replace('Z', '+00:00'))
-    start = start.replace(tzinfo=timezone.utc) if start.tzinfo is None else start
-    paths = sources()
-    assert all(p.stat().st_mtime <= start.timestamp()+2 for p in paths), 'A gameplay source changed after the run started; rerun tests'
-    witness = read(source/'BounceLearning/solutions.json')['boards']
-    probe = read(source/'BounceDifficulty/trials.json')
-    trials = probe['trials']
-    assert len(witness) == 10 and all(w['replayPassed'] for w in witness)
-    assert {w['stage'] for w in witness} == set(range(1, 11))
-    assert probe['noisyTrialsPerStage'] >= 1
-    assert len(trials) == 10 * (1 + 2 * probe['noisyTrialsPerStage'])
-    for stage in range(1, 11):
-        for error in [0, 2, 5]:
-            assert sum(t['stage'] == stage and t['errorDegrees'] == error for t in trials) == (1 if error == 0 else probe['noisyTrialsPerStage'])
-    evidence = OUT/'evidence'
-    evidence.mkdir(parents=True, exist_ok=True)
-    for src, dst in [(source/'level-catalog-play.xml', 'test-results.xml'),
-                     (source/'BounceLearning/solutions.json', 'solutions.json'),
-                     (source/'BounceDifficulty/trials.json', 'trials.json')]:
-        assert src.stat().st_mtime >= start.timestamp()-2, f'Stale result file: {src}'
-        shutil.copyfile(src, evidence/dst)
-    for stage in range(1, 11):
-        image = source/f'BounceLearning/level-{stage:02}.png'
-        assert image.stat().st_mtime >= start.timestamp()-2, f'Stale screenshot: {image}'
-        shutil.copyfile(image, evidence/image.name)
-    manifest = dict(verifiedAt=tests.attrib['end-time'], testsPassed=int(tests.attrib['passed']),
-                    commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-                    hashNormalization='CRLF normalized to LF',
-                    sourceHashes={p.relative_to(ROOT).as_posix(): sha(p) for p in paths})
-    (evidence/'manifest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    source=ROOT/'TestResults'
+    tests=ET.parse(source/'release-final.xml').getroot()
+    assert tests.attrib['result']=='Passed' and int(tests.attrib['failed'])==0
+    required={'EveryReleasedStageClearsAndReplaysWithinBudget','FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart','RecordedMineIntroductionAlsoClearsWithAutomaticPhysics'}
+    assert required <= {c.attrib['name'] for c in tests.iter('test-case') if c.attrib['result']=='Passed'}
+    start=datetime.fromisoformat(tests.attrib['start-time'].replace('Z','+00:00'))
+    if start.tzinfo is None:start=start.replace(tzinfo=timezone.utc)
+    paths=sources()
+    assert all(p.stat().st_mtime<=start.timestamp()+2 for p in paths),'Gameplay source changed during the run'
+    report=read(source/'BounceRelease/solutions.json')
+    rows=read(active_source())['levels'];records=report['boards']
+    assert len(records)==len(rows) and {r['stage'] for r in records}==set(range(1,len(rows)+1))
+    for level,r in zip(rows,records):
+        assert r['cleared'] and r['replayPassed'] and r['remaining']==0
+        assert r['budget']==level['balls'] and r['shotsUsed']==len(r['shots'])<=r['budget']
+    evidence=OUT/'evidence';evidence.mkdir(parents=True,exist_ok=True)
+    for src,dst in [(source/'release-final.xml','release-test-results.xml'),(source/'BounceRelease/solutions.json','release-solutions.json')]:
+        assert src.stat().st_mtime>=start.timestamp()-2
+        shutil.copyfile(src,evidence/dst)
+    for r in records:
+        if not r.get('screenshot'):continue
+        assert re.fullmatch(r'level-\d{3}\.png',r['screenshot'])
+        src=source/'BounceRelease'/r['screenshot'];assert src.stat().st_mtime>=start.timestamp()-2
+        shutil.copyfile(src,evidence/src.name)
+    manifest=dict(verifiedAt=tests.attrib['end-time'],testsPassed=int(tests.attrib['passed']),
+                  commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+                  hashNormalization='CRLF normalized to LF',
+                  sourceHashes={p.relative_to(ROOT).as_posix():sha(p) for p in paths})
+    (evidence/'manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
-
-def summarize(level, stage, library, routes, trials, fresh, noisy_trials):
-    blocks = sum('1' <= c <= '9' for row in level['rows'] for c in row)
-    gimmicks = level.get('gimmicks') or []
-    counts = Counter(g['type'] for g in gimmicks)
-    objectives = blocks + sum(g['type'] not in ('panel', 'switch', 'door') for g in gimmicks)
-    current = library == 'active'
-    record = dict(id=f'{library}-{stage}', stage=stage, library=library, balls=level['balls'], blocks=blocks,
-                  objectives=objectives, columns=len(level['rows'][0]), height=level.get('gridRows') or 13,
-                  rows=level['rows'], gimmicks=gimmicks, gimmickCounts=dict(counts),
-                  gimmickLabel=' · '.join(f'{NAMES[k]} {n}' for k, n in counts.items()) or '없음',
-                  title=level.get('title') or f'{"레벨" if current else "보관 레벨"} {stage:02}',
-                  intent=level.get('intent') or '이전 배치 및 기믹 검증용 라이브러리. 현재 플레이에 미연결.',
-                  grade='사물 도안 · 체감 난이도 미확정' if current else '미평가',
-                  status='재검증 필요' if current else '클리어 미검증', pressure='미평가', groups=[], route=None)
-    if not current or not fresh:
-        return record
-    route = next(w for w in routes if w['stage'] == stage)
-    assert route['objectives'] == objectives and route['budget'] == level['balls']
-    assert route['replayPassed'] and route['shots'][-1]['after'] == 0 and len(route['shots']) <= level['balls']
-    record.update(status='클리어·재현 확인', route=route, witnessShots=len(route['shots']), spareBalls=level['balls']-len(route['shots']))
-    for error in [0, 2, 5]:
-        group = [t for t in trials if t['stage'] == stage and t['errorDegrees'] == error]
-        assert len(group) == (1 if error == 0 else noisy_trials)
-        assert all(t['budget'] == level['balls'] and len(t['shots'])+t['ballsLeft'] == t['budget'] for t in group)
-        record['groups'].append(dict(error=error, wins=sum(t['cleared'] for t in group), count=len(group),
-                                     medianShots=statistics.median(len(t['shots']) for t in group),
-                                     medianSeconds=round(statistics.median(t['gameSeconds'] for t in group), 1)))
-    zero = record['groups'][0]
-    usage = zero['medianShots']/level['balls']
-    record['pressure'] = '빠듯' if not zero['wins'] or usage > .75 else '보통' if usage > .5 else '여유'
-    record['consumption'] = round(usage*100)
-    record['note'] = ('정확한 직선 조준에서도 탄 여유가 적습니다. 중앙 타격만 반복하기보다 반사 경로를 살펴보세요.' if record['pressure'] == '빠듯' else
-                      '기뢰 규칙을 이해하고 먼저 맞히면 적은 발사로 정리할 수 있습니다.' if counts.get('mine') else
-                      '직선 조준과 자연스러운 반사만으로도 탄 여유가 관찰됐습니다.')
-    if any(g['wins'] < g['count'] for g in record['groups'][1:]):
-        record['note'] += ' 조준 오차 실험에서 실패 사례가 있어 실수 허용폭을 점검할 필요가 있습니다.'
+def summarize(level,stage,library,routes,fresh):
+    blocks=sum('1'<=c<='9' for row in level['rows'] for c in row)
+    gimmicks=level.get('gimmicks') or [];counts=Counter(g['type'] for g in gimmicks)
+    objectives=blocks+sum(g['type'] not in ('panel','switch','door') for g in gimmicks)
+    current=library=='active'
+    record=dict(id=f'{library}-{stage}',stage=stage,library=library,balls=level['balls'],blocks=blocks,
+                objectives=objectives,columns=len(level['rows'][0]),height=level.get('gridRows') or 13,
+                rows=level['rows'],gimmicks=gimmicks,gimmickCounts=dict(counts),
+                gimmickLabel=' · '.join(f'{NAMES[k]} {n}' for k,n in counts.items()) or '없음',
+                title=level.get('title') or f'보관 레벨 {stage:02}',intent=level.get('intent') or '보관 중인 기믹 배치. 현재 출시 순서에 미연결.',
+                chapter=level.get('chapter') or '보관',designDifficulty=level.get('difficulty') or '미평가',
+                introduction=level.get('introduction') or '',
+                grade=(level.get('difficulty','일반')+' 설계 · 사람 난이도 미평가') if current else '미평가',
+                status='재검증 필요' if current else '클리어 미검증',pressure='미평가',groups=[],route=None)
+    if not current or not fresh:return record
+    route=next(r for r in routes if r['stage']==stage)
+    assert route['objectives']==objectives and route['budget']==level['balls']
+    assert route['replayPassed'] and route['cleared'] and len(route['shots'])<=level['balls']
+    used=len(route['shots']);usage=used/level['balls']
+    record.update(status='클리어·재현 확인',route=route,witnessShots=used,spareBalls=level['balls']-used,
+                  consumption=round(usage*100),pressure='여유' if usage<=.65 else '보통' if usage<=.8 else '빠듯',
+                  screenshot=route.get('screenshot') or '')
     return record
 
-
 def build():
-    active = active_source()
-    assert active == LEARNING, 'The active library changed; update the learning evidence policy before publishing'
-    manifest = read(OUT/'evidence/manifest.json')
-    current_hashes = {p.relative_to(ROOT).as_posix(): sha(p) for p in sources()}
-    stale = [p for p in set(current_hashes) | set(manifest['sourceHashes']) if current_hashes.get(p) != manifest['sourceHashes'].get(p)]
-    routes = read(OUT/'evidence/solutions.json')['boards']
-    probe = read(OUT/'evidence/trials.json')
-    trials = probe['trials']
-    colors = []
-    for suffix in ['G', 'B', 'P', 'Y', '5', '6', '7', '8', '9']:
-        material = (CONTENT/f'RippleBox/Ripple_{suffix}.mat').read_text(encoding='utf-8')
-        rgb = re.search(r'_BaseColor: \{r: ([\d.]+), g: ([\d.]+), b: ([\d.]+)', material).groups()
+    active=active_source();assert active==LEARNING
+    manifest=read(OUT/'evidence/manifest.json')
+    hashes={p.relative_to(ROOT).as_posix():sha(p) for p in sources()}
+    stale=[p for p in set(hashes)|set(manifest['sourceHashes']) if hashes.get(p)!=manifest['sourceHashes'].get(p)]
+    path=OUT/'evidence/release-solutions.json'
+    routes=read(path)['boards'] if path.exists() else []
+    fresh=not stale and len(routes)==len(read(active)['levels'])
+    records=[]
+    for library,path in [('active',active),('archive',LEGACY)]:
+        records.extend(summarize(l,i,library,routes,fresh) for i,l in enumerate(read(path)['levels'],1))
+    colors=[]
+    for suffix in ['G','B','P','Y','5','6','7','8','9']:
+        text=(CONTENT/f'RippleBox/Ripple_{suffix}.mat').read_text(encoding='utf-8')
+        rgb=re.search(r'_BaseColor: \{r: ([\d.]+), g: ([\d.]+), b: ([\d.]+)',text).groups()
         colors.append('#'+''.join(f'{round(float(v)*255):02x}' for v in rgb))
-    records = []
-    for library, path in [('active', active), ('archive', LEGACY)]:
-        for stage, level in enumerate(read(path)['levels'], 1):
-            records.append(summarize(level, stage, library, routes, trials, not stale, probe['noisyTrialsPerStage']))
-    result = dict(activeSource=active.relative_to(ROOT).as_posix(), archiveSource=LEGACY.relative_to(ROOT).as_posix(),
-                  activeCount=len(read(active)['levels']), verifiedAt=manifest['verifiedAt'], fresh=not stale,
-                  staleSources=sorted(stale), testedCommit=manifest['commit'], testsPassed=manifest['testsPassed'],
-                  names=NAMES, rules=RULES, levels=records, colors=colors,
-                  trialCount=len(trials), noisyTrialsPerStage=probe['noisyTrialsPerStage'])
-    (OUT/'catalog.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-    template = Path(__file__).with_suffix('.html').read_text(encoding='utf-8')
-    data = json.dumps(result, ensure_ascii=False).replace('<', '\\u003c')
-    (OUT/'index.html').write_text(template.replace('__CATALOG_DATA__', data), encoding='utf-8')
-    print(f'Catalog: {len(records)} layouts; active {result["activeCount"]}; evidence {"fresh" if not stale else "STALE"}')
-    for record in records[:10]:
-        print(f'L{record["stage"]}: blocks={record["blocks"]}, balls={record["balls"]}, '
-              f'direct-aim usage={record.get("consumption", "unverified")}%, replay={bool(record["route"])}')
+    result=dict(activeSource=active.relative_to(ROOT).as_posix(),archiveSource=LEGACY.relative_to(ROOT).as_posix(),
+                activeCount=len(read(active)['levels']),verifiedAt=manifest['verifiedAt'],fresh=fresh,
+                staleSources=sorted(stale),testedCommit=manifest['commit'],testsPassed=manifest['testsPassed'],
+                names=NAMES,rules=RULES,levels=records,colors=colors,
+                unlocks=[dict(stage=s,type=t) for t,s in [('mine',14),('tube',21),('cupboard',41),('panel',61),('switch',81),('armor',101),('combo',121)]])
+    (OUT/'catalog.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    template=Path(__file__).with_suffix('.html').read_text(encoding='utf-8')
+    data=json.dumps(result,ensure_ascii=False).replace('<','\\u003c')
+    (OUT/'index.html').write_text(template.replace('__CATALOG_DATA__',data),encoding='utf-8')
+    print(f'Catalog: {len(records)} layouts; {result["activeCount"]} release stages; evidence {"fresh" if fresh else "STALE"}')
 
-
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--accept-run', action='store_true')
-    args = parser.parse_args()
-    if args.accept_run:
-        import_evidence()
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--accept-run',action='store_true');args=parser.parse_args()
+    if args.accept_run:import_evidence()
     build()
