@@ -18,6 +18,14 @@ namespace BK.Meta
 
         public override int CurrentVersion => 1;
         public List<Entry> entries = new();
+        // Receipt and balance share one atomic save file, preventing duplicate grants after restart.
+        public List<PurchaseReceipt> purchases = new();
+
+        [Serializable]
+        public sealed class PurchaseReceipt
+        {
+            public string transactionId, productId, context;
+        }
 
         public Entry Find(string id)
         {

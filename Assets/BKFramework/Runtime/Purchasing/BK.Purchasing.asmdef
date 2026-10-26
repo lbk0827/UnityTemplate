@@ -1,0 +1,5 @@
+{
+  "name": "BK.Purchasing",
+  "rootNamespace": "BK.Purchasing",
+  "references": ["Unity.Purchasing", "Unity.Purchasing.Stores", "UniTask"]
+}

@@ -48,6 +48,7 @@ namespace BK.Tests
             var allowed = new Dictionary<string, string[]>
             {
                 ["BK.Core"] = new string[0],
+                ["BK.Purchasing"] = new string[0],
                 ["BK.Save"] = new[] { "BK.Core" },
                 ["BK.Options"] = new[] { "BK.Core", "BK.Save" },
                 ["BK.Notifications"] = new[] { "BK.Core", "BK.Save" },
