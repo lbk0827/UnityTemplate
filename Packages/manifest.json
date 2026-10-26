@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "com.applovin.mediation.ads": "8.5.1",
+    "com.google.external-dependency-manager": "1.2.190",
     "com.annulusgames.lit-motion": "2.0.2",
     "com.brunomikoski.animationsequencer": "0.5.5",
     "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity",
@@ -68,8 +70,14 @@
         "com.annulusgames",
         "org.nuget",
         "com.github-glitchenzo",
-        "com.brunomikoski"
+        "com.brunomikoski",
+        "com.google.external-dependency-manager"
       ]
+    },
+    {
+      "name": "AppLovin MAX Unity",
+      "url": "https://unity.packages.applovin.com",
+      "scopes": ["com.applovin.mediation.ads", "com.applovin.mediation.adapters"]
     }
   ]
 }
