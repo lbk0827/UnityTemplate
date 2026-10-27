@@ -31,7 +31,7 @@
 </style></head><body>
 <header><div class="headerline"><div><div class="eyebrow">BOUNCE / LEVEL DESIGN</div><h1>레벨 카탈로그</h1><p>배치와 기믹부터 탄 여유, 실제 클리어 경로까지.</p></div><div class="date" id="date"></div></div></header>
 <main><section class="stats" id="stats"></section>
-<div class="notice"><b>출시 캠페인 140레벨 · 35가지 사물 도안.</b> 1~13은 일반 블록. 기뢰 14 → 금속관 21 → 찬장 41 → 이동 패널 61 → 스위치·문 81 → 방향 장갑 101 → 연속 타격 121. 해금된 기믹은 재사용·혼합합니다. 140 이후에는 업데이트를 안내합니다. 외곽 Wall 11×16과 카메라 11.75는 공통이며 내부 배치만 바뀝니다.</div>
+<div class="notice"><b>출시 캠페인 140레벨 · __MOTIF_COUNT__가지 사물 도안.</b> 1~13은 일반 블록. 기뢰 14 → 금속관 21 → 찬장 41 → 이동 패널 61 → 스위치·문 81 → 방향 장갑 101 → 연속 타격 121. 해금된 기믹은 재사용·혼합합니다. 140 이후에는 업데이트를 안내합니다. 외곽 Wall 11×16과 카메라 11.75는 공통이며 내부 배치만 바뀝니다.</div>
 <div class="notice" id="stale"><b>검증 이후 게임 소스가 변경되었습니다.</b> 배치 정보는 현재 데이터를 표시하며, 클리어·난도 수치는 재검증 전까지 숨깁니다.</div>
 <div class="toolbar">
 <div class="tabs" aria-label="라이브러리"><button id="active" aria-pressed="true">현재 적용 140</button><button id="archive" aria-pressed="false">보관 22 · 미적용</button></div>
@@ -100,7 +100,7 @@ $('closeDetail').onclick=()=>$('levelDialog').close();
 $('levelDialog').addEventListener('click',e=>{if(e.target===$('levelDialog'))$('levelDialog').close();});
 $('mapping').onsubmit=e=>{e.preventDefault();const n=Number($('stage').value);if(!Number.isInteger(n)||n<1)return;if(n>data.activeCount){$('mapped').textContent=`${n} → 미출시 · 마지막 레벨 ${data.activeCount}`;return;}$('mapped').textContent=`${n} → 출시 레벨 ${n}`;library='active';selected='active-'+n;page=Math.floor((n-1)/pageSize);$('search').value='';$('gimmick').value='all';$('sort').value='stage';render();openDetail(selected);};
 Object.entries(data.names).forEach(([key,name])=>$('gimmick').insertAdjacentHTML('beforeend',`<option value="${key}">${name}</option>`));
-$('stats').innerHTML=[[String(data.activeCount),'출시 레벨','35가지 도안 · 9색 블록'],[data.fresh?data.activeCount+' / '+data.activeCount:'재검증','지급 탄 이내 클리어','동일 입력 재현까지 확인'],['7','기믹 도입 단계','14 · 21 · 41 · 61 · 81 · 101 · 121'],['22','보관 중인 기존 배치','현재 플레이에는 미연결']].map(([a,b,c])=>`<div class="stat"><span>${b}</span><strong>${a}</strong><small>${c}</small></div>`).join('');
+$('stats').innerHTML=[[String(data.activeCount),'출시 레벨',data.motifCount+'가지 도안 · 9색 블록'],[data.fresh?data.activeCount+' / '+data.activeCount:'재검증','지급 탄 이내 클리어','동일 입력 재현까지 확인'],['7','기믹 도입 단계','14 · 21 · 41 · 61 · 81 · 101 · 121'],['22','보관 중인 기존 배치','현재 플레이에는 미연결']].map(([a,b,c])=>`<div class="stat"><span>${b}</span><strong>${a}</strong><small>${c}</small></div>`).join('');
 $('date').innerHTML=`실행 검증 ${esc(data.verifiedAt.slice(0,10))}<br>Unity 6000.3.21f1 · develop-bounce<br>검증 기준 ${esc(data.testedCommit.slice(0,7))}`;
 $('stale').style.display=data.fresh?'none':'block';$('source').innerHTML=`현재: <code>${esc(data.activeSource)}</code><br>보관: <code>${esc(data.archiveSource)}</code><br>검증 기록: Unity 검사 ${data.testsPassed}개 통과. ${data.activeCount}개 해법 탐색·재현. 현재 소스 일치: ${data.fresh?'예':'아니오'}.`;
 $('rules').innerHTML=Object.entries(data.names).map(([k,v])=>`<tr><td><b>${v}</b></td><td>${esc(data.rules[k])}</td><td>${data.levels.filter(l=>l.library==='active'&&l.gimmickCounts[k]).length}개 레벨 · 첫 등장 L${data.unlocks.find(u=>u.type===(k==='door'?'switch':k))?.stage??'—'}</td></tr>`).join('');render();

@@ -171,13 +171,14 @@ def build():
         colors.append('#'+''.join(f'{round(float(v)*255):02x}' for v in rgb))
     result=dict(activeSource=active.relative_to(ROOT).as_posix(),archiveSource=LEGACY.relative_to(ROOT).as_posix(),
                 activeCount=len(read(active)['levels']),verifiedAt=manifest['verifiedAt'],fresh=fresh,
+                motifCount=len({l['title'].split('·')[0].strip() for l in read(active)['levels']}),
                 staleSources=sorted(stale),testedCommit=manifest['commit'],testsPassed=manifest['testsPassed'],
                 names=NAMES,rules=RULES,levels=records,colors=colors,
                 unlocks=[dict(stage=s,type=t) for t,s in [('mine',14),('tube',21),('cupboard',41),('panel',61),('switch',81),('armor',101),('combo',121)]])
     (OUT/'catalog.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     template=Path(__file__).with_suffix('.html').read_text(encoding='utf-8')
     data=json.dumps(result,ensure_ascii=False).replace('<','\\u003c')
-    (OUT/'index.html').write_text(template.replace('__CATALOG_DATA__',data),encoding='utf-8')
+    (OUT/'index.html').write_text(template.replace('__CATALOG_DATA__',data).replace('__MOTIF_COUNT__',str(result['motifCount'])),encoding='utf-8')
     print(f'Catalog: {len(records)} layouts; {result["activeCount"]} release stages; evidence {"fresh" if fresh else "STALE"}')
 
 if __name__=='__main__':

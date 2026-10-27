@@ -180,7 +180,8 @@ def build(count=140):
             level['balls']=budgets['budgets'][str(stage)]
         levels.append(level)
     (CONTENT/'bounce-release-levels.json').write_text(json.dumps(dict(campaign=True,levels=levels),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-    print(f'{len(levels)} release levels / {len(library)} motifs')
+    motifs=len({level['title'].split('·')[0].strip() for level in levels})
+    print(f'{len(levels)} release levels / {motifs} motifs')
     for t,s in UNLOCKS.items():print(s,t)
 
 def footprint(g):

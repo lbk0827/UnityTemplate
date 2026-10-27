@@ -2,6 +2,9 @@
 
 # '.' is deliberate free flight space, never density-filled by the general generator.
 # Art uses the same 1..9 block palette as the campaign. No gameplay randomness.
+TITLES = ['루비 하트','빨간 사과','봄 튤립','황금 별','행운 클로버','체리 한 쌍',
+          '주황 당근','푸른 고래','무지개 나비','별빛 로켓','황금 돛단배','꼬마 펭귄',
+          '산호 물고기','바다거북','빛나는 우주선','장미꽃','열기구','카메라','황금 거북','아이스크림']
 BOARDS = [
     ("하트의 가운데 골을 통과하면 양쪽 안쪽 면을 연달아 맞힐 수 있습니다.", [
         '.555...555.', '55555.55555', '55555.55555', '55555.55555', '5555...5555',
@@ -83,6 +86,6 @@ def opening(stage, template):
         specs.append(dict(type='mine', col=x, row=y))
     assert all(len(row) == 11 for row in rows), stage
     assert sum(c != '.' for row in rows for c in row) >= 40, stage
-    template.update(intent=intent, gridRows=height, rows=[''.join(row) for row in rows],
+    template.update(title=TITLES[stage-1]+' · 1', intent=intent, gridRows=height, rows=[''.join(row) for row in rows],
                     gimmicks=specs, balls=sum(c != '.' for row in rows for c in row) + 12)
     return template

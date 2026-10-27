@@ -48,6 +48,6 @@ public sealed class BounceReleaseTests
     {
         var levels=Load().levels;
         Assert.That(levels.Select(l=>string.Join("/",l.rows)+"|"+JsonUtility.ToJson(new BounceModule.Level{gimmicks=l.gimmicks})).Distinct().Count(),Is.EqualTo(140));
-        Assert.That(levels.Select(l=>l.title.Split('·')[0]).Distinct().Count(),Is.EqualTo(35));
+        Assert.That(levels.Select(l=>l.title.Split('·')[0]).Distinct().Count(),Is.GreaterThanOrEqualTo(35),"Keep the existing motif variety when adding authored opening levels");
     }
 }
