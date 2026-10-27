@@ -1,0 +1,4 @@
+interface:
+  display_name: "Make Level"
+  short_description: "Bounce 레벨의 공략 문제 설계부터 물리 검증과 카탈로그 반영까지"
+  default_prompt: "$make-level로 요청한 범위의 Bounce 레벨을 생성 규칙에 맞게 제작하고 검증해주세요."

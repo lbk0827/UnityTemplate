@@ -35,7 +35,7 @@ public sealed class BounceReleaseFlowTests
     private static readonly Action<BounceModule> Step=(Action<BounceModule>)Delegate.CreateDelegate(typeof(Action<BounceModule>),typeof(BounceModule).GetMethod("FixedUpdate",BindingFlags.Instance|BindingFlags.NonPublic));
     private static readonly Func<Vector3,Vector3,Vector3> Reflect=(Func<Vector3,Vector3,Vector3>)Delegate.CreateDelegate(typeof(Func<Vector3,Vector3,Vector3>),typeof(BounceModule).GetMethod("Reflect",BindingFlags.Static|BindingFlags.NonPublic));
     private const string Output="TestResults/BounceRelease/solutions.json";
-    private static readonly int[] Screens={1,13,14,21,41,61,81,101,121,140};
+    private static readonly int[] Screens={1,13,14,20,21,41,61,81,101,121,140};
 
     [UnityTest,Timeout(3600000)]
     public IEnumerator EveryReleasedStageClearsAndReplaysWithinBudget()
@@ -69,7 +69,7 @@ public sealed class BounceReleaseFlowTests
             int waits=0;
             while(game.BlocksRemaining>0 && game.BallsRemaining>0)
             {
-                float? angle=FindShot(game,missed);
+                float? angle=stage<=20 ? BounceOpeningPlanner.Choose(game,missed) : FindShot(game,missed);
                 if(!angle.HasValue)
                 {
                     if(waits>=100){record.failure="No reachable productive shot";break;}
@@ -118,7 +118,7 @@ public sealed class BounceReleaseFlowTests
             board.Targets.Count(t=>t.spec.type=="switch" && !t.activated);
     }
 
-    internal static float? FindShot(BounceModule module,HashSet<int> missed)
+    internal static float? FindShot(BounceModule module,HashSet<int> missed,bool nearest=false)
     {
         Physics.SyncTransforms();
         var board=Object.FindFirstObjectByType<BounceGimmicks>();
@@ -159,7 +159,8 @@ public sealed class BounceReleaseFlowTests
                 }
                 if(priority>=0)
                 {
-                    float score=priority-Vector3.Cross(center-position,direction).magnitude*10-distance*.01f;
+                    float score=nearest ? -distance-Vector3.Cross(center-position,direction).magnitude*.1f
+                        : priority-Vector3.Cross(center-position,direction).magnitude*10-distance*.01f;
                     if(score>best){best=score;choice=angle;}
                     break;
                 }
@@ -167,6 +168,87 @@ public sealed class BounceReleaseFlowTests
             }
         }
         return choice;
+    }
+
+    [Serializable] public sealed class OpeningAudit
+    {
+        public int stage,plannedShots,nearestShots,nearestRemaining,recoveryShots,recoveryRemaining,tolerantShots,tolerantRemaining;
+        public float firstAngle;
+        public int[] openingDamage; // -1, -.5, 0, +.5, +1 degrees
+        public int recoveryFirstDamage;
+    }
+    [Serializable] public sealed class OpeningReport
+    {
+        public string policy="Planned: static block/mine lookahead with +/-0.5 degree robustness. Baseline: nearest reachable first collision; no multi-hit lookahead. Both fire actual runtime balls with no extra balls.";
+        public string sourceSha256;
+        public OpeningAudit[] boards;
+    }
+
+    [UnityTest,Timeout(3600000)]
+    public IEnumerator OpeningChoicesCompareNearestShotsAndRecoverFromAlternateOpening()
+    {
+        yield return Boot(); var app=KitApp.Instance; app.MarkGuideSeen("gimmick.mine");
+        app.Play(1); yield return Ready("VisualIngame"); game=Object.FindFirstObjectByType<BounceModule>();
+        var solutions=JsonUtility.FromJson<Report>(File.ReadAllText(Output)).boards;
+        var audits=new List<OpeningAudit>();
+        for(int stage=1;stage<=20;stage++)
+        {
+            var solution=solutions.Single(b=>b.stage==stage);
+            Assert.That(solution.cleared && solution.replayPassed,Is.True);
+            var audit=new OpeningAudit {stage=stage,plannedShots=solution.shotsUsed,firstAngle=solution.shots[0].angle,openingDamage=new int[5]};
+            for(int offset=0;offset<5;offset++)
+            {
+                game.enabled=false;game.Begin(stage,_=>{});yield return null;
+                int before=game.BlocksRemaining;
+                yield return Shoot(Mathf.Clamp(audit.firstAngle+(offset-2)*.5f,-75,75));
+                audit.openingDamage[offset]=before-game.BlocksRemaining;
+            }
+            game.Begin(stage,_=>{});yield return null;var missed=new HashSet<int>();
+            while(game.BlocksRemaining>0 && game.BallsRemaining>0)
+            {
+                var angle=FindShot(game,missed,true);if(!angle.HasValue)break;
+                int before=game.BlocksRemaining;yield return Shoot(angle.Value);audit.nearestShots++;
+                if(game.BlocksRemaining==before)missed.Add(Mathf.RoundToInt(angle.Value*4));else missed.Clear();
+            }
+            audit.nearestRemaining=game.BlocksRemaining;
+            game.Begin(stage,_=>{});yield return null;int initial=game.BlocksRemaining;
+            yield return Shoot(-75);audit.recoveryFirstDamage=initial-game.BlocksRemaining;
+            audit.recoveryShots=1;missed.Clear();
+            while(game.BlocksRemaining>0 && game.BallsRemaining>0)
+            {
+                var angle=BounceOpeningPlanner.Choose(game,missed);if(!angle.HasValue)break;
+                int before=game.BlocksRemaining;yield return Shoot(angle.Value);audit.recoveryShots++;
+                if(game.BlocksRemaining==before)missed.Add(Mathf.RoundToInt(angle.Value*4));else missed.Clear();
+            }
+            audit.recoveryRemaining=game.BlocksRemaining;
+            game.Begin(stage,_=>{});yield return null;missed.Clear();
+            while(game.BlocksRemaining>0 && game.BallsRemaining>0)
+            {
+                var angle=BounceOpeningPlanner.Choose(game,missed);if(!angle.HasValue)break;
+                int before=game.BlocksRemaining;
+                yield return Shoot(Mathf.Clamp(angle.Value+(audit.tolerantShots%2==0?1:-1),-75,75));
+                audit.tolerantShots++;
+                if(game.BlocksRemaining==before)missed.Add(Mathf.RoundToInt(angle.Value*4));else missed.Clear();
+            }
+            audit.tolerantRemaining=game.BlocksRemaining;
+            audits.Add(audit);
+            string source;
+            using(var hash=System.Security.Cryptography.SHA256.Create())
+                source=BitConverter.ToString(hash.ComputeHash(File.ReadAllBytes("Assets/_Project/Bounce/Content/bounce-release-levels.json"))).Replace("-", "").ToLowerInvariant();
+            File.WriteAllText("TestResults/BounceRelease/opening-audit.json",JsonUtility.ToJson(new OpeningReport {sourceSha256=source,boards=audits.ToArray()},true));
+            Debug.Log($"Opening L{stage}: planned {audit.plannedShots}, nearest {audit.nearestShots} ({audit.nearestRemaining} left), recovery {audit.recoveryShots} ({audit.recoveryRemaining} left), +/-1 degree {audit.tolerantShots} ({audit.tolerantRemaining} left)");
+            game.End();yield return null;
+        }
+        Assert.That(audits.Where(a=>a.recoveryRemaining>0).Select(a=>a.stage),Is.Empty,"Alternate first shot must remain recoverable");
+        Assert.That(audits.Where(a=>a.tolerantRemaining>0).Select(a=>a.stage),Is.Empty,"Alternating +/-1 degree error must remain recoverable");
+    }
+
+    private IEnumerator Shoot(float angle)
+    {
+        Assert.That(game.Fire(Quaternion.Euler(0,angle,0)*Vector3.forward),Is.True);
+        int ticks=0;
+        while(game.ActiveBalls>0 && game.BlocksRemaining>0 && ticks++<1100)Step(game);
+        Assert.That(ticks,Is.LessThan(1101));yield return null;
     }
 
     [UnityTest]

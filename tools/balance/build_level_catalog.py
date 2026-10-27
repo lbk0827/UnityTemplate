@@ -46,7 +46,7 @@ def sources():
              ROOT/'ProjectSettings/TimeManager.asset', ROOT/'ProjectSettings/DynamicsManager.asset', ROOT/'ProjectSettings/TagManager.asset',
              ROOT/'ProjectSettings/ProjectVersion.txt',ROOT/'Assets/_Project/Bounce/Scenes/VisualIngame.unity']
     paths += list((ROOT/'Assets/_Project/Bounce/Runtime').rglob('*.cs'))
-    paths += [ROOT/f'Assets/_Project/Bounce/Tests/PlayMode/{name}.cs' for name in ['BounceReleaseFlowTests']]
+    paths += [ROOT/f'Assets/_Project/Bounce/Tests/PlayMode/{name}.cs' for name in ['BounceReleaseFlowTests','BounceOpeningPlanner']]
     # Include gameplay collider prefabs and referenced meshes, not only JSON layouts.
     paths += list((CONTENT/'Gimmicks').rglob('*.prefab'))
     text = (CONTENT/'Presentation.asset').read_text(encoding='utf-8')
@@ -89,7 +89,7 @@ def import_evidence():
     source=ROOT/'TestResults'
     tests=ET.parse(source/'release-final.xml').getroot()
     assert tests.attrib['result']=='Passed' and int(tests.attrib['failed'])==0
-    required={'EveryReleasedStageClearsAndReplaysWithinBudget','FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart','RecordedMineIntroductionAlsoClearsWithAutomaticPhysics'}
+    required={'EveryReleasedStageClearsAndReplaysWithinBudget','FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart','RecordedMineIntroductionAlsoClearsWithAutomaticPhysics','OpeningChoicesCompareNearestShotsAndRecoverFromAlternateOpening'}
     assert required <= {c.attrib['name'] for c in tests.iter('test-case') if c.attrib['result']=='Passed'}
     start=datetime.fromisoformat(tests.attrib['start-time'].replace('Z','+00:00'))
     if start.tzinfo is None:start=start.replace(tzinfo=timezone.utc)
@@ -101,8 +101,17 @@ def import_evidence():
     for level,r in zip(rows,records):
         assert r['cleared'] and r['replayPassed'] and r['remaining']==0
         assert r['budget']==level['balls'] and r['shotsUsed']==len(r['shots'])<=r['budget']
+    audit=read(source/'BounceRelease/opening-audit.json')
+    assert audit['sourceSha256']==hashlib.sha256(active_source().read_bytes()).hexdigest()
+    assert [a['stage'] for a in audit['boards']]==list(range(1,21))
+    for a in audit['boards']:
+        r=records[a['stage']-1]
+        assert a['plannedShots']==r['shotsUsed'] and a['recoveryRemaining']==0
+        assert a['recoveryShots']<=r['budget'] and len(a['openingDamage'])==5
+        assert a['tolerantRemaining']==0 and a['tolerantShots']<=r['budget']
+        assert a['openingDamage'][2]==r['shots'][0]['before']-r['shots'][0]['after']
     evidence=OUT/'evidence';evidence.mkdir(parents=True,exist_ok=True)
-    for src,dst in [(source/'release-final.xml','release-test-results.xml'),(source/'BounceRelease/solutions.json','release-solutions.json')]:
+    for src,dst in [(source/'release-final.xml','release-test-results.xml'),(source/'BounceRelease/solutions.json','release-solutions.json'),(source/'BounceRelease/opening-audit.json','opening-audit.json')]:
         assert src.stat().st_mtime>=start.timestamp()-2
         shutil.copyfile(src,evidence/dst)
     for r in records:
@@ -152,6 +161,9 @@ def build():
     records=[]
     for library,path in [('active',active),('archive',LEGACY)]:
         records.extend(summarize(l,i,library,routes,fresh) for i,l in enumerate(read(path)['levels'],1))
+    if fresh:
+        for audit in read(OUT/'evidence/opening-audit.json')['boards']:
+            records[audit['stage']-1]['openingAudit']=audit
     colors=[]
     for suffix in ['G','B','P','Y','5','6','7','8','9']:
         text=(CONTENT/f'RippleBox/Ripple_{suffix}.mat').read_text(encoding='utf-8')

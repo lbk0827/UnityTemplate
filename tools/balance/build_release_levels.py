@@ -173,6 +173,9 @@ def build(count=140):
                 '넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.')
         level=dict(title=f'{name} · {variant+1}',intent=intent,chapter=CHAPTERS[chapter],difficulty=role,
              introduction=intro,gridRows=height,balls=budget,rows=[''.join(r) for r in cells],gimmicks=specs)
+        if stage<=20:
+            from build_opening_levels import opening
+            level=opening(stage,level)
         if budgets.get('hashes',{}).get(str(stage))==fingerprint(level):
             level['balls']=budgets['budgets'][str(stage)]
         levels.append(level)

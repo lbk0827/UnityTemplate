@@ -213,7 +213,7 @@ public sealed class VisualFlowTests
         KitApp.Instance.Play(1);yield return Ready("VisualIngame");
         var game=UnityEngine.Object.FindFirstObjectByType<BounceModule>();
         var effects=UnityEngine.Object.FindFirstObjectByType<BounceEffects>();
-        Assert.That(game.presentation.brokenBlocks.Length,Is.EqualTo(4));
+        Assert.That(game.presentation.brokenBlocks.Length,Is.EqualTo(game.presentation.blocks.Length),"Every block skin has matching break debris");
         Assert.That(game.Fire(Vector3.forward),Is.True);
         var flight=UnityEngine.Object.FindFirstObjectByType<BallFlightEffect>();
         Assert.That(flight,Is.Not.Null);Assert.That(flight.Trail,Is.Not.Null);

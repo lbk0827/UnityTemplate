@@ -122,6 +122,14 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 
 ## Integrated Bounce project (2026-10-08)
 
+### 레벨 제작 워크플로와 신규 계정 테스트 (2026-10-27)
+
+- 레벨 생성 규칙은 `docs/bounce-level-generation.md`가 기준이다. 레벨마다 “어디를 먼저 공략해야 다음 공격이 유리해지는가?”를 구체화하고, 배치 → 기믹 역할 → 실제 물리 비교 → 공 예산 순서로 제작한다.
+- `/make-level` 요청은 `tools/skills/make-level/SKILL.md`를 따른다. Codex용 `make-level` 스킬은 사용자 skills 폴더에도 설치한다. 요청 범위 밖 레벨을 변경하지 않는다.
+- 새 1~20은 `build_opening_levels.py`의 수작업 도안으로 구성한다. 21~140은 기존 생성 원본을 유지한다. 부분 예산 보정은 `python tools/balance/calibrate_release_budgets.py --first 1 --last 20`처럼 범위를 지정한다.
+- `BounceReleaseFlowTests`는 초반 20개에 대해 읽기 전용 경로 예측 정책과 가까운 목표 우선 정책을 실제 발사로 비교한다. 대표 첫 각도 ±0.5°/±1°의 파괴 수와 다른 첫 발사 후 복구도 기록한다. 기록은 사람의 승률이나 최적해 증명이 아니다.
+- `BK > Integration > Reset All Bounce Game Data (New Account)`는 Play 종료 후 전체 로컬 프로필 및 IAP 거래 캐시를 백업하고 초기화한다. 사용법·범위·복원은 `docs/bounce-account-reset.md`. 테스트는 임시 폴더만 사용한다.
+
 ### Bounce 고정 플레이 영역 (2026-10-27)
 
 - 출시 캠페인은 `BounceBoardLayout`의 외곽 **11×16**, **1유닛 셀**, 기준 카메라 **Orthographic Size 11.75 / pitch 60°**를 공유한다. 내부 Grid 크기에 따라 Wall·기물 크기·카메라 배율을 변경하지 않는다. 화면 비율 때문에 좌우가 잘릴 때만 Size를 늘리며 같은 기기에서는 레벨 간 배율이 같다.
