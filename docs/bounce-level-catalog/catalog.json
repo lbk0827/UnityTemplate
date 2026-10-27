@@ -2,11 +2,12 @@
   "activeSource": "Assets/_Project/Bounce/Content/bounce-release-levels.json",
   "archiveSource": "Assets/_Project/Bounce/Content/bounce-levels.json",
   "activeCount": 140,
-  "verifiedAt": "2026-10-26 15:45:28Z",
+  "verifiedAt": "2026-10-27 01:54:09Z",
   "fresh": true,
+  "motifCount": 41,
   "staleSources": [],
-  "testedCommit": "e82308cee26b84a69781c55530fd12862b72e614",
-  "testsPassed": 25,
+  "testedCommit": "eacc8718341e473cc68433e12fc3afcad810e22f",
+  "testsPassed": 4,
   "names": {
     "tube": "금속관",
     "cupboard": "찬장",
@@ -32,9 +33,9 @@
       "id": "active-1",
       "stage": 1,
       "library": "active",
-      "balls": 79,
-      "blocks": 74,
-      "objectives": 74,
+      "balls": 17,
+      "blocks": 71,
+      "objectives": 71,
       "columns": 11,
       "height": 14,
       "arenaColumns": 11,
@@ -43,15 +44,15 @@
         "...........",
         ".555...555.",
         "55555.55555",
-        "55855555555",
-        "55855555555",
-        "55555555555",
-        ".555555555.",
-        "..5555555..",
-        "...55555...",
+        "55555.55555",
+        "55555.55555",
+        "5555...5555",
+        ".555...555.",
+        ".555...555.",
+        "..55...55..",
+        "..55...55..",
+        "...55.55...",
         "....555....",
-        ".....5.....",
-        "...........",
         "...........",
         "..........."
       ],
@@ -59,7 +60,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "루비 하트 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "하트의 가운데 골을 통과하면 양쪽 안쪽 면을 연달아 맞힐 수 있습니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -69,324 +70,102 @@
       "groups": [],
       "route": {
         "stage": 1,
-        "budget": 79,
-        "objectives": 74,
+        "budget": 17,
+        "objectives": 71,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 46,
+        "shotsUsed": 6,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "level-001.png",
         "shots": [
           {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 72
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 72,
-            "after": 71
-          },
-          {
-            "angle": -6.0,
+            "angle": -36.0,
             "waitTicks": 0,
             "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 68
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 68,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 64
-          },
-          {
-            "angle": -39.0,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": 39.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 60
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 55
-          },
-          {
-            "angle": -69.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": -13.5,
-            "waitTicks": 0,
-            "before": 54,
             "after": 51
           },
           {
-            "angle": 13.5,
+            "angle": -35.5,
             "waitTicks": 0,
             "before": 51,
-            "after": 49
+            "after": 30
           },
           {
-            "angle": -16.5,
+            "angle": 56.0,
             "waitTicks": 0,
-            "before": 49,
-            "after": 48
+            "before": 30,
+            "after": 15
           },
           {
-            "angle": 16.5,
+            "angle": -51.0,
             "waitTicks": 0,
-            "before": 48,
-            "after": 47
+            "before": 15,
+            "after": 7
           },
           {
-            "angle": 4.25,
+            "angle": 8.0,
             "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 44
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 41
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 39
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 35
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 33
-          },
-          {
-            "angle": 22.75,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 25
-          },
-          {
-            "angle": 21.5,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 20
-          },
-          {
-            "angle": -21.5,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 19
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 17
-          },
-          {
-            "angle": 31.5,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 11
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 11,
-            "after": 10
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 8
-          },
-          {
-            "angle": -27.25,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 5
-          },
-          {
-            "angle": -74.25,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 4
-          },
-          {
-            "angle": -6.5,
-            "waitTicks": 0,
-            "before": 4,
+            "before": 7,
             "after": 3
           },
           {
-            "angle": -9.75,
+            "angle": 57.0,
             "waitTicks": 0,
             "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -55.0,
-            "waitTicks": 0,
-            "before": 2,
-            "after": 1
-          },
-          {
-            "angle": -18.5,
-            "waitTicks": 0,
-            "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 46,
-      "spareBalls": 33,
-      "consumption": 58,
-      "screenshot": "level-001.png"
+      "witnessShots": 6,
+      "spareBalls": 11,
+      "consumption": 35,
+      "screenshot": "level-001.png",
+      "openingAudit": {
+        "stage": 1,
+        "plannedShots": 6,
+        "nearestShots": 17,
+        "nearestRemaining": 54,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 14,
+        "tolerantRemaining": 0,
+        "firstAngle": -36.0,
+        "openingDamage": [
+          3,
+          5,
+          20,
+          4,
+          13
+        ],
+        "recoveryFirstDamage": 5
+      }
     },
     {
       "id": "active-2",
       "stage": 2,
       "library": "active",
-      "balls": 87,
-      "blocks": 82,
-      "objectives": 82,
+      "balls": 11,
+      "blocks": 77,
+      "objectives": 77,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".....9.11..",
-        ".....91111.",
-        ".....91....",
-        "..555.555..",
-        ".558555555.",
-        "55855555555",
-        "55555555555",
-        "55555555555",
-        ".555555555.",
-        ".555555555.",
-        "..555.555..",
-        "...........",
+        ".....11....",
+        "....111....",
+        "..5555555..",
+        ".555885555.",
+        "5558855555.",
+        "5555555555.",
+        "5555555555.",
+        "5555...555.",
+        ".555...555.",
+        ".555...555.",
+        "..5555555..",
         "...........",
         "..........."
       ],
@@ -394,7 +173,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "빨간 사과 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "사과의 오른쪽 빈 길로 올라가 윗면부터 공략하면 아래 면만 깎는 것보다 유리합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -404,372 +183,96 @@
       "groups": [],
       "route": {
         "stage": 2,
-        "budget": 87,
-        "objectives": 82,
+        "budget": 11,
+        "objectives": 77,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 54,
+        "shotsUsed": 5,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 82,
-            "after": 81
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 81,
-            "after": 80
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 80,
-            "after": 79
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 78,
-            "after": 77
-          },
-          {
-            "angle": 0.0,
+            "angle": 71.5,
             "waitTicks": 0,
             "before": 77,
-            "after": 75
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 75,
-            "after": 74
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 71
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 64
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 56
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 54
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 52
-          },
-          {
-            "angle": -52.75,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 50
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 25.5,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 23.5,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 43
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": -25.5,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 40
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 38
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 36
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 34
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": -5.0,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": 5.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": -69.0,
-            "waitTicks": 0,
-            "before": 31,
             "after": 30
           },
           {
-            "angle": -36.5,
+            "angle": 42.5,
             "waitTicks": 0,
             "before": 30,
-            "after": 29
+            "after": 17
           },
           {
-            "angle": -13.5,
+            "angle": -4.0,
             "waitTicks": 0,
-            "before": 29,
-            "after": 26
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 26,
-            "after": 24
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 20
-          },
-          {
-            "angle": 21.5,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 18
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 11
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 11,
+            "before": 17,
             "after": 10
           },
           {
-            "angle": 45.0,
+            "angle": 52.5,
             "waitTicks": 0,
             "before": 10,
-            "after": 5
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 3
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 3,
             "after": 2
           },
           {
-            "angle": -33.25,
+            "angle": 7.5,
             "waitTicks": 0,
             "before": 2,
-            "after": 1
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 54,
-      "spareBalls": 33,
-      "consumption": 62,
-      "screenshot": ""
+      "witnessShots": 5,
+      "spareBalls": 6,
+      "consumption": 45,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 2,
+        "plannedShots": 5,
+        "nearestShots": 11,
+        "nearestRemaining": 66,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 8,
+        "tolerantRemaining": 0,
+        "firstAngle": 71.5,
+        "openingDamage": [
+          4,
+          41,
+          47,
+          28,
+          49
+        ],
+        "recoveryFirstDamage": 2
+      }
     },
     {
       "id": "active-3",
       "stage": 3,
       "library": "active",
-      "balls": 64,
-      "blocks": 59,
-      "objectives": 59,
+      "balls": 18,
+      "blocks": 73,
+      "objectives": 73,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".3...3...3.",
-        ".33.333.33.",
-        ".338333333.",
-        ".338333333.",
+        "..3..3..3..",
         "..3333333..",
-        ".....1.....",
-        "11...1...11",
-        "111..1..111",
-        ".111111111.",
-        ".....1.....",
-        ".....1.....",
-        "...........",
+        ".333333333.",
+        ".338333833.",
+        ".333333333.",
+        "..3333333..",
+        "...33333...",
+        ".11..1..11.",
+        ".111.1.111.",
+        "..1111111..",
+        "...11111...",
         "...........",
         "..........."
       ],
@@ -777,7 +280,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "봄 튤립 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "튤립의 줄기 양옆 통로에서 꽃받침 안쪽으로 반사시켜 보세요.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -787,252 +290,79 @@
       "groups": [],
       "route": {
         "stage": 3,
-        "budget": 64,
-        "objectives": 59,
+        "budget": 18,
+        "objectives": 73,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 37,
+        "shotsUsed": 5,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -30.5,
             "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 56
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 55
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 53,
+            "before": 73,
             "after": 52
           },
           {
-            "angle": 0.0,
+            "angle": -27.5,
             "waitTicks": 0,
             "before": 52,
-            "after": 51
+            "after": 28
           },
           {
-            "angle": 0.0,
+            "angle": -32.5,
             "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": -17.5,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 45
-          },
-          {
-            "angle": 17.5,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 40
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 38
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 37
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": -25.5,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 35
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 34
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": 25.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": 23.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": 67.5,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 29
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 29,
-            "after": 25
-          },
-          {
-            "angle": 22.75,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": 21.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 22
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 19
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 12
-          },
-          {
-            "angle": -22.75,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 11
-          },
-          {
-            "angle": -21.5,
-            "waitTicks": 0,
-            "before": 11,
+            "before": 28,
             "after": 10
           },
           {
-            "angle": -70.5,
+            "angle": 44.0,
             "waitTicks": 0,
             "before": 10,
-            "after": 9
+            "after": 2
           },
           {
-            "angle": -33.25,
+            "angle": -18.5,
             "waitTicks": 0,
-            "before": 9,
-            "after": 8
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 6
-          },
-          {
-            "angle": -74.25,
-            "waitTicks": 0,
-            "before": 6,
-            "after": 5
-          },
-          {
-            "angle": -68.75,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 1
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 2,
             "after": 0
           }
         ]
       },
-      "witnessShots": 37,
-      "spareBalls": 27,
-      "consumption": 58,
-      "screenshot": ""
+      "witnessShots": 5,
+      "spareBalls": 13,
+      "consumption": 28,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 3,
+        "plannedShots": 5,
+        "nearestShots": 18,
+        "nearestRemaining": 55,
+        "recoveryShots": 4,
+        "recoveryRemaining": 0,
+        "tolerantShots": 15,
+        "tolerantRemaining": 0,
+        "firstAngle": -30.5,
+        "openingDamage": [
+          9,
+          26,
+          21,
+          18,
+          21
+        ],
+        "recoveryFirstDamage": 7
+      }
     },
     {
       "id": "active-4",
       "stage": 4,
       "library": "active",
-      "balls": 55,
-      "blocks": 54,
-      "objectives": 54,
+      "balls": 12,
+      "blocks": 62,
+      "objectives": 62,
       "columns": 11,
       "height": 14,
       "arenaColumns": 11,
@@ -1041,15 +371,15 @@
         "...........",
         ".....4.....",
         "....444....",
-        "....444....",
-        "44444444444",
-        ".444444444.",
-        "..4444444..",
         "...44444...",
-        "..4444444..",
+        "44444444444",
+        "4444...4444",
+        ".444...444.",
         "..44...44..",
-        ".44.....44.",
-        "...........",
+        "..44...44..",
+        ".444...444.",
+        ".4444.4444.",
+        "444.....444",
         "...........",
         "..........."
       ],
@@ -1057,7 +387,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "황금 별 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "별의 아래 갈래를 먼저 깎기보다 갈래 사이로 들어가 안쪽 면을 왕복하게 합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -1067,11 +397,11 @@
       "groups": [],
       "route": {
         "stage": 4,
-        "budget": 55,
-        "objectives": 54,
+        "budget": 12,
+        "objectives": 62,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 32,
+        "shotsUsed": 4,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
@@ -1080,227 +410,77 @@
           {
             "angle": 0.0,
             "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 46
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 44
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 42
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 40
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 38
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 36
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 34
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 27
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 25
-          },
-          {
-            "angle": -39.0,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": -36.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": 36.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 22,
+            "before": 62,
             "after": 20
           },
           {
-            "angle": -4.25,
+            "angle": 16.0,
             "waitTicks": 0,
             "before": 20,
-            "after": 19
+            "after": 7
           },
           {
-            "angle": 45.0,
+            "angle": 34.5,
             "waitTicks": 0,
-            "before": 19,
-            "after": 17
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 15
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 13
-          },
-          {
-            "angle": -19.0,
-            "waitTicks": 0,
-            "before": 13,
-            "after": 12
-          },
-          {
-            "angle": 19.0,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 11
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 11,
-            "after": 10
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 4
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": 33.25,
-            "waitTicks": 0,
-            "before": 3,
+            "before": 7,
             "after": 2
           },
           {
-            "angle": 40.75,
+            "angle": -5.0,
             "waitTicks": 0,
             "before": 2,
-            "after": 1
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 32,
-      "spareBalls": 23,
-      "consumption": 58,
-      "screenshot": ""
+      "witnessShots": 4,
+      "spareBalls": 8,
+      "consumption": 33,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 4,
+        "plannedShots": 4,
+        "nearestShots": 12,
+        "nearestRemaining": 50,
+        "recoveryShots": 5,
+        "recoveryRemaining": 0,
+        "tolerantShots": 9,
+        "tolerantRemaining": 0,
+        "firstAngle": 0.0,
+        "openingDamage": [
+          4,
+          7,
+          42,
+          7,
+          4
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-5",
       "stage": 5,
       "library": "active",
-      "balls": 69,
-      "blocks": 69,
-      "objectives": 69,
+      "balls": 30,
+      "blocks": 89,
+      "objectives": 89,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...11.11...",
-        "..1111111..",
-        "..1811181..",
-        "...11111...",
-        ".111111111.",
-        "11811111811",
-        "11111111111",
-        ".111111111.",
-        "...1.1.1...",
-        ".....1.....",
-        ".....11....",
-        "...........",
+        ".111...111.",
+        "11111.11111",
+        "11811.11811",
+        "11111.11111",
+        ".111...111.",
+        ".111...111.",
+        "11111.11111",
+        "11811.11811",
+        "11111.11111",
+        ".1111.1111.",
+        "....111....",
         "...........",
         "..........."
       ],
@@ -1308,7 +488,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "행운 클로버 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "클로버의 가운데 길을 먼저 넓혀 네 잎의 안쪽 면에 접근합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -1318,264 +498,108 @@
       "groups": [],
       "route": {
         "stage": 5,
-        "budget": 69,
-        "objectives": 69,
+        "budget": 30,
+        "objectives": 89,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 36,
+        "shotsUsed": 7,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -21.0,
             "waitTicks": 0,
-            "before": 69,
-            "after": 68
+            "before": 89,
+            "after": 85
           },
           {
-            "angle": 0.0,
+            "angle": 58.5,
             "waitTicks": 0,
-            "before": 68,
-            "after": 67
+            "before": 85,
+            "after": 73
           },
           {
-            "angle": 0.0,
+            "angle": 0.5,
             "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 60,
+            "before": 73,
             "after": 59
           },
           {
-            "angle": 31.75,
+            "angle": -49.0,
             "waitTicks": 0,
             "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 23.5,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 55
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 53
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 51
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 49
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 39
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 35
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 34
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 29
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 29,
-            "after": 28
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 28,
-            "after": 25
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 22
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 21
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 20
-          },
-          {
-            "angle": 33.25,
-            "waitTicks": 0,
-            "before": 20,
             "after": 19
           },
           {
-            "angle": -40.75,
+            "angle": -51.0,
             "waitTicks": 0,
             "before": 19,
-            "after": 18
+            "after": 7
           },
           {
-            "angle": 31.5,
+            "angle": -35.5,
             "waitTicks": 0,
-            "before": 18,
-            "after": 16
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 15
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 4
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 4,
+            "before": 7,
             "after": 3
           },
           {
-            "angle": -6.5,
+            "angle": -8.0,
             "waitTicks": 0,
             "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -11.0,
-            "waitTicks": 0,
-            "before": 2,
             "after": 0
           }
         ]
       },
-      "witnessShots": 36,
-      "spareBalls": 33,
-      "consumption": 52,
-      "screenshot": ""
+      "witnessShots": 7,
+      "spareBalls": 23,
+      "consumption": 23,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 5,
+        "plannedShots": 7,
+        "nearestShots": 30,
+        "nearestRemaining": 59,
+        "recoveryShots": 8,
+        "recoveryRemaining": 0,
+        "tolerantShots": 27,
+        "tolerantRemaining": 0,
+        "firstAngle": -21.0,
+        "openingDamage": [
+          4,
+          4,
+          4,
+          7,
+          3
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-6",
       "stage": 6,
       "library": "active",
-      "balls": 61,
-      "blocks": 61,
-      "objectives": 61,
+      "balls": 18,
+      "blocks": 68,
+      "objectives": 68,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
         ".....11....",
-        "....111....",
-        "....191....",
-        "...9..9....",
-        "..9....9...",
-        ".555..5555.",
-        "5585555855.",
-        "5585555855.",
-        "5555555555.",
-        ".555..5555.",
-        ".555...55..",
-        "...........",
+        "....1111...",
+        "...11.11...",
+        "..11...11..",
+        ".555...555.",
+        "55855.55855",
+        "58855.58855",
+        "55555.55555",
+        "55555.55555",
+        ".555...555.",
+        "..5.....5..",
         "...........",
         "..........."
       ],
@@ -1583,7 +607,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "체리 한 쌍 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "체리 두 열매 사이로 진입해 안쪽을 공략하고, 남은 줄기를 정리합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -1593,260 +617,99 @@
       "groups": [],
       "route": {
         "stage": 6,
-        "budget": 61,
-        "objectives": 61,
+        "budget": 18,
+        "objectives": 68,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 34,
+        "shotsUsed": 4,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -22.5,
             "waitTicks": 0,
-            "before": 61,
-            "after": 60
+            "before": 68,
+            "after": 23
           },
           {
-            "angle": 45.0,
+            "angle": 2.5,
             "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": -66.25,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 56
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 55
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": -27.75,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 6.75,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 47
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 45
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 32
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 30
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 29
-          },
-          {
-            "angle": -52.75,
-            "waitTicks": 0,
-            "before": 29,
-            "after": 20
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 19
-          },
-          {
-            "angle": -16.0,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 14
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 13
-          },
-          {
-            "angle": -25.5,
-            "waitTicks": 0,
-            "before": 13,
-            "after": 12
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 12,
+            "before": 23,
             "after": 11
           },
           {
-            "angle": -29.5,
+            "angle": 19.0,
             "waitTicks": 0,
             "before": 11,
-            "after": 10
+            "after": 2
           },
           {
-            "angle": -27.5,
+            "angle": 8.0,
             "waitTicks": 0,
-            "before": 10,
-            "after": 9
-          },
-          {
-            "angle": 36.5,
-            "waitTicks": 0,
-            "before": 9,
-            "after": 8
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 5
-          },
-          {
-            "angle": -13.5,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 3
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 1
-          },
-          {
-            "angle": -68.75,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 2,
             "after": 0
           }
         ]
       },
-      "witnessShots": 34,
-      "spareBalls": 27,
-      "consumption": 56,
-      "screenshot": ""
+      "witnessShots": 4,
+      "spareBalls": 14,
+      "consumption": 22,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 6,
+        "plannedShots": 4,
+        "nearestShots": 18,
+        "nearestRemaining": 50,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 15,
+        "tolerantRemaining": 0,
+        "firstAngle": -22.5,
+        "openingDamage": [
+          4,
+          5,
+          45,
+          2,
+          2
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-7",
       "stage": 7,
       "library": "active",
-      "balls": 57,
-      "blocks": 56,
-      "objectives": 56,
+      "balls": 17,
+      "blocks": 62,
+      "objectives": 62,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...11111...",
-        "...11911...",
-        ".....9.....",
-        "..333.333..",
-        ".333333333.",
-        ".333333333.",
-        "..3333333..",
-        "...33333...",
-        "...33333...",
-        "....333....",
-        ".....3.....",
-        "...........",
+        "..11.11....",
+        "...111.....",
+        "..666666...",
+        ".66886666..",
+        ".66866666..",
+        ".66666666..",
+        "..6666666..",
+        "..666666...",
+        "...66666...",
+        "...6666....",
+        "....66.....",
+        "....6......",
         "...........",
         "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "보랏빛 포도 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "주황 당근 · 1",
+      "intent": "당근 오른쪽 여백에서 윗벽 반사를 이용하면 두꺼운 어깨 부분부터 줄일 수 있습니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -1856,254 +719,99 @@
       "groups": [],
       "route": {
         "stage": 7,
-        "budget": 57,
-        "objectives": 56,
+        "budget": 17,
+        "objectives": 62,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 33,
+        "shotsUsed": 4,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": 25.5,
             "waitTicks": 0,
-            "before": 56,
-            "after": 55
+            "before": 62,
+            "after": 40
           },
           {
-            "angle": 0.0,
+            "angle": -25.5,
             "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 49
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 43
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 41
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 39
-          },
-          {
-            "angle": -52.75,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 37
-          },
-          {
-            "angle": 39.0,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 34
-          },
-          {
-            "angle": -39.0,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": -5.0,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": 5.5,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -69.0,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 29
-          },
-          {
-            "angle": -36.5,
-            "waitTicks": 0,
-            "before": 29,
+            "before": 40,
             "after": 28
           },
           {
-            "angle": -13.5,
+            "angle": 51.5,
             "waitTicks": 0,
             "before": 28,
-            "after": 25
+            "after": 5
           },
           {
-            "angle": 13.5,
+            "angle": 7.5,
             "waitTicks": 0,
-            "before": 25,
-            "after": 23
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 21
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 12
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 11
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 11,
-            "after": 9
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 9,
-            "after": 7
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 6
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 6,
-            "after": 1
-          },
-          {
-            "angle": 6.5,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 5,
             "after": 0
           }
         ]
       },
-      "witnessShots": 33,
-      "spareBalls": 24,
-      "consumption": 58,
-      "screenshot": ""
+      "witnessShots": 4,
+      "spareBalls": 13,
+      "consumption": 24,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 7,
+        "plannedShots": 4,
+        "nearestShots": 17,
+        "nearestRemaining": 45,
+        "recoveryShots": 7,
+        "recoveryRemaining": 0,
+        "tolerantShots": 14,
+        "tolerantRemaining": 0,
+        "firstAngle": 25.5,
+        "openingDamage": [
+          7,
+          14,
+          22,
+          10,
+          21
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-8",
       "stage": 8,
       "library": "active",
-      "balls": 67,
-      "blocks": 67,
-      "objectives": 67,
-      "columns": 9,
+      "balls": 20,
+      "blocks": 78,
+      "objectives": 78,
+      "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
-        ".........",
-        "....6....",
-        "..66666..",
-        ".6669866.",
-        ".6668866.",
-        "666666666",
-        "666666666",
-        "666666666",
-        ".6666666.",
-        "..66666..",
-        "...666...",
-        "..66666..",
-        ".........",
-        ".........",
-        "........."
+        "...........",
+        "...77777...",
+        "..7777777..",
+        ".778777877.",
+        ".779777977.",
+        ".777777777.",
+        ".777...777.",
+        "..77...77..",
+        "..77...77..",
+        "...77.77...",
+        ".777777777.",
+        "7777...7777",
+        ".77.....77.",
+        "...........",
+        "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "산호 물고기 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "푸른 고래 · 1",
+      "intent": "고래 꼬리 사이의 입구를 먼저 열어 몸통 속 빈 공간에 진입합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -2113,266 +821,110 @@
       "groups": [],
       "route": {
         "stage": 8,
-        "budget": 67,
-        "objectives": 67,
+        "budget": 20,
+        "objectives": 78,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 35,
+        "shotsUsed": 6,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -29.0,
             "waitTicks": 0,
-            "before": 67,
-            "after": 66
+            "before": 78,
+            "after": 69
           },
           {
-            "angle": 0.0,
+            "angle": -1.0,
             "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 64
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 61
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 59
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 55
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 55,
+            "before": 69,
             "after": 53
           },
           {
-            "angle": 0.0,
+            "angle": -1.5,
             "waitTicks": 0,
             "before": 53,
-            "after": 50
+            "after": 21
           },
           {
-            "angle": -6.75,
+            "angle": 46.5,
             "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 46
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 40
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 33
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 29
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 29,
-            "after": 28
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 28,
-            "after": 23
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 19
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 15
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 15,
+            "before": 21,
             "after": 14
           },
           {
-            "angle": 72.5,
+            "angle": -20.0,
             "waitTicks": 0,
             "before": 14,
-            "after": 13
+            "after": 4
           },
           {
-            "angle": 70.5,
+            "angle": -31.0,
             "waitTicks": 0,
-            "before": 13,
-            "after": 12
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 11
-          },
-          {
-            "angle": 33.25,
-            "waitTicks": 0,
-            "before": 11,
-            "after": 10
-          },
-          {
-            "angle": 31.5,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 8
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 8,
+            "before": 4,
             "after": 0
           }
         ]
       },
-      "witnessShots": 35,
-      "spareBalls": 32,
-      "consumption": 52,
-      "screenshot": ""
+      "witnessShots": 6,
+      "spareBalls": 14,
+      "consumption": 30,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 8,
+        "plannedShots": 6,
+        "nearestShots": 20,
+        "nearestRemaining": 58,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 17,
+        "tolerantRemaining": 0,
+        "firstAngle": -29.0,
+        "openingDamage": [
+          4,
+          4,
+          9,
+          3,
+          6
+        ],
+        "recoveryFirstDamage": 3
+      }
     },
     {
       "id": "active-9",
       "stage": 9,
       "library": "active",
-      "balls": 69,
-      "blocks": 69,
-      "objectives": 69,
+      "balls": 13,
+      "blocks": 86,
+      "objectives": 86,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".....1.....",
-        "..1111111..",
-        "...11111...",
-        "..5555555..",
-        "55555555555",
-        "55554555555",
-        ".555555555.",
-        "..5555555..",
-        "...54555...",
-        "...55555...",
-        ".....5.....",
-        "...........",
+        "33.......33",
+        "333.....333",
+        "3383...3833",
+        "33333.33333",
+        "33333.33333",
+        ".333...333.",
+        ".333...333.",
+        "33333.33333",
+        "33833.33833",
+        "33333.33333",
+        ".333...333.",
         "...........",
         "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "씨앗 딸기 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "무지개 나비 · 1",
+      "intent": "나비 중앙 통로에서 날개 안쪽으로 튕겨 양쪽 날개를 함께 줄입니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -2382,641 +934,216 @@
       "groups": [],
       "route": {
         "stage": 9,
-        "budget": 69,
-        "objectives": 69,
+        "budget": 13,
+        "objectives": 86,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 38,
+        "shotsUsed": 5,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -1.0,
             "waitTicks": 0,
-            "before": 69,
-            "after": 68
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 68,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 64
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 60
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 56
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 55
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 52
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 50
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 48
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 44,
+            "before": 86,
             "after": 37
           },
           {
-            "angle": 13.5,
+            "angle": -0.5,
             "waitTicks": 0,
             "before": 37,
-            "after": 33
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": 12.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 27
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 26
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 26,
-            "after": 23
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 20
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 19
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": -74.25,
-            "waitTicks": 0,
-            "before": 18,
             "after": 16
           },
           {
-            "angle": -70.5,
+            "angle": 24.0,
             "waitTicks": 0,
             "before": 16,
-            "after": 15
-          },
-          {
-            "angle": -27.25,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 13
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 13,
             "after": 6
           },
           {
-            "angle": 31.5,
+            "angle": -17.0,
             "waitTicks": 0,
             "before": 6,
-            "after": 4
+            "after": 2
           },
           {
-            "angle": 70.5,
+            "angle": 7.5,
             "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 1
-          },
-          {
-            "angle": -11.75,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 2,
             "after": 0
           }
         ]
       },
-      "witnessShots": 38,
-      "spareBalls": 31,
-      "consumption": 55,
-      "screenshot": ""
+      "witnessShots": 5,
+      "spareBalls": 8,
+      "consumption": 38,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 9,
+        "plannedShots": 5,
+        "nearestShots": 13,
+        "nearestRemaining": 73,
+        "recoveryShots": 4,
+        "recoveryRemaining": 0,
+        "tolerantShots": 10,
+        "tolerantRemaining": 0,
+        "firstAngle": -1.0,
+        "openingDamage": [
+          3,
+          57,
+          49,
+          26,
+          44
+        ],
+        "recoveryFirstDamage": 3
+      }
     },
     {
       "id": "active-10",
       "stage": 10,
       "library": "active",
-      "balls": 78,
-      "blocks": 79,
-      "objectives": 79,
+      "balls": 13,
+      "blocks": 66,
+      "objectives": 66,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...........",
-        ".3..9.9..3.",
-        "3333.9.3333",
-        "34439993443",
-        ".443999344.",
-        ".333999333.",
-        "..2299922..",
-        ".227999722.",
-        ".222999222.",
-        ".222.9.222.",
-        "..22.9.22..",
-        "...........",
+        ".....5.....",
+        "....555....",
+        "...55555...",
+        "..8888888..",
+        "..8877788..",
+        "..88...88..",
+        "..88...88..",
+        "..88...88..",
+        ".588...885.",
+        "55885558855",
+        "555..6..555",
+        "55..666..55",
         "...........",
         "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "무지개 나비 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "별빛 로켓 · 1",
+      "intent": "로켓의 중앙 마개를 열고 내부로 진입한 뒤 남은 양옆 날개를 반사로 정리합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "도전",
       "introduction": "",
       "grade": "도전 설계 · 사람 난이도 미평가",
       "status": "클리어·재현 확인",
-      "pressure": "보통",
+      "pressure": "여유",
       "groups": [],
       "route": {
         "stage": 10,
-        "budget": 78,
-        "objectives": 79,
+        "budget": 13,
+        "objectives": 66,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 51,
+        "shotsUsed": 7,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 78,
-            "after": 77
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 77,
-            "after": 76
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 76,
-            "after": 75
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 75,
-            "after": 74
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 72
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 72,
-            "after": 71
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 68
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 68,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
+            "angle": -29.5,
             "waitTicks": 0,
             "before": 66,
-            "after": 64
+            "after": 49
           },
           {
-            "angle": 0.0,
+            "angle": -59.5,
             "waitTicks": 0,
-            "before": 64,
-            "after": 62
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 56
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 54
-          },
-          {
-            "angle": -52.75,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 52
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 48
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 44
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 42
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 39
-          },
-          {
-            "angle": -69.0,
-            "waitTicks": 0,
-            "before": 39,
+            "before": 49,
             "after": 38
           },
           {
-            "angle": -13.5,
+            "angle": 59.0,
             "waitTicks": 0,
             "before": 38,
-            "after": 35
+            "after": 18
           },
           {
-            "angle": 13.5,
+            "angle": 47.0,
             "waitTicks": 0,
-            "before": 35,
-            "after": 33
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 28
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 28,
-            "after": 27
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 25
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 23
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 21
-          },
-          {
-            "angle": -19.0,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 20
+            "before": 18,
+            "after": 8
           },
           {
             "angle": 19.0,
             "waitTicks": 0,
-            "before": 20,
-            "after": 19
+            "before": 8,
+            "after": 5
           },
           {
-            "angle": 22.75,
+            "angle": -35.5,
             "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 4
-          },
-          {
-            "angle": -22.75,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 3,
+            "before": 5,
             "after": 2
           },
           {
-            "angle": 45.0,
+            "angle": 30.5,
             "waitTicks": 0,
             "before": 2,
-            "after": 1
-          },
-          {
-            "angle": 33.25,
-            "waitTicks": 0,
-            "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 51,
-      "spareBalls": 27,
-      "consumption": 65,
-      "screenshot": ""
+      "witnessShots": 7,
+      "spareBalls": 6,
+      "consumption": 54,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 10,
+        "plannedShots": 7,
+        "nearestShots": 13,
+        "nearestRemaining": 53,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 10,
+        "tolerantRemaining": 0,
+        "firstAngle": -29.5,
+        "openingDamage": [
+          1,
+          1,
+          17,
+          12,
+          5
+        ],
+        "recoveryFirstDamage": 8
+      }
     },
     {
       "id": "active-11",
       "stage": 11,
       "library": "active",
-      "balls": 78,
-      "blocks": 79,
-      "objectives": 79,
+      "balls": 19,
+      "blocks": 67,
+      "objectives": 67,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".....9.....",
-        "....49.....",
-        "...4498....",
-        "...44988...",
-        ".44449888..",
-        ".444498888.",
-        "4444498888.",
-        "99999999999",
-        ".686666686.",
-        ".666686666.",
-        "77777777777",
-        "...........",
+        ".....4.....",
+        "....448....",
+        "...44488...",
+        "..4444888..",
+        ".444448888.",
+        "44444488888",
+        "...4...8...",
+        "...4...8...",
+        "66666666666",
+        ".666666666.",
+        "..6666666..",
         "...........",
         "..........."
       ],
@@ -3024,7 +1151,7 @@
       "gimmickCounts": {},
       "gimmickLabel": "없음",
       "title": "황금 돛단배 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "intent": "돛 아래 왼쪽 진입로를 열어 돛 안쪽을 먼저 공략합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -3034,344 +1161,105 @@
       "groups": [],
       "route": {
         "stage": 11,
-        "budget": 78,
-        "objectives": 79,
+        "budget": 19,
+        "objectives": 67,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 48,
+        "shotsUsed": 5,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 78,
-            "after": 77
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 77,
-            "after": 76
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 76,
-            "after": 75
-          },
-          {
-            "angle": 66.25,
-            "waitTicks": 0,
-            "before": 75,
-            "after": 74
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": -66.25,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 72
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 72,
-            "after": 71
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 67
-          },
-          {
-            "angle": 6.0,
+            "angle": -23.5,
             "waitTicks": 0,
             "before": 67,
-            "after": 66
+            "after": 55
           },
           {
-            "angle": 0.0,
+            "angle": 16.5,
             "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 61
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 58
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 56
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 54
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": -25.25,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 25.25,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -33.75,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 33.75,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 42
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 40
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 38
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 37
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 37,
+            "before": 55,
             "after": 36
           },
           {
-            "angle": -25.5,
+            "angle": -17.0,
             "waitTicks": 0,
             "before": 36,
-            "after": 35
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 34
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 31
-          },
-          {
-            "angle": 16.0,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 24
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": 25.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 21
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 20
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 19
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 19,
             "after": 17
           },
           {
-            "angle": -13.5,
+            "angle": 73.0,
             "waitTicks": 0,
             "before": 17,
-            "after": 14
+            "after": 3
           },
           {
-            "angle": 13.5,
+            "angle": -34.0,
             "waitTicks": 0,
-            "before": 14,
-            "after": 5
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 1
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 3,
             "after": 0
           }
         ]
       },
-      "witnessShots": 48,
-      "spareBalls": 30,
-      "consumption": 62,
-      "screenshot": ""
+      "witnessShots": 5,
+      "spareBalls": 14,
+      "consumption": 26,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 11,
+        "plannedShots": 5,
+        "nearestShots": 19,
+        "nearestRemaining": 48,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 16,
+        "tolerantRemaining": 0,
+        "firstAngle": -23.5,
+        "openingDamage": [
+          9,
+          6,
+          12,
+          5,
+          4
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-12",
       "stage": 12,
       "library": "active",
-      "balls": 94,
-      "blocks": 97,
-      "objectives": 97,
+      "balls": 36,
+      "blocks": 90,
+      "objectives": 90,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...44444...",
-        "..4444444..",
-        ".448888844.",
-        "44844844844",
-        "48484844484",
-        "48888888884",
-        "48448484484",
-        "44844844844",
-        ".448888844.",
-        "..4444444..",
-        "...44444...",
-        "...........",
+        "...99999...",
+        "..9999999..",
+        ".998989899.",
+        ".999444999.",
+        "99988888999",
+        "9988...8899",
+        "9988...8899",
+        "9988...8899",
+        ".988...889.",
+        ".998888899.",
+        "..44...44..",
+        ".444...444.",
         "...........",
         "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "레몬 조각 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "꼬마 펭귄 · 1",
+      "intent": "펭귄의 배 입구를 먼저 열면 몸통 안쪽에서 연속 반사할 공간이 생깁니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -3381,404 +1269,117 @@
       "groups": [],
       "route": {
         "stage": 12,
-        "budget": 94,
-        "objectives": 97,
+        "budget": 36,
+        "objectives": 90,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 58,
+        "shotsUsed": 7,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -70.5,
             "waitTicks": 0,
-            "before": 97,
-            "after": 96
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 96,
-            "after": 95
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 95,
-            "after": 94
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 94,
-            "after": 93
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 93,
-            "after": 91
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 91,
-            "after": 89
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 89,
-            "after": 88
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 88,
-            "after": 87
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 87,
-            "after": 85
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 85,
-            "after": 83
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 83,
-            "after": 80
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 80,
-            "after": 79
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 78,
+            "before": 90,
             "after": 76
           },
           {
-            "angle": -15.0,
+            "angle": -46.5,
             "waitTicks": 0,
             "before": 76,
-            "after": 75
+            "after": 46
           },
           {
-            "angle": -13.25,
+            "angle": -63.5,
             "waitTicks": 0,
-            "before": 75,
-            "after": 74
+            "before": 46,
+            "after": 25
           },
           {
-            "angle": 15.0,
+            "angle": 21.0,
             "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 72
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 72,
-            "after": 71
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 68
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 68,
-            "after": 66
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 64
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": -25.5,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 57
-          },
-          {
-            "angle": 16.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 42
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 40
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": 25.5,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 38
-          },
-          {
-            "angle": 23.5,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 37
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 35
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 32
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 27
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 24
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 22
-          },
-          {
-            "angle": 19.0,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 21
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 20
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 16
-          },
-          {
-            "angle": 22.75,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 15
-          },
-          {
-            "angle": -19.0,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 14
-          },
-          {
-            "angle": -22.75,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 13
-          },
-          {
-            "angle": -40.75,
-            "waitTicks": 0,
-            "before": 13,
+            "before": 25,
             "after": 12
           },
           {
-            "angle": 70.5,
+            "angle": -69.0,
             "waitTicks": 0,
             "before": 12,
-            "after": 11
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 11,
             "after": 7
           },
           {
-            "angle": -27.25,
+            "angle": 36.0,
             "waitTicks": 0,
             "before": 7,
-            "after": 4
-          },
-          {
-            "angle": -28.5,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": 28.5,
-            "waitTicks": 0,
-            "before": 3,
             "after": 2
           },
           {
-            "angle": 74.25,
+            "angle": 9.5,
             "waitTicks": 0,
             "before": 2,
-            "after": 1
-          },
-          {
-            "angle": 6.5,
-            "waitTicks": 0,
-            "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 58,
-      "spareBalls": 36,
-      "consumption": 62,
-      "screenshot": ""
+      "witnessShots": 7,
+      "spareBalls": 29,
+      "consumption": 19,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 12,
+        "plannedShots": 7,
+        "nearestShots": 36,
+        "nearestRemaining": 54,
+        "recoveryShots": 8,
+        "recoveryRemaining": 0,
+        "tolerantShots": 33,
+        "tolerantRemaining": 0,
+        "firstAngle": -70.5,
+        "openingDamage": [
+          5,
+          5,
+          14,
+          5,
+          1
+        ],
+        "recoveryFirstDamage": 2
+      }
     },
     {
       "id": "active-13",
       "stage": 13,
       "library": "active",
-      "balls": 64,
-      "blocks": 64,
-      "objectives": 64,
+      "balls": 23,
+      "blocks": 73,
+      "objectives": 73,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...22......",
-        ".888222....",
-        "28882222.7.",
-        "28882222.77",
-        "28882222.77",
-        ".8822222...",
-        ".882222....",
-        ".22222.....",
-        ".2222......",
-        "..222......",
-        "...22......",
-        "...........",
+        "....777....",
+        "...77777...",
+        "..7777777..",
+        ".778777877.",
+        "7779...9777",
+        "7777...7777",
+        ".777...777.",
+        "..77...77..",
+        "...77777...",
+        "..777.777..",
+        ".777...777.",
+        "777.....777",
         "...........",
         "..........."
       ],
       "gimmicks": [],
       "gimmickCounts": {},
       "gimmickLabel": "없음",
-      "title": "푸른 고래 · 1",
-      "intent": "넓은 면과 외곽 반사를 차례로 익히는 일반 블록 레벨.",
+      "title": "산호 물고기 · 1",
+      "intent": "물고기 꼬리의 마개를 연 다음 몸통 안쪽으로 각도를 바꾸어 진입합니다.",
       "chapter": "산호 해안",
       "designDifficulty": "일반",
       "introduction": "",
@@ -3788,234 +1389,91 @@
       "groups": [],
       "route": {
         "stage": 13,
-        "budget": 64,
-        "objectives": 64,
+        "budget": 23,
+        "objectives": 73,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 34,
+        "shotsUsed": 7,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "level-013.png",
         "shots": [
           {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 58
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 56
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 53
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 49
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 46
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 44
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
             "angle": -29.5,
             "waitTicks": 0,
-            "before": 42,
-            "after": 41
+            "before": 73,
+            "after": 69
           },
           {
-            "angle": -27.5,
+            "angle": 52.5,
             "waitTicks": 0,
-            "before": 41,
-            "after": 39
+            "before": 69,
+            "after": 54
           },
           {
-            "angle": -5.5,
+            "angle": 55.0,
             "waitTicks": 0,
-            "before": 39,
-            "after": 38
+            "before": 54,
+            "after": 30
           },
           {
-            "angle": 45.0,
+            "angle": 53.0,
             "waitTicks": 0,
-            "before": 38,
-            "after": 36
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 34
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 31
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 23
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 19
-          },
-          {
-            "angle": 22.75,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 17,
+            "before": 30,
             "after": 16
           },
           {
-            "angle": -69.0,
+            "angle": -21.5,
             "waitTicks": 0,
             "before": 16,
-            "after": 15
+            "after": 8
           },
           {
-            "angle": -16.5,
+            "angle": 20.5,
             "waitTicks": 0,
-            "before": 15,
-            "after": 14
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 11
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 11,
+            "before": 8,
             "after": 1
           },
           {
-            "angle": -11.75,
+            "angle": -10.5,
             "waitTicks": 0,
             "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 34,
-      "spareBalls": 30,
-      "consumption": 53,
-      "screenshot": "level-013.png"
+      "witnessShots": 7,
+      "spareBalls": 16,
+      "consumption": 30,
+      "screenshot": "level-013.png",
+      "openingAudit": {
+        "stage": 13,
+        "plannedShots": 7,
+        "nearestShots": 23,
+        "nearestRemaining": 50,
+        "recoveryShots": 4,
+        "recoveryRemaining": 0,
+        "tolerantShots": 20,
+        "tolerantRemaining": 0,
+        "firstAngle": -29.5,
+        "openingDamage": [
+          9,
+          4,
+          4,
+          6,
+          3
+        ],
+        "recoveryFirstDamage": 20
+      }
     },
     {
       "id": "active-14",
       "stage": 14,
       "library": "active",
-      "balls": 63,
-      "blocks": 78,
-      "objectives": 79,
+      "balls": 27,
+      "blocks": 79,
+      "objectives": 80,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
@@ -4023,24 +1481,24 @@
       "rows": [
         "...........",
         "....111....",
-        "....191....",
-        ".77.111.77.",
-        "77144444177",
-        ".111141111.",
-        ".111841811.",
-        ".111141111.",
-        ".114444411.",
-        "77.11111777",
-        ".77.111.77.",
-        ".....1.....",
-        "...........",
+        "...11111...",
+        ".111111111.",
+        "11188888111",
+        ".118...811.",
+        ".118...811.",
+        ".118...811.",
+        ".118...811.",
+        "11111.11111",
+        ".111111111.",
+        "...11.11...",
+        "...11.11...",
         "...........",
         "..........."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 2,
+          "col": 5,
           "row": 9
         }
       ],
@@ -4049,1985 +1507,575 @@
       },
       "gimmickLabel": "기뢰 1",
       "title": "바다거북 · 1",
-      "intent": "기뢰의 규칙을 먼저 익히는 도입 레벨.",
+      "intent": "아래쪽 기뢰를 먼저 맞히면 거북 등껍질의 입구가 열립니다. 열린 길로 안쪽을 공략하세요.",
       "chapter": "과수원",
       "designDifficulty": "도입",
       "introduction": "mine",
       "grade": "도입 설계 · 사람 난이도 미평가",
       "status": "클리어·재현 확인",
-      "pressure": "보통",
+      "pressure": "여유",
       "groups": [],
       "route": {
         "stage": 14,
-        "budget": 63,
-        "objectives": 79,
+        "budget": 27,
+        "objectives": 80,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 42,
+        "shotsUsed": 6,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "level-014.png",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -21.5,
             "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 78,
-            "after": 77
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 77,
-            "after": 76
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 76,
-            "after": 75
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 75,
-            "after": 74
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 74,
-            "after": 73
-          },
-          {
-            "angle": 68.25,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 72
-          },
-          {
-            "angle": -27.75,
-            "waitTicks": 0,
-            "before": 72,
-            "after": 71
-          },
-          {
-            "angle": 27.75,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 68
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 68,
+            "before": 80,
             "after": 67
           },
           {
-            "angle": 0.0,
+            "angle": -50.0,
             "waitTicks": 0,
             "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 64
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 62
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 62,
             "after": 60
           },
           {
-            "angle": 0.0,
+            "angle": 6.5,
             "waitTicks": 0,
             "before": 60,
-            "after": 58
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 56
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 55
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": -19.5,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 47
-          },
-          {
-            "angle": 19.5,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 45
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": 16.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 36
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 35
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 34
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 33,
             "after": 32
           },
           {
-            "angle": 45.0,
+            "angle": 14.5,
             "waitTicks": 0,
             "before": 32,
-            "after": 30
+            "after": 23
           },
           {
-            "angle": -13.5,
+            "angle": 55.5,
             "waitTicks": 0,
-            "before": 30,
-            "after": 27
+            "before": 23,
+            "after": 6
           },
           {
-            "angle": 13.5,
+            "angle": -58.0,
             "waitTicks": 0,
-            "before": 27,
-            "after": 25
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 22
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 22,
-            "after": 20
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 18
-          },
-          {
-            "angle": -19.0,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": 19.0,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 16
-          },
-          {
-            "angle": 22.75,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 15
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 14
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 1
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 6,
             "after": 0
           }
         ]
       },
-      "witnessShots": 42,
+      "witnessShots": 6,
       "spareBalls": 21,
-      "consumption": 67,
-      "screenshot": "level-014.png"
+      "consumption": 22,
+      "screenshot": "level-014.png",
+      "openingAudit": {
+        "stage": 14,
+        "plannedShots": 6,
+        "nearestShots": 27,
+        "nearestRemaining": 51,
+        "recoveryShots": 7,
+        "recoveryRemaining": 0,
+        "tolerantShots": 24,
+        "tolerantRemaining": 0,
+        "firstAngle": -21.5,
+        "openingDamage": [
+          4,
+          3,
+          13,
+          6,
+          2
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-15",
       "stage": 15,
       "library": "active",
-      "balls": 54,
-      "blocks": 54,
-      "objectives": 55,
+      "balls": 31,
+      "blocks": 90,
+      "objectives": 91,
       "columns": 11,
-      "height": 15,
+      "height": 14,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".....5.....",
-        "....555....",
-        "...88888...",
-        "...877.8...",
-        "...87978...",
-        "..5888885..",
-        ".558888855.",
-        "55588888555",
-        "...69996...",
-        "....444....",
-        ".....6.....",
-        "...........",
+        "...77777...",
+        "..7788877..",
+        ".778888877.",
+        "77777777777",
+        "33333333333",
+        "3333...3333",
+        "3333...3333",
+        "333....3333",
+        "33333333333",
+        ".333333333.",
+        "..44...44..",
         "...........",
         "..........."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 6,
-          "row": 4
+          "col": 3,
+          "row": 8
         }
       ],
       "gimmickCounts": {
         "mine": 1
       },
       "gimmickLabel": "기뢰 1",
-      "title": "별빛 로켓 · 1",
-      "intent": "앞에서 배운 규칙을 단독으로 반복하며 조준을 익힙니다.",
+      "title": "빛나는 우주선 · 1",
+      "intent": "우주선 왼쪽 기뢰를 터뜨려 측면 입구를 열고, 원반 안쪽으로 반사시킵니다.",
       "chapter": "과수원",
       "designDifficulty": "복습",
       "introduction": "",
       "grade": "복습 설계 · 사람 난이도 미평가",
       "status": "클리어·재현 확인",
-      "pressure": "보통",
+      "pressure": "여유",
       "groups": [],
       "route": {
         "stage": 15,
-        "budget": 54,
-        "objectives": 55,
+        "budget": 31,
+        "objectives": 91,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 38,
+        "shotsUsed": 10,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 0.0,
+            "angle": -24.0,
             "waitTicks": 0,
-            "before": 55,
-            "after": 54
+            "before": 91,
+            "after": 84
           },
           {
-            "angle": 0.0,
+            "angle": -43.0,
             "waitTicks": 0,
-            "before": 54,
-            "after": 53
+            "before": 84,
+            "after": 65
           },
           {
-            "angle": 0.0,
+            "angle": -13.5,
             "waitTicks": 0,
-            "before": 53,
-            "after": 52
+            "before": 65,
+            "after": 57
           },
           {
-            "angle": 0.0,
+            "angle": -42.0,
             "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 50,
+            "before": 57,
             "after": 48
           },
           {
-            "angle": 6.0,
+            "angle": -52.0,
             "waitTicks": 0,
             "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -31.75,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 31.75,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 42
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 41,
             "after": 40
           },
           {
-            "angle": 0.0,
+            "angle": -65.0,
             "waitTicks": 0,
             "before": 40,
-            "after": 38
+            "after": 35
           },
           {
-            "angle": 0.0,
+            "angle": -55.5,
             "waitTicks": 0,
-            "before": 38,
-            "after": 36
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 34
-          },
-          {
-            "angle": 4.0,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 28
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 28,
+            "before": 35,
             "after": 27
           },
           {
-            "angle": -25.5,
+            "angle": 53.5,
             "waitTicks": 0,
             "before": 27,
-            "after": 26
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 26,
-            "after": 25
-          },
-          {
-            "angle": 25.5,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 19
-          },
-          {
-            "angle": 67.5,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 18
-          },
-          {
-            "angle": -67.5,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 16
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 16,
             "after": 14
           },
           {
-            "angle": -69.0,
+            "angle": -58.0,
             "waitTicks": 0,
             "before": 14,
-            "after": 13
+            "after": 4
           },
           {
-            "angle": -34.25,
+            "angle": 16.5,
             "waitTicks": 0,
-            "before": 13,
-            "after": 12
-          },
-          {
-            "angle": -37.25,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 11
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 11,
-            "after": 10
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 9
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 9,
-            "after": 8
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 3
-          },
-          {
-            "angle": 36.5,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 2,
-            "after": 1
-          },
-          {
-            "angle": -68.75,
-            "waitTicks": 0,
-            "before": 1,
+            "before": 4,
             "after": 0
           }
         ]
       },
-      "witnessShots": 38,
-      "spareBalls": 16,
-      "consumption": 70,
-      "screenshot": ""
+      "witnessShots": 10,
+      "spareBalls": 21,
+      "consumption": 32,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 15,
+        "plannedShots": 10,
+        "nearestShots": 31,
+        "nearestRemaining": 57,
+        "recoveryShots": 8,
+        "recoveryRemaining": 0,
+        "tolerantShots": 28,
+        "tolerantRemaining": 0,
+        "firstAngle": -24.0,
+        "openingDamage": [
+          2,
+          7,
+          7,
+          13,
+          5
+        ],
+        "recoveryFirstDamage": 1
+      }
     },
     {
       "id": "active-16",
       "stage": 16,
       "library": "active",
-      "balls": 33,
-      "blocks": 56,
-      "objectives": 57,
+      "balls": 19,
+      "blocks": 78,
+      "objectives": 79,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        ".....9.....",
-        "...33333...",
-        "..3344433..",
-        ".334444433.",
-        "33344744333",
-        "344777.7443",
-        "3.47.7.74.3",
-        ".....9.....",
-        ".....9.....",
-        ".....9.....",
-        "...999.....",
-        "...........",
+        "..3333333..",
+        ".338888833.",
+        "33833333833",
+        "3333...3333",
+        "3333...3333",
+        ".333...333.",
+        "..3333333..",
+        "...33.33...",
+        "...11111...",
+        "..1111111..",
+        "..11.1.11..",
+        ".....1.....",
         "...........",
         "..........."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 6,
-          "row": 6
+          "col": 5,
+          "row": 8
         }
       ],
       "gimmickCounts": {
         "mine": 1
       },
       "gimmickLabel": "기뢰 1",
-      "title": "무지개 우산 · 1",
-      "intent": "앞에서 배운 규칙을 단독으로 반복하며 조준을 익힙니다.",
+      "title": "장미꽃 · 1",
+      "intent": "장미 줄기 쪽 기뢰가 꽃받침을 엽니다. 폭발 뒤 꽃잎 안쪽으로 진입합니다.",
       "chapter": "과수원",
       "designDifficulty": "복습",
       "introduction": "",
       "grade": "복습 설계 · 사람 난이도 미평가",
       "status": "클리어·재현 확인",
-      "pressure": "보통",
+      "pressure": "여유",
       "groups": [],
       "route": {
         "stage": 16,
-        "budget": 33,
-        "objectives": 57,
+        "budget": 19,
+        "objectives": 79,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 23,
+        "shotsUsed": 6,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": 61.75,
+            "angle": -23.0,
+            "waitTicks": 0,
+            "before": 79,
+            "after": 57
+          },
+          {
+            "angle": -46.5,
             "waitTicks": 0,
             "before": 57,
-            "after": 43
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": -23.5,
-            "waitTicks": 0,
-            "before": 41,
             "after": 40
           },
           {
-            "angle": 23.5,
+            "angle": -31.0,
             "waitTicks": 0,
             "before": 40,
-            "after": 39
+            "after": 19
           },
           {
-            "angle": 0.0,
+            "angle": -65.5,
             "waitTicks": 0,
-            "before": 39,
-            "after": 38
+            "before": 19,
+            "after": 11
           },
           {
-            "angle": 0.0,
+            "angle": -64.5,
             "waitTicks": 0,
-            "before": 38,
-            "after": 37
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 32
-          },
-          {
-            "angle": -17.75,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": -7.5,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -13.5,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 27
-          },
-          {
-            "angle": 13.5,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 21
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 20
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 18
-          },
-          {
-            "angle": -68.25,
-            "waitTicks": 0,
-            "before": 18,
-            "after": 17
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 16
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 8
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 6
-          },
-          {
-            "angle": 68.75,
-            "waitTicks": 0,
-            "before": 6,
-            "after": 2
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 2,
+            "before": 11,
             "after": 1
           },
           {
-            "angle": -11.75,
+            "angle": -10.5,
             "waitTicks": 0,
             "before": 1,
             "after": 0
           }
         ]
       },
-      "witnessShots": 23,
-      "spareBalls": 10,
-      "consumption": 70,
-      "screenshot": ""
+      "witnessShots": 6,
+      "spareBalls": 13,
+      "consumption": 32,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 16,
+        "plannedShots": 6,
+        "nearestShots": 19,
+        "nearestRemaining": 55,
+        "recoveryShots": 7,
+        "recoveryRemaining": 0,
+        "tolerantShots": 16,
+        "tolerantRemaining": 0,
+        "firstAngle": -23.0,
+        "openingDamage": [
+          5,
+          6,
+          22,
+          8,
+          2
+        ],
+        "recoveryFirstDamage": 2
+      }
     },
     {
       "id": "active-17",
       "stage": 17,
       "library": "active",
-      "balls": 44,
-      "blocks": 70,
-      "objectives": 71,
+      "balls": 31,
+      "blocks": 77,
+      "objectives": 79,
       "columns": 11,
       "height": 15,
       "arenaColumns": 11,
       "arenaRows": 16,
       "rows": [
         "...........",
-        "...33333...",
-        "..3344433..",
-        "33344744333",
-        "33344744333",
-        "33.44744333",
-        "..3344433..",
-        "...33333...",
-        "...9...9...",
-        "...9...9...",
-        "...68886...",
+        "...44444...",
+        "..4433344..",
+        ".443333344.",
+        "4433...3344",
+        "4433...3344",
+        "443....3344",
+        ".433...334.",
+        ".443333344.",
+        "..443.344..",
+        "...4...4...",
+        "...66666...",
         "...66666...",
         "...........",
-        "...........",
         "..........."
       ],
       "gimmicks": [
         {
           "type": "mine",
-          "col": 2,
-          "row": 5
-        }
-      ],
-      "gimmickCounts": {
-        "mine": 1
-      },
-      "gimmickLabel": "기뢰 1",
-      "title": "열기구 · 1",
-      "intent": "이미 배운 기믹을 조합해 통로를 열고 사물의 안쪽을 공략합니다.",
-      "chapter": "과수원",
-      "designDifficulty": "일반",
-      "introduction": "",
-      "grade": "일반 설계 · 사람 난이도 미평가",
-      "status": "클리어·재현 확인",
-      "pressure": "보통",
-      "groups": [],
-      "route": {
-        "stage": 17,
-        "budget": 44,
-        "objectives": 71,
-        "remaining": 0,
-        "workRemaining": 0,
-        "shotsUsed": 33,
-        "cleared": true,
-        "replayPassed": true,
-        "failure": "",
-        "screenshot": "",
-        "shots": [
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 64
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 64,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 61
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 58
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 55
-          },
-          {
-            "angle": 39.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 41
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 34
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 32
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 32,
-            "after": 31
-          },
-          {
-            "angle": 36.5,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 24
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 21
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 19
-          },
-          {
-            "angle": -27.25,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 16
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 10
-          },
-          {
-            "angle": 31.5,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 8
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 5
-          },
-          {
-            "angle": -28.5,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 4
-          },
-          {
-            "angle": 28.5,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": 74.25,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 2,
-            "after": 0
-          }
-        ]
-      },
-      "witnessShots": 33,
-      "spareBalls": 11,
-      "consumption": 75,
-      "screenshot": ""
-    },
-    {
-      "id": "active-18",
-      "stage": 18,
-      "library": "active",
-      "balls": 59,
-      "blocks": 80,
-      "objectives": 81,
-      "columns": 11,
-      "height": 15,
-      "arenaColumns": 11,
-      "arenaRows": 16,
-      "rows": [
-        "...........",
-        "...55555...",
-        "..5588555..",
-        ".558885555.",
-        "5555.555855",
-        "55855555855",
-        "55555555555",
-        "...88888...",
-        "...88888...",
-        "...88888...",
-        "...88888...",
-        "..8888888..",
-        "...........",
-        "...........",
-        "..........."
-      ],
-      "gimmicks": [
-        {
-          "type": "mine",
-          "col": 4,
-          "row": 4
-        }
-      ],
-      "gimmickCounts": {
-        "mine": 1
-      },
-      "gimmickLabel": "기뢰 1",
-      "title": "붉은 버섯 · 1",
-      "intent": "이미 배운 기믹을 조합해 통로를 열고 사물의 안쪽을 공략합니다.",
-      "chapter": "과수원",
-      "designDifficulty": "일반",
-      "introduction": "",
-      "grade": "일반 설계 · 사람 난이도 미평가",
-      "status": "클리어·재현 확인",
-      "pressure": "보통",
-      "groups": [],
-      "route": {
-        "stage": 18,
-        "budget": 59,
-        "objectives": 81,
-        "remaining": 0,
-        "workRemaining": 0,
-        "shotsUsed": 44,
-        "cleared": true,
-        "replayPassed": true,
-        "failure": "",
-        "screenshot": "",
-        "shots": [
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 81,
-            "after": 80
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 80,
-            "after": 79
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 79,
-            "after": 78
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 78,
-            "after": 77
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 77,
-            "after": 76
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 76,
-            "after": 75
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 75,
-            "after": 73
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 73,
-            "after": 71
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 62
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 62,
-            "after": 61
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 58
-          },
-          {
-            "angle": 39.0,
-            "waitTicks": 0,
-            "before": 58,
-            "after": 57
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 56
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 56,
-            "after": 55
-          },
-          {
-            "angle": -17.75,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 54
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 54,
-            "after": 53
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 53,
-            "after": 52
-          },
-          {
-            "angle": 17.75,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 51
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 51,
-            "after": 50
-          },
-          {
-            "angle": 52.75,
-            "waitTicks": 0,
-            "before": 50,
-            "after": 45
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": -39.0,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 41
-          },
-          {
-            "angle": 36.5,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 40
-          },
-          {
-            "angle": 62.5,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 21
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 21,
-            "after": 19
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 19,
-            "after": 17
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 15
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 15,
-            "after": 14
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 13
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 13,
-            "after": 10
-          },
-          {
-            "angle": 33.25,
-            "waitTicks": 0,
-            "before": 10,
-            "after": 9
-          },
-          {
-            "angle": -40.75,
-            "waitTicks": 0,
-            "before": 9,
-            "after": 8
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": 14.5,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 5
-          },
-          {
-            "angle": 21.75,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 4
-          },
-          {
-            "angle": 19.0,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 3
-          },
-          {
-            "angle": -61.25,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 2
-          },
-          {
-            "angle": 11.0,
-            "waitTicks": 0,
-            "before": 2,
-            "after": 0
-          }
-        ]
-      },
-      "witnessShots": 44,
-      "spareBalls": 15,
-      "consumption": 75,
-      "screenshot": ""
-    },
-    {
-      "id": "active-19",
-      "stage": 19,
-      "library": "active",
-      "balls": 55,
-      "blocks": 68,
-      "objectives": 69,
-      "columns": 11,
-      "height": 15,
-      "arenaColumns": 11,
-      "arenaRows": 16,
-      "rows": [
-        "...........",
-        "....111....",
-        "...11111...",
-        "..1111111..",
-        "11118111111",
-        "11111111111",
-        ".111111.11.",
-        "..1111111..",
-        "....999....",
-        "....999....",
-        "...99999...",
-        "...11111...",
-        "...........",
-        "...........",
-        "..........."
-      ],
-      "gimmicks": [
-        {
-          "type": "mine",
-          "col": 7,
-          "row": 6
-        }
-      ],
-      "gimmickCounts": {
-        "mine": 1
-      },
-      "gimmickLabel": "기뢰 1",
-      "title": "초록 나무 · 1",
-      "intent": "이미 배운 기믹을 조합해 통로를 열고 사물의 안쪽을 공략합니다.",
-      "chapter": "과수원",
-      "designDifficulty": "일반",
-      "introduction": "",
-      "grade": "일반 설계 · 사람 난이도 미평가",
-      "status": "클리어·재현 확인",
-      "pressure": "보통",
-      "groups": [],
-      "route": {
-        "stage": 19,
-        "budget": 55,
-        "objectives": 69,
-        "remaining": 0,
-        "workRemaining": 0,
-        "shotsUsed": 41,
-        "cleared": true,
-        "replayPassed": true,
-        "failure": "",
-        "screenshot": "",
-        "shots": [
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 68
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 68,
-            "after": 67
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 61
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 60
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 60,
-            "after": 59
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 57
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 55
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 55,
-            "after": 52
-          },
-          {
-            "angle": 5.75,
-            "waitTicks": 0,
-            "before": 52,
-            "after": 44
-          },
-          {
-            "angle": -6.75,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 43
-          },
-          {
-            "angle": -6.0,
-            "waitTicks": 0,
-            "before": 43,
-            "after": 42
-          },
-          {
-            "angle": -15.0,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 41
-          },
-          {
-            "angle": -13.25,
-            "waitTicks": 0,
-            "before": 41,
-            "after": 40
-          },
-          {
-            "angle": 15.0,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": 13.25,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 38
-          },
-          {
-            "angle": 17.75,
-            "waitTicks": 0,
-            "before": 38,
-            "after": 37
-          },
-          {
-            "angle": 16.5,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 35
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 35,
-            "after": 34
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 34,
-            "after": 33
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 33,
-            "after": 31
-          },
-          {
-            "angle": 72.5,
-            "waitTicks": 0,
-            "before": 31,
-            "after": 30
-          },
-          {
-            "angle": -45.0,
-            "waitTicks": 0,
-            "before": 30,
-            "after": 27
-          },
-          {
-            "angle": -13.5,
-            "waitTicks": 0,
-            "before": 27,
-            "after": 25
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 25,
-            "after": 24
-          },
-          {
-            "angle": -4.25,
-            "waitTicks": 0,
-            "before": 24,
-            "after": 23
-          },
-          {
-            "angle": -12.5,
-            "waitTicks": 0,
-            "before": 23,
-            "after": 20
-          },
-          {
-            "angle": 31.5,
-            "waitTicks": 0,
-            "before": 20,
-            "after": 17
-          },
-          {
-            "angle": 70.5,
-            "waitTicks": 0,
-            "before": 17,
-            "after": 16
-          },
-          {
-            "angle": 27.25,
-            "waitTicks": 0,
-            "before": 16,
-            "after": 14
-          },
-          {
-            "angle": -19.0,
-            "waitTicks": 0,
-            "before": 14,
-            "after": 13
-          },
-          {
-            "angle": -72.5,
-            "waitTicks": 0,
-            "before": 13,
-            "after": 12
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 12,
-            "after": 8
-          },
-          {
-            "angle": 28.5,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 6
-          },
-          {
-            "angle": 40.75,
-            "waitTicks": 0,
-            "before": 6,
-            "after": 5
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 4
-          },
-          {
-            "angle": -68.75,
-            "waitTicks": 0,
-            "before": 4,
-            "after": 0
-          }
-        ]
-      },
-      "witnessShots": 41,
-      "spareBalls": 14,
-      "consumption": 75,
-      "screenshot": ""
-    },
-    {
-      "id": "active-20",
-      "stage": 20,
-      "library": "active",
-      "balls": 47,
-      "blocks": 75,
-      "objectives": 77,
-      "columns": 11,
-      "height": 15,
-      "arenaColumns": 11,
-      "arenaRows": 16,
-      "rows": [
-        "...........",
-        "...33333...",
-        "..3333333..",
-        ".333333333.",
-        "33333333333",
-        "3333333.333",
-        ".444444444.",
-        ".464644644.",
-        "..4644644..",
-        "...44444...",
-        ".....44....",
-        ".....4.....",
-        "...........",
-        "...........",
-        "..........."
-      ],
-      "gimmicks": [
-        {
-          "type": "mine",
-          "col": 7,
-          "row": 5
+          "col": 5,
+          "row": 9
         },
         {
           "type": "mine",
-          "col": 4,
-          "row": 10
+          "col": 3,
+          "row": 6
         }
       ],
       "gimmickCounts": {
         "mine": 2
       },
       "gimmickLabel": "기뢰 2",
-      "title": "아이스크림 · 1",
-      "intent": "이미 배운 기믹을 조합해 통로를 열고 사물의 안쪽을 공략합니다.",
+      "title": "열기구 · 1",
+      "intent": "열기구 아래 기뢰로 입구를 연 뒤, 옆 기뢰까지 이어지는 내부 반사를 찾습니다.",
       "chapter": "과수원",
-      "designDifficulty": "도전",
+      "designDifficulty": "일반",
       "introduction": "",
-      "grade": "도전 설계 · 사람 난이도 미평가",
+      "grade": "일반 설계 · 사람 난이도 미평가",
       "status": "클리어·재현 확인",
-      "pressure": "빠듯",
+      "pressure": "여유",
       "groups": [],
       "route": {
-        "stage": 20,
-        "budget": 47,
-        "objectives": 77,
+        "stage": 17,
+        "budget": 31,
+        "objectives": 79,
         "remaining": 0,
         "workRemaining": 0,
-        "shotsUsed": 39,
+        "shotsUsed": 6,
         "cleared": true,
         "replayPassed": true,
         "failure": "",
         "screenshot": "",
         "shots": [
           {
-            "angle": -6.75,
+            "angle": -25.0,
             "waitTicks": 0,
-            "before": 77,
-            "after": 71
+            "before": 79,
+            "after": 52
           },
           {
-            "angle": 0.0,
+            "angle": 37.0,
             "waitTicks": 0,
-            "before": 71,
-            "after": 70
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 70,
-            "after": 69
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 69,
-            "after": 67
-          },
-          {
-            "angle": 6.0,
-            "waitTicks": 0,
-            "before": 67,
-            "after": 66
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 66,
-            "after": 65
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 65,
-            "after": 63
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 63,
-            "after": 61
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 61,
-            "after": 59
-          },
-          {
-            "angle": 4.25,
-            "waitTicks": 0,
-            "before": 59,
-            "after": 57
-          },
-          {
-            "angle": 5.5,
-            "waitTicks": 0,
-            "before": 57,
-            "after": 49
-          },
-          {
-            "angle": -10.75,
-            "waitTicks": 0,
-            "before": 49,
-            "after": 48
-          },
-          {
-            "angle": 10.75,
-            "waitTicks": 0,
-            "before": 48,
-            "after": 47
-          },
-          {
-            "angle": 0.0,
-            "waitTicks": 0,
-            "before": 47,
-            "after": 46
-          },
-          {
-            "angle": -29.5,
-            "waitTicks": 0,
-            "before": 46,
-            "after": 45
-          },
-          {
-            "angle": 29.5,
-            "waitTicks": 0,
-            "before": 45,
-            "after": 44
-          },
-          {
-            "angle": -27.5,
-            "waitTicks": 0,
-            "before": 44,
-            "after": 42
-          },
-          {
-            "angle": 27.5,
-            "waitTicks": 0,
-            "before": 42,
-            "after": 40
-          },
-          {
-            "angle": -5.5,
-            "waitTicks": 0,
-            "before": 40,
-            "after": 39
-          },
-          {
-            "angle": 45.0,
-            "waitTicks": 0,
-            "before": 39,
-            "after": 37
-          },
-          {
-            "angle": -69.0,
-            "waitTicks": 0,
-            "before": 37,
-            "after": 36
-          },
-          {
-            "angle": -13.5,
-            "waitTicks": 0,
-            "before": 36,
-            "after": 33
-          },
-          {
-            "angle": -16.5,
-            "waitTicks": 0,
-            "before": 33,
+            "before": 52,
             "after": 32
           },
           {
-            "angle": 16.5,
+            "angle": 59.5,
             "waitTicks": 0,
             "before": 32,
-            "after": 31
+            "after": 23
           },
           {
-            "angle": -45.0,
+            "angle": -59.0,
             "waitTicks": 0,
-            "before": 31,
-            "after": 24
+            "before": 23,
+            "after": 13
           },
           {
-            "angle": 45.0,
+            "angle": -58.0,
             "waitTicks": 0,
-            "before": 24,
-            "after": 21
+            "before": 13,
+            "after": 4
           },
           {
-            "angle": 70.5,
+            "angle": -68.5,
             "waitTicks": 0,
-            "before": 21,
-            "after": 20
+            "before": 4,
+            "after": 0
+          }
+        ]
+      },
+      "witnessShots": 6,
+      "spareBalls": 25,
+      "consumption": 19,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 17,
+        "plannedShots": 6,
+        "nearestShots": 31,
+        "nearestRemaining": 40,
+        "recoveryShots": 6,
+        "recoveryRemaining": 0,
+        "tolerantShots": 28,
+        "tolerantRemaining": 0,
+        "firstAngle": -25.0,
+        "openingDamage": [
+          2,
+          2,
+          27,
+          10,
+          2
+        ],
+        "recoveryFirstDamage": 2
+      }
+    },
+    {
+      "id": "active-18",
+      "stage": 18,
+      "library": "active",
+      "balls": 24,
+      "blocks": 87,
+      "objectives": 88,
+      "columns": 11,
+      "height": 14,
+      "arenaColumns": 11,
+      "arenaRows": 16,
+      "rows": [
+        "...........",
+        "..999......",
+        "..999.999..",
+        "99999999999",
+        "99977777999",
+        "9977...7799",
+        "9977...7799",
+        "9977...7799",
+        "99977777999",
+        "99999.99999",
+        "99999999999",
+        "...........",
+        "...........",
+        "..........."
+      ],
+      "gimmicks": [
+        {
+          "type": "mine",
+          "col": 5,
+          "row": 9
+        }
+      ],
+      "gimmickCounts": {
+        "mine": 1
+      },
+      "gimmickLabel": "기뢰 1",
+      "title": "카메라 · 1",
+      "intent": "카메라 렌즈 아래 기뢰를 먼저 터뜨려 렌즈의 안쪽 면을 공략합니다.",
+      "chapter": "과수원",
+      "designDifficulty": "일반",
+      "introduction": "",
+      "grade": "일반 설계 · 사람 난이도 미평가",
+      "status": "클리어·재현 확인",
+      "pressure": "여유",
+      "groups": [],
+      "route": {
+        "stage": 18,
+        "budget": 24,
+        "objectives": 88,
+        "remaining": 0,
+        "workRemaining": 0,
+        "shotsUsed": 7,
+        "cleared": true,
+        "replayPassed": true,
+        "failure": "",
+        "screenshot": "",
+        "shots": [
+          {
+            "angle": -50.0,
+            "waitTicks": 0,
+            "before": 88,
+            "after": 83
           },
           {
-            "angle": 27.25,
+            "angle": 47.5,
             "waitTicks": 0,
-            "before": 20,
-            "after": 17
+            "before": 83,
+            "after": 59
           },
           {
-            "angle": -19.0,
+            "angle": -51.5,
             "waitTicks": 0,
-            "before": 17,
-            "after": 16
+            "before": 59,
+            "after": 48
           },
           {
-            "angle": -72.5,
+            "angle": -55.5,
             "waitTicks": 0,
-            "before": 16,
-            "after": 15
+            "before": 48,
+            "after": 23
           },
           {
-            "angle": 45.0,
+            "angle": -48.5,
             "waitTicks": 0,
-            "before": 15,
-            "after": 10
-          },
-          {
-            "angle": -70.5,
-            "waitTicks": 0,
-            "before": 10,
+            "before": 23,
             "after": 9
           },
           {
-            "angle": 28.5,
+            "angle": -36.5,
             "waitTicks": 0,
             "before": 9,
-            "after": 8
-          },
-          {
-            "angle": -33.25,
-            "waitTicks": 0,
-            "before": 8,
-            "after": 7
-          },
-          {
-            "angle": -31.5,
-            "waitTicks": 0,
-            "before": 7,
-            "after": 5
-          },
-          {
-            "angle": -27.25,
-            "waitTicks": 0,
-            "before": 5,
-            "after": 3
-          },
-          {
-            "angle": -28.5,
-            "waitTicks": 0,
-            "before": 3,
-            "after": 2
-          },
-          {
-            "angle": -74.25,
-            "waitTicks": 0,
-            "before": 2,
             "after": 1
           },
           {
@@ -6038,10 +2086,284 @@
           }
         ]
       },
-      "witnessShots": 39,
-      "spareBalls": 8,
-      "consumption": 83,
-      "screenshot": ""
+      "witnessShots": 7,
+      "spareBalls": 17,
+      "consumption": 29,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 18,
+        "plannedShots": 7,
+        "nearestShots": 24,
+        "nearestRemaining": 59,
+        "recoveryShots": 8,
+        "recoveryRemaining": 0,
+        "tolerantShots": 21,
+        "tolerantRemaining": 0,
+        "firstAngle": -50.0,
+        "openingDamage": [
+          3,
+          3,
+          5,
+          3,
+          3
+        ],
+        "recoveryFirstDamage": 1
+      }
+    },
+    {
+      "id": "active-19",
+      "stage": 19,
+      "library": "active",
+      "balls": 24,
+      "blocks": 79,
+      "objectives": 80,
+      "columns": 11,
+      "height": 15,
+      "arenaColumns": 11,
+      "arenaRows": 16,
+      "rows": [
+        "...........",
+        "....111....",
+        "...11111...",
+        ".111111111.",
+        "11144444111",
+        ".114...411.",
+        ".114...411.",
+        ".114...411.",
+        ".114...411.",
+        "111.4444111",
+        ".111111111.",
+        "..11...11..",
+        "..11...11..",
+        "...........",
+        "..........."
+      ],
+      "gimmicks": [
+        {
+          "type": "mine",
+          "col": 3,
+          "row": 9
+        }
+      ],
+      "gimmickCounts": {
+        "mine": 1
+      },
+      "gimmickLabel": "기뢰 1",
+      "title": "황금 거북 · 1",
+      "intent": "거북 몸통 옆 기뢰가 여는 길을 이용하면 발부터 정리할 때보다 안쪽에 빨리 도달합니다.",
+      "chapter": "과수원",
+      "designDifficulty": "일반",
+      "introduction": "",
+      "grade": "일반 설계 · 사람 난이도 미평가",
+      "status": "클리어·재현 확인",
+      "pressure": "여유",
+      "groups": [],
+      "route": {
+        "stage": 19,
+        "budget": 24,
+        "objectives": 80,
+        "remaining": 0,
+        "workRemaining": 0,
+        "shotsUsed": 8,
+        "cleared": true,
+        "replayPassed": true,
+        "failure": "",
+        "screenshot": "",
+        "shots": [
+          {
+            "angle": -22.0,
+            "waitTicks": 0,
+            "before": 80,
+            "after": 71
+          },
+          {
+            "angle": -19.5,
+            "waitTicks": 0,
+            "before": 71,
+            "after": 60
+          },
+          {
+            "angle": -43.0,
+            "waitTicks": 0,
+            "before": 60,
+            "after": 48
+          },
+          {
+            "angle": -44.5,
+            "waitTicks": 0,
+            "before": 48,
+            "after": 36
+          },
+          {
+            "angle": 47.5,
+            "waitTicks": 0,
+            "before": 36,
+            "after": 21
+          },
+          {
+            "angle": 58.5,
+            "waitTicks": 0,
+            "before": 21,
+            "after": 8
+          },
+          {
+            "angle": -35.0,
+            "waitTicks": 0,
+            "before": 8,
+            "after": 3
+          },
+          {
+            "angle": -50.5,
+            "waitTicks": 0,
+            "before": 3,
+            "after": 0
+          }
+        ]
+      },
+      "witnessShots": 8,
+      "spareBalls": 16,
+      "consumption": 33,
+      "screenshot": "",
+      "openingAudit": {
+        "stage": 19,
+        "plannedShots": 8,
+        "nearestShots": 24,
+        "nearestRemaining": 53,
+        "recoveryShots": 7,
+        "recoveryRemaining": 0,
+        "tolerantShots": 21,
+        "tolerantRemaining": 0,
+        "firstAngle": -22.0,
+        "openingDamage": [
+          5,
+          6,
+          9,
+          5,
+          3
+        ],
+        "recoveryFirstDamage": 1
+      }
+    },
+    {
+      "id": "active-20",
+      "stage": 20,
+      "library": "active",
+      "balls": 21,
+      "blocks": 74,
+      "objectives": 76,
+      "columns": 11,
+      "height": 15,
+      "arenaColumns": 11,
+      "arenaRows": 16,
+      "rows": [
+        "...........",
+        "...33333...",
+        "..3388833..",
+        ".333333333.",
+        "3333...3333",
+        "3333...3333",
+        "3333....333",
+        ".333...333.",
+        ".443333344.",
+        "..444.444..",
+        "...44444...",
+        "....444....",
+        ".....4.....",
+        "...........",
+        "..........."
+      ],
+      "gimmicks": [
+        {
+          "type": "mine",
+          "col": 5,
+          "row": 9
+        },
+        {
+          "type": "mine",
+          "col": 7,
+          "row": 6
+        }
+      ],
+      "gimmickCounts": {
+        "mine": 2
+      },
+      "gimmickLabel": "기뢰 2",
+      "title": "아이스크림 · 1",
+      "intent": "아이스크림 아래 입구를 기뢰로 열고 내부를 경유해 두 번째 기뢰를 공략합니다.",
+      "chapter": "과수원",
+      "designDifficulty": "도전",
+      "introduction": "",
+      "grade": "도전 설계 · 사람 난이도 미평가",
+      "status": "클리어·재현 확인",
+      "pressure": "여유",
+      "groups": [],
+      "route": {
+        "stage": 20,
+        "budget": 21,
+        "objectives": 76,
+        "remaining": 0,
+        "workRemaining": 0,
+        "shotsUsed": 5,
+        "cleared": true,
+        "replayPassed": true,
+        "failure": "",
+        "screenshot": "level-020.png",
+        "shots": [
+          {
+            "angle": 7.0,
+            "waitTicks": 0,
+            "before": 76,
+            "after": 70
+          },
+          {
+            "angle": 16.5,
+            "waitTicks": 0,
+            "before": 70,
+            "after": 35
+          },
+          {
+            "angle": -55.5,
+            "waitTicks": 0,
+            "before": 35,
+            "after": 9
+          },
+          {
+            "angle": -7.5,
+            "waitTicks": 0,
+            "before": 9,
+            "after": 2
+          },
+          {
+            "angle": -10.0,
+            "waitTicks": 0,
+            "before": 2,
+            "after": 0
+          }
+        ]
+      },
+      "witnessShots": 5,
+      "spareBalls": 16,
+      "consumption": 24,
+      "screenshot": "level-020.png",
+      "openingAudit": {
+        "stage": 20,
+        "plannedShots": 5,
+        "nearestShots": 21,
+        "nearestRemaining": 50,
+        "recoveryShots": 7,
+        "recoveryRemaining": 0,
+        "tolerantShots": 18,
+        "tolerantRemaining": 0,
+        "firstAngle": 7.0,
+        "openingDamage": [
+          2,
+          3,
+          6,
+          1,
+          1
+        ],
+        "recoveryFirstDamage": 2
+      }
     },
     {
       "id": "active-21",

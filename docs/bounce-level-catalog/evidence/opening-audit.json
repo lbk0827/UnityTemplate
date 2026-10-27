@@ -1,0 +1,386 @@
+{
+    "policy": "Planned: static block/mine lookahead with +/-0.5 degree robustness. Baseline: nearest reachable first collision; no multi-hit lookahead. Both fire actual runtime balls with no extra balls.",
+    "sourceSha256": "e43132a136b13ce35606016ab77a6866674b0932fc8417ca58107ae6d3ab5883",
+    "boards": [
+        {
+            "stage": 1,
+            "plannedShots": 6,
+            "nearestShots": 17,
+            "nearestRemaining": 54,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 14,
+            "tolerantRemaining": 0,
+            "firstAngle": -36.0,
+            "openingDamage": [
+                3,
+                5,
+                20,
+                4,
+                13
+            ],
+            "recoveryFirstDamage": 5
+        },
+        {
+            "stage": 2,
+            "plannedShots": 5,
+            "nearestShots": 11,
+            "nearestRemaining": 66,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 8,
+            "tolerantRemaining": 0,
+            "firstAngle": 71.5,
+            "openingDamage": [
+                4,
+                41,
+                47,
+                28,
+                49
+            ],
+            "recoveryFirstDamage": 2
+        },
+        {
+            "stage": 3,
+            "plannedShots": 5,
+            "nearestShots": 18,
+            "nearestRemaining": 55,
+            "recoveryShots": 4,
+            "recoveryRemaining": 0,
+            "tolerantShots": 15,
+            "tolerantRemaining": 0,
+            "firstAngle": -30.5,
+            "openingDamage": [
+                9,
+                26,
+                21,
+                18,
+                21
+            ],
+            "recoveryFirstDamage": 7
+        },
+        {
+            "stage": 4,
+            "plannedShots": 4,
+            "nearestShots": 12,
+            "nearestRemaining": 50,
+            "recoveryShots": 5,
+            "recoveryRemaining": 0,
+            "tolerantShots": 9,
+            "tolerantRemaining": 0,
+            "firstAngle": 0.0,
+            "openingDamage": [
+                4,
+                7,
+                42,
+                7,
+                4
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 5,
+            "plannedShots": 7,
+            "nearestShots": 30,
+            "nearestRemaining": 59,
+            "recoveryShots": 8,
+            "recoveryRemaining": 0,
+            "tolerantShots": 27,
+            "tolerantRemaining": 0,
+            "firstAngle": -21.0,
+            "openingDamage": [
+                4,
+                4,
+                4,
+                7,
+                3
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 6,
+            "plannedShots": 4,
+            "nearestShots": 18,
+            "nearestRemaining": 50,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 15,
+            "tolerantRemaining": 0,
+            "firstAngle": -22.5,
+            "openingDamage": [
+                4,
+                5,
+                45,
+                2,
+                2
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 7,
+            "plannedShots": 4,
+            "nearestShots": 17,
+            "nearestRemaining": 45,
+            "recoveryShots": 7,
+            "recoveryRemaining": 0,
+            "tolerantShots": 14,
+            "tolerantRemaining": 0,
+            "firstAngle": 25.5,
+            "openingDamage": [
+                7,
+                14,
+                22,
+                10,
+                21
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 8,
+            "plannedShots": 6,
+            "nearestShots": 20,
+            "nearestRemaining": 58,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 17,
+            "tolerantRemaining": 0,
+            "firstAngle": -29.0,
+            "openingDamage": [
+                4,
+                4,
+                9,
+                3,
+                6
+            ],
+            "recoveryFirstDamage": 3
+        },
+        {
+            "stage": 9,
+            "plannedShots": 5,
+            "nearestShots": 13,
+            "nearestRemaining": 73,
+            "recoveryShots": 4,
+            "recoveryRemaining": 0,
+            "tolerantShots": 10,
+            "tolerantRemaining": 0,
+            "firstAngle": -1.0,
+            "openingDamage": [
+                3,
+                57,
+                49,
+                26,
+                44
+            ],
+            "recoveryFirstDamage": 3
+        },
+        {
+            "stage": 10,
+            "plannedShots": 7,
+            "nearestShots": 13,
+            "nearestRemaining": 53,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 10,
+            "tolerantRemaining": 0,
+            "firstAngle": -29.5,
+            "openingDamage": [
+                1,
+                1,
+                17,
+                12,
+                5
+            ],
+            "recoveryFirstDamage": 8
+        },
+        {
+            "stage": 11,
+            "plannedShots": 5,
+            "nearestShots": 19,
+            "nearestRemaining": 48,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 16,
+            "tolerantRemaining": 0,
+            "firstAngle": -23.5,
+            "openingDamage": [
+                9,
+                6,
+                12,
+                5,
+                4
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 12,
+            "plannedShots": 7,
+            "nearestShots": 36,
+            "nearestRemaining": 54,
+            "recoveryShots": 8,
+            "recoveryRemaining": 0,
+            "tolerantShots": 33,
+            "tolerantRemaining": 0,
+            "firstAngle": -70.5,
+            "openingDamage": [
+                5,
+                5,
+                14,
+                5,
+                1
+            ],
+            "recoveryFirstDamage": 2
+        },
+        {
+            "stage": 13,
+            "plannedShots": 7,
+            "nearestShots": 23,
+            "nearestRemaining": 50,
+            "recoveryShots": 4,
+            "recoveryRemaining": 0,
+            "tolerantShots": 20,
+            "tolerantRemaining": 0,
+            "firstAngle": -29.5,
+            "openingDamage": [
+                9,
+                4,
+                4,
+                6,
+                3
+            ],
+            "recoveryFirstDamage": 20
+        },
+        {
+            "stage": 14,
+            "plannedShots": 6,
+            "nearestShots": 27,
+            "nearestRemaining": 51,
+            "recoveryShots": 7,
+            "recoveryRemaining": 0,
+            "tolerantShots": 24,
+            "tolerantRemaining": 0,
+            "firstAngle": -21.5,
+            "openingDamage": [
+                4,
+                3,
+                13,
+                6,
+                2
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 15,
+            "plannedShots": 10,
+            "nearestShots": 31,
+            "nearestRemaining": 57,
+            "recoveryShots": 8,
+            "recoveryRemaining": 0,
+            "tolerantShots": 28,
+            "tolerantRemaining": 0,
+            "firstAngle": -24.0,
+            "openingDamage": [
+                2,
+                7,
+                7,
+                13,
+                5
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 16,
+            "plannedShots": 6,
+            "nearestShots": 19,
+            "nearestRemaining": 55,
+            "recoveryShots": 7,
+            "recoveryRemaining": 0,
+            "tolerantShots": 16,
+            "tolerantRemaining": 0,
+            "firstAngle": -23.0,
+            "openingDamage": [
+                5,
+                6,
+                22,
+                8,
+                2
+            ],
+            "recoveryFirstDamage": 2
+        },
+        {
+            "stage": 17,
+            "plannedShots": 6,
+            "nearestShots": 31,
+            "nearestRemaining": 40,
+            "recoveryShots": 6,
+            "recoveryRemaining": 0,
+            "tolerantShots": 28,
+            "tolerantRemaining": 0,
+            "firstAngle": -25.0,
+            "openingDamage": [
+                2,
+                2,
+                27,
+                10,
+                2
+            ],
+            "recoveryFirstDamage": 2
+        },
+        {
+            "stage": 18,
+            "plannedShots": 7,
+            "nearestShots": 24,
+            "nearestRemaining": 59,
+            "recoveryShots": 8,
+            "recoveryRemaining": 0,
+            "tolerantShots": 21,
+            "tolerantRemaining": 0,
+            "firstAngle": -50.0,
+            "openingDamage": [
+                3,
+                3,
+                5,
+                3,
+                3
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 19,
+            "plannedShots": 8,
+            "nearestShots": 24,
+            "nearestRemaining": 53,
+            "recoveryShots": 7,
+            "recoveryRemaining": 0,
+            "tolerantShots": 21,
+            "tolerantRemaining": 0,
+            "firstAngle": -22.0,
+            "openingDamage": [
+                5,
+                6,
+                9,
+                5,
+                3
+            ],
+            "recoveryFirstDamage": 1
+        },
+        {
+            "stage": 20,
+            "plannedShots": 5,
+            "nearestShots": 21,
+            "nearestRemaining": 50,
+            "recoveryShots": 7,
+            "recoveryRemaining": 0,
+            "tolerantShots": 18,
+            "tolerantRemaining": 0,
+            "firstAngle": 7.0,
+            "openingDamage": [
+                2,
+                3,
+                6,
+                1,
+                1
+            ],
+            "recoveryFirstDamage": 2
+        }
+    ]
+}

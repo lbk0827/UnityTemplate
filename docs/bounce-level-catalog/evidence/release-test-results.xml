@@ -1,140 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<test-run id="2" testcasecount="25" result="Passed" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:45:28Z" duration="164.8559081">
-  <test-suite type="TestSuite" id="1078" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="56" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:45:28Z" duration="164.855908" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0">
+<test-run id="2" testcasecount="4" result="Passed" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.5.0.0" clr-version="4.0.30319.42000" start-time="2026-10-27 01:52:21Z" end-time="2026-10-27 01:54:09Z" duration="108.5030301">
+  <test-suite type="TestSuite" id="1079" name="BKFrameWork" fullname="BKFrameWork" runstate="Runnable" testcasecount="57" result="Passed" start-time="2026-10-27 01:52:21Z" end-time="2026-10-27 01:54:09Z" duration="108.503030" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
     <properties>
       <property name="platform" value="PlayMode" />
     </properties>
-    <test-suite type="Assembly" id="1074" name="BK.Kit.PlayModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.PlayModeTests.dll" runstate="Runnable" testcasecount="53" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:45:28Z" duration="164.850346" total="25" passed="25" failed="0" inconclusive="0" skipped="0" asserts="0">
+    <test-suite type="Assembly" id="1075" name="BK.Kit.PlayModeTests.dll" fullname="D:/UnityTemplate/Library/ScriptAssemblies/BK.Kit.PlayModeTests.dll" runstate="Runnable" testcasecount="54" result="Passed" start-time="2026-10-27 01:52:21Z" end-time="2026-10-27 01:54:09Z" duration="108.498046" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
       <properties>
-        <property name="_PID" value="49636" />
+        <property name="_PID" value="24424" />
         <property name="_APPDOMAIN" value="Unity Child Domain" />
         <property name="platform" value="PlayMode" />
         <property name="EditorOnly" value="False" />
       </properties>
-      <test-suite type="TestFixture" id="1013" name="BounceAimTests" fullname="BounceAimTests" classname="BounceAimTests" runstate="Runnable" testcasecount="5" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.021457" total="5" passed="5" failed="0" inconclusive="0" skipped="0" asserts="0">
+      <test-suite type="TestFixture" id="1027" name="BounceReleaseFlowTests" fullname="BounceReleaseFlowTests" classname="BounceReleaseFlowTests" runstate="Runnable" testcasecount="4" result="Passed" start-time="2026-10-27 01:52:21Z" end-time="2026-10-27 01:54:09Z" duration="108.496594" total="4" passed="4" failed="0" inconclusive="0" skipped="0" asserts="0">
         <properties />
-        <test-case id="1018" name="AimRejectsPivotBackwardAndInvalidCoordinatesAndLimitsShallowShots" fullname="BounceAimTests.AimRejectsPivotBackwardAndInvalidCoordinatesAndLimitsShallowShots" methodname="AimRejectsPivotBackwardAndInvalidCoordinatesAndLimitsShallowShots" classname="BounceAimTests" runstate="Runnable" seed="799150343" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.008987" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1016" name="EmptyBoardStartsPreviewAtShoreline" fullname="BounceAimTests.EmptyBoardStartsPreviewAtShoreline" methodname="EmptyBoardStartsPreviewAtShoreline" classname="BounceAimTests" runstate="Runnable" seed="1860124998" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.000971" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1014" name="FirstReflectionStopsAtSecondCollider" fullname="BounceAimTests.FirstReflectionStopsAtSecondCollider" methodname="FirstReflectionStopsAtSecondCollider" classname="BounceAimTests" runstate="Runnable" seed="1926139516" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.001592" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1017" name="LaunchObstacleDoesNotProduceFalseUnobstructedPreview" fullname="BounceAimTests.LaunchObstacleDoesNotProduceFalseUnobstructedPreview" methodname="LaunchObstacleDoesNotProduceFalseUnobstructedPreview" classname="BounceAimTests" runstate="Runnable" seed="1205622838" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.000225" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-        <test-case id="1015" name="ReflectedPreviewStopsAtWaterBeforeSubmergedCollider" fullname="BounceAimTests.ReflectedPreviewStopsAtWaterBeforeSubmergedCollider" methodname="ReflectedPreviewStopsAtWaterBeforeSubmergedCollider" classname="BounceAimTests" runstate="Runnable" seed="889042080" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:43Z" duration="0.001831" asserts="0">
-          <properties>
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-        </test-case>
-      </test-suite>
-      <test-suite type="TestFixture" id="1025" name="BouncePortraitPresentationTests" fullname="BouncePortraitPresentationTests" classname="BouncePortraitPresentationTests" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:47Z" duration="4.579386" total="1" passed="1" failed="0" inconclusive="0" skipped="0" asserts="0">
-        <properties />
-        <test-case id="1026" name="PortraitBoardUsesScreenAndHudStaysBelowLauncher" fullname="BouncePortraitPresentationTests.PortraitBoardUsesScreenAndHudStaysBelowLauncher" methodname="PortraitBoardUsesScreenAndHudStaysBelowLauncher" classname="BouncePortraitPresentationTests" runstate="Runnable" seed="597984673" result="Passed" start-time="2026-10-26 15:42:43Z" end-time="2026-10-26 15:42:47Z" duration="4.577796" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="Timeout" value="180000" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-      </test-suite>
-      <test-suite type="TestFixture" id="1027" name="BounceReleaseFlowTests" fullname="BounceReleaseFlowTests" classname="BounceReleaseFlowTests" runstate="Runnable" testcasecount="3" result="Passed" start-time="2026-10-26 15:42:47Z" end-time="2026-10-26 15:45:00Z" duration="132.388769" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
-        <properties />
-        <test-case id="1028" name="EveryReleasedStageClearsAndReplaysWithinBudget" fullname="BounceReleaseFlowTests.EveryReleasedStageClearsAndReplaysWithinBudget" methodname="EveryReleasedStageClearsAndReplaysWithinBudget" classname="BounceReleaseFlowTests" runstate="Runnable" seed="759378431" result="Passed" start-time="2026-10-26 15:42:47Z" end-time="2026-10-26 15:43:28Z" duration="40.993092" asserts="0">
+        <test-case id="1028" name="EveryReleasedStageClearsAndReplaysWithinBudget" fullname="BounceReleaseFlowTests.EveryReleasedStageClearsAndReplaysWithinBudget" methodname="EveryReleasedStageClearsAndReplaysWithinBudget" classname="BounceReleaseFlowTests" runstate="Runnable" seed="597198713" result="Passed" start-time="2026-10-27 01:52:21Z" end-time="2026-10-27 01:53:00Z" duration="39.082257" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="Timeout" value="3600000" />
@@ -163,36 +42,41 @@ There are 2 audio listeners in the scene. Please ensure there is always exactly 
 [UI] opened ImportedSceneView on Content
 Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
 Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Release L1: 46/79, remaining 0, replay True
-Release L2: 54/87, remaining 0, replay True
-Release L3: 37/64, remaining 0, replay True
-Release L4: 32/55, remaining 0, replay True
-Release L5: 36/69, remaining 0, replay True
-Release L6: 34/61, remaining 0, replay True
-Release L7: 33/57, remaining 0, replay True
-Release L8: 35/67, remaining 0, replay True
-Release L9: 38/69, remaining 0, replay True
-Release L10: 51/78, remaining 0, replay True
-Release L11: 48/78, remaining 0, replay True
-Release L12: 58/94, remaining 0, replay True
+Release L1: 6/17, remaining 0, replay True
+Release L2: 5/11, remaining 0, replay True
+Release L3: 5/18, remaining 0, replay True
+Release L4: 4/12, remaining 0, replay True
+Release L5: 7/30, remaining 0, replay True
+Release L6: 4/18, remaining 0, replay True
+Release L7: 4/17, remaining 0, replay True
+Release L8: 6/20, remaining 0, replay True
+Release L9: 5/13, remaining 0, replay True
+Release L10: 7/13, remaining 0, replay True
+Release L11: 5/19, remaining 0, replay True
+Release L12: 7/36, remaining 0, replay True
 [Scene] loading 'Bounce/Scenes/VisualIngame'
 [Assets] scope 'scene:VisualIngame' disposed
 [Scene] scope 'VisualIngame' disposed
 There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
 [UI] opened ImportedSceneView on Content
-Release L13: 34/64, remaining 0, replay True
+Release L13: 7/23, remaining 0, replay True
 [Scene] loading 'Bounce/Scenes/VisualIngame'
 [Assets] scope 'scene:VisualIngame' disposed
 [Scene] scope 'VisualIngame' disposed
 There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
 [UI] opened ImportedSceneView on Content
-Release L14: 42/63, remaining 0, replay True
-Release L15: 38/54, remaining 0, replay True
-Release L16: 23/33, remaining 0, replay True
-Release L17: 33/44, remaining 0, replay True
-Release L18: 44/59, remaining 0, replay True
-Release L19: 41/55, remaining 0, replay True
-Release L20: 39/47, remaining 0, replay True
+Release L14: 6/27, remaining 0, replay True
+Release L15: 10/31, remaining 0, replay True
+Release L16: 6/19, remaining 0, replay True
+Release L17: 6/31, remaining 0, replay True
+Release L18: 7/24, remaining 0, replay True
+Release L19: 8/24, remaining 0, replay True
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Release L20: 5/21, remaining 0, replay True
 [Scene] loading 'Bounce/Scenes/VisualIngame'
 [Assets] scope 'scene:VisualIngame' disposed
 [Scene] scope 'VisualIngame' disposed
@@ -354,7 +238,7 @@ Release L140: 16/22, remaining 0, replay True
 [Assets] scope 'global' disposed
 ]]></output>
         </test-case>
-        <test-case id="1029" name="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" fullname="BounceReleaseFlowTests.FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" methodname="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" classname="BounceReleaseFlowTests" runstate="Runnable" seed="744439017" result="Passed" start-time="2026-10-26 15:43:28Z" end-time="2026-10-26 15:43:30Z" duration="1.823383" asserts="0">
+        <test-case id="1030" name="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" fullname="BounceReleaseFlowTests.FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" methodname="FirstMineGuideIsAtFourteenAndCampaignEndDoesNotChargeAHeart" classname="BounceReleaseFlowTests" runstate="Runnable" seed="215619051" result="Passed" start-time="2026-10-27 01:53:00Z" end-time="2026-10-27 01:53:02Z" duration="1.820642" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="retryIteration" value="0" />
@@ -388,7 +272,57 @@ There are 2 audio listeners in the scene. Please ensure there is always exactly 
 [Assets] scope 'global' disposed
 ]]></output>
         </test-case>
-        <test-case id="1030" name="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" fullname="BounceReleaseFlowTests.RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" methodname="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" classname="BounceReleaseFlowTests" runstate="Runnable" seed="1981721816" result="Passed" start-time="2026-10-26 15:43:30Z" end-time="2026-10-26 15:45:00Z" duration="89.570992" asserts="0">
+        <test-case id="1029" name="OpeningChoicesCompareNearestShotsAndRecoverFromAlternateOpening" fullname="BounceReleaseFlowTests.OpeningChoicesCompareNearestShotsAndRecoverFromAlternateOpening" methodname="OpeningChoicesCompareNearestShotsAndRecoverFromAlternateOpening" classname="BounceReleaseFlowTests" runstate="Runnable" seed="2062062469" result="Passed" start-time="2026-10-27 01:53:02Z" end-time="2026-10-27 01:53:14Z" duration="11.993253" asserts="0">
+          <properties>
+            <property name="_JOINTYPE" value="UnityCombinatorial" />
+            <property name="Timeout" value="3600000" />
+            <property name="retryIteration" value="0" />
+            <property name="repeatIteration" value="0" />
+          </properties>
+          <output><![CDATA[[Boot] starting boot (3 steps)
+[Boot] step 1/3: Assets
+[Assets] addressables initialised
+[Boot] step 2/3: Tables
+[Data] loaded 2 tables
+[Boot] step 3/3: Localization
+[Loc] language set to 'en'
+[Boot] boot sequence complete
+[Scene] loading 'Bounce/Scenes/VisualLobby'
+[UI] opened ImportedSceneView on Content
+[Scene] loading 'Bounce/Scenes/VisualIngame'
+[Assets] scope 'scene:VisualLobby' disposed
+[Scene] scope 'VisualLobby' disposed
+There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
+[UI] opened ImportedSceneView on Content
+Opening L1: planned 6, nearest 17 (54 left), recovery 6 (0 left), +/-1 degree 14 (0 left)
+Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
+Opening L2: planned 5, nearest 11 (66 left), recovery 6 (0 left), +/-1 degree 8 (0 left)
+Opening L3: planned 5, nearest 18 (55 left), recovery 4 (0 left), +/-1 degree 15 (0 left)
+Opening L4: planned 4, nearest 12 (50 left), recovery 5 (0 left), +/-1 degree 9 (0 left)
+Opening L5: planned 7, nearest 30 (59 left), recovery 8 (0 left), +/-1 degree 27 (0 left)
+Opening L6: planned 4, nearest 18 (50 left), recovery 6 (0 left), +/-1 degree 15 (0 left)
+Opening L7: planned 4, nearest 17 (45 left), recovery 7 (0 left), +/-1 degree 14 (0 left)
+Opening L8: planned 6, nearest 20 (58 left), recovery 6 (0 left), +/-1 degree 17 (0 left)
+Opening L9: planned 5, nearest 13 (73 left), recovery 4 (0 left), +/-1 degree 10 (0 left)
+Opening L10: planned 7, nearest 13 (53 left), recovery 6 (0 left), +/-1 degree 10 (0 left)
+Opening L11: planned 5, nearest 19 (48 left), recovery 6 (0 left), +/-1 degree 16 (0 left)
+Opening L12: planned 7, nearest 36 (54 left), recovery 8 (0 left), +/-1 degree 33 (0 left)
+Opening L13: planned 7, nearest 23 (50 left), recovery 4 (0 left), +/-1 degree 20 (0 left)
+Opening L14: planned 6, nearest 27 (51 left), recovery 7 (0 left), +/-1 degree 24 (0 left)
+Opening L15: planned 10, nearest 31 (57 left), recovery 8 (0 left), +/-1 degree 28 (0 left)
+Opening L16: planned 6, nearest 19 (55 left), recovery 7 (0 left), +/-1 degree 16 (0 left)
+Opening L17: planned 6, nearest 31 (40 left), recovery 6 (0 left), +/-1 degree 28 (0 left)
+Opening L18: planned 7, nearest 24 (59 left), recovery 8 (0 left), +/-1 degree 21 (0 left)
+Opening L19: planned 8, nearest 24 (53 left), recovery 7 (0 left), +/-1 degree 21 (0 left)
+Opening L20: planned 5, nearest 21 (50 left), recovery 7 (0 left), +/-1 degree 18 (0 left)
+[Assets] scope 'loc:en' disposed
+[Assets] scope 'scene:VisualIngame' disposed
+[Scene] scope 'VisualIngame' disposed
+[Assets] scope 'global' disposed
+]]></output>
+        </test-case>
+        <test-case id="1031" name="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" fullname="BounceReleaseFlowTests.RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" methodname="RecordedMineIntroductionAlsoClearsWithAutomaticPhysics" classname="BounceReleaseFlowTests" runstate="Runnable" seed="1507316883" result="Passed" start-time="2026-10-27 01:53:14Z" end-time="2026-10-27 01:54:09Z" duration="55.590396" asserts="0">
           <properties>
             <property name="_JOINTYPE" value="UnityCombinatorial" />
             <property name="Timeout" value="300000" />
@@ -412,573 +346,6 @@ There are 2 audio listeners in the scene. Please ensure there is always exactly 
 [UI] opened ImportedSceneView on Content
 Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
 Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-      </test-suite>
-      <test-suite type="TestFixture" id="1035" name="GimmickFlowTests" fullname="GimmickFlowTests" classname="GimmickFlowTests" runstate="Runnable" testcasecount="13" result="Passed" start-time="2026-10-26 15:45:00Z" end-time="2026-10-26 15:45:15Z" duration="14.774972" total="13" passed="13" failed="0" inconclusive="0" skipped="0" asserts="0">
-        <properties />
-        <test-case id="1048" name="AllDemoBoardsHaveNonOverlappingCellsAndEnoughCupboardNeighbours" fullname="GimmickFlowTests.AllDemoBoardsHaveNonOverlappingCellsAndEnoughCupboardNeighbours" methodname="AllDemoBoardsHaveNonOverlappingCellsAndEnoughCupboardNeighbours" classname="GimmickFlowTests" runstate="Runnable" seed="1372204986" result="Passed" start-time="2026-10-26 15:45:00Z" end-time="2026-10-26 15:45:01Z" duration="1.006684" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1040" name="ArmorRejectsWrongFaceAndAcceptsPhysicsHitOnConfiguredWeakSide" fullname="GimmickFlowTests.ArmorRejectsWrongFaceAndAcceptsPhysicsHitOnConfiguredWeakSide" methodname="ArmorRejectsWrongFaceAndAcceptsPhysicsHitOnConfiguredWeakSide" classname="GimmickFlowTests" runstate="Runnable" seed="987135731" result="Passed" start-time="2026-10-26 15:45:01Z" end-time="2026-10-26 15:45:02Z" duration="0.901004" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1046" name="BoosterCanTargetATubeWithoutOrdinaryBlocks" fullname="GimmickFlowTests.BoosterCanTargetATubeWithoutOrdinaryBlocks" methodname="BoosterCanTargetATubeWithoutOrdinaryBlocks" classname="GimmickFlowTests" runstate="Runnable" seed="215858862" result="Passed" start-time="2026-10-26 15:45:02Z" end-time="2026-10-26 15:45:03Z" duration="1.467108" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1041" name="CombinedBoardUsesPrefabBindingsAndPowerHitsBreakSpecialArmor" fullname="GimmickFlowTests.CombinedBoardUsesPrefabBindingsAndPowerHitsBreakSpecialArmor" methodname="CombinedBoardUsesPrefabBindingsAndPowerHitsBreakSpecialArmor" classname="GimmickFlowTests" runstate="Runnable" seed="534910658" result="Passed" start-time="2026-10-26 15:45:03Z" end-time="2026-10-26 15:45:04Z" duration="0.895782" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1044" name="CupboardConsumesExactlyTenAdjacentHitsAndLeavesNoBlockingCollider" fullname="GimmickFlowTests.CupboardConsumesExactlyTenAdjacentHitsAndLeavesNoBlockingCollider" methodname="CupboardConsumesExactlyTenAdjacentHitsAndLeavesNoBlockingCollider" classname="GimmickFlowTests" runstate="Runnable" seed="1553388594" result="Passed" start-time="2026-10-26 15:45:04Z" end-time="2026-10-26 15:45:06Z" duration="1.785045" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1039" name="DoubleHitRequiresTheSameLivingBallAndResetsAfterDrain" fullname="GimmickFlowTests.DoubleHitRequiresTheSameLivingBallAndResetsAfterDrain" methodname="DoubleHitRequiresTheSameLivingBallAndResetsAfterDrain" classname="GimmickFlowTests" runstate="Runnable" seed="255539943" result="Passed" start-time="2026-10-26 15:45:06Z" end-time="2026-10-26 15:45:07Z" duration="0.902100" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1043" name="FurnaceHitsFeedThePipeAndCoolAfterCompletion" fullname="GimmickFlowTests.FurnaceHitsFeedThePipeAndCoolAfterCompletion" methodname="FurnaceHitsFeedThePipeAndCoolAfterCompletion" classname="GimmickFlowTests" runstate="Runnable" seed="1913663751" result="Passed" start-time="2026-10-26 15:45:07Z" end-time="2026-10-26 15:45:08Z" duration="1.296706" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1037" name="MineChainTerminatesAndHitsLongTubeOnlyOncePerBlast" fullname="GimmickFlowTests.MineChainTerminatesAndHitsLongTubeOnlyOncePerBlast" methodname="MineChainTerminatesAndHitsLongTubeOnlyOncePerBlast" classname="GimmickFlowTests" runstate="Runnable" seed="586004898" result="Passed" start-time="2026-10-26 15:45:08Z" end-time="2026-10-26 15:45:09Z" duration="0.827375" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1036" name="MineDestroysAllEightNeighboursAndCannotExplodeTwice" fullname="GimmickFlowTests.MineDestroysAllEightNeighboursAndCannotExplodeTwice" methodname="MineDestroysAllEightNeighboursAndCannotExplodeTwice" classname="GimmickFlowTests" runstate="Runnable" seed="1332924162" result="Passed" start-time="2026-10-26 15:45:09Z" end-time="2026-10-26 15:45:10Z" duration="0.965930" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1045" name="PanelsReverseStayInBoundsAndAreNotObjectives" fullname="GimmickFlowTests.PanelsReverseStayInBoundsAndAreNotObjectives" methodname="PanelsReverseStayInBoundsAndAreNotObjectives" classname="GimmickFlowTests" runstate="Runnable" seed="131679604" result="Passed" start-time="2026-10-26 15:45:10Z" end-time="2026-10-26 15:45:11Z" duration="0.976557" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1047" name="RealBallHitsTubeAndRestartRemovesOldGimmicks" fullname="GimmickFlowTests.RealBallHitsTubeAndRestartRemovesOldGimmicks" methodname="RealBallHitsTubeAndRestartRemovesOldGimmicks" classname="GimmickFlowTests" runstate="Runnable" seed="1707386911" result="Passed" start-time="2026-10-26 15:45:11Z" end-time="2026-10-26 15:45:12Z" duration="1.294716" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1038" name="SwitchOnlyOpensItsLinkedGateAndGateIsNotAnObjective" fullname="GimmickFlowTests.SwitchOnlyOpensItsLinkedGateAndGateIsNotAnObjective" methodname="SwitchOnlyOpensItsLinkedGateAndGateIsNotAnObjective" classname="GimmickFlowTests" runstate="Runnable" seed="1586706136" result="Passed" start-time="2026-10-26 15:45:12Z" end-time="2026-10-26 15:45:13Z" duration="1.224795" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1042" name="TubeShortensFromEndAndReleasesCollisionImmediately" fullname="GimmickFlowTests.TubeShortensFromEndAndReleasesCollisionImmediately" methodname="TubeShortensFromEndAndReleasesCollisionImmediately" classname="GimmickFlowTests" runstate="Runnable" seed="1912953922" result="Passed" start-time="2026-10-26 15:45:13Z" end-time="2026-10-26 15:45:15Z" duration="1.227760" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-      </test-suite>
-      <test-suite type="TestFixture" id="1054" name="VisualFlowTests" fullname="VisualFlowTests" classname="VisualFlowTests" runstate="Runnable" testcasecount="16" result="Passed" start-time="2026-10-26 15:45:15Z" end-time="2026-10-26 15:45:28Z" duration="13.082940" total="3" passed="3" failed="0" inconclusive="0" skipped="0" asserts="0">
-        <properties />
-        <test-case id="1057" name="CannonPreservesLaunchAndRecoilContract" fullname="VisualFlowTests.CannonPreservesLaunchAndRecoilContract" methodname="CannonPreservesLaunchAndRecoilContract" classname="VisualFlowTests" runstate="Runnable" seed="262546044" result="Passed" start-time="2026-10-26 15:45:15Z" end-time="2026-10-26 15:45:18Z" duration="3.321781" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1056" name="EveryBoxColourBreaksInOneHitWithSmallMatchingFragments" fullname="VisualFlowTests.EveryBoxColourBreaksInOneHitWithSmallMatchingFragments" methodname="EveryBoxColourBreaksInOneHitWithSmallMatchingFragments" classname="VisualFlowTests" runstate="Runnable" seed="1986400530" result="Passed" start-time="2026-10-26 15:45:18Z" end-time="2026-10-26 15:45:19Z" duration="1.050160" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Assets] scope 'loc:en' disposed
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-[Assets] scope 'global' disposed
-]]></output>
-        </test-case>
-        <test-case id="1068" name="LegacyBoardsAndLoopedStageLoadAndFire" fullname="VisualFlowTests.LegacyBoardsAndLoopedStageLoadAndFire" methodname="LegacyBoardsAndLoopedStageLoadAndFire" classname="VisualFlowTests" runstate="Runnable" seed="1711238265" result="Passed" start-time="2026-10-26 15:45:19Z" end-time="2026-10-26 15:45:28Z" duration="8.707849" asserts="0">
-          <properties>
-            <property name="_JOINTYPE" value="UnityCombinatorial" />
-            <property name="retryIteration" value="0" />
-            <property name="repeatIteration" value="0" />
-          </properties>
-          <output><![CDATA[[Boot] starting boot (3 steps)
-[Boot] step 1/3: Assets
-[Assets] addressables initialised
-[Boot] step 2/3: Tables
-[Data] loaded 2 tables
-[Boot] step 3/3: Localization
-[Loc] language set to 'en'
-[Boot] boot sequence complete
-[Scene] loading 'Bounce/Scenes/VisualLobby'
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualLobby' disposed
-[Scene] scope 'VisualLobby' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-Debug [AppLovin MAX] Invoking event: OnRewardedAdLoadedEvent. Params: bk_editor_rewarded, [AdInfo adUnitIdentifier: bk_editor_rewarded, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-Debug [AppLovin MAX] Invoking event: OnInterstitialLoadedEvent. Params: bk_editor_interstitial, [AdInfo adUnitIdentifier: bk_editor_interstitial, adFormat: , networkName: , networkPlacement: , creativeIdentifier: , placement: , revenue: -1, revenuePrecision: , latency: 0, dspName: ]
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
-[Scene] loading 'Bounce/Scenes/VisualIngame'
-[Assets] scope 'scene:VisualIngame' disposed
-[Scene] scope 'VisualIngame' disposed
-There are 2 audio listeners in the scene. Please ensure there is always exactly one audio listener in the scene.
-[UI] opened ImportedSceneView on Content
 [Assets] scope 'loc:en' disposed
 [Assets] scope 'scene:VisualIngame' disposed
 [Scene] scope 'VisualIngame' disposed
